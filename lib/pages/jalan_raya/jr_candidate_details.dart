@@ -213,8 +213,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                   ),
                   CustomButton(
                     onPressed: () =>
-                        ExtendedNavigator.of(context).push(Routes.rpkPartIII,
-                            arguments: RpkPartIIIArguments(
+                        ExtendedNavigator.of(context).push(Routes.jrPartIII,
+                            arguments: JrPartIIIArguments(
                               qNo: qNo,
                               nric: nric,
                               name: name,
