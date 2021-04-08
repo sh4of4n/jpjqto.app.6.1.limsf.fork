@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "399380271624",
+    "firebase_url": "https://epandu-spim.firebaseio.com",
+    "project_id": "epandu-spim",
+    "storage_bucket": "epandu-spim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399380271624:android:4a34a50646334ac75837bd",
+        "android_client_info": {
+          "package_name": "my.com.tbs.jpj.qto.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399380271624-jep3p580feonpijfpad2c5auuqq1plg2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4NCqzatvVa_4xXTZ_9_f4QHR15ob4_qY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399380271624-jep3p580feonpijfpad2c5auuqq1plg2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
