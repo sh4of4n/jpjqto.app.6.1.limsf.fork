@@ -25,7 +25,7 @@ import 'pages/rpk/rpk.dart';
 import 'pages/settings/settings.dart';
 
 class Routes {
-  static const String authentication = '/Authentication';
+  static const String authentication = '/';
   static const String clientAccount = '/client-account';
   static const String login = '/Login';
   static const String forgotPassword = '/forgot-password';
@@ -34,7 +34,7 @@ class Routes {
   static const String registerMobile = '/register-mobile';
   static const String registerVerification = '/register-verification';
   static const String registerForm = '/register-form';
-  static const String home = '/';
+  static const String home = '/Home';
   static const String settings = '/Settings';
   static const String profile = '/Profile';
   static const String profileTab = '/profile-tab';
@@ -195,9 +195,7 @@ class Router extends RouterBase {
       );
     },
     Profile: (data) {
-      final args = data.getArgs<ProfileArguments>(
-        orElse: () => ProfileArguments(),
-      );
+      final args = data.getArgs<ProfileArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
         builder: (context) => Profile(
           userProfile: args.userProfile,
@@ -316,6 +314,7 @@ class Router extends RouterBase {
           args.testDate,
           args.groupId,
           args.testCode,
+          args.vehNo,
         ),
         settings: data,
       );
@@ -336,6 +335,7 @@ class Router extends RouterBase {
           args.testDate,
           args.groupId,
           args.testCode,
+          args.vehNo,
         ),
         settings: data,
       );
@@ -375,7 +375,7 @@ class RegisterFormArguments {
 class ProfileArguments {
   final dynamic userProfile;
   final dynamic isLoading;
-  ProfileArguments({this.userProfile, this.isLoading});
+  ProfileArguments({@required this.userProfile, @required this.isLoading});
 }
 
 /// RegisterUserToDi arguments holder class
@@ -426,13 +426,15 @@ class RpkPartIIIArguments {
   final String testDate;
   final String groupId;
   final String testCode;
+  final String vehNo;
   RpkPartIIIArguments(
       {@required this.qNo,
       @required this.nric,
       @required this.name,
       @required this.testDate,
       @required this.groupId,
-      @required this.testCode});
+      @required this.testCode,
+      @required this.vehNo});
 }
 
 /// JrPartIII arguments holder class
@@ -443,11 +445,13 @@ class JrPartIIIArguments {
   final String testDate;
   final String groupId;
   final String testCode;
+  final String vehNo;
   JrPartIIIArguments(
       {@required this.qNo,
       @required this.nric,
       @required this.name,
       @required this.testDate,
       @required this.groupId,
-      @required this.testCode});
+      @required this.testCode,
+      @required this.vehNo});
 }

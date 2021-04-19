@@ -2685,3 +2685,911 @@ class LastCallingQueueJpjTestTrn {
     return data;
   }
 }
+
+class GetPart3AvailableToCallJpjTestListResponse {
+  List<GetPart3AvailableToCallJpjTestTrn> jpjTestTrn;
+
+  GetPart3AvailableToCallJpjTestListResponse({this.jpjTestTrn});
+
+  GetPart3AvailableToCallJpjTestListResponse.fromJson(
+      Map<String, dynamic> json) {
+    if (json['JpjTestTrn'] != null) {
+      jpjTestTrn = new List<GetPart3AvailableToCallJpjTestTrn>();
+      json['JpjTestTrn'].forEach((v) {
+        jpjTestTrn.add(new GetPart3AvailableToCallJpjTestTrn.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpjTestTrn != null) {
+      data['JpjTestTrn'] = this.jpjTestTrn.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class GetPart3AvailableToCallJpjTestTrn {
+  String iD;
+  String testDate;
+  String courseCode;
+  String groupId;
+  String nricNo;
+  String fullname;
+  String sex;
+  String race;
+  String nationality;
+  String birthDate;
+  String add1;
+  String add2;
+  String add3;
+  String postcode;
+  String cityName;
+  String stateName;
+  String icPhoto;
+  String queueNo;
+  String regDate;
+  String registerPhoto;
+  String testCode;
+  String startDate;
+  String startTime;
+  String endTime;
+  String printed;
+  String prnCount;
+  String printLog;
+  String createUser;
+  String createDate;
+  String editUser;
+  String editDate;
+  String transtamp;
+  String lastupload;
+  String compCode;
+  String branchCode;
+  String deleted;
+
+  GetPart3AvailableToCallJpjTestTrn(
+      {this.iD,
+      this.testDate,
+      this.courseCode,
+      this.groupId,
+      this.nricNo,
+      this.fullname,
+      this.sex,
+      this.race,
+      this.nationality,
+      this.birthDate,
+      this.add1,
+      this.add2,
+      this.add3,
+      this.postcode,
+      this.cityName,
+      this.stateName,
+      this.icPhoto,
+      this.queueNo,
+      this.regDate,
+      this.registerPhoto,
+      this.testCode,
+      this.startDate,
+      this.startTime,
+      this.endTime,
+      this.printed,
+      this.prnCount,
+      this.printLog,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.transtamp,
+      this.lastupload,
+      this.compCode,
+      this.branchCode,
+      this.deleted});
+
+  GetPart3AvailableToCallJpjTestTrn.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    testDate = json['test_date'];
+    courseCode = json['course_code'];
+    groupId = json['group_id'];
+    nricNo = json['nric_no'];
+    fullname = json['fullname'];
+    sex = json['sex'];
+    race = json['race'];
+    nationality = json['nationality'];
+    birthDate = json['birth_date'];
+    add1 = json['add1'];
+    add2 = json['add2'];
+    add3 = json['add3'];
+    postcode = json['postcode'];
+    cityName = json['city_name'];
+    stateName = json['state_name'];
+    icPhoto = json['ic_photo'];
+    queueNo = json['queue_no'];
+    regDate = json['reg_date'];
+    registerPhoto = json['register_photo'];
+    testCode = json['test_code'];
+    startDate = json['start_date'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+    printed = json['printed'];
+    prnCount = json['prn_count'];
+    printLog = json['print_log'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    transtamp = json['transtamp'];
+    lastupload = json['lastupload'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    deleted = json['deleted'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID'] = this.iD;
+    data['test_date'] = this.testDate;
+    data['course_code'] = this.courseCode;
+    data['group_id'] = this.groupId;
+    data['nric_no'] = this.nricNo;
+    data['fullname'] = this.fullname;
+    data['sex'] = this.sex;
+    data['race'] = this.race;
+    data['nationality'] = this.nationality;
+    data['birth_date'] = this.birthDate;
+    data['add1'] = this.add1;
+    data['add2'] = this.add2;
+    data['add3'] = this.add3;
+    data['postcode'] = this.postcode;
+    data['city_name'] = this.cityName;
+    data['state_name'] = this.stateName;
+    data['ic_photo'] = this.icPhoto;
+    data['queue_no'] = this.queueNo;
+    data['reg_date'] = this.regDate;
+    data['register_photo'] = this.registerPhoto;
+    data['test_code'] = this.testCode;
+    data['start_date'] = this.startDate;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    data['printed'] = this.printed;
+    data['prn_count'] = this.prnCount;
+    data['print_log'] = this.printLog;
+    data['create_user'] = this.createUser;
+    data['create_date'] = this.createDate;
+    data['edit_user'] = this.editUser;
+    data['edit_date'] = this.editDate;
+    data['transtamp'] = this.transtamp;
+    data['lastupload'] = this.lastupload;
+    data['comp_code'] = this.compCode;
+    data['branch_code'] = this.branchCode;
+    data['deleted'] = this.deleted;
+    return data;
+  }
+}
+
+class CallPart3JpjTestRequest {
+  String wsCodeCrypt;
+  String caUid;
+  String caPwd;
+  String diCode;
+  String userId;
+  String vehNo;
+  String part3Type;
+  String groupId;
+  String nricNo;
+  String testCode;
+
+  CallPart3JpjTestRequest(
+      {this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.diCode,
+      this.userId,
+      this.vehNo,
+      this.part3Type,
+      this.groupId,
+      this.nricNo,
+      this.testCode});
+
+  CallPart3JpjTestRequest.fromJson(Map<String, dynamic> json) {
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    diCode = json['diCode'];
+    userId = json['userId'];
+    vehNo = json['vehNo'];
+    part3Type = json['part3Type'];
+    groupId = json['groupId'];
+    nricNo = json['nricNo'];
+    testCode = json['testCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wsCodeCrypt'] = this.wsCodeCrypt;
+    data['caUid'] = this.caUid;
+    data['caPwd'] = this.caPwd;
+    data['diCode'] = this.diCode;
+    data['userId'] = this.userId;
+    data['vehNo'] = this.vehNo;
+    data['part3Type'] = this.part3Type;
+    data['groupId'] = this.groupId;
+    data['nricNo'] = this.nricNo;
+    data['testCode'] = this.testCode;
+    return data;
+  }
+}
+
+class CallPart3JpjTestResponse {
+  List<CallPart3JpjTestTrn> jpjTestTrn;
+
+  CallPart3JpjTestResponse({this.jpjTestTrn});
+
+  CallPart3JpjTestResponse.fromJson(Map<String, dynamic> json) {
+    if (json['JpjTestTrn'] != null) {
+      jpjTestTrn = new List<CallPart3JpjTestTrn>();
+      json['JpjTestTrn'].forEach((v) {
+        jpjTestTrn.add(new CallPart3JpjTestTrn.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpjTestTrn != null) {
+      data['JpjTestTrn'] = this.jpjTestTrn.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class CallPart3JpjTestTrn {
+  String iD;
+  String testDate;
+  String courseCode;
+  String groupId;
+  String nricNo;
+  String fullname;
+  String sex;
+  String race;
+  String nationality;
+  String birthDate;
+  String add1;
+  String add2;
+  String add3;
+  String postcode;
+  String cityName;
+  String stateName;
+  String icPhoto;
+  String queueNo;
+  String regDate;
+  String registerPhoto;
+  String testCode;
+  String startDate;
+  String startTime;
+  String endTime;
+  String printed;
+  String prnCount;
+  String printLog;
+  String createUser;
+  String createDate;
+  String editUser;
+  String editDate;
+  String transtamp;
+  String lastupload;
+  String compCode;
+  String branchCode;
+  String deleted;
+
+  CallPart3JpjTestTrn(
+      {this.iD,
+      this.testDate,
+      this.courseCode,
+      this.groupId,
+      this.nricNo,
+      this.fullname,
+      this.sex,
+      this.race,
+      this.nationality,
+      this.birthDate,
+      this.add1,
+      this.add2,
+      this.add3,
+      this.postcode,
+      this.cityName,
+      this.stateName,
+      this.icPhoto,
+      this.queueNo,
+      this.regDate,
+      this.registerPhoto,
+      this.testCode,
+      this.startDate,
+      this.startTime,
+      this.endTime,
+      this.printed,
+      this.prnCount,
+      this.printLog,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.transtamp,
+      this.lastupload,
+      this.compCode,
+      this.branchCode,
+      this.deleted});
+
+  CallPart3JpjTestTrn.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    testDate = json['test_date'];
+    courseCode = json['course_code'];
+    groupId = json['group_id'];
+    nricNo = json['nric_no'];
+    fullname = json['fullname'];
+    sex = json['sex'];
+    race = json['race'];
+    nationality = json['nationality'];
+    birthDate = json['birth_date'];
+    add1 = json['add1'];
+    add2 = json['add2'];
+    add3 = json['add3'];
+    postcode = json['postcode'];
+    cityName = json['city_name'];
+    stateName = json['state_name'];
+    icPhoto = json['ic_photo'];
+    queueNo = json['queue_no'];
+    regDate = json['reg_date'];
+    registerPhoto = json['register_photo'];
+    testCode = json['test_code'];
+    startDate = json['start_date'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+    printed = json['printed'];
+    prnCount = json['prn_count'];
+    printLog = json['print_log'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    transtamp = json['transtamp'];
+    lastupload = json['lastupload'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    deleted = json['deleted'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID'] = this.iD;
+    data['test_date'] = this.testDate;
+    data['course_code'] = this.courseCode;
+    data['group_id'] = this.groupId;
+    data['nric_no'] = this.nricNo;
+    data['fullname'] = this.fullname;
+    data['sex'] = this.sex;
+    data['race'] = this.race;
+    data['nationality'] = this.nationality;
+    data['birth_date'] = this.birthDate;
+    data['add1'] = this.add1;
+    data['add2'] = this.add2;
+    data['add3'] = this.add3;
+    data['postcode'] = this.postcode;
+    data['city_name'] = this.cityName;
+    data['state_name'] = this.stateName;
+    data['ic_photo'] = this.icPhoto;
+    data['queue_no'] = this.queueNo;
+    data['reg_date'] = this.regDate;
+    data['register_photo'] = this.registerPhoto;
+    data['test_code'] = this.testCode;
+    data['start_date'] = this.startDate;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    data['printed'] = this.printed;
+    data['prn_count'] = this.prnCount;
+    data['print_log'] = this.printLog;
+    data['create_user'] = this.createUser;
+    data['create_date'] = this.createDate;
+    data['edit_user'] = this.editUser;
+    data['edit_date'] = this.editDate;
+    data['transtamp'] = this.transtamp;
+    data['lastupload'] = this.lastupload;
+    data['comp_code'] = this.compCode;
+    data['branch_code'] = this.branchCode;
+    data['deleted'] = this.deleted;
+    return data;
+  }
+}
+
+class CancelCallPart3JpjTestRequest {
+  String wsCodeCrypt;
+  String caUid;
+  String caPwd;
+  String diCode;
+  String userId;
+  String part3Type;
+  String groupId;
+  String nricNo;
+  String testCode;
+
+  CancelCallPart3JpjTestRequest(
+      {this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.diCode,
+      this.userId,
+      this.part3Type,
+      this.groupId,
+      this.nricNo,
+      this.testCode});
+
+  CancelCallPart3JpjTestRequest.fromJson(Map<String, dynamic> json) {
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    diCode = json['diCode'];
+    userId = json['userId'];
+    part3Type = json['part3Type'];
+    groupId = json['groupId'];
+    nricNo = json['nricNo'];
+    testCode = json['testCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wsCodeCrypt'] = this.wsCodeCrypt;
+    data['caUid'] = this.caUid;
+    data['caPwd'] = this.caPwd;
+    data['diCode'] = this.diCode;
+    data['userId'] = this.userId;
+    data['part3Type'] = this.part3Type;
+    data['groupId'] = this.groupId;
+    data['nricNo'] = this.nricNo;
+    data['testCode'] = this.testCode;
+    return data;
+  }
+}
+
+class CancelCallPart3JpjTestResponse {
+  List<CancelCallPart3JpjTestTrn> jpjTestTrn;
+
+  CancelCallPart3JpjTestResponse({this.jpjTestTrn});
+
+  CancelCallPart3JpjTestResponse.fromJson(Map<String, dynamic> json) {
+    if (json['JpjTestTrn'] != null) {
+      jpjTestTrn = new List<CancelCallPart3JpjTestTrn>();
+      json['JpjTestTrn'].forEach((v) {
+        jpjTestTrn.add(new CancelCallPart3JpjTestTrn.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpjTestTrn != null) {
+      data['JpjTestTrn'] = this.jpjTestTrn.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class CancelCallPart3JpjTestTrn {
+  String iD;
+  String testDate;
+  String courseCode;
+  String groupId;
+  String nricNo;
+  String fullname;
+  String sex;
+  String race;
+  String nationality;
+  String birthDate;
+  String add1;
+  String add2;
+  String add3;
+  String postcode;
+  String cityName;
+  String stateName;
+  String icPhoto;
+  String queueNo;
+  String regDate;
+  String registerPhoto;
+  String testCode;
+  String startDate;
+  String startTime;
+  String endTime;
+  String printed;
+  String prnCount;
+  String printLog;
+  String createUser;
+  String createDate;
+  String editUser;
+  String editDate;
+  String transtamp;
+  String lastupload;
+  String compCode;
+  String branchCode;
+  String deleted;
+
+  CancelCallPart3JpjTestTrn(
+      {this.iD,
+      this.testDate,
+      this.courseCode,
+      this.groupId,
+      this.nricNo,
+      this.fullname,
+      this.sex,
+      this.race,
+      this.nationality,
+      this.birthDate,
+      this.add1,
+      this.add2,
+      this.add3,
+      this.postcode,
+      this.cityName,
+      this.stateName,
+      this.icPhoto,
+      this.queueNo,
+      this.regDate,
+      this.registerPhoto,
+      this.testCode,
+      this.startDate,
+      this.startTime,
+      this.endTime,
+      this.printed,
+      this.prnCount,
+      this.printLog,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.transtamp,
+      this.lastupload,
+      this.compCode,
+      this.branchCode,
+      this.deleted});
+
+  CancelCallPart3JpjTestTrn.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    testDate = json['test_date'];
+    courseCode = json['course_code'];
+    groupId = json['group_id'];
+    nricNo = json['nric_no'];
+    fullname = json['fullname'];
+    sex = json['sex'];
+    race = json['race'];
+    nationality = json['nationality'];
+    birthDate = json['birth_date'];
+    add1 = json['add1'];
+    add2 = json['add2'];
+    add3 = json['add3'];
+    postcode = json['postcode'];
+    cityName = json['city_name'];
+    stateName = json['state_name'];
+    icPhoto = json['ic_photo'];
+    queueNo = json['queue_no'];
+    regDate = json['reg_date'];
+    registerPhoto = json['register_photo'];
+    testCode = json['test_code'];
+    startDate = json['start_date'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+    printed = json['printed'];
+    prnCount = json['prn_count'];
+    printLog = json['print_log'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    transtamp = json['transtamp'];
+    lastupload = json['lastupload'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    deleted = json['deleted'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID'] = this.iD;
+    data['test_date'] = this.testDate;
+    data['course_code'] = this.courseCode;
+    data['group_id'] = this.groupId;
+    data['nric_no'] = this.nricNo;
+    data['fullname'] = this.fullname;
+    data['sex'] = this.sex;
+    data['race'] = this.race;
+    data['nationality'] = this.nationality;
+    data['birth_date'] = this.birthDate;
+    data['add1'] = this.add1;
+    data['add2'] = this.add2;
+    data['add3'] = this.add3;
+    data['postcode'] = this.postcode;
+    data['city_name'] = this.cityName;
+    data['state_name'] = this.stateName;
+    data['ic_photo'] = this.icPhoto;
+    data['queue_no'] = this.queueNo;
+    data['reg_date'] = this.regDate;
+    data['register_photo'] = this.registerPhoto;
+    data['test_code'] = this.testCode;
+    data['start_date'] = this.startDate;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    data['printed'] = this.printed;
+    data['prn_count'] = this.prnCount;
+    data['print_log'] = this.printLog;
+    data['create_user'] = this.createUser;
+    data['create_date'] = this.createDate;
+    data['edit_user'] = this.editUser;
+    data['edit_date'] = this.editDate;
+    data['transtamp'] = this.transtamp;
+    data['lastupload'] = this.lastupload;
+    data['comp_code'] = this.compCode;
+    data['branch_code'] = this.branchCode;
+    data['deleted'] = this.deleted;
+    return data;
+  }
+}
+
+class UpdatePart3JpjTestResultRequest {
+  String wsCodeCrypt;
+  String caUid;
+  String caPwd;
+  String diCode;
+  String userId;
+  String vehNo;
+  String part3Type;
+  String groupId;
+  String nricNo;
+  String testCode;
+  String resultJson;
+
+  UpdatePart3JpjTestResultRequest(
+      {this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.diCode,
+      this.userId,
+      this.vehNo,
+      this.part3Type,
+      this.groupId,
+      this.nricNo,
+      this.testCode,
+      this.resultJson});
+
+  UpdatePart3JpjTestResultRequest.fromJson(Map<String, dynamic> json) {
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    diCode = json['diCode'];
+    userId = json['userId'];
+    vehNo = json['vehNo'];
+    part3Type = json['part3Type'];
+    groupId = json['groupId'];
+    nricNo = json['nricNo'];
+    testCode = json['testCode'];
+    resultJson = json['resultJson'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wsCodeCrypt'] = this.wsCodeCrypt;
+    data['caUid'] = this.caUid;
+    data['caPwd'] = this.caPwd;
+    data['diCode'] = this.diCode;
+    data['userId'] = this.userId;
+    data['vehNo'] = this.vehNo;
+    data['part3Type'] = this.part3Type;
+    data['groupId'] = this.groupId;
+    data['nricNo'] = this.nricNo;
+    data['testCode'] = this.testCode;
+    data['resultJson'] = this.resultJson;
+    return data;
+  }
+}
+
+class UpdatePart3JpjTestResultRpkResponse {
+  List<JpjTestRpk> jpjTestRpk;
+
+  UpdatePart3JpjTestResultRpkResponse({this.jpjTestRpk});
+
+  UpdatePart3JpjTestResultRpkResponse.fromJson(Map<String, dynamic> json) {
+    if (json['JpjTestRpk'] != null) {
+      jpjTestRpk = new List<JpjTestRpk>();
+      json['JpjTestRpk'].forEach((v) {
+        jpjTestRpk.add(new JpjTestRpk.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpjTestRpk != null) {
+      data['JpjTestRpk'] = this.jpjTestRpk.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class JpjTestRpk {
+  String iD;
+  String courseCode;
+  String groupId;
+  String nricNo;
+  String fullname;
+  String testCode;
+  String startDate;
+  String startTime;
+  String endTime;
+  String rpk01;
+  String rpk02;
+  String rpk03;
+  String createUser;
+  String createDate;
+  String editUser;
+  String editDate;
+  String transtamp;
+
+  JpjTestRpk(
+      {this.iD,
+      this.courseCode,
+      this.groupId,
+      this.nricNo,
+      this.fullname,
+      this.testCode,
+      this.startDate,
+      this.startTime,
+      this.endTime,
+      this.rpk01,
+      this.rpk02,
+      this.rpk03,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.transtamp});
+
+  JpjTestRpk.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    courseCode = json['course_code'];
+    groupId = json['group_id'];
+    nricNo = json['nric_no'];
+    fullname = json['fullname'];
+    testCode = json['test_code'];
+    startDate = json['start_date'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+    rpk01 = json['rpk01'];
+    rpk02 = json['rpk02'];
+    rpk03 = json['rpk03'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    transtamp = json['transtamp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID'] = this.iD;
+    data['course_code'] = this.courseCode;
+    data['group_id'] = this.groupId;
+    data['nric_no'] = this.nricNo;
+    data['fullname'] = this.fullname;
+    data['test_code'] = this.testCode;
+    data['start_date'] = this.startDate;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    data['rpk01'] = this.rpk01;
+    data['rpk02'] = this.rpk02;
+    data['rpk03'] = this.rpk03;
+    data['create_user'] = this.createUser;
+    data['create_date'] = this.createDate;
+    data['edit_user'] = this.editUser;
+    data['edit_date'] = this.editDate;
+    data['transtamp'] = this.transtamp;
+    return data;
+  }
+}
+
+class UpdatePart3JpjTestResultJrResponse {
+  List<JpjTestDdtl> jpjTestDdtl;
+
+  UpdatePart3JpjTestResultJrResponse({this.jpjTestDdtl});
+
+  UpdatePart3JpjTestResultJrResponse.fromJson(Map<String, dynamic> json) {
+    if (json['JpjTestDdtl'] != null) {
+      jpjTestDdtl = new List<JpjTestDdtl>();
+      json['JpjTestDdtl'].forEach((v) {
+        jpjTestDdtl.add(new JpjTestDdtl.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpjTestDdtl != null) {
+      data['JpjTestDdtl'] = this.jpjTestDdtl.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class JpjTestDdtl {
+  String iD;
+  String courseCode;
+  String groupId;
+  String nricNo;
+  String fullname;
+  String testCode;
+  String startDate;
+  String startTime;
+  String endTime;
+  String a01;
+  String b01;
+  String c01;
+  String createUser;
+  String createDate;
+  String editUser;
+  String editDate;
+  String transtamp;
+
+  JpjTestDdtl(
+      {this.iD,
+      this.courseCode,
+      this.groupId,
+      this.nricNo,
+      this.fullname,
+      this.testCode,
+      this.startDate,
+      this.startTime,
+      this.endTime,
+      this.a01,
+      this.b01,
+      this.c01,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.transtamp});
+
+  JpjTestDdtl.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    courseCode = json['course_code'];
+    groupId = json['group_id'];
+    nricNo = json['nric_no'];
+    fullname = json['fullname'];
+    testCode = json['test_code'];
+    startDate = json['start_date'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+    a01 = json['a01'];
+    b01 = json['b01'];
+    c01 = json['c01'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    transtamp = json['transtamp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID'] = this.iD;
+    data['course_code'] = this.courseCode;
+    data['group_id'] = this.groupId;
+    data['nric_no'] = this.nricNo;
+    data['fullname'] = this.fullname;
+    data['test_code'] = this.testCode;
+    data['start_date'] = this.startDate;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    data['a01'] = this.a01;
+    data['b01'] = this.b01;
+    data['c01'] = this.c01;
+    data['create_user'] = this.createUser;
+    data['create_date'] = this.createDate;
+    data['edit_user'] = this.editUser;
+    data['edit_date'] = this.editDate;
+    data['transtamp'] = this.transtamp;
+    return data;
+  }
+}

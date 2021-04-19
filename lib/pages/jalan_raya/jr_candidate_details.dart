@@ -3,10 +3,13 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
+import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
+import 'package:jpj_qto/common_library/utils/loading_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jpj_qto/utils/custom_dialog.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../router.gr.dart';
@@ -21,6 +24,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   final primaryColor = ColorConstant.primaryColor;
   final myImage = ImagesConstant();
   final authRepo = AuthRepo();
+  final epanduRepo = EpanduRepo();
+  final customDialog = CustomDialog();
   final textStyle = TextStyle(
     fontSize: 80.sp,
     color: Colors.black,
@@ -31,14 +36,57 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   bool iconVisible = true;
   bool isVisible = false;
   bool nextVis = false;
+  bool isLoading = false;
 
-  var result;
   String qNo = '';
   String nric = '';
   String name = '';
   String testDate = '';
   String groupId = '';
   String testCode = '';
+  String vehNo = '';
+
+  var result;
+
+  Future<void> callPart3JpjTest() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    var result = await epanduRepo.callPart3JpjTest(
+      vehNo: vehNo,
+      part3Type: 'RPK + JALAN RAYA',
+      groupId: groupId,
+      testCode: testCode,
+      icNo: nric,
+    );
+
+    if (result.isSuccess) {
+      setState(() {
+        result = result.data;
+      });
+
+      ExtendedNavigator.of(context).push(Routes.jrPartIII,
+          arguments: JrPartIIIArguments(
+            qNo: qNo,
+            nric: nric,
+            name: name,
+            testDate: testDate,
+            groupId: groupId,
+            testCode: testCode,
+            vehNo: vehNo,
+          ));
+    } else {
+      customDialog.show(
+          context: context,
+          content: 'Gagal mendapatkan rekod pelajar.',
+          type: DialogType.WARNING);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   /* Future _scan() async {
     try {
@@ -104,6 +152,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         testDate = jsonDecode(scanData.code)['Table1'][0]['test_date'];
         groupId = jsonDecode(scanData.code)['Table1'][0]['group_id'];
         testCode = jsonDecode(scanData.code)['Table1'][0]['test_code'];
+        vehNo = jsonDecode(scanData.code)['Table1'][0]['veh_no'];
         nextVis = true;
         iconVisible = true;
         isVisible = false;
@@ -123,110 +172,108 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       appBar: AppBar(
         title: Text('Calling'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Expanded(
-            flex: 1,
-            child: Column(
-              children: [
-                SizedBox(height: 50.h),
-                Text(
-                  qNo.isNotEmpty ? qNo : 'Q-NO',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 250.sp),
-                ),
-                SizedBox(height: 50.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 150.w),
-                  child: Table(
-                    // border: TableBorder.all(),
-                    columnWidths: {0: FractionColumnWidth(.30)},
-                    children: [
-                      /* TableRow(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    SizedBox(height: 50.h),
+                    Text(
+                      qNo.isNotEmpty ? qNo : 'Q-NO',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 250.sp),
+                    ),
+                    SizedBox(height: 50.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 150.w),
+                      child: Table(
+                        // border: TableBorder.all(),
+                        columnWidths: {0: FractionColumnWidth(.30)},
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.h),
-                            child: Text('Q-NO',
-                                textAlign: TextAlign.center, style: textStyle),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.h),
-                            child: Text(qNo, style: textStyle),
-                          ),
+                          /* TableRow(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text('Q-NO',
+                                  textAlign: TextAlign.center, style: textStyle),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(qNo, style: textStyle),
+                            ),
+                          ],
+                        ), */
+                          TableRow(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text('NRIC', style: textStyle),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(nric, style: textStyle),
+                            ),
+                          ]),
+                          TableRow(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text('NAMA', style: textStyle),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(name, style: textStyle),
+                            ),
+                          ]),
                         ],
-                      ), */
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          child: Text('NRIC', style: textStyle),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          child: Text(nric, style: textStyle),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          child: Text('NAMA', style: textStyle),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          child: Text(name, style: textStyle),
-                        ),
-                      ]),
-                    ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                  visible: isVisible,
+                  child: Expanded(flex: 2, child: _buildQrView(context))),
+              Visibility(
+                visible: iconVisible,
+                child: Expanded(
+                  flex: 2,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isVisible = true;
+                        iconVisible = false;
+                      });
+                    },
+                    iconSize: 150,
+                    icon: Icon(Icons.camera_alt),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Visibility(
-              visible: isVisible,
-              child: Expanded(flex: 2, child: _buildQrView(context))),
-          Visibility(
-            visible: iconVisible,
-            child: Expanded(
-              flex: 2,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isVisible = true;
-                    iconVisible = false;
-                  });
-                },
-                iconSize: 150,
-                icon: Icon(Icons.camera_alt),
               ),
-            ),
+              Visibility(
+                  visible: nextVis,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomButton(
+                        onPressed: () => ExtendedNavigator.of(context).pop(),
+                        buttonColor: Color(0xffdd0e0e),
+                        title: 'Cancel',
+                      ),
+                      CustomButton(
+                        onPressed: callPart3JpjTest,
+                        buttonColor: Color(0xffdd0e0e),
+                        title: 'Next',
+                      ),
+                    ],
+                  )),
+            ],
           ),
-          Visibility(
-              visible: nextVis,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomButton(
-                    onPressed: () => ExtendedNavigator.of(context).pop(),
-                    buttonColor: Color(0xffdd0e0e),
-                    title: 'Cancel',
-                  ),
-                  CustomButton(
-                    onPressed: () =>
-                        ExtendedNavigator.of(context).push(Routes.jrPartIII,
-                            arguments: JrPartIIIArguments(
-                              qNo: qNo,
-                              nric: nric,
-                              name: name,
-                              testDate: testDate,
-                              groupId: groupId,
-                              testCode: testCode,
-                            )),
-                    buttonColor: Color(0xffdd0e0e),
-                    title: 'Next',
-                  ),
-                ],
-              )),
+          LoadingModel(
+            isVisible: isLoading,
+          ),
         ],
       ),
     );

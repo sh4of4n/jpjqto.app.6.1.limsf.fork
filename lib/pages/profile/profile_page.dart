@@ -10,7 +10,7 @@ class Profile extends StatefulWidget {
   final userProfile;
   final isLoading;
 
-  Profile({this.userProfile, this.isLoading});
+  Profile({@required this.userProfile, @required this.isLoading});
 
   @override
   _ProfileState createState() => _ProfileState();

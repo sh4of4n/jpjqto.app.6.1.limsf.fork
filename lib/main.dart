@@ -27,8 +27,18 @@ void main() async {
   await Hive.openBox('ws_url');
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => LanguageModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LanguageModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => JrSessionModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RpkSessionModel(),
+        ),
+      ],
       child: MyApp(),
     ),
   );
@@ -93,7 +103,7 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
       ],
       builder: ExtendedNavigator<router.Router>(
-        initialRoute: router.Routes.home,
+        initialRoute: router.Routes.authentication,
         router: router.Router(),
       ),
       // initialRoute: AUTH,

@@ -207,7 +207,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
         _isLoading = true;
       });
 
-      var result = await authRepo.login(
+      var result = await authRepo.ePanduJpjQtoLoginResetPwd(
           context: context,
           phone: _phone,
           password: '',

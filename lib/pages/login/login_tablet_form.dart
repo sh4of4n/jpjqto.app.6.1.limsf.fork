@@ -295,13 +295,13 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
         _loginMessage = '';
       });
 
-      /* var result = await authRepo.login(
+      /* var result = await authRepo.ePanduJpjQtoLoginResetPwd(
         context: context,
         phone: _phone,
         password: _password,
       ); */
 
-      var result = await authRepo.login(
+      var result = await authRepo.ePanduJpjQtoLoginResetPwd(
         context: context,
         phone: _phone,
         password: _password,

@@ -201,7 +201,7 @@ class _ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
         _isLoading = true;
       });
 
-      var result = await authRepo.login(
+      var result = await authRepo.ePanduJpjQtoLoginResetPwd(
         context: context,
         phone: _phone,
         password: '',

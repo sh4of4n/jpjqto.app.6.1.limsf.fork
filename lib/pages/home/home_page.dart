@@ -194,7 +194,9 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
-        /* appBar: AppBar(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           actions: <Widget>[
             IconButton(
               onPressed: () => Navigator.pushNamed(
@@ -204,46 +206,44 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.settings),
             ),
           ],
-        ), */
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 50),
-                  Text(
-                    'Ujian Memandu Bahagian III',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20),
+                Text(
+                  'Ujian Memandu Bahagian III',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  HomeModule(),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        return showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return LanguageOptions();
-                          },
+                ),
+                HomeModule(),
+                /* Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      return showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return LanguageOptions();
+                        },
+                      );
+                    },
+                    child: Consumer<LanguageModel>(
+                      builder: (context, lang, child) {
+                        return Text(
+                          '${AppLocalizations.of(context).translate('language_lbl')} ${lang.language}',
+                          style: TextStyle(
+                              fontSize: 56.sp, fontWeight: FontWeight.w500),
                         );
                       },
-                      child: Consumer<LanguageModel>(
-                        builder: (context, lang, child) {
-                          return Text(
-                            '${AppLocalizations.of(context).translate('language_lbl')} ${lang.language}',
-                            style: TextStyle(
-                                fontSize: 56.sp, fontWeight: FontWeight.w500),
-                          );
-                        },
-                      ),
                     ),
                   ),
-                  //LimitedBox(maxHeight: ScreenUtil().setHeight(30)),
-                ],
-              ),
+                ), */
+                //LimitedBox(maxHeight: ScreenUtil().setHeight(30)),
+              ],
             ),
           ),
         ),

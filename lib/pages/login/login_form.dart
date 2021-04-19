@@ -304,13 +304,13 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
         _loginMessage = '';
       });
 
-      /* var result = await authRepo.login(
+      /* var result = await authRepo.ePanduJpjQtoLoginResetPwd(
         context: context,
         phone: _phone,
         password: _password,
       ); */
 
-      var result = await authRepo.login(
+      var result = await authRepo.ePanduJpjQtoLoginResetPwd(
         context: context,
         phone: _phone,
         password: _password,
@@ -321,7 +321,6 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
       );
 
       if (result.isSuccess) {
-        ExtendedNavigator.of(context).replace(Routes.home);
         if (result.data == 'empty') {
           var getRegisteredDi = await authRepo.getUserRegisteredDI(
               context: context, type: 'LOGIN');

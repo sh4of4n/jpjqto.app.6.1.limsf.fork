@@ -1,3 +1,4 @@
+import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/pages/eTestingSolution/custom_expansion_tile.dart'
     as custom;
+import 'package:provider/provider.dart';
 
 class SessionE extends StatefulWidget {
   final Function() notifyParent;
@@ -66,6 +68,8 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f1 == 1) {
                     f1 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f1: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
@@ -73,16 +77,18 @@ class _SessionEState extends State<SessionE> {
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
 
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f1 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f1: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -128,22 +134,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f2 == 1) {
                     f2 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f2: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f2 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f2: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -189,22 +199,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f3 == 1) {
                     f3 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f3: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f3 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f3: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -250,22 +264,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f4 == 1) {
                     f4 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f4: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f4 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f4: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -311,22 +329,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f5 == 1) {
                     f5 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f5: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f5 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f5: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -372,22 +394,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f6 == 1) {
                     f6 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f6: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f6 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f6: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -437,22 +463,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f7 == 1) {
                     f7 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f7: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f7 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f7: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -498,22 +528,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f8 == 1) {
                     f8 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f8: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f8 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f8: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -559,6 +593,8 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f9 == 1) {
                     f9 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f9: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
@@ -566,16 +602,18 @@ class _SessionEState extends State<SessionE> {
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
 
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f9 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f9: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -623,22 +661,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f10 == 1) {
                     f10 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f10: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f10 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f10: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -687,22 +729,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f11 == 1) {
                     f11 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f11: 1);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f11 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f11: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -751,22 +797,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f12 == 1) {
                     f12 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f12: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f12 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f12: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -815,22 +865,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f13 == 1) {
                     f13 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f13: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f13 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f13: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -879,22 +933,26 @@ class _SessionEState extends State<SessionE> {
                 setState(() {
                   if (f14 == 1) {
                     f14 = 0;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f14: 0);
                     countSessionF -= 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   } else {
                     f14 = 1;
+                    Provider.of<JrSessionModel>(context, listen: false)
+                        .setResultF(f14: 1);
                     countSessionF += 1;
                     localStorage.setPart3MarkSessionF(countSessionF);
 
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    // widget.notifyParent();
                   }
                 });
               },
@@ -976,7 +1034,7 @@ class _SessionEState extends State<SessionE> {
                             countMarkF = 8;
                             localStorage.setPart3MarkFM(countMarkEM);
                             localStorage.setPart3MarkF(countMarkF);
-                            widget.notifyParent();
+                            // widget.notifyParent();
                           } else {
                             f1 = 0;
                             f2 = 0;
@@ -997,7 +1055,7 @@ class _SessionEState extends State<SessionE> {
                             countMarkF = 0;
                             localStorage.setPart3MarkFM(countMarkEM);
                             localStorage.setPart3MarkF(countMarkF);
-                            widget.notifyParent();
+                            // widget.notifyParent();
                           }
                         });
                       });

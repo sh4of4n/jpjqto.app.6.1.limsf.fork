@@ -15,7 +15,7 @@ class CustomDialog {
 
   show({
     @required context,
-    @required content,
+    @required String content,
     title,
     customActions,
     @required type,

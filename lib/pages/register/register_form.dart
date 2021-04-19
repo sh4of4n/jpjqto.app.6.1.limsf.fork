@@ -105,8 +105,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
     // _getCurrentLocation();
     _getDeviceInfo();
     _getAvailableCameras();
-    _getLdlkEnqGroupList();
-    _getCdlList();
+    // _getLdlkEnqGroupList();
+    // _getCdlList();
   }
 
   Future<void> _getLdlkEnqGroupList() async {
@@ -1265,7 +1265,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
       });
 
       if (_password == _confirmPassword) {
-        var result = await authRepo.register(
+        var result = await authRepo.ePanduJpjQtoSignUp(
           context: context,
           countryCode: widget.data.phoneCountryCode,
           phone: widget.data.phone,
@@ -1341,7 +1341,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
       _loginLoading = true;
     });
 
-    var result = await authRepo.login(
+    var result = await authRepo.ePanduJpjQtoLoginResetPwd(
       context: context,
       phone: _phone.substring(2),
       password: _password,

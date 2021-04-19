@@ -15,7 +15,7 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
 
 @MaterialAutoRouter(
   routes: <AutoRoute>[
-    MaterialRoute(page: Authentication),
+    MaterialRoute(page: Authentication, initial: true),
     MaterialRoute(page: ClientAccount),
     MaterialRoute(page: Login),
     MaterialRoute(page: ForgotPassword),
@@ -24,7 +24,7 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     MaterialRoute(page: RegisterMobile),
     MaterialRoute(page: RegisterVerification),
     MaterialRoute(page: RegisterForm),
-    MaterialRoute(page: Home, initial: true),
+    MaterialRoute(page: Home),
     MaterialRoute(page: Settings),
     MaterialRoute(page: Profile),
     MaterialRoute(page: ProfileTab),

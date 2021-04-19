@@ -217,6 +217,59 @@ class AuthRepo {
     return Response(false, message: 'Invalid phone and/or password.');
   }
 
+  Future<Response> ePanduJpjQtoLoginResetPwd({
+    context,
+    String phone,
+    String password,
+    String latitude,
+    String longitude,
+    String deviceBrand,
+    String deviceModel,
+    String deviceRemark,
+    String phDeviceId,
+  }) async {
+    final String caUid = await localStorage.getCaUid();
+    // final String caPwd = await localStorage.getCaPwd();
+    final String caPwdUrlEncode = await localStorage.getCaPwdEncode();
+    String pushToken = await Hive.box('ws_url').get('push_token');
+    String appVersion = await localStorage.getAppVersion();
+    // String appCode = appConfig.appCode;
+    // String appId = appConfig.appId;
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
+
+    var response = await networking.getData(
+      path: 'ePanduJpjQtoLoginResetPwd?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      LoginResponse loginResponse = LoginResponse.fromJson(response.data);
+      var responseData = loginResponse.table1[0];
+
+      if (responseData.userId != null && responseData.msg == null) {
+        print(responseData.userId);
+        print(responseData.sessionId);
+
+        localStorage.saveUserId(responseData.userId);
+        localStorage.saveSessionId(responseData.sessionId);
+        localStorage.saveLoginDeviceId(responseData.deviceId);
+
+        var result = await getUserRegisteredDI(context: context, type: 'LOGIN');
+
+        return result;
+      } else if (responseData.msg == 'Reset Password Success') {
+        return Response(true, message: responseData.msg);
+      } else if (responseData.msg ==
+          'No user registered under this phone number.') {
+        return Response(false, message: 'Invalid phone number.');
+      }
+      return Response(false, message: responseData.msg);
+    }
+
+    return Response(false, message: 'Invalid phone and/or password.');
+  }
+
   Future<Response> getUserRegisteredDI({context, @required type}) async {
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
@@ -327,7 +380,7 @@ class AuthRepo {
       Hive.box('telcoList').clear();
       Hive.box('serviceList').clear();
       // Hive.box('ws_url').delete('show_badge');
-      Hive.box('inboxStorage').clear();
+      // Hive.box('inboxStorage').clear();
     }
     // Hive.box('emergencyContact').clear();
 
@@ -1072,6 +1125,112 @@ class AuthRepo {
 
     String body = jsonEncode(params);
     String api = 'CreateAppAccountWithPwd';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    var message = '';
+
+    // Success
+    if (response.isSuccess && response.data != null) {
+      message = 'You are now signed up.';
+
+      return Response(true, message: message);
+    }
+
+    // Fail
+    message = 'Sign up failed, please try again later.';
+
+    return Response(false, message: message);
+  }
+
+  Future<Response> ePanduJpjQtoSignUp({
+    context,
+    String countryCode,
+    String phone,
+    String icNo,
+    String name,
+    String nickName,
+    String email,
+    String postcode,
+    String signUpPwd,
+    String latitude,
+    String longitude,
+    String deviceId,
+    String deviceBrand,
+    String deviceModel,
+    String deviceVersion,
+    List<int> userProfileImage,
+    String userProfileImageBase64String,
+    bool removeUserProfileImage,
+    @required String enqLdlGroup,
+    @required String cdlGroup,
+    String langCode,
+    @required bool findDrvJobs,
+  }) async {
+    String caUid = await localStorage.getCaUid();
+    String caPwd = await localStorage.getCaPwd();
+    String appVersion = await localStorage.getAppVersion();
+    String pushToken = await Hive.box('ws_url').get('push_token');
+
+    RegisterRequest params = RegisterRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      diCode: appConfig.diCode,
+      userId: 'EPANDU',
+      name: name,
+      nickName: nickName,
+      icNo: icNo,
+      passportNo: '',
+      phoneCountryCode: countryCode,
+      phone: phone,
+      nationality: '',
+      dateOfBirthString: '',
+      gender: '',
+      race: '',
+      add1: '',
+      add2: '',
+      add3: '',
+      postcode: postcode,
+      city: '',
+      state: '',
+      country: '',
+      email: email ?? '',
+      signUpPwd: signUpPwd,
+      userProfileImage: userProfileImage,
+      userProfileImageBase64String: userProfileImageBase64String ?? '',
+      removeUserProfileImage: removeUserProfileImage ?? false,
+      latitude: latitude,
+      longitude: longitude,
+      appCode: appConfig.appCode,
+      appId: appConfig.appId,
+      deviceId: '',
+      appVersion: appVersion,
+      deviceRemark: deviceVersion,
+      phDeviceId: deviceId,
+      phLine1Number: '',
+      phNetOpName: '',
+      phPhoneType: '',
+      phSimSerialNo: '',
+      bdBoard: '',
+      bdBrand: deviceBrand,
+      bdDevice: '',
+      bdDisplay: '',
+      bdManufacturer: '',
+      bdModel: deviceModel,
+      bdProduct: '',
+      pfDeviceId: '',
+      regId: pushToken ?? '',
+      enqLdlGroup: enqLdlGroup,
+      cdlGroup: cdlGroup,
+      langCode: langCode ?? 'en-MY',
+      findDrvJobs: findDrvJobs, //bool set to false
+    );
+
+    String body = jsonEncode(params);
+    String api = 'ePanduJpjQtoSignUp';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
     var response =
