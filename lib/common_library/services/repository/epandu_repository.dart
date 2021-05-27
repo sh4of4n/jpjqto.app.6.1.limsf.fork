@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/app_config.dart';
@@ -382,8 +381,8 @@ class EpanduRepo {
   }
 
   Future<Response> getJpjTestCheckIn() async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
@@ -396,7 +395,7 @@ class EpanduRepo {
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&icNo=$icNo';
 
-    var response = await Networking(customUrl: customUrl).getData(
+    var response = await networking.getData(
       path: 'GetJpjTestCheckIn?$path',
     );
 
@@ -415,8 +414,8 @@ class EpanduRepo {
   Future<Response> getLastJpjTestCheckInByInterval({
     String intervalInSeconds,
   }) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
@@ -426,7 +425,7 @@ class EpanduRepo {
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&intervalInSeconds=${intervalInSeconds ?? ''}';
 
-    var response = await Networking(customUrl: customUrl).getData(
+    var response = await networking.getData(
       path: 'GetLastJpjTestCheckInByInterval?$path',
     );
 
@@ -449,8 +448,8 @@ class EpanduRepo {
     @required qrcodeJson,
     @required icNo,
   }) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
@@ -485,8 +484,8 @@ class EpanduRepo {
     String api = 'VerifyScanCodeByIcNo';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    var response = await Networking(customUrl: customUrl)
-        .postData(api: api, body: body, headers: headers);
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
 
     if (response.isSuccess && response.data != null) {
       VerifyScanCodeResponse verifyScanCodeResponse =
@@ -530,8 +529,8 @@ class EpanduRepo {
   }
 
   Future<Response> getLastCallingJpjTestQueueNumber({context}) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
@@ -554,7 +553,7 @@ class EpanduRepo {
       type: DialogType.GENERAL,
     ); */
 
-    var response = await Networking(customUrl: customUrl).getData(
+    var response = await networking.getData(
       path: 'GetLastCallingJpjTestQueueNumber?$path',
     );
 
@@ -575,8 +574,8 @@ class EpanduRepo {
 
   Future<Response> getPart3AvailableToCallJpjTestList(
       {vehNo, @required part3Type}) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
@@ -584,9 +583,9 @@ class EpanduRepo {
     // String diCode = await localStorage.getDiCode();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=W1007&userId=$userId&vehNo=$vehNo&part3Type=${Uri.encodeQueryComponent(part3Type)}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=W1007&userId=$userId&vehNo=$vehNo&part3Type=${Uri.encodeComponent(part3Type)}';
 
-    var response = await Networking(customUrl: customUrl).getData(
+    var response = await networking.getData(
       path: 'GetPart3AvailableToCallJpjTestList?$path',
     );
 
@@ -613,8 +612,8 @@ class EpanduRepo {
     @required icNo,
     @required testCode,
   }) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
@@ -638,8 +637,8 @@ class EpanduRepo {
     String api = 'CallPart3JpjTest';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    var response = await Networking(customUrl: customUrl)
-        .postData(api: api, body: body, headers: headers);
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
 
     if (response.isSuccess && response.data != null) {
       CallPart3JpjTestResponse verifyScanCodeResponse =
@@ -661,8 +660,8 @@ class EpanduRepo {
     @required icNo,
     @required testCode,
   }) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
@@ -686,8 +685,8 @@ class EpanduRepo {
     String api = 'CancelCallPart3JpjTest';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    var response = await Networking(customUrl: customUrl)
-        .postData(api: api, body: body, headers: headers);
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
 
     if (response.isSuccess && response.data != null) {
       CancelCallPart3JpjTestResponse verifyScanCodeResponse =
@@ -709,8 +708,8 @@ class EpanduRepo {
     @required icNo,
     @required testCode,
   }) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
@@ -734,8 +733,8 @@ class EpanduRepo {
     String api = 'UpdatePart3JpjTestStart';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    var response = await Networking(customUrl: customUrl)
-        .postData(api: api, body: body, headers: headers);
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
 
     if (response.isSuccess && response.data != null) {
       CancelCallPart3JpjTestResponse verifyScanCodeResponse =
@@ -759,8 +758,8 @@ class EpanduRepo {
     @required testCode,
     @required resultJson,
   }) async {
-    String customUrl =
-        'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
@@ -783,11 +782,11 @@ class EpanduRepo {
     );
 
     String body = jsonEncode(verifyScanCodeRequest);
-    String api = 'UpdatePart3JpjTestStart';
+    String api = 'UpdatePart3JpjTestResult';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    var response = await Networking(customUrl: customUrl)
-        .postData(api: api, body: body, headers: headers);
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
 
     if (response.isSuccess && response.data != null) {
       if (part3Type == 'RPK') {

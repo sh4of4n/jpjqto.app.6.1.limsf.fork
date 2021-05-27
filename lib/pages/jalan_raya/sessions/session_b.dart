@@ -20,24 +20,23 @@ class SessionB extends StatefulWidget {
 class _SessionBState extends State<SessionB> {
   final localStorage = LocalStorage();
 
-  int c1 = 0,
-      c2 = 0,
-      c3 = 0,
-      c4 = 0,
-      c5 = 0,
-      c6 = 0,
-      c7 = 0,
-      c8 = 0,
-      c9 = 0,
-      c10 = 0;
-  int countSessionC = 0;
-
-  int countMarkCM = 0;
-  int countMarkC = 0;
+  int b1 = 0,
+      b2 = 0,
+      b3 = 0,
+      b4 = 0,
+      b5 = 0,
+      b6 = 0,
+      b7 = 0,
+      b8 = 0,
+      b9 = 0,
+      b10 = 0;
   bool sessionB = false;
 
   @override
   Widget build(BuildContext context) {
+    int bMark = context.watch<JrSessionModel>().bMark;
+    int bMandatoryMark = context.watch<JrSessionModel>().bMandatoryMark;
+
     return Stack(
       children: <Widget>[
         custom.ExpansionTile(
@@ -61,28 +60,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c1 == 1) {
-                    c1 = 0;
+                  if (b1 == 1) {
+                    b1 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c1: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct marks
-                    countMarkC -= 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b1: 0);
                   } else {
-                    c1 = 1;
+                    b1 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c1: 1);
-                    countSessionC += 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct marks
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b1: 1);
                   }
                 });
               },
@@ -100,7 +85,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c1')),
+                                .translate('part3_session_b1')),
                           )),
                     ),
                     Padding(
@@ -111,7 +96,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c1'),
+                          child: Text('$b1'),
                         )),
                       ),
                     ),
@@ -126,28 +111,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c2 == 1) {
-                    c2 = 0;
+                  if (b2 == 1) {
+                    b2 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c2: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct marks
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b2: 0);
                   } else {
-                    c2 = 1;
+                    b2 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c2: 1);
-                    countSessionC += 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct marks
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b2: 1);
                   }
                 });
               },
@@ -165,7 +136,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c2')),
+                                .translate('part3_session_b2')),
                           )),
                     ),
                     Padding(
@@ -176,7 +147,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c2'),
+                          child: Text('$b2'),
                         )),
                       ),
                     ),
@@ -191,28 +162,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c3 == 1) {
-                    c3 = 0;
+                  if (b3 == 1) {
+                    b3 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c3: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b3: 0);
                   } else {
-                    c3 = 1;
+                    b3 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c3: 1);
-                    countSessionC += 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b3: 1);
                   }
                 });
               },
@@ -230,7 +187,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c3')),
+                                .translate('part3_session_b3')),
                           )),
                     ),
                     Padding(
@@ -241,7 +198,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c3'),
+                          child: Text('$b3'),
                         )),
                       ),
                     ),
@@ -256,27 +213,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c4 == 1) {
-                    c4 = 0;
+                  if (b4 == 1) {
+                    b4 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c4: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC -= 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b4: 0);
                   } else {
-                    c4 = 1;
+                    b4 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c4: 1);
-                    countSessionC += 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b4: 1);
                   }
                 });
               },
@@ -294,7 +238,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c4')),
+                                .translate('part3_session_b4')),
                           )),
                     ),
                     Padding(
@@ -305,7 +249,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c4'),
+                          child: Text('$b4'),
                         )),
                       ),
                     ),
@@ -320,26 +264,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c5 == 1) {
-                    c5 = 0;
+                  if (b5 == 1) {
+                    b5 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c5: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b5: 0);
                   } else {
-                    c5 = 1;
+                    b5 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c5: 1);
-                    countSessionC += 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b5: 1);
                   }
                 });
               },
@@ -357,7 +289,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c5')),
+                                .translate('part3_session_b5')),
                           )),
                     ),
                     Padding(
@@ -368,7 +300,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c5'),
+                          child: Text('$b5'),
                         )),
                       ),
                     ),
@@ -383,25 +315,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c6 == 1) {
-                    c6 = 0;
+                  if (b6 == 1) {
+                    b6 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c6: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC -= 1;
-                    localStorage.setPart3MarkC(countMarkC);
+                        .setResultB(b6: 0);
                   } else {
-                    c6 = 1;
+                    b6 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c6: 1);
-                    countSessionC += 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b6: 1);
                   }
                 });
               },
@@ -419,7 +340,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c6')),
+                                .translate('part3_session_b6')),
                           )),
                     ),
                     Container(
@@ -432,7 +353,7 @@ class _SessionBState extends State<SessionB> {
                             child: Center(
                                 child: Padding(
                               padding: const EdgeInsets.all(2.0),
-                              child: Text('$c6'),
+                              child: Text('$b6'),
                             )),
                           ),
                         ),
@@ -449,25 +370,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c7 == 1) {
-                    c7 = 0;
+                  if (b7 == 1) {
+                    b7 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c7: 0);
-                    countSessionC -= 1;
-                    localStorage.setPart3MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC -= 1;
-                    localStorage.setPart3MarkC(countMarkC);
+                        .setResultB(b7: 0);
                   } else {
-                    c7 = 1;
+                    b7 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c7: 1);
-                    countSessionC += 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    //count normal deduct mark
-                    countMarkC += 1;
-                    localStorage.setPart3MarkC(countMarkC);
-                    // widget.notifyParent();
+                        .setResultB(b7: 1);
                   }
                 });
               },
@@ -485,7 +395,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_c7')),
+                                .translate('part3_session_b7')),
                           )),
                     ),
                     Padding(
@@ -496,7 +406,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c7'),
+                          child: Text('$b7'),
                         )),
                       ),
                     ),
@@ -511,24 +421,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c8 == 1) {
-                    c8 = 0;
+                  if (b8 == 1) {
+                    b8 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c8: 0);
-                    countMarkCM -= 1;
-                    localStorage.setPart3MarkCM(countMarkCM);
-                    countSessionC -= 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    // widget.notifyParent();
+                        .setResultB(b8: 0);
                   } else {
-                    c8 = 1;
+                    b8 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c8: 1);
-                    countSessionC += 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    countMarkCM += 1;
-                    localStorage.setPart3MarkCM(countMarkCM);
-                    // widget.notifyParent();
+                        .setResultB(b8: 1);
                   }
                 });
               },
@@ -547,7 +447,7 @@ class _SessionBState extends State<SessionB> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                                 AppLocalizations.of(context)
-                                    .translate('part3_session_c8_bold'),
+                                    .translate('part3_session_b8_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
                     ),
@@ -559,7 +459,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c8'),
+                          child: Text('$b8'),
                         )),
                       ),
                     ),
@@ -574,24 +474,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c9 == 1) {
-                    c9 = 0;
+                  if (b9 == 1) {
+                    b9 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c9: 0);
-                    countMarkCM -= 1;
-                    localStorage.setPart3MarkCM(countMarkCM);
-                    countSessionC -= 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    // widget.notifyParent();
+                        .setResultB(b9: 0);
                   } else {
-                    c9 = 1;
+                    b9 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c9: 1);
-                    countSessionC += 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    countMarkCM += 1;
-                    localStorage.setPart3MarkCM(countMarkCM);
-                    // widget.notifyParent();
+                        .setResultB(b9: 1);
                   }
                 });
               },
@@ -610,7 +500,7 @@ class _SessionBState extends State<SessionB> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                                 AppLocalizations.of(context)
-                                    .translate('part3_session_c9_bold'),
+                                    .translate('part3_session_b9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
                     ),
@@ -622,7 +512,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c9'),
+                          child: Text('$b9'),
                         )),
                       ),
                     ),
@@ -637,24 +527,14 @@ class _SessionBState extends State<SessionB> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (c10 == 1) {
-                    c10 = 0;
+                  if (b10 == 1) {
+                    b10 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c10: 0);
-                    countMarkCM -= 1;
-                    localStorage.setPart3MarkCM(countMarkCM);
-                    countSessionC -= 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    // widget.notifyParent();
+                        .setResultB(b10: 0);
                   } else {
-                    c10 = 1;
+                    b10 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultC(c10: 1);
-                    countSessionC += 1;
-                    localStorage.setPart2MarkSessionC(countSessionC);
-                    countMarkCM += 1;
-                    localStorage.setPart3MarkCM(countMarkCM);
-                    // widget.notifyParent();
+                        .setResultB(b10: 1);
                   }
                 });
               },
@@ -673,7 +553,7 @@ class _SessionBState extends State<SessionB> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_c10_bold'),
+                                  .translate('part3_session_b10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -686,7 +566,7 @@ class _SessionBState extends State<SessionB> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$c10'),
+                          child: Text('$b10'),
                         )),
                       ),
                     ),
@@ -717,41 +597,55 @@ class _SessionBState extends State<SessionB> {
                         sessionB = value;
                         setState(() {
                           if (value) {
-                            c1 = 1;
-                            c2 = 1;
-                            c3 = 1;
-                            c4 = 1;
-                            c5 = 1;
-                            c6 = 1;
-                            c7 = 1;
-                            c8 = 1;
-                            c9 = 1;
-                            c10 = 1;
-                            countSessionC = 10;
-                            localStorage.setPart3MarkSessionC(countSessionC);
-                            countMarkCM = 3;
-                            countMarkC = 7;
-                            localStorage.setPart3MarkCM(countMarkCM);
-                            localStorage.setPart3MarkC(countMarkC);
-                            // widget.notifyParent();
+                            b1 = 1;
+                            b2 = 1;
+                            b3 = 1;
+                            b4 = 1;
+                            b5 = 1;
+                            b6 = 1;
+                            b7 = 1;
+                            b8 = 1;
+                            b9 = 1;
+                            b10 = 1;
+
+                            Provider.of<JrSessionModel>(context, listen: false)
+                                .setResultB(
+                              b1: 1,
+                              b2: 1,
+                              b3: 1,
+                              b4: 1,
+                              b5: 1,
+                              b6: 1,
+                              b7: 1,
+                              b8: 1,
+                              b9: 1,
+                              b10: 1,
+                            );
                           } else {
-                            c1 = 0;
-                            c2 = 0;
-                            c3 = 0;
-                            c4 = 0;
-                            c5 = 0;
-                            c6 = 0;
-                            c7 = 0;
-                            c8 = 0;
-                            c9 = 0;
-                            c10 = 0;
-                            countSessionC = 0;
-                            localStorage.setPart3MarkSessionC(countSessionC);
-                            countMarkCM = 0;
-                            countMarkC = 0;
-                            localStorage.setPart3MarkCM(countMarkCM);
-                            localStorage.setPart3MarkC(countMarkC);
-                            // widget.notifyParent();
+                            b1 = 0;
+                            b2 = 0;
+                            b3 = 0;
+                            b4 = 0;
+                            b5 = 0;
+                            b6 = 0;
+                            b7 = 0;
+                            b8 = 0;
+                            b9 = 0;
+                            b10 = 0;
+
+                            Provider.of<JrSessionModel>(context, listen: false)
+                                .setResultB(
+                              b1: 0,
+                              b2: 0,
+                              b3: 0,
+                              b4: 0,
+                              b5: 0,
+                              b6: 0,
+                              b7: 0,
+                              b8: 0,
+                              b9: 0,
+                              b10: 0,
+                            );
                           }
                         });
                       });
@@ -768,7 +662,7 @@ class _SessionBState extends State<SessionB> {
             padding: const EdgeInsets.only(right: 30, top: 5),
             child: Container(
               child: Text(
-                '$countSessionC/10',
+                '${bMark + bMandatoryMark}/10',
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),

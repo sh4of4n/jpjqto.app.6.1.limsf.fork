@@ -9,8 +9,8 @@ class LoadingModel extends StatelessWidget {
   final double opacity;
 
   LoadingModel({
-    this.isVisible,
-    this.color,
+    @required this.isVisible,
+    @required this.color,
     this.backgroundColor,
     this.opacity,
   });

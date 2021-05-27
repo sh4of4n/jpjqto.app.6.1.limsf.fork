@@ -70,9 +70,21 @@ class _AuthenticationState extends State<Authentication> {
 
   _checkExistingLogin() async {
     String userId = await localStorage.getUserId();
+    String groupId = await localStorage.getEnrolledGroupId();
+    String carNo = await localStorage.getCarNo();
+    String plateNo = await localStorage.getPlateNo();
 
     if (userId.isNotEmpty) {
-      ExtendedNavigator.of(context).replace(Routes.home);
+      if (groupId != null &&
+          groupId.isNotEmpty &&
+          carNo != null &&
+          carNo.isNotEmpty &&
+          plateNo != null &&
+          plateNo.isNotEmpty) {
+        ExtendedNavigator.of(context).replace(Routes.home);
+      } else {
+        ExtendedNavigator.of(context).replace(Routes.getVehicleInfo);
+      }
     } else {
       ExtendedNavigator.of(context).replace(Routes.login);
     }

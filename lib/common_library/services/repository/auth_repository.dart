@@ -583,6 +583,8 @@ class AuthRepo {
 
         return result;
       }
+      return Response(false,
+          message: getUserByUserIdPwdResponse.table1[0].result);
     }
 
     return Response(false, message: response.message);

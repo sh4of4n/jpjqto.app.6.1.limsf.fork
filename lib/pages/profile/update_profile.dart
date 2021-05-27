@@ -10,7 +10,6 @@ import 'package:jpj_qto/common_library/services/repository/profile_repository.da
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/custom_snackbar.dart';
-import 'package:jpj_qto/common_library/utils/local_storage.dart';
 import 'package:jpj_qto/common_library/utils/uppercase_formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 import '../../router.gr.dart';
 
 enum Gender { male, female }

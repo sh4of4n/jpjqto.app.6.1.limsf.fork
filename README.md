@@ -1,5 +1,7 @@
-# app
+0.0.7
 
-epandu Spim
-
-2.0.11 - Update translation, sign up implementation
+- Add another page after login to enter veh no
+- New Jpj QTO logo
+- Translations
+- RPK and Jalan Raya module update
+- Flow updates

@@ -19,36 +19,36 @@ class SessionR extends StatefulWidget {
 class _SessionRState extends State<SessionR> {
   final localStorage = LocalStorage();
 
-  int a1 = 0,
-      a2 = 0,
-      a3 = 0,
-      a4 = 0,
-      a5 = 0,
-      a6 = 0,
-      a7 = 0,
-      a8 = 0,
-      a9 = 0,
-      a10 = 0,
-      a11 = 0,
-      a12 = 0,
-      a13 = 0,
-      a14 = 0,
-      a15 = 0,
-      a16 = 0,
-      a17 = 0,
-      a18 = 0,
-      a19 = 0,
-      a20 = 0,
-      a21 = 0,
-      a22 = 0,
-      a23 = 0,
-      a24 = 0;
-  bool sessionB = false;
-  int countSessionA = 0;
-  int countMarkA = 0;
+  int rpk1 = 0,
+      rpk2 = 0,
+      rpk3 = 0,
+      rpk4 = 0,
+      rpk5 = 0,
+      rpk6 = 0,
+      rpk7 = 0,
+      rpk8 = 0,
+      rpk9 = 0,
+      rpk10 = 0,
+      rpk11 = 0,
+      rpk12 = 0,
+      rpk13 = 0,
+      rpk14 = 0,
+      rpk15 = 0,
+      rpk16 = 0,
+      rpk17 = 0,
+      rpk18 = 0,
+      rpk19 = 0,
+      rpk20 = 0,
+      rpk21 = 0,
+      rpk22 = 0,
+      rpk23 = 0,
+      rpk24 = 0;
+  bool checkAll = false;
 
   @override
   Widget build(BuildContext context) {
+    int rpkMark = context.watch<JrSessionModel>().rpkMark;
+
     return Stack(
       children: <Widget>[
         custom.ExpansionTile(
@@ -68,7 +68,7 @@ class _SessionRState extends State<SessionR> {
                 padding: const EdgeInsets.all(5),
                 child: Text(
                   AppLocalizations.of(context)
-                      .translate('part3_session_a_bold_lbl1'),
+                      .translate('part3_session_r_bold_lbl1'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 ),
@@ -81,26 +81,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a1 == 1) {
-                    a1 = 0;
+                  if (rpk1 == 1) {
+                    rpk1 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a1: 0);
-
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk1: 0);
                   } else {
-                    a1 = 1;
+                    rpk1 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a1: 1);
-
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk1: 1);
                   }
                 });
               },
@@ -118,7 +106,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a1')),
+                                .translate('part3_session_r1')),
                           )),
                     ),
                     Padding(
@@ -129,7 +117,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a1'),
+                          child: Text('$rpk1'),
                         )),
                       ),
                     ),
@@ -144,24 +132,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a2 == 1) {
-                    a2 = 0;
+                  if (rpk2 == 1) {
+                    rpk2 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a2: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk2: 0);
                   } else {
-                    a2 = 1;
+                    rpk2 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a2: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk2: 1);
                   }
                 });
               },
@@ -179,7 +157,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a2')),
+                                .translate('part3_session_r2')),
                           )),
                     ),
                     Padding(
@@ -190,7 +168,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a2'),
+                          child: Text('$rpk2'),
                         )),
                       ),
                     ),
@@ -205,24 +183,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a3 == 1) {
-                    a3 = 0;
+                  if (rpk3 == 1) {
+                    rpk3 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a3: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk3: 0);
                   } else {
-                    a3 = 1;
+                    rpk3 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a3: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk3: 1);
                   }
                 });
               },
@@ -240,7 +208,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a3')),
+                                .translate('part3_session_r3')),
                           )),
                     ),
                     Padding(
@@ -251,7 +219,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a3'),
+                          child: Text('$rpk3'),
                         )),
                       ),
                     ),
@@ -266,24 +234,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a4 == 1) {
-                    a4 = 0;
+                  if (rpk4 == 1) {
+                    rpk4 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a4: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk4: 0);
                   } else {
-                    a4 = 1;
+                    rpk4 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a4: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk4: 1);
                   }
                 });
               },
@@ -301,7 +259,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a4')),
+                                .translate('part3_session_r4')),
                           )),
                     ),
                     Padding(
@@ -312,7 +270,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a4'),
+                          child: Text('$rpk4'),
                         )),
                       ),
                     ),
@@ -327,24 +285,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a5 == 1) {
-                    a5 = 0;
+                  if (rpk5 == 1) {
+                    rpk5 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a5: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk5: 0);
                   } else {
-                    a5 = 1;
+                    rpk5 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a5: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk5: 1);
                   }
                 });
               },
@@ -362,7 +310,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a5')),
+                                .translate('part3_session_r5')),
                           )),
                     ),
                     Padding(
@@ -373,7 +321,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a5'),
+                          child: Text('$rpk5'),
                         )),
                       ),
                     ),
@@ -388,24 +336,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a6 == 1) {
-                    a6 = 0;
+                  if (rpk6 == 1) {
+                    rpk6 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a6: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk6: 0);
                   } else {
-                    a6 = 1;
+                    rpk6 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a6: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk6: 1);
                   }
                 });
               },
@@ -423,7 +361,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a6')),
+                                .translate('part3_session_r6')),
                           )),
                     ),
                     Padding(
@@ -434,7 +372,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a6'),
+                          child: Text('$rpk6'),
                         )),
                       ),
                     ),
@@ -449,24 +387,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a7 == 1) {
-                    a7 = 0;
+                  if (rpk7 == 1) {
+                    rpk7 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a7: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk7: 0);
                   } else {
-                    a7 = 1;
+                    rpk7 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a7: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk7: 1);
                   }
                 });
               },
@@ -484,7 +412,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a7')),
+                                .translate('part3_session_r7')),
                           )),
                     ),
                     Padding(
@@ -495,7 +423,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a7'),
+                          child: Text('$rpk7'),
                         )),
                       ),
                     ),
@@ -510,24 +438,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a8 == 1) {
-                    a8 = 0;
+                  if (rpk8 == 1) {
+                    rpk8 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a8: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk8: 0);
                   } else {
-                    a8 = 1;
+                    rpk8 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a8: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk8: 1);
                   }
                 });
               },
@@ -545,7 +463,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a8')),
+                                .translate('part3_session_r8')),
                           )),
                     ),
                     Padding(
@@ -556,7 +474,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a8'),
+                          child: Text('$rpk8'),
                         )),
                       ),
                     ),
@@ -571,24 +489,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a9 == 1) {
-                    a9 = 0;
+                  if (rpk9 == 1) {
+                    rpk9 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a9: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk9: 0);
                   } else {
-                    a9 = 1;
+                    rpk9 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a9: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk9: 1);
                   }
                 });
               },
@@ -606,7 +514,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a9')),
+                                .translate('part3_session_r9')),
                           )),
                     ),
                     Padding(
@@ -617,7 +525,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a9'),
+                          child: Text('$rpk9'),
                         )),
                       ),
                     ),
@@ -632,24 +540,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a10 == 1) {
-                    a10 = 0;
+                  if (rpk10 == 1) {
+                    rpk10 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a10: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk10: 0);
                   } else {
-                    a10 = 1;
+                    rpk10 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a10: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk10: 1);
                   }
                 });
               },
@@ -667,7 +565,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a10')),
+                                .translate('part3_session_r10')),
                           )),
                     ),
                     Padding(
@@ -678,7 +576,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a10'),
+                          child: Text('$rpk10'),
                         )),
                       ),
                     ),
@@ -693,24 +591,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a11 == 1) {
-                    a11 = 0;
+                  if (rpk11 == 1) {
+                    rpk11 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a11: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk11: 0);
                   } else {
-                    a11 = 1;
+                    rpk11 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a11: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk11: 1);
                   }
                 });
               },
@@ -728,7 +616,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a11')),
+                                .translate('part3_session_r11')),
                           )),
                     ),
                     Padding(
@@ -739,7 +627,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a11'),
+                          child: Text('$rpk11'),
                         )),
                       ),
                     ),
@@ -754,24 +642,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a12 == 1) {
-                    a12 = 0;
+                  if (rpk12 == 1) {
+                    rpk12 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a12: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk12: 0);
                   } else {
-                    a12 = 1;
+                    rpk12 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a12: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk12: 1);
                   }
                 });
               },
@@ -789,7 +667,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a12')),
+                                .translate('part3_session_r12')),
                           )),
                     ),
                     Padding(
@@ -800,7 +678,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a12'),
+                          child: Text('$rpk12'),
                         )),
                       ),
                     ),
@@ -818,7 +696,7 @@ class _SessionRState extends State<SessionR> {
                 padding: const EdgeInsets.all(5),
                 child: Text(
                   AppLocalizations.of(context)
-                      .translate('part3_session_a_bold_lbl2'),
+                      .translate('part3_session_r_bold_lbl2'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 ),
@@ -831,24 +709,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a13 == 1) {
-                    a13 = 0;
+                  if (rpk13 == 1) {
+                    rpk13 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a13: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk13: 0);
                   } else {
-                    a13 = 1;
+                    rpk13 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a13: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk13: 1);
                   }
                 });
               },
@@ -866,7 +734,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a13')),
+                                .translate('part3_session_r13')),
                           )),
                     ),
                     Padding(
@@ -877,7 +745,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a13'),
+                          child: Text('$rpk13'),
                         )),
                       ),
                     ),
@@ -892,24 +760,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a14 == 1) {
-                    a14 = 0;
+                  if (rpk14 == 1) {
+                    rpk14 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a14: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk14: 0);
                   } else {
-                    a14 = 1;
+                    rpk14 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a14: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk14: 1);
                   }
                 });
               },
@@ -927,7 +785,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a14')),
+                                .translate('part3_session_r14')),
                           )),
                     ),
                     Padding(
@@ -938,7 +796,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a14'),
+                          child: Text('$rpk14'),
                         )),
                       ),
                     ),
@@ -953,24 +811,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a15 == 1) {
-                    a15 = 0;
+                  if (rpk15 == 1) {
+                    rpk15 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a15: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk15: 0);
                   } else {
-                    a15 = 1;
+                    rpk15 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a15: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk15: 1);
                   }
                 });
               },
@@ -988,7 +836,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a15')),
+                                .translate('part3_session_r15')),
                           )),
                     ),
                     Padding(
@@ -999,7 +847,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a15'),
+                          child: Text('$rpk15'),
                         )),
                       ),
                     ),
@@ -1014,24 +862,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a16 == 1) {
-                    a16 = 0;
+                  if (rpk16 == 1) {
+                    rpk16 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a16: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk16: 0);
                   } else {
-                    a16 = 1;
+                    rpk16 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a16: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk16: 1);
                   }
                 });
               },
@@ -1049,7 +887,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a16')),
+                                .translate('part3_session_r16')),
                           )),
                     ),
                     Padding(
@@ -1060,7 +898,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a16'),
+                          child: Text('$rpk16'),
                         )),
                       ),
                     ),
@@ -1075,24 +913,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a17 == 1) {
-                    a17 = 0;
+                  if (rpk17 == 1) {
+                    rpk17 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a17: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk17: 0);
                   } else {
-                    a17 = 1;
+                    rpk17 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a17: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk17: 1);
                   }
                 });
               },
@@ -1110,7 +938,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a17')),
+                                .translate('part3_session_r17')),
                           )),
                     ),
                     Padding(
@@ -1121,7 +949,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a17'),
+                          child: Text('$rpk17'),
                         )),
                       ),
                     ),
@@ -1136,24 +964,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a18 == 1) {
-                    a18 = 0;
+                  if (rpk18 == 1) {
+                    rpk18 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a18: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk18: 0);
                   } else {
-                    a18 = 1;
+                    rpk18 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a18: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk18: 1);
                   }
                 });
               },
@@ -1171,7 +989,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a18')),
+                                .translate('part3_session_r18')),
                           )),
                     ),
                     Padding(
@@ -1182,7 +1000,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a18'),
+                          child: Text('$rpk18'),
                         )),
                       ),
                     ),
@@ -1197,24 +1015,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a19 == 1) {
-                    a19 = 0;
+                  if (rpk19 == 1) {
+                    rpk19 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a19: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk19: 0);
                   } else {
-                    a19 = 1;
+                    rpk19 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a19: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk19: 1);
                   }
                 });
               },
@@ -1232,7 +1040,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a19')),
+                                .translate('part3_session_r19')),
                           )),
                     ),
                     Padding(
@@ -1243,7 +1051,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a19'),
+                          child: Text('$rpk19'),
                         )),
                       ),
                     ),
@@ -1258,24 +1066,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a20 == 1) {
-                    a20 = 0;
+                  if (rpk20 == 1) {
+                    rpk20 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a20: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk20: 0);
                   } else {
-                    a20 = 1;
+                    rpk20 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a20: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk20: 1);
                   }
                 });
               },
@@ -1293,7 +1091,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a20')),
+                                .translate('part3_session_r20')),
                           )),
                     ),
                     Padding(
@@ -1304,7 +1102,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a20'),
+                          child: Text('$rpk20'),
                         )),
                       ),
                     ),
@@ -1322,7 +1120,7 @@ class _SessionRState extends State<SessionR> {
                 padding: const EdgeInsets.all(5),
                 child: Text(
                   AppLocalizations.of(context)
-                      .translate('part3_session_a_bold_lbl3'),
+                      .translate('part3_session_r_bold_lbl3'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 ),
@@ -1335,24 +1133,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a21 == 1) {
-                    a21 = 0;
+                  if (rpk21 == 1) {
+                    rpk21 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a21: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk21: 0);
                   } else {
-                    a21 = 1;
+                    rpk21 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a21: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk21: 1);
                   }
                 });
               },
@@ -1370,7 +1158,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a21')),
+                                .translate('part3_session_r21')),
                           )),
                     ),
                     Padding(
@@ -1381,7 +1169,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a21'),
+                          child: Text('$rpk21'),
                         )),
                       ),
                     ),
@@ -1396,24 +1184,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a22 == 1) {
-                    a22 = 0;
+                  if (rpk22 == 1) {
+                    rpk22 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a22: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk22: 0);
                   } else {
-                    a22 = 1;
+                    rpk22 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a22: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk22: 1);
                   }
                 });
               },
@@ -1431,7 +1209,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a22')),
+                                .translate('part3_session_r22')),
                           )),
                     ),
                     Padding(
@@ -1442,7 +1220,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a22'),
+                          child: Text('$rpk22'),
                         )),
                       ),
                     ),
@@ -1457,24 +1235,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a23 == 1) {
-                    a23 = 0;
+                  if (rpk23 == 1) {
+                    rpk23 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a23: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk23: 0);
                   } else {
-                    a23 = 1;
+                    rpk23 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a23: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk23: 1);
                   }
                 });
               },
@@ -1492,7 +1260,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a23')),
+                                .translate('part3_session_r23')),
                           )),
                     ),
                     Padding(
@@ -1503,7 +1271,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a23'),
+                          child: Text('$rpk23'),
                         )),
                       ),
                     ),
@@ -1518,24 +1286,14 @@ class _SessionRState extends State<SessionR> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (a24 == 1) {
-                    a24 = 0;
+                  if (rpk24 == 1) {
+                    rpk24 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a24: 0);
-                    countSessionA -= 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA += 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk24: 0);
                   } else {
-                    a24 = 1;
+                    rpk24 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultA(a24: 1);
-                    countSessionA += 1;
-                    localStorage.setPart3MarkSessionA(countSessionA);
-                    countMarkA -= 1;
-                    localStorage.setPart2MarkB(countMarkA);
-                    // widget.notifyParent();
+                        .setResultRpk(rpk24: 1);
                   }
                 });
               },
@@ -1553,7 +1311,7 @@ class _SessionRState extends State<SessionR> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_a24')),
+                                .translate('part3_session_r24')),
                           )),
                     ),
                     Padding(
@@ -1564,7 +1322,7 @@ class _SessionRState extends State<SessionR> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$a24'),
+                          child: Text('$rpk24'),
                         )),
                       ),
                     ),
@@ -1589,71 +1347,117 @@ class _SessionRState extends State<SessionR> {
                   child: Checkbox(
                     checkColor: Colors.black,
                     activeColor: Colors.white,
-                    value: sessionB,
+                    value: checkAll,
                     onChanged: (bool value) {
                       setState(() {
-                        sessionB = value;
+                        checkAll = value;
                         setState(() {
                           if (value) {
-                            a1 = 1;
-                            a2 = 1;
-                            a3 = 1;
-                            a4 = 1;
-                            a5 = 1;
-                            a6 = 1;
-                            a7 = 1;
-                            a8 = 1;
-                            a9 = 1;
-                            a10 = 1;
-                            a11 = 1;
-                            a12 = 1;
-                            a13 = 1;
-                            a14 = 1;
-                            a15 = 1;
-                            a16 = 1;
-                            a17 = 1;
-                            a18 = 1;
-                            a19 = 1;
-                            a20 = 1;
-                            a21 = 1;
-                            a22 = 1;
-                            a23 = 1;
-                            a24 = 1;
-                            countSessionA = 24;
-                            countMarkA = 0;
-                            localStorage.setPart3MarkSessionA(countSessionA);
-                            localStorage.setPart2MarkB(countMarkA);
-                            // widget.notifyParent();
+                            rpk1 = 1;
+                            rpk2 = 1;
+                            rpk3 = 1;
+                            rpk4 = 1;
+                            rpk5 = 1;
+                            rpk6 = 1;
+                            rpk7 = 1;
+                            rpk8 = 1;
+                            rpk9 = 1;
+                            rpk10 = 1;
+                            rpk11 = 1;
+                            rpk12 = 1;
+                            rpk13 = 1;
+                            rpk14 = 1;
+                            rpk15 = 1;
+                            rpk16 = 1;
+                            rpk17 = 1;
+                            rpk18 = 1;
+                            rpk19 = 1;
+                            rpk20 = 1;
+                            rpk21 = 1;
+                            rpk22 = 1;
+                            rpk23 = 1;
+                            rpk24 = 1;
+
+                            Provider.of<JrSessionModel>(context, listen: false)
+                                .setResultRpk(
+                              rpk1: 1,
+                              rpk2: 1,
+                              rpk3: 1,
+                              rpk4: 1,
+                              rpk5: 1,
+                              rpk6: 1,
+                              rpk7: 1,
+                              rpk8: 1,
+                              rpk9: 1,
+                              rpk10: 1,
+                              rpk11: 1,
+                              rpk12: 1,
+                              rpk13: 1,
+                              rpk14: 1,
+                              rpk15: 1,
+                              rpk16: 1,
+                              rpk17: 1,
+                              rpk18: 1,
+                              rpk19: 1,
+                              rpk20: 1,
+                              rpk21: 1,
+                              rpk22: 1,
+                              rpk23: 1,
+                              rpk24: 1,
+                            );
                           } else {
-                            a1 = 0;
-                            a2 = 0;
-                            a3 = 0;
-                            a4 = 0;
-                            a5 = 0;
-                            a6 = 0;
-                            a7 = 0;
-                            a8 = 0;
-                            a9 = 0;
-                            a10 = 0;
-                            a11 = 0;
-                            a12 = 0;
-                            a13 = 0;
-                            a14 = 0;
-                            a15 = 0;
-                            a16 = 0;
-                            a17 = 0;
-                            a18 = 0;
-                            a19 = 0;
-                            a20 = 0;
-                            a21 = 0;
-                            a22 = 0;
-                            a23 = 0;
-                            a24 = 0;
-                            countSessionA = 0;
-                            countMarkA = 24;
-                            localStorage.setPart3MarkSessionA(countSessionA);
-                            localStorage.setPart2MarkB(countMarkA);
-                            // widget.notifyParent();
+                            rpk1 = 0;
+                            rpk2 = 0;
+                            rpk3 = 0;
+                            rpk4 = 0;
+                            rpk5 = 0;
+                            rpk6 = 0;
+                            rpk7 = 0;
+                            rpk8 = 0;
+                            rpk9 = 0;
+                            rpk10 = 0;
+                            rpk11 = 0;
+                            rpk12 = 0;
+                            rpk13 = 0;
+                            rpk14 = 0;
+                            rpk15 = 0;
+                            rpk16 = 0;
+                            rpk17 = 0;
+                            rpk18 = 0;
+                            rpk19 = 0;
+                            rpk20 = 0;
+                            rpk21 = 0;
+                            rpk22 = 0;
+                            rpk23 = 0;
+                            rpk24 = 0;
+
+                            Provider.of<JrSessionModel>(context, listen: false)
+                                .setResultRpk(
+                              rpk1: 0,
+                              rpk2: 0,
+                              rpk3: 0,
+                              rpk4: 0,
+                              rpk5: 0,
+                              rpk6: 0,
+                              rpk7: 0,
+                              rpk8: 0,
+                              rpk9: 0,
+                              rpk10: 0,
+                              rpk11: 0,
+                              rpk12: 0,
+                              rpk13: 0,
+                              rpk14: 0,
+                              rpk15: 0,
+                              rpk16: 0,
+                              rpk17: 0,
+                              rpk18: 0,
+                              rpk19: 0,
+                              rpk20: 0,
+                              rpk21: 0,
+                              rpk22: 0,
+                              rpk23: 0,
+                              rpk24: 0,
+                            );
                           }
                         });
                       });
@@ -1670,7 +1474,7 @@ class _SessionRState extends State<SessionR> {
             padding: const EdgeInsets.only(right: 30, top: 5),
             child: Container(
               child: Text(
-                '$countSessionA/24',
+                '$rpkMark/24',
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),

@@ -12,8 +12,8 @@ import 'package:jpj_qto/common_library/utils/app_localizations_delegate.dart';
 import 'application.dart';
 import 'common_library/services/model/bill_model.dart';
 import 'common_library/services/model/kpp_model.dart';
+import 'common_library/utils/custom_dialog.dart';
 import 'router.gr.dart' as router;
-import 'package:jpj_qto/utils/custom_dialog.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -120,3 +120,6 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 }
+// verify merchant_no and test_code
+
+// after login select car_no, plate_no, group_id can scan QR

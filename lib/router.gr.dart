@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 import 'coming_soon/coming_soon.dart';
 import 'common_library/utils/image_viewer.dart';
+import 'pages/candidate_info/confirm_candidate_info.dart';
 import 'pages/eLearning/elearning.dart';
 import 'pages/eTestingSolution/etesting_solution.dart';
 import 'pages/forgot_password/forgot_password.dart';
@@ -30,10 +31,10 @@ class Routes {
   static const String login = '/Login';
   static const String forgotPassword = '/forgot-password';
   static const String changePassword = '/change-password';
-  static const String selectDrivingInstitute = '/select-driving-institute';
   static const String registerMobile = '/register-mobile';
   static const String registerVerification = '/register-verification';
   static const String registerForm = '/register-form';
+  static const String getVehicleInfo = '/get-vehicle-info';
   static const String home = '/Home';
   static const String settings = '/Settings';
   static const String profile = '/Profile';
@@ -54,16 +55,17 @@ class Routes {
   static const String rpkPartIII = '/rpk-part-ii-i';
   static const String jrCandidateDetails = '/jr-candidate-details';
   static const String jrPartIII = '/jr-part-ii-i';
+  static const String confirmCandidateInfo = '/confirm-candidate-info';
   static const all = <String>{
     authentication,
     clientAccount,
     login,
     forgotPassword,
     changePassword,
-    selectDrivingInstitute,
     registerMobile,
     registerVerification,
     registerForm,
+    getVehicleInfo,
     home,
     settings,
     profile,
@@ -84,6 +86,7 @@ class Routes {
     rpkPartIII,
     jrCandidateDetails,
     jrPartIII,
+    confirmCandidateInfo,
   };
 }
 
@@ -96,10 +99,10 @@ class Router extends RouterBase {
     RouteDef(Routes.login, page: Login),
     RouteDef(Routes.forgotPassword, page: ForgotPassword),
     RouteDef(Routes.changePassword, page: ChangePassword),
-    RouteDef(Routes.selectDrivingInstitute, page: SelectDrivingInstitute),
     RouteDef(Routes.registerMobile, page: RegisterMobile),
     RouteDef(Routes.registerVerification, page: RegisterVerification),
     RouteDef(Routes.registerForm, page: RegisterForm),
+    RouteDef(Routes.getVehicleInfo, page: GetVehicleInfo),
     RouteDef(Routes.home, page: Home),
     RouteDef(Routes.settings, page: Settings),
     RouteDef(Routes.profile, page: Profile),
@@ -120,6 +123,7 @@ class Router extends RouterBase {
     RouteDef(Routes.rpkPartIII, page: RpkPartIII),
     RouteDef(Routes.jrCandidateDetails, page: JrCandidateDetails),
     RouteDef(Routes.jrPartIII, page: JrPartIII),
+    RouteDef(Routes.confirmCandidateInfo, page: ConfirmCandidateInfo),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -155,13 +159,6 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    SelectDrivingInstitute: (data) {
-      final args = data.getArgs<SelectDrivingInstituteArguments>(nullOk: false);
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => SelectDrivingInstitute(args.diList),
-        settings: data,
-      );
-    },
     RegisterMobile: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => RegisterMobile(),
@@ -179,6 +176,12 @@ class Router extends RouterBase {
       final args = data.getArgs<RegisterFormArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
         builder: (context) => RegisterForm(args.data),
+        settings: data,
+      );
+    },
+    GetVehicleInfo: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => GetVehicleInfo(),
         settings: data,
       );
     },
@@ -340,6 +343,21 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    ConfirmCandidateInfo: (data) {
+      final args = data.getArgs<ConfirmCandidateInfoArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ConfirmCandidateInfo(
+          part3Type: args.part3Type,
+          nric: args.nric,
+          name: args.name,
+          qNo: args.qNo,
+          groupId: args.groupId,
+          testDate: args.testDate,
+          testCode: args.testCode,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -351,12 +369,6 @@ class Router extends RouterBase {
 class ClientAccountArguments {
   final dynamic data;
   ClientAccountArguments({@required this.data});
-}
-
-/// SelectDrivingInstitute arguments holder class
-class SelectDrivingInstituteArguments {
-  final dynamic diList;
-  SelectDrivingInstituteArguments({@required this.diList});
 }
 
 /// RegisterVerification arguments holder class
@@ -454,4 +466,23 @@ class JrPartIIIArguments {
       @required this.groupId,
       @required this.testCode,
       @required this.vehNo});
+}
+
+/// ConfirmCandidateInfo arguments holder class
+class ConfirmCandidateInfoArguments {
+  final String part3Type;
+  final String nric;
+  final String name;
+  final String qNo;
+  final String groupId;
+  final String testDate;
+  final String testCode;
+  ConfirmCandidateInfoArguments(
+      {@required this.part3Type,
+      @required this.nric,
+      @required this.name,
+      @required this.qNo,
+      @required this.groupId,
+      @required this.testDate,
+      @required this.testCode});
 }

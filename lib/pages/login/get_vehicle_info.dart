@@ -1,0 +1,235 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jpj_qto/common_library/utils/custom_button.dart';
+import 'package:jpj_qto/common_library/utils/uppercase_formatter.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import '../../router.gr.dart';
+
+class GetVehicleInfo extends StatefulWidget {
+  @override
+  _GetVehicleInfoState createState() => _GetVehicleInfoState();
+}
+
+class _GetVehicleInfoState extends State<GetVehicleInfo> {
+  final _formKey = GlobalKey<FormState>();
+  final localStorage = LocalStorage();
+  final groupIdController = TextEditingController();
+  final plateNoController = TextEditingController();
+  final carNoController = TextEditingController();
+  final merchantNoController = TextEditingController();
+  final groupIdFocus = FocusNode();
+  final plateNoFocus = FocusNode();
+  final carNoFocus = FocusNode();
+  final merchantNoFocus = FocusNode();
+
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  QRViewController qrController;
+  bool showCameraIcon = true;
+  bool showQR = false;
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      qrController?.pauseCamera();
+    } else if (Platform.isIOS) {
+      qrController?.resumeCamera();
+    }
+  }
+
+  Widget _buildQrView(BuildContext context) {
+    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+    var scanArea = 300.0;
+    // To ensure the Scanner view is properly sizes after rotation
+    // we need to listen for Flutter SizeChanged notification and update controller
+    return QRView(
+      key: qrKey,
+      onQRViewCreated: _onQRViewCreated,
+      overlay: QrScannerOverlayShape(
+        borderColor: Colors.red,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
+        cutOutSize: scanArea,
+      ),
+    );
+  }
+
+  void _onQRViewCreated(QRViewController qrController) {
+    setState(() {
+      this.qrController = qrController;
+    });
+    qrController.scannedDataStream.listen((scanData) {
+      setState(() {
+        groupIdController.text =
+            jsonDecode(scanData.code)['Table1'][0]['group_id'];
+        carNoController.text = jsonDecode(scanData.code)['Table1'][0]['car_no'];
+        plateNoController.text =
+            jsonDecode(scanData.code)['Table1'][0]['plate_no'];
+        merchantNoController.text =
+            jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
+        showCameraIcon = true;
+        showQR = false;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    groupIdController?.dispose();
+    plateNoController?.dispose();
+    carNoController?.dispose();
+    groupIdFocus?.dispose();
+    plateNoFocus?.dispose();
+    carNoFocus?.dispose();
+    qrController?.dispose();
+    super.dispose();
+  }
+
+  _submit() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      FocusScope.of(context).requestFocus(new FocusNode());
+
+      localStorage.saveEnrolledGroupId(groupIdController.text);
+      localStorage.saveCarNo(carNoController.text.replaceAll(' ', ''));
+      localStorage.savePlateNo(plateNoController.text.replaceAll(' ', ''));
+      localStorage
+          .saveMerchantDbCode(merchantNoController.text.replaceAll(' ', ''));
+
+      ExtendedNavigator.of(context).replace(Routes.home);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Get Vehicle Info'),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Container(
+                    width: 1300.w,
+                    margin: EdgeInsets.symmetric(vertical: 30.h),
+                    child: TextFormField(
+                      inputFormatters: [UpperCaseTextFormatter()],
+                      focusNode: groupIdFocus,
+                      controller: groupIdController,
+                      decoration: InputDecoration(labelText: 'Group ID'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Group ID is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 1300.w,
+                    margin: EdgeInsets.symmetric(vertical: 30.h),
+                    child: TextFormField(
+                      inputFormatters: [UpperCaseTextFormatter()],
+                      focusNode: carNoFocus,
+                      controller: carNoController,
+                      decoration: InputDecoration(labelText: 'Car No'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Car no is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 1300.w,
+                    margin: EdgeInsets.symmetric(vertical: 30.h),
+                    child: TextFormField(
+                      inputFormatters: [UpperCaseTextFormatter()],
+                      focusNode: plateNoFocus,
+                      controller: plateNoController,
+                      decoration: InputDecoration(labelText: 'Plate No'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Plate no is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 1300.w,
+                    margin: EdgeInsets.symmetric(vertical: 30.h),
+                    child: TextFormField(
+                      inputFormatters: [UpperCaseTextFormatter()],
+                      focusNode: merchantNoFocus,
+                      controller: merchantNoController,
+                      decoration: InputDecoration(labelText: 'Merchant No'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Merchant no is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: showQR,
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      child: _buildQrView(context),
+                    ),
+                  ),
+                  Visibility(
+                    visible: showCameraIcon,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 100.h),
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            showQR = true;
+                            showCameraIcon = false;
+                          });
+                        },
+                        iconSize: 250,
+                        icon: Icon(Icons.camera_alt),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 30.h),
+                    child: CustomButton(
+                      onPressed: _submit,
+                      buttonColor: Color(0xffdd0e0e),
+                      title: 'Save',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

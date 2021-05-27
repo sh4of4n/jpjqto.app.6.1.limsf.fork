@@ -5,6 +5,7 @@ import 'package:jpj_qto/pages/forgot_password/forgot_password.dart';
 import 'package:jpj_qto/pages/profile/profile.dart';
 import 'package:jpj_qto/pages/register/register.dart';
 import 'package:jpj_qto/pages/rpk/rpk.dart';
+import 'pages/candidate_info/confirm_candidate_info.dart';
 import 'pages/eTestingSolution/etesting_solution.dart';
 import 'pages/home/home.dart';
 import 'pages/jalan_raya/jalan_raya.dart';
@@ -20,10 +21,10 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     MaterialRoute(page: Login),
     MaterialRoute(page: ForgotPassword),
     MaterialRoute(page: ChangePassword),
-    MaterialRoute(page: SelectDrivingInstitute),
     MaterialRoute(page: RegisterMobile),
     MaterialRoute(page: RegisterVerification),
     MaterialRoute(page: RegisterForm),
+    MaterialRoute(page: GetVehicleInfo),
     MaterialRoute(page: Home),
     MaterialRoute(page: Settings),
     MaterialRoute(page: Profile),
@@ -44,6 +45,7 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     MaterialRoute(page: RpkPartIII),
     MaterialRoute(page: JrCandidateDetails),
     MaterialRoute(page: JrPartIII),
+    MaterialRoute(page: ConfirmCandidateInfo),
   ],
 )
 class $Router {}

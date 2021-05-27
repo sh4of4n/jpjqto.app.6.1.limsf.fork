@@ -20,18 +20,17 @@ class SessionF extends StatefulWidget {
 class _SessionFState extends State<SessionF> {
   final localStorage = LocalStorage();
 
-  int g1 = 0,
-      g2 = 0,
-      g3 = 0,
-      g4 = 0,
-      g5 = 0,
-      g6 = 0,
-      g7 = 0,
-      g8 = 0,
-      g9 = 0,
-      g10 = 0,
-      g11 = 0,
-      g12 = 0;
+  int f1 = 0,
+      f2 = 0,
+      f3 = 0,
+      f4 = 0,
+      f5 = 0,
+      f6 = 0,
+      f7 = 0,
+      f8 = 0,
+      f9 = 0,
+      f10 = 0;
+
   int countSessionG = 0;
   int countMarkGM = 0;
   int countMarkG = 0;
@@ -39,6 +38,9 @@ class _SessionFState extends State<SessionF> {
   bool sessionG = false;
   @override
   Widget build(BuildContext context) {
+    int fMark = context.watch<JrSessionModel>().fMark;
+    int fMandatoryMark = context.watch<JrSessionModel>().fMandatoryMark;
+
     return Stack(
       children: <Widget>[
         custom.ExpansionTile(
@@ -62,19 +64,19 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g1 == 1) {
-                    g1 = 0;
+                  if (f1 == 1) {
+                    f1 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g1: 0);
+                        .setResultF(f1: 0);
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
                     // widget.notifyParent();
                   } else {
-                    g1 = 1;
+                    f1 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g1: 1);
+                        .setResultF(f1: 1);
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
@@ -97,7 +99,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_g1')),
+                                .translate('part3_session_f1')),
                           )),
                     ),
                     Padding(
@@ -108,7 +110,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g1'),
+                          child: Text('$f1'),
                         )),
                       ),
                     ),
@@ -123,19 +125,19 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g2 == 1) {
-                    g2 = 0;
+                  if (f2 == 1) {
+                    f2 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g2: 0);
+                        .setResultF(f2: 0);
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
                     // widget.notifyParent();
                   } else {
-                    g2 = 1;
+                    f2 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g2: 1);
+                        .setResultF(f2: 1);
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
@@ -158,7 +160,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_g2')),
+                                .translate('part3_session_f2')),
                           )),
                     ),
                     Padding(
@@ -169,7 +171,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g2'),
+                          child: Text('$f2'),
                         )),
                       ),
                     ),
@@ -184,19 +186,19 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g3 == 1) {
-                    g3 = 0;
+                  if (f3 == 1) {
+                    f3 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g3: 0);
+                        .setResultF(f3: 0);
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
                     // widget.notifyParent();
                   } else {
-                    g3 = 1;
+                    f3 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g3: 1);
+                        .setResultF(f3: 1);
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
@@ -219,7 +221,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_g3')),
+                                .translate('part3_session_f3')),
                           )),
                     ),
                     Padding(
@@ -230,7 +232,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g3'),
+                          child: Text('$f3'),
                         )),
                       ),
                     ),
@@ -245,19 +247,19 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g4 == 1) {
-                    g4 = 0;
+                  if (f4 == 1) {
+                    f4 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g4: 0);
+                        .setResultF(f4: 0);
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
                     // widget.notifyParent();
                   } else {
-                    g4 = 1;
+                    f4 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g4: 1);
+                        .setResultF(f4: 1);
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
@@ -280,7 +282,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_g4')),
+                                .translate('part3_session_f4')),
                           )),
                     ),
                     Padding(
@@ -291,7 +293,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g4'),
+                          child: Text('$f4'),
                         )),
                       ),
                     ),
@@ -306,19 +308,19 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g5 == 1) {
-                    g5 = 0;
+                  if (f5 == 1) {
+                    f5 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g5: 0);
+                        .setResultF(f5: 0);
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
                     // widget.notifyParent();
                   } else {
-                    g5 = 1;
+                    f5 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g5: 1);
+                        .setResultF(f5: 1);
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
@@ -341,7 +343,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_g5')),
+                                .translate('part3_session_f5')),
                           )),
                     ),
                     Padding(
@@ -352,7 +354,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g5'),
+                          child: Text('$f5'),
                         )),
                       ),
                     ),
@@ -367,10 +369,10 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g6 == 1) {
-                    g6 = 0;
+                  if (f6 == 1) {
+                    f6 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g6: 0);
+                        .setResultF(f6: 0);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
 
@@ -379,9 +381,9 @@ class _SessionFState extends State<SessionF> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     // widget.notifyParent();
                   } else {
-                    g6 = 1;
+                    f6 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g6: 1);
+                        .setResultF(f6: 1);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
 
@@ -406,7 +408,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(AppLocalizations.of(context)
-                                .translate('part3_session_g6')),
+                                .translate('part3_session_f6')),
                           )),
                     ),
                     Container(
@@ -419,7 +421,7 @@ class _SessionFState extends State<SessionF> {
                             child: Center(
                                 child: Padding(
                               padding: const EdgeInsets.all(2.0),
-                              child: Text('$g6'),
+                              child: Text('$f6'),
                             )),
                           ),
                         ),
@@ -436,10 +438,10 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g7 == 1) {
-                    g7 = 0;
+                  if (f7 == 1) {
+                    f7 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g7: 0);
+                        .setResultF(f7: 0);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
 
@@ -448,9 +450,9 @@ class _SessionFState extends State<SessionF> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     // widget.notifyParent();
                   } else {
-                    g7 = 1;
+                    f7 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g7: 1);
+                        .setResultF(f7: 1);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
 
@@ -476,7 +478,7 @@ class _SessionFState extends State<SessionF> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_g7'),
+                                  .translate('part3_session_f7'),
                             ),
                           )),
                     ),
@@ -488,7 +490,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g7'),
+                          child: Text('$f7'),
                         )),
                       ),
                     ),
@@ -503,10 +505,10 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g8 == 1) {
-                    g8 = 0;
+                  if (f8 == 1) {
+                    f8 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g8: 0);
+                        .setResultF(f8: 0);
                     countMarkGM -= 1;
                     localStorage.setPart3MarkGM(countMarkGM);
 
@@ -515,9 +517,9 @@ class _SessionFState extends State<SessionF> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     // widget.notifyParent();
                   } else {
-                    g8 = 1;
+                    f8 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g8: 1);
+                        .setResultF(f8: 1);
                     countMarkGM += 1;
                     localStorage.setPart3MarkGM(countMarkGM);
 
@@ -543,7 +545,7 @@ class _SessionFState extends State<SessionF> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_g8_bold'),
+                                  .translate('part3_session_f8_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -556,7 +558,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g8'),
+                          child: Text('$f8'),
                         )),
                       ),
                     ),
@@ -571,10 +573,10 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g9 == 1) {
-                    g9 = 0;
+                  if (f9 == 1) {
+                    f9 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g9: 0);
+                        .setResultF(f9: 0);
                     countMarkGM -= 1;
                     localStorage.setPart3MarkGM(countMarkGM);
 
@@ -583,9 +585,9 @@ class _SessionFState extends State<SessionF> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     // widget.notifyParent();
                   } else {
-                    g9 = 1;
+                    f9 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g9: 1);
+                        .setResultF(f9: 1);
                     countMarkGM += 1;
                     localStorage.setPart3MarkGM(countMarkGM);
 
@@ -611,7 +613,7 @@ class _SessionFState extends State<SessionF> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                                 AppLocalizations.of(context)
-                                    .translate('part3_session_g9_bold'),
+                                    .translate('part3_session_f9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
                     ),
@@ -623,7 +625,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g9'),
+                          child: Text('$f9'),
                         )),
                       ),
                     ),
@@ -638,10 +640,10 @@ class _SessionFState extends State<SessionF> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (g10 == 1) {
-                    g10 = 0;
+                  if (f10 == 1) {
+                    f10 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g10: 0);
+                        .setResultF(f10: 0);
                     countMarkGM -= 1;
                     localStorage.setPart3MarkGM(countMarkGM);
 
@@ -650,9 +652,9 @@ class _SessionFState extends State<SessionF> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     // widget.notifyParent();
                   } else {
-                    g10 = 1;
+                    f10 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultG(g10: 1);
+                        .setResultF(f10: 1);
                     countMarkGM += 1;
                     localStorage.setPart3MarkGM(countMarkGM);
 
@@ -678,7 +680,7 @@ class _SessionFState extends State<SessionF> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_g10_bold'),
+                                  .translate('part3_session_f10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -691,7 +693,7 @@ class _SessionFState extends State<SessionF> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$g10'),
+                          child: Text('$f10'),
                         )),
                       ),
                     ),
@@ -722,45 +724,55 @@ class _SessionFState extends State<SessionF> {
                         sessionG = value;
                         setState(() {
                           if (value) {
-                            g1 = 1;
-                            g2 = 1;
-                            g3 = 1;
-                            g4 = 1;
-                            g5 = 1;
-                            g6 = 1;
-                            g7 = 1;
-                            g8 = 1;
-                            g9 = 1;
-                            g10 = 1;
-                            g11 = 1;
-                            g12 = 1;
-                            countSessionG = 10;
-                            countMarkGM = 3;
-                            countMarkG = 7;
-                            localStorage.setPart3MarkSessionH(countSessionG);
-                            localStorage.setPart3MarkGM(countMarkGM);
-                            localStorage.setPart3MarkG(countMarkG);
-                            // widget.notifyParent();
+                            f1 = 1;
+                            f2 = 1;
+                            f3 = 1;
+                            f4 = 1;
+                            f5 = 1;
+                            f6 = 1;
+                            f7 = 1;
+                            f8 = 1;
+                            f9 = 1;
+                            f10 = 1;
+
+                            Provider.of<JrSessionModel>(context, listen: false)
+                                .setResultF(
+                              f1: 1,
+                              f2: 1,
+                              f3: 1,
+                              f4: 1,
+                              f5: 1,
+                              f6: 1,
+                              f7: 1,
+                              f8: 1,
+                              f9: 1,
+                              f10: 1,
+                            );
                           } else {
-                            g1 = 0;
-                            g2 = 0;
-                            g3 = 0;
-                            g4 = 0;
-                            g5 = 0;
-                            g6 = 0;
-                            g7 = 0;
-                            g8 = 0;
-                            g9 = 0;
-                            g10 = 0;
-                            g11 = 0;
-                            g12 = 0;
-                            countSessionG = 0;
-                            countMarkGM = 0;
-                            countMarkG = 0;
-                            localStorage.setPart3MarkSessionH(countSessionG);
-                            localStorage.setPart3MarkGM(countMarkGM);
-                            localStorage.setPart3MarkG(countMarkG);
-                            // widget.notifyParent();
+                            f1 = 0;
+                            f2 = 0;
+                            f3 = 0;
+                            f4 = 0;
+                            f5 = 0;
+                            f6 = 0;
+                            f7 = 0;
+                            f8 = 0;
+                            f9 = 0;
+                            f10 = 0;
+
+                            Provider.of<JrSessionModel>(context, listen: false)
+                                .setResultF(
+                              f1: 0,
+                              f2: 0,
+                              f3: 0,
+                              f4: 0,
+                              f5: 0,
+                              f6: 0,
+                              f7: 0,
+                              f8: 0,
+                              f9: 0,
+                              f10: 0,
+                            );
                           }
                         });
                       });
@@ -777,7 +789,7 @@ class _SessionFState extends State<SessionF> {
             padding: const EdgeInsets.only(right: 35, top: 5),
             child: Container(
               child: Text(
-                '$countSessionG/10',
+                '${fMark + fMandatoryMark}/10',
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),

@@ -10,7 +10,6 @@ import 'package:jpj_qto/common_library/services/repository/auth_repository.dart'
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/device_info.dart';
-import 'package:jpj_qto/common_library/utils/local_storage.dart';
 import 'package:jpj_qto/common_library/utils/uppercase_formatter.dart';
 import 'package:jpj_qto/common_library/utils/loading_model.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 
 import '../../router.gr.dart';
 
@@ -1356,10 +1356,10 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
           await authRepo.getUserRegisteredDI(context: context, type: 'LOGIN');
 
       if (getRegisteredDi.isSuccess) {
-        localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
+        localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
         ExtendedNavigator.of(context)
-            .pushAndRemoveUntil(Routes.home, (r) => false);
+            .pushAndRemoveUntil(Routes.getVehicleInfo, (r) => false);
       } else {
         ExtendedNavigator.of(context)
             .pushAndRemoveUntil(Routes.login, (r) => false);

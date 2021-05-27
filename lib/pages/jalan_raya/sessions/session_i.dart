@@ -20,12 +20,13 @@ class SessionI extends StatefulWidget {
 class _SessionIState extends State<SessionI> {
   final localStorage = LocalStorage();
 
-  int j1 = 0, j2 = 0, j3 = 0, j4 = 0, j5 = 0;
-  int countMarkJM = 0;
+  int i1 = 0, i2 = 0, i3 = 0, i4 = 0, i5 = 0;
 
   bool sessionH = false;
   @override
   Widget build(BuildContext context) {
+    int iMandatoryMark = context.watch<JrSessionModel>().iMandatoryMark;
+
     return Stack(
       children: <Widget>[
         custom.ExpansionTile(
@@ -46,21 +47,14 @@ class _SessionIState extends State<SessionI> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (j1 == 1) {
-                    j1 = 0;
+                  if (i1 == 1) {
+                    i1 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j1: 0);
-                    countMarkJM -= 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-                    // widget.notifyParent();
-                  } else if (j1 == 0) {
-                    j1 = 1;
+                        .setResultI(i1: 0);
+                  } else if (i1 == 0) {
+                    i1 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j1: 1);
-                    countMarkJM += 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-
-                    // widget.notifyParent();
+                        .setResultI(i1: 1);
                   }
                 });
               },
@@ -79,7 +73,7 @@ class _SessionIState extends State<SessionI> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_j1_bold'),
+                                  .translate('part3_session_i1_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -92,7 +86,7 @@ class _SessionIState extends State<SessionI> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$j1'),
+                          child: Text('$i1'),
                         )),
                       ),
                     ),
@@ -107,21 +101,14 @@ class _SessionIState extends State<SessionI> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (j2 == 1) {
-                    j2 = 0;
+                  if (i2 == 1) {
+                    i2 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j2: 0);
-                    countMarkJM -= 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-
-                    // widget.notifyParent();
-                  } else if (j2 == 0) {
-                    j2 = 1;
+                        .setResultI(i2: 0);
+                  } else if (i2 == 0) {
+                    i2 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j2: 1);
-                    countMarkJM += 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-                    // widget.notifyParent();
+                        .setResultI(i2: 1);
                   }
                 });
               },
@@ -140,7 +127,7 @@ class _SessionIState extends State<SessionI> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_j2_bold'),
+                                  .translate('part3_session_i2_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -153,7 +140,7 @@ class _SessionIState extends State<SessionI> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$j2'),
+                          child: Text('$i2'),
                         )),
                       ),
                     ),
@@ -168,22 +155,14 @@ class _SessionIState extends State<SessionI> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (j3 == 1) {
-                    j3 = 0;
+                  if (i3 == 1) {
+                    i3 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j3: 0);
-                    countMarkJM -= 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-
-                    // widget.notifyParent();
-                  } else if (j3 == 0) {
-                    j3 = 1;
+                        .setResultI(i3: 0);
+                  } else if (i3 == 0) {
+                    i3 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j3: 1);
-                    countMarkJM += 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-
-                    // widget.notifyParent();
+                        .setResultI(i3: 1);
                   }
                 });
               },
@@ -202,7 +181,7 @@ class _SessionIState extends State<SessionI> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_j3_bold'),
+                                  .translate('part3_session_i3_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -215,7 +194,7 @@ class _SessionIState extends State<SessionI> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$j3'),
+                          child: Text('$i3'),
                         )),
                       ),
                     ),
@@ -230,21 +209,14 @@ class _SessionIState extends State<SessionI> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (j4 == 1) {
-                    j4 = 0;
+                  if (i4 == 1) {
+                    i4 = 0;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j4: 0);
-                    countMarkJM -= 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-                    // widget.notifyParent();
-                  } else if (j4 == 0) {
-                    j4 = 1;
+                        .setResultI(i4: 0);
+                  } else if (i4 == 0) {
+                    i4 = 1;
                     Provider.of<JrSessionModel>(context, listen: false)
-                        .setResultJ(j4: 1);
-                    countMarkJM += 1;
-                    localStorage.setPart3MarkJM(countMarkJM);
-
-                    // widget.notifyParent();
+                        .setResultI(i4: 1);
                   }
                 });
               },
@@ -263,7 +235,7 @@ class _SessionIState extends State<SessionI> {
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('part3_session_j4_bold'),
+                                  .translate('part3_session_i4_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
@@ -276,7 +248,7 @@ class _SessionIState extends State<SessionI> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text('$j4'),
+                          child: Text('$i4'),
                         )),
                       ),
                     ),
@@ -305,21 +277,31 @@ class _SessionIState extends State<SessionI> {
                     sessionH = value;
                     setState(() {
                       if (value) {
-                        j1 = 1;
-                        j2 = 1;
-                        j3 = 1;
-                        j4 = 1;
-                        countMarkJM = 4;
-                        localStorage.setPart3MarkJM(countMarkJM);
-                        // widget.notifyParent();
+                        i1 = 1;
+                        i2 = 1;
+                        i3 = 1;
+                        i4 = 1;
+
+                        Provider.of<JrSessionModel>(context, listen: false)
+                            .setResultI(
+                          i1: 1,
+                          i2: 1,
+                          i3: 1,
+                          i4: 1,
+                        );
                       } else {
-                        j1 = 0;
-                        j2 = 0;
-                        j3 = 0;
-                        j4 = 0;
-                        countMarkJM = 0;
-                        localStorage.setPart3MarkJM(countMarkJM);
-                        // widget.notifyParent();
+                        i1 = 0;
+                        i2 = 0;
+                        i3 = 0;
+                        i4 = 0;
+
+                        Provider.of<JrSessionModel>(context, listen: false)
+                            .setResultI(
+                          i1: 0,
+                          i2: 0,
+                          i3: 0,
+                          i4: 0,
+                        );
                       }
                     });
                   });
@@ -334,7 +316,7 @@ class _SessionIState extends State<SessionI> {
             padding: const EdgeInsets.only(right: 40, top: 5),
             child: Container(
               child: Text(
-                '$countMarkJM/4',
+                '$iMandatoryMark/4',
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),

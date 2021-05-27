@@ -71,18 +71,6 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
     // print('deviceId: ' + deviceId);
   }
 
-  _getCurrentLocation() async {
-    await location.getCurrentLocation();
-
-    setState(() {
-      _latitude = location.latitude != null ? location.latitude.toString() : '';
-      _longitude =
-          location.longitude != null ? location.longitude.toString() : '';
-    });
-
-    // print('$_latitude, $_longitude');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -328,7 +316,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
           if (getRegisteredDi.isSuccess) {
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
 
-            ExtendedNavigator.of(context).replace(Routes.home);
+            ExtendedNavigator.of(context).replace(Routes.getVehicleInfo);
           } else {
             setState(() {
               _isLoading = false;
@@ -346,7 +334,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
         else {
           localStorage.saveDiCode(result.data[0].merchantNo);
 
-          ExtendedNavigator.of(context).replace(Routes.home);
+          ExtendedNavigator.of(context).replace(Routes.getVehicleInfo);
         }
       } else {
         setState(() {

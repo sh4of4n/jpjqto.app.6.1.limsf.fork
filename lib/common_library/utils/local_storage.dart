@@ -65,7 +65,7 @@ class LocalStorage {
   }
 
   Future<String> getLocale() async {
-    return Preference.getString(kLocale, def: 'en');
+    return Preference.getString(kLocale, def: 'ms');
   }
 
   Future<void> saveWsUrl(String wsUrl) {

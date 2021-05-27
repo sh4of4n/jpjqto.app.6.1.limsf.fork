@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:jpj_qto/utils/custom_button.dart';
-import 'package:jpj_qto/utils/custom_dialog.dart';
+import 'package:jpj_qto/common_library/utils/custom_button.dart';
+import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';

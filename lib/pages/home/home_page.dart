@@ -5,7 +5,6 @@ import 'package:jpj_qto/common_library/services/repository/auth_repository.dart'
 import 'package:jpj_qto/common_library/services/repository/kpp_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/utils/constants.dart';
-import 'package:jpj_qto/utils/language_options.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';

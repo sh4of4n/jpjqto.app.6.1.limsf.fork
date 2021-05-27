@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
+import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
+import 'package:jpj_qto/common_library/utils/loading_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
-import 'package:jpj_qto/utils/custom_dialog.dart';
 import 'package:jpj_qto/utils/language_options.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
-import 'package:jpj_qto/widgets/loading_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -154,7 +154,7 @@ class _SettingsState extends State<Settings> {
             ],
           ),
         ),
-        LoadingModal(isVisible: _isLoading, color: primaryColor),
+        LoadingModel(isVisible: _isLoading, color: primaryColor),
       ],
     );
   }
