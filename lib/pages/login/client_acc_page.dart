@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jpj_qto/pages/login/client_acc_tablet_form.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -57,12 +58,23 @@ class _ClientAccountState extends State<ClientAccount> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 60.h),
+                    //   child: Image.asset(
+                    //     ImagesConstant().logo,
+                    //     width: 1000.w,
+                    //     height: 600.h,
+                    //   ),
+                    // ),
                     Padding(
-                      padding: EdgeInsets.only(top: 60.h),
-                      child: Image.asset(
-                        ImagesConstant().logo,
-                        width: 1000.w,
-                        height: 600.h,
+                      padding: EdgeInsets.only(top: 150.h),
+                      child: Text(
+                        'JPJ QTO',
+                        style: GoogleFonts.lato(
+                          fontSize: 280.sp,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xff35368D),
+                        ),
                       ),
                     ),
                   ],
@@ -118,9 +130,17 @@ class _ClientAccountState extends State<ClientAccount> {
                     left: 220.w, right: 220.w, top: 250.0.h, bottom: 100.h),
                 child: Column(
                   children: <Widget>[
-                    Image.asset(
-                      ImagesConstant().logo,
-                      height: 600.h,
+                    // Image.asset(
+                    //   ImagesConstant().logo,
+                    //   height: 600.h,
+                    // ),
+                    Text(
+                      'JPJ QTO',
+                      style: GoogleFonts.lato(
+                        fontSize: 280.sp,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xff35368D),
+                      ),
                     ),
                     SizedBox(
                       height: 100.h,

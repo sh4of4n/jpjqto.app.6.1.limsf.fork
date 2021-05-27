@@ -25,6 +25,8 @@ class _SettingsState extends State<Settings> {
   double _defIconSize = 30;
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
+  String _clientAcc = '';
+  String _merchantNo = '';
 
   bool _isLoading = false;
 
@@ -37,6 +39,8 @@ class _SettingsState extends State<Settings> {
 
   _getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    _clientAcc = await localStorage.getCaUid();
+    _merchantNo = await localStorage.getMerchantDbCode();
 
     setState(() {
       appVersion = packageInfo.version;
@@ -129,6 +133,7 @@ class _SettingsState extends State<Settings> {
                 title:
                     Text(AppLocalizations.of(context).translate('version_lbl')),
                 subtitle: Text('V.$appVersion'),
+
                 /* onTap: () async {
                     count += 1;
 
@@ -150,6 +155,20 @@ class _SettingsState extends State<Settings> {
                       );
                     }
                   }, */
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.code, size: _defIconSize),
+                title:
+                    Text(AppLocalizations.of(context).translate('client_acc')),
+                subtitle: Text(_clientAcc),
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.shopping_bag_rounded, size: _defIconSize),
+                title:
+                    Text(AppLocalizations.of(context).translate('merchant_no')),
+                subtitle: Text(_merchantNo),
               ),
             ],
           ),

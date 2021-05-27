@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:jpj_qto/utils/local_storage.dart';
+
 import '../model/fpx_model.dart';
 import '../networking.dart';
 import '../response.dart';
 import '../../../utils/app_config.dart';
-import '../../utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:xml2json/xml2json.dart';
 

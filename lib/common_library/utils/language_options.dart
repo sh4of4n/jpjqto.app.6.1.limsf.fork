@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../services/model/provider_model.dart';
 import 'app_localizations.dart';
 import 'application.dart';
-import 'local_storage.dart';
 
 class LanguageOptions extends StatelessWidget {
   final localStorage = LocalStorage();

@@ -1,3 +1,12 @@
+0.0.8
+
+- Change eDriving logo in login, forgot password, client acc form to JPJ QTO
+- Display merchant no and client acc in settings page
+- Add change car option in home page
+- Check if QR code is valid and display pop up
+- Fix get queue no list not displaying
+- Empty queue no list will notify user with pop up
+
 0.0.7
 
 - Add another page after login to enter veh no

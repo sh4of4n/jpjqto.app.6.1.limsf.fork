@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/services/location.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
@@ -220,6 +221,12 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 HomeModule(),
+                InkWell(
+                  onTap: () =>
+                      ExtendedNavigator.of(context).push(Routes.getVehicleInfo),
+                  child: Text(
+                      AppLocalizations.of(context).translate('change_car')),
+                )
                 /* Expanded(
                   child: GestureDetector(
                     onTap: () {

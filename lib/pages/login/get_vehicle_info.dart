@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
+import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/uppercase_formatter.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -19,6 +21,7 @@ class GetVehicleInfo extends StatefulWidget {
 class _GetVehicleInfoState extends State<GetVehicleInfo> {
   final _formKey = GlobalKey<FormState>();
   final localStorage = LocalStorage();
+  final customDialog = CustomDialog();
   final groupIdController = TextEditingController();
   final plateNoController = TextEditingController();
   final carNoController = TextEditingController();
@@ -34,6 +37,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
   bool showQR = false;
 
   @override
+  void initState() {
+    super.initState();
+
+    getSavedInfo();
+  }
+
+  @override
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
@@ -45,7 +55,10 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = 300.0;
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 200.0
+        : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
@@ -65,18 +78,40 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     setState(() {
       this.qrController = qrController;
     });
-    qrController.scannedDataStream.listen((scanData) {
-      setState(() {
-        groupIdController.text =
-            jsonDecode(scanData.code)['Table1'][0]['group_id'];
-        carNoController.text = jsonDecode(scanData.code)['Table1'][0]['car_no'];
-        plateNoController.text =
-            jsonDecode(scanData.code)['Table1'][0]['plate_no'];
-        merchantNoController.text =
-            jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
-        showCameraIcon = true;
-        showQR = false;
-      });
+    qrController.scannedDataStream.listen((scanData) async {
+      await qrController?.pauseCamera();
+
+      try {
+        setState(() {
+          groupIdController.text =
+              jsonDecode(scanData.code)['Table1'][0]['group_id'];
+          carNoController.text =
+              jsonDecode(scanData.code)['Table1'][0]['car_no'];
+          plateNoController.text =
+              jsonDecode(scanData.code)['Table1'][0]['plate_no'];
+          merchantNoController.text =
+              jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
+          showCameraIcon = true;
+          showQR = false;
+        });
+      } catch (e) {
+        customDialog.show(
+          barrierDismissable: true,
+          context: context,
+          content: AppLocalizations.of(context).translate('invalid_qr'),
+          customActions: [
+            FlatButton(
+              onPressed: () {
+                ExtendedNavigator.of(context).pop();
+
+                qrController.resumeCamera();
+              },
+              child: Text('Ok'),
+            ),
+          ],
+          type: DialogType.GENERAL,
+        );
+      }
     });
   }
 
@@ -90,6 +125,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     carNoFocus?.dispose();
     qrController?.dispose();
     super.dispose();
+  }
+
+  getSavedInfo() async {
+    groupIdController.text = await localStorage.getEnrolledGroupId() ?? '';
+    plateNoController.text = await localStorage.getPlateNo() ?? '';
+    carNoController.text = await localStorage.getCarNo() ?? '';
+    merchantNoController.text = await localStorage.getMerchantDbCode() ?? '';
   }
 
   _submit() {
@@ -135,7 +177,16 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       inputFormatters: [UpperCaseTextFormatter()],
                       focusNode: groupIdFocus,
                       controller: groupIdController,
-                      decoration: InputDecoration(labelText: 'Group ID'),
+                      decoration: InputDecoration(
+                        labelText: 'Group ID',
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            WidgetsBinding.instance.addPostFrameCallback(
+                                (_) => groupIdController.clear());
+                          },
+                        ),
+                      ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Group ID is required.';
@@ -151,7 +202,16 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       inputFormatters: [UpperCaseTextFormatter()],
                       focusNode: carNoFocus,
                       controller: carNoController,
-                      decoration: InputDecoration(labelText: 'Car No'),
+                      decoration: InputDecoration(
+                        labelText: 'Car No',
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            WidgetsBinding.instance.addPostFrameCallback(
+                                (_) => carNoController.clear());
+                          },
+                        ),
+                      ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Car no is required.';
@@ -167,7 +227,16 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       inputFormatters: [UpperCaseTextFormatter()],
                       focusNode: plateNoFocus,
                       controller: plateNoController,
-                      decoration: InputDecoration(labelText: 'Plate No'),
+                      decoration: InputDecoration(
+                        labelText: 'Plate No',
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            WidgetsBinding.instance.addPostFrameCallback(
+                                (_) => plateNoController.clear());
+                          },
+                        ),
+                      ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Plate no is required.';
@@ -183,7 +252,16 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       inputFormatters: [UpperCaseTextFormatter()],
                       focusNode: merchantNoFocus,
                       controller: merchantNoController,
-                      decoration: InputDecoration(labelText: 'Merchant No'),
+                      decoration: InputDecoration(
+                        labelText: 'Merchant No',
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            WidgetsBinding.instance.addPostFrameCallback(
+                                (_) => merchantNoController.clear());
+                          },
+                        ),
+                      ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Merchant no is required.';

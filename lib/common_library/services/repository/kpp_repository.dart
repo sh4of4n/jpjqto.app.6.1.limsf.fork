@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:jpj_qto/utils/local_storage.dart';
+
 import '../model/kpp_model.dart';
 import '../networking.dart';
 import '../response.dart';
 import '../../../utils/app_config.dart';
-import '../../utils/local_storage.dart';
 
 class KppRepo {
   final appConfig = AppConfig();

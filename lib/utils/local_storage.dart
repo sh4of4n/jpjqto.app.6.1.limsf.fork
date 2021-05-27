@@ -31,8 +31,11 @@ class LocalStorage {
   static const String kNickName = 'NICK_NAME';
   static const String kMerchantDbCode = 'MERCHANT_DB_CODE';
   static const String kProfilePic = 'PROFILE_PIC';
+  static const String kLoginDeviceId = 'LOGIN_DEVICE_ID';
   static const String kCarNo = 'CAR_NO';
   static const String kPlateNo = 'PLATE_NO';
+  static const String kMsgDoc = 'MSG_DOC';
+  static const String kMsgRef = 'MSG_REF';
 
   static const String part2MarkSessionB = 'part2MarkB';
   static const String part2MarkSessionC = 'part2MarkC';
@@ -734,6 +737,14 @@ class LocalStorage {
     return Preference.setString(kProfilePic, profilePic);
   }
 
+  Future<String> getLoginDeviceId() async {
+    return Preference.getString(kLoginDeviceId, def: '');
+  }
+
+  Future<void> saveLoginDeviceId(String deviceId) async {
+    return Preference.setString(kLoginDeviceId, deviceId);
+  }
+
   Future<String> getCarNo() async {
     return Preference.getString(kCarNo, def: '');
   }
@@ -748,6 +759,22 @@ class LocalStorage {
 
   Future<void> savePlateNo(String plateNo) async {
     return Preference.setString(kPlateNo, plateNo);
+  }
+
+  Future<String> getMsgDoc() async {
+    return Preference.getString(kMsgDoc, def: '');
+  }
+
+  Future<void> saveMsgDoc(String msgDoc) async {
+    return Preference.setString(kMsgDoc, msgDoc);
+  }
+
+  Future<String> getMsgRef() async {
+    return Preference.getString(kMsgRef, def: '');
+  }
+
+  Future<void> saveMsgRef(String msgRef) async {
+    return Preference.setString(kMsgRef, msgRef);
   }
 
   Future<void> reset() async {
@@ -784,5 +811,7 @@ class LocalStorage {
     await Preference.remove(kProfilePic);
     await Preference.remove(kCarNo);
     await Preference.remove(kPlateNo);
+    await Preference.remove(kMsgDoc);
+    await Preference.remove(kMsgRef);
   }
 }

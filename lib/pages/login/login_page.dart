@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -56,12 +57,23 @@ class _LoginState extends State<Login> {
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[
+                  // Padding(
+                  //   padding: EdgeInsets.only(top: 200.h),
+                  //   child: Image.asset(
+                  //     ImagesConstant().logo,
+                  //     width: 1000.w,
+                  //     height: 600.h,
+                  //   ),
+                  // ),
                   Padding(
-                    padding: EdgeInsets.only(top: 200.h),
-                    child: Image.asset(
-                      ImagesConstant().logo,
-                      width: 1000.w,
-                      height: 600.h,
+                    padding: EdgeInsets.fromLTRB(0, 400.h, 0, 100.h),
+                    child: Text(
+                      'JPJ QTO',
+                      style: GoogleFonts.lato(
+                        fontSize: 280.sp,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xff35368D),
+                      ),
                     ),
                   ),
                   Padding(
@@ -112,12 +124,23 @@ class _LoginState extends State<Login> {
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 500.h),
-                    child: Image.asset(
-                      ImagesConstant().logo,
-                      width: 1000.w,
-                      height: 600.h,
+                  // Container(
+                  //   margin: EdgeInsets.only(top: 500.h),
+                  //   child: Image.asset(
+                  //     ImagesConstant().logo,
+                  //     width: 1000.w,
+                  //     height: 600.h,
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 300.h),
+                    child: Text(
+                      'JPJ QTO',
+                      style: GoogleFonts.lato(
+                        fontSize: 280.sp,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xff35368D),
+                      ),
                     ),
                   ),
                   Padding(

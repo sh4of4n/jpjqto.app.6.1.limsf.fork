@@ -1,7 +1,8 @@
+import 'package:jpj_qto/utils/local_storage.dart';
+
 import '../networking.dart';
 import '../response.dart';
 import '../../../utils/app_config.dart';
-import '../../utils/local_storage.dart';
 import '../model/inbox_model.dart';
 
 class InboxRepo {

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 import '../model/profile_model.dart';
 import '../networking.dart';
 import '../response.dart';
 import '../../../utils/app_config.dart';
-import '../../utils/local_storage.dart';
 
 class ProfileRepo {
   final appConfig = AppConfig();

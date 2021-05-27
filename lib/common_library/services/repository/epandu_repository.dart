@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 import '../../../utils/app_config.dart';
-import '../../utils/local_storage.dart';
 import '../model/epandu_model.dart';
 import '../networking.dart';
 import '../response.dart';
@@ -506,10 +506,10 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
-    // String? diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=W1007&userId=&action=JPJ_PART2_CHECK_IN';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=&action=JPJ_PART2_CHECK_IN';
 
     var response = await networking.getData(
       path: 'GetScanCodeByAction?$path',
@@ -534,10 +534,10 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
-    // String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=W1007';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode';
 
     /* customDialog.show(
       context: context,
@@ -580,10 +580,10 @@ class EpanduRepo {
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
     String userId = await localStorage.getUserId();
-    // String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=W1007&userId=$userId&vehNo=$vehNo&part3Type=${Uri.encodeComponent(part3Type)}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&vehNo=$vehNo&part3Type=${Uri.encodeComponent(part3Type)}';
 
     var response = await networking.getData(
       path: 'GetPart3AvailableToCallJpjTestList?$path',

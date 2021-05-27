@@ -1,7 +1,7 @@
 import 'dart:async';
-import '../utils/local_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 
 class Location {
   final locationOptions = LocationOptions(

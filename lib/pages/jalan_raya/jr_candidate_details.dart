@@ -66,6 +66,12 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       setState(() {
         candidateList = result.data;
       });
+    } else {
+      customDialog.show(
+        context: context,
+        content: AppLocalizations.of(context).translate('no_candidate'),
+        type: DialogType.INFO,
+      );
     }
   }
 
@@ -171,18 +177,47 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     setState(() {
       this.qrController = qrController;
     });
+
     qrController.scannedDataStream.listen((scanData) async {
       await qrController?.pauseCamera();
 
       setState(() {
-        merchantNo = jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
-        testCode = jsonDecode(scanData.code)['Table1'][0]['test_code'];
-        groupId = jsonDecode(scanData.code)['Table1'][0]['group_id'];
-        iconVisible = true;
-        isVisible = false;
-      });
+        try {
+          merchantNo = jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
+          testCode = jsonDecode(scanData.code)['Table1'][0]['test_code'];
+          groupId = jsonDecode(scanData.code)['Table1'][0]['group_id'];
+          iconVisible = true;
+          isVisible = false;
 
-      compareCandidateInfo();
+          if (qNo.isNotEmpty) {
+            compareCandidateInfo();
+          } else {
+            customDialog.show(
+              barrierDismissable: true,
+              context: context,
+              content: AppLocalizations.of(context).translate('scan_again'),
+              type: DialogType.INFO,
+            );
+          }
+        } catch (e) {
+          customDialog.show(
+            barrierDismissable: true,
+            context: context,
+            content: AppLocalizations.of(context).translate('invalid_qr'),
+            customActions: [
+              FlatButton(
+                onPressed: () {
+                  ExtendedNavigator.of(context).pop();
+
+                  qrController.resumeCamera();
+                },
+                child: Text('Ok'),
+              ),
+            ],
+            type: DialogType.GENERAL,
+          );
+        }
+      });
 
       // await qrController.resumeCamera();
     });

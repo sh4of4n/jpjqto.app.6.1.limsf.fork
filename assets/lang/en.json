@@ -616,9 +616,14 @@
   "jr_session_h": "H - Driving In School / Housing & Other Areas",
   "jr_session_i": "I - Affective",
 
+  "no_candidate": "No candidate in queue.",
   "scan_again": "Please select designated queue no and scan again.",
+  "invalid_qr": "Invalid QR code.",
   "record_not_matched": "Student record does not match, do you want to proceed to jump queue?",
   "calling": "Calling",
   "start_test": "Start Test",
-  "test_submitted": "Test result submitted."
+  "test_submitted": "Test result submitted.",
+  "client_acc": "Client Account",
+  "merchant_no": "Merchant No",
+  "change_car": "Change Car"
 }
