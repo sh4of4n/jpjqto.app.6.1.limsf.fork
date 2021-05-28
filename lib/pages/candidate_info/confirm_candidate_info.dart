@@ -41,7 +41,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
   bool isLoading = false;
   String vehNo = '';
 
-  @override
+  /* @override
   void initState() {
     super.initState();
 
@@ -97,7 +97,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
     setState(() {
       isLoading = false;
     });
-  }
+  } */
 
   Future<bool> _onWillPop() async {
     return CustomDialog().show(
@@ -150,7 +150,9 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
     });
   }
 
-  startTest() {
+  startTest() async {
+    vehNo = await localStorage.getPlateNo();
+
     if (widget.part3Type == 'RPK')
       ExtendedNavigator.of(context).push(Routes.rpkPartIII,
           arguments: RpkPartIIIArguments(

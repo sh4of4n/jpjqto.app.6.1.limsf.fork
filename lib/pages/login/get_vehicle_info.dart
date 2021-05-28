@@ -145,7 +145,8 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
       localStorage
           .saveMerchantDbCode(merchantNoController.text.replaceAll(' ', ''));
 
-      ExtendedNavigator.of(context).replace(Routes.home);
+      ExtendedNavigator.of(context)
+          .pushAndRemoveUntil(Routes.home, (r) => false);
     }
   }
 

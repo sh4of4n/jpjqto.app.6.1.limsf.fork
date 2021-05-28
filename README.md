@@ -1,3 +1,9 @@
+0.0.9
+
+- Update RPK and JR flow
+- Fix routing
+- Fix passing incorrect merchant no
+
 0.0.8
 
 - Change eDriving logo in login, forgot password, client acc form to JPJ QTO

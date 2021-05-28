@@ -419,7 +419,7 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwdEncode();
-    String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
     // String groupId = await localStorage.getEnrolledGroupId();
 
     String path =
@@ -453,7 +453,7 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
-    String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
     String userId = await localStorage.getUserId();
 
     VerifyScanCodeRequest verifyScanCodeRequest = VerifyScanCodeRequest(
@@ -617,7 +617,7 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
-    String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
     String userId = await localStorage.getUserId();
 
     CallPart3JpjTestRequest verifyScanCodeRequest = CallPart3JpjTestRequest(
@@ -665,7 +665,7 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
-    String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
     String userId = await localStorage.getUserId();
 
     CancelCallPart3JpjTestRequest verifyScanCodeRequest =
@@ -713,7 +713,7 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
-    String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
     String userId = await localStorage.getUserId();
 
     CancelCallPart3JpjTestRequest verifyScanCodeRequest =
@@ -763,7 +763,7 @@ class EpanduRepo {
 
     String caUid = await localStorage.getCaUid();
     String caPwd = await localStorage.getCaPwd();
-    String diCode = await localStorage.getDiCode();
+    String diCode = await localStorage.getMerchantDbCode();
     String userId = await localStorage.getUserId();
 
     UpdatePart3JpjTestResultRequest verifyScanCodeRequest =
