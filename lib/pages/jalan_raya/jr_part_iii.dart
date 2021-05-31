@@ -42,6 +42,7 @@ class _JrPartIIIState extends State<JrPartIII> {
   final epanduRepo = EpanduRepo();
   final customDialog = CustomDialog();
   bool isVisible = false;
+  int success = 0;
 
   @override
   void initState() {
@@ -111,19 +112,23 @@ class _JrPartIIIState extends State<JrPartIII> {
     );
 
     if (result.isSuccess) {
-      customDialog.show(
-        context: context,
-        barrierDismissable: false,
-        onPressed: () {
-          Provider.of<JrSessionModel>(context, listen: false).reset();
+      success += 1;
 
-          ExtendedNavigator.of(context).popUntil(
-            ModalRoute.withName(Routes.home),
-          );
-        },
-        content: AppLocalizations.of(context).translate('test_submitted'),
-        type: DialogType.SUCCESS,
-      );
+      if (success == 2) {
+        customDialog.show(
+          context: context,
+          barrierDismissable: false,
+          onPressed: () {
+            Provider.of<JrSessionModel>(context, listen: false).reset();
+
+            ExtendedNavigator.of(context).popUntil(
+              ModalRoute.withName(Routes.home),
+            );
+          },
+          content: AppLocalizations.of(context).translate('test_submitted'),
+          type: DialogType.SUCCESS,
+        );
+      }
     } else {
       customDialog.show(
         context: context,
@@ -138,30 +143,31 @@ class _JrPartIIIState extends State<JrPartIII> {
   }
 
   Future<bool> _onWillPop() async {
-    return CustomDialog().show(
-      context: context,
-      title: Text(AppLocalizations.of(context).translate('warning_title')),
-      content: AppLocalizations.of(context).translate('confirm_exit_desc'),
-      customActions: <Widget>[
-        TextButton(
-          child: Text(AppLocalizations.of(context).translate('yes_lbl')),
-          onPressed: () {
-            Provider.of<JrSessionModel>(context, listen: false).reset();
+    // return CustomDialog().show(
+    //   context: context,
+    //   title: Text(AppLocalizations.of(context).translate('warning_title')),
+    //   content: AppLocalizations.of(context).translate('confirm_exit_desc'),
+    //   customActions: <Widget>[
+    //     TextButton(
+    //       child: Text(AppLocalizations.of(context).translate('yes_lbl')),
+    //       onPressed: () {
+    //         Provider.of<JrSessionModel>(context, listen: false).reset();
 
-            ExtendedNavigator.of(context).popUntil(
-              ModalRoute.withName(Routes.home),
-            );
-          },
-        ),
-        TextButton(
-          child: Text(AppLocalizations.of(context).translate('no_lbl')),
-          onPressed: () {
-            ExtendedNavigator.of(context).pop();
-          },
-        ),
-      ],
-      type: DialogType.GENERAL,
-    );
+    //         ExtendedNavigator.of(context).popUntil(
+    //           ModalRoute.withName(Routes.home),
+    //         );
+    //       },
+    //     ),
+    //     TextButton(
+    //       child: Text(AppLocalizations.of(context).translate('no_lbl')),
+    //       onPressed: () {
+    //         ExtendedNavigator.of(context).pop();
+    //       },
+    //     ),
+    //   ],
+    //   type: DialogType.GENERAL,
+    // );
+    return false;
   }
 
   @override

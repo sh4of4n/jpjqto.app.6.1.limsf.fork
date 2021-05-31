@@ -622,10 +622,13 @@
   "scan_again": "Sila pilih no barisan yang ditentukan dan imbas sekali lagi.",
   "invalid_qr": "Kod QR tidak sah.",
   "record_not_matched": "Rekod pelajar tidak sepadan, adakah anda ingin meneruskan untuk melompat barisan?",
+  "record_not_matched_reject": "Rekod pelajar tidak sepadan.",
   "calling": "Memanggil",
   "start_test": "Mulakan Ujian",
   "test_submitted": "Hasil ujian berjaya dihantar.",
   "client_acc": "Akaun ID",
   "merchant_no": "Nombor Pedagang",
-  "change_car": "Tukar Kenderaan"
+  "change_car": "Tukar Kenderaan",
+  "select_queue_tooltip": "Pilih nombor giliran calon sebelum melakukan imbasan QR.",
+  "confirm_candidate_tooltip": "Pilih mula ujian untuk mula, batalkan jika hendak memanggil pelajar lain."
 }

@@ -1,3 +1,10 @@
+0.0.10
+
+- Add custom URL field to client account form
+- Reject check in if Group ID is not matched
+- Lock user to submit RPK/JR before returning to home
+- Add instructions for check in and start test
+
 0.0.9
 
 - Update RPK and JR flow

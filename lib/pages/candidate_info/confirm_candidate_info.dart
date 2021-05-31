@@ -182,7 +182,24 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        appBar: AppBar(title: Text('Maklumat Calon')),
+        appBar: AppBar(
+          title: Text('Maklumat Calon'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                customDialog.show(
+                  context: context,
+                  content: AppLocalizations.of(context)
+                      .translate('confirm_candidate_tooltip'),
+                  type: DialogType.INFO,
+                );
+              },
+              icon: Icon(Icons.info_outline),
+              tooltip: AppLocalizations.of(context)
+                  .translate('confirm_candidate_tooltip'),
+            ),
+          ],
+        ),
         body: Stack(
           children: [
             Container(

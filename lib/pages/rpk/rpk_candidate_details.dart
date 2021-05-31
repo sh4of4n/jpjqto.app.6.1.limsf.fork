@@ -106,29 +106,38 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     var testCode = selectedCandidate.testCode;
     var groupId = selectedCandidate.groupId;
 
-    if ( //this.merchantNo == merchantNo &&
-        this.testCode == testCode && this.groupId == groupId) {
-      callPart3JpjTest();
+    if (this.groupId == groupId) {
+      if (this.testCode == testCode) {
+        callPart3JpjTest();
+      } else {
+        customDialog.show(
+          barrierDismissable: true,
+          context: context,
+          content: AppLocalizations.of(context).translate('record_not_matched'),
+          customActions: <Widget>[
+            FlatButton(
+              child: Text(AppLocalizations.of(context).translate('yes_lbl')),
+              onPressed: () {
+                ExtendedNavigator.of(context).pop();
+
+                callPart3JpjTest();
+              },
+            ),
+            FlatButton(
+              child: Text(AppLocalizations.of(context).translate('no_lbl')),
+              onPressed: () => ExtendedNavigator.of(context).pop(),
+            ),
+          ],
+          type: DialogType.GENERAL,
+        );
+      }
     } else {
       customDialog.show(
         barrierDismissable: true,
         context: context,
-        content: AppLocalizations.of(context).translate('record_not_matched'),
-        customActions: <Widget>[
-          FlatButton(
-            child: Text(AppLocalizations.of(context).translate('yes_lbl')),
-            onPressed: () {
-              ExtendedNavigator.of(context).pop();
-
-              callPart3JpjTest();
-            },
-          ),
-          FlatButton(
-            child: Text(AppLocalizations.of(context).translate('no_lbl')),
-            onPressed: () => ExtendedNavigator.of(context).pop(),
-          ),
-        ],
-        type: DialogType.GENERAL,
+        content:
+            AppLocalizations.of(context).translate('record_not_matched_reject'),
+        type: DialogType.WARNING,
       );
     }
   }
@@ -270,6 +279,21 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('calling')),
+        actions: [
+          IconButton(
+            onPressed: () {
+              customDialog.show(
+                context: context,
+                content: AppLocalizations.of(context)
+                    .translate('select_queue_tooltip'),
+                type: DialogType.INFO,
+              );
+            },
+            icon: Icon(Icons.info_outline),
+            tooltip:
+                AppLocalizations.of(context).translate('select_queue_tooltip'),
+          ),
+        ],
       ),
       body: Stack(
         children: [

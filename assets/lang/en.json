@@ -620,10 +620,13 @@
   "scan_again": "Please select designated queue no and scan again.",
   "invalid_qr": "Invalid QR code.",
   "record_not_matched": "Student record does not match, do you want to proceed to jump queue?",
+  "record_not_matched_reject": "Student record does not match.",
   "calling": "Calling",
   "start_test": "Start Test",
   "test_submitted": "Test result submitted.",
   "client_acc": "Client Account",
   "merchant_no": "Merchant No",
-  "change_car": "Change Car"
+  "change_car": "Change Car",
+  "select_queue_tooltip": "Select the candidate queue number before performing QR scan.",
+  "confirm_candidate_tooltip": "Select start test to begin, cancel to call another student."
 }

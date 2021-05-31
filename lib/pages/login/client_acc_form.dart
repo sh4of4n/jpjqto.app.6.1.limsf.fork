@@ -3,11 +3,12 @@ import 'package:jpj_qto/base/page_base_class.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 import 'package:jpj_qto/utils/app_config.dart';
 import 'package:jpj_qto/utils/constants.dart';
-import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:jpj_qto/utils/local_storage.dart';
 
 import '../../router.gr.dart';
 
@@ -27,8 +28,8 @@ class _ClientAccountFormState extends State<ClientAccountForm>
 
   final _formKey = GlobalKey<FormState>();
 
+  final FocusNode _urlFocus = FocusNode();
   final FocusNode _caUidFocus = FocusNode();
-
   final FocusNode _caPwdFocus = FocusNode();
 
   final primaryColor = ColorConstant.primaryColor;
@@ -38,11 +39,13 @@ class _ClientAccountFormState extends State<ClientAccountForm>
   bool _isLoading = false;
 
   String _message = '';
-  String _caUid = '';
-  String _caPwd = '';
   bool _obscureText = true;
+  String _connectedUrl = '';
   String _connectedCa = '';
 
+  final urlController = TextEditingController();
+  final caUidController = TextEditingController();
+  final caPwdController = TextEditingController();
   // var _height = ScreenUtil().setHeight(1300);
 
   // var _height = ScreenUtil.screenHeight / 4.5;
@@ -51,7 +54,26 @@ class _ClientAccountFormState extends State<ClientAccountForm>
   void initState() {
     super.initState();
 
+    _getConnectedUrl();
     _getConnectedCa();
+  }
+
+  @override
+  void dispose() {
+    urlController.dispose();
+    caUidController.dispose();
+    caPwdController.dispose();
+
+    super.dispose();
+  }
+
+  _getConnectedUrl() async {
+    String savedUrl = await Hive.box('ws_url').get('userDefinedUrl');
+
+    setState(() {
+      urlController.text = savedUrl ?? '';
+      _connectedUrl = savedUrl;
+    });
   }
 
   _getConnectedCa() async {
@@ -95,6 +117,7 @@ class _ClientAccountFormState extends State<ClientAccountForm>
                 height: 35.h,
               ),
               TextFormField(
+                controller: caUidController,
                 focusNode: _caUidFocus,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
@@ -125,16 +148,12 @@ class _ClientAccountFormState extends State<ClientAccountForm>
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  if (value != _caUid) {
-                    _caUid = value;
-                  }
-                },
               ),
               SizedBox(
                 height: 70.h,
               ),
               TextFormField(
+                controller: caPwdController,
                 focusNode: _caPwdFocus,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 16.0),
@@ -171,16 +190,41 @@ class _ClientAccountFormState extends State<ClientAccountForm>
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  if (value != _caPwd) {
-                    _caPwd = value;
-                  }
-                },
               ),
               SizedBox(
                 height: 60.h,
               ),
+              // _showConnectedUrl(),
               _showConnectedCa(),
+              TextFormField(
+                controller: urlController,
+                maxLines: 5,
+                focusNode: _urlFocus,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 16.0),
+                  hintStyle: TextStyle(
+                    color: primaryColor,
+                  ),
+                  labelText: 'URL',
+                  fillColor: Colors.grey.withOpacity(.25),
+                  filled: true,
+                  prefixIcon: Icon(Icons.public),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                onFieldSubmitted: (term) {
+                  fieldFocusChange(context, _urlFocus, _caUidFocus);
+                },
+              ),
+              SizedBox(
+                height: 70.h,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -226,6 +270,24 @@ class _ClientAccountFormState extends State<ClientAccountForm>
     );
   }
 
+  _showConnectedUrl() {
+    if (_connectedUrl != null && _connectedUrl.isNotEmpty) {
+      return Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+                '${AppLocalizations.of(context).translate('connected_url')}: $_connectedUrl'),
+          ),
+          SizedBox(
+            height: 60.h,
+          ),
+        ],
+      );
+    }
+    return Container(width: 0, height: 0);
+  }
+
   _showConnectedCa() {
     if (_connectedCa.isNotEmpty) {
       return Column(
@@ -255,9 +317,11 @@ class _ClientAccountFormState extends State<ClientAccountForm>
               padding: EdgeInsets.symmetric(vertical: 11.0),
               buttonColor: primaryColor,
               shape: StadiumBorder(),
-              child: RaisedButton(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(color: Colors.white),
+                ),
                 onPressed: _submit,
-                textColor: Colors.white,
                 child: Text(
                   AppLocalizations.of(context).translate('save_btn'),
                   style: TextStyle(
@@ -270,36 +334,65 @@ class _ClientAccountFormState extends State<ClientAccountForm>
   }
 
   _submit() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
-
-      setState(() {
-        _message = '';
-        _isLoading = true;
-      });
-
-      var result = await authRepo.getWsUrl(
-        context: context,
-        acctUid: _caUid.replaceAll(' ', ''),
-        acctPwd: _caPwd.replaceAll(' ', ''),
-        loginType: appConfig.wsCodeCrypt,
+    if (urlController.text.isNotEmpty) {
+      await Hive.box('ws_url').put(
+        'userDefinedUrl',
+        urlController.text.replaceAll('_wsver_', '6_1'),
       );
 
-      if (result.isSuccess) {
-        if (widget.data == 'SETTINGS')
-          ExtendedNavigator.of(context).replace(Routes.login);
-        else
-          ExtendedNavigator.of(context).pop();
-      } else {
+      await Hive.box('ws_url').put(
+        'getWsUrl',
+        '0',
+      );
+
+      localStorage.saveCaUid(caUidController.text.replaceAll(' ', ''));
+      localStorage.saveCaPwd(caPwdController.text.replaceAll(' ', ''));
+      localStorage.saveCaPwdEncode(
+          Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
+
+      if (widget.data == 'SETTINGS')
+        ExtendedNavigator.of(context).replace(Routes.login);
+      else
+        ExtendedNavigator.of(context).pop();
+    } else {
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        FocusScope.of(context).requestFocus(new FocusNode());
+
+        await Hive.box('ws_url').put(
+          'getWsUrl',
+          '1',
+        );
+
         setState(() {
-          _message = result.message.toString();
+          _message = '';
+          _isLoading = true;
+        });
+
+        var result = await authRepo.getWsUrl(
+          context: context,
+          acctUid: caUidController.text.replaceAll(' ', ''),
+          acctPwd: caPwdController.text.replaceAll(' ', ''),
+          loginType: appConfig.wsCodeCrypt,
+        );
+
+        if (result.isSuccess) {
+          await Hive.box('ws_url').delete('userDefinedUrl');
+
+          if (widget.data == 'SETTINGS')
+            ExtendedNavigator.of(context).replace(Routes.login);
+          else
+            ExtendedNavigator.of(context).pop();
+        } else {
+          setState(() {
+            _message = result.message.toString();
+          });
+        }
+
+        setState(() {
+          _isLoading = false;
         });
       }
-
-      setState(() {
-        _isLoading = false;
-      });
     }
   }
 }

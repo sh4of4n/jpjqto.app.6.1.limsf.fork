@@ -133,30 +133,31 @@ class _Part3MainState extends State<RpkPartIII> {
   }
 
   Future<bool> _onWillPop() async {
-    return CustomDialog().show(
-      context: context,
-      title: Text(AppLocalizations.of(context).translate('warning_title')),
-      content: AppLocalizations.of(context).translate('confirm_exit_desc'),
-      customActions: <Widget>[
-        TextButton(
-          child: Text(AppLocalizations.of(context).translate('yes_lbl')),
-          onPressed: () {
-            Provider.of<RpkSessionModel>(context, listen: false).reset();
+    // return CustomDialog().show(
+    //   context: context,
+    //   title: Text(AppLocalizations.of(context).translate('warning_title')),
+    //   content: AppLocalizations.of(context).translate('confirm_exit_desc'),
+    //   customActions: <Widget>[
+    //     TextButton(
+    //       child: Text(AppLocalizations.of(context).translate('yes_lbl')),
+    //       onPressed: () {
+    //         Provider.of<RpkSessionModel>(context, listen: false).reset();
 
-            ExtendedNavigator.of(context).popUntil(
-              ModalRoute.withName(Routes.home),
-            );
-          },
-        ),
-        TextButton(
-          child: Text(AppLocalizations.of(context).translate('no_lbl')),
-          onPressed: () {
-            ExtendedNavigator.of(context).pop();
-          },
-        ),
-      ],
-      type: DialogType.GENERAL,
-    );
+    //         ExtendedNavigator.of(context).popUntil(
+    //           ModalRoute.withName(Routes.home),
+    //         );
+    //       },
+    //     ),
+    //     TextButton(
+    //       child: Text(AppLocalizations.of(context).translate('no_lbl')),
+    //       onPressed: () {
+    //         ExtendedNavigator.of(context).pop();
+    //       },
+    //     ),
+    //   ],
+    //   type: DialogType.GENERAL,
+    // );
+    return false;
   }
 
   @override
