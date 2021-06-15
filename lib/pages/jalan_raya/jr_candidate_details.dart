@@ -67,7 +67,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     String vehNo = await localStorage.getPlateNo();
 
     var result = await epanduRepo.getPart3AvailableToCallJpjTestList(
-        part3Type: 'RPK + JALAN RAYA', vehNo: vehNo);
+        part3Type: 'JALAN RAYA', vehNo: vehNo);
 
     if (result.isSuccess) {
       setState(() {
@@ -155,7 +155,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
 
     var result = await epanduRepo.callPart3JpjTest(
       vehNo: vehNo,
-      part3Type: 'RPK + JALAN RAYA',
+      part3Type: 'JALAN RAYA',
       groupId: groupId,
       testCode: testCode,
       icNo: nric,
@@ -165,7 +165,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       ExtendedNavigator.of(context).push(
         Routes.confirmCandidateInfo,
         arguments: ConfirmCandidateInfoArguments(
-          part3Type: 'RPK + JALAN RAYA',
+          part3Type: 'JALAN RAYA',
           nric: nric,
           name: name,
           qNo: qNo,
