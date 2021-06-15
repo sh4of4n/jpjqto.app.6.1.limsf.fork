@@ -1,3 +1,8 @@
+0.0.14
+
+- Jump queue will always use scanned QR info to proceed
+- Fix for removing rpk from on the road
+
 0.0.13
 
 - Remove rpk from on the road module

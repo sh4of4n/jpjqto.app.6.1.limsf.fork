@@ -42,7 +42,7 @@ class _JrPartIIIState extends State<JrPartIII> {
   final epanduRepo = EpanduRepo();
   final customDialog = CustomDialog();
   bool isVisible = false;
-  int success = 0;
+  // int success = 0;
 
   @override
   void initState() {
@@ -112,23 +112,23 @@ class _JrPartIIIState extends State<JrPartIII> {
     );
 
     if (result.isSuccess) {
-      success += 1;
+      // success += 1;
 
-      if (success == 2) {
-        customDialog.show(
-          context: context,
-          barrierDismissable: false,
-          onPressed: () {
-            Provider.of<JrSessionModel>(context, listen: false).reset();
+      // if (success == 2) {
+      customDialog.show(
+        context: context,
+        barrierDismissable: false,
+        onPressed: () {
+          Provider.of<JrSessionModel>(context, listen: false).reset();
 
-            ExtendedNavigator.of(context).popUntil(
-              ModalRoute.withName(Routes.home),
-            );
-          },
-          content: AppLocalizations.of(context).translate('test_submitted'),
-          type: DialogType.SUCCESS,
-        );
-      }
+          ExtendedNavigator.of(context).popUntil(
+            ModalRoute.withName(Routes.home),
+          );
+        },
+        content: AppLocalizations.of(context).translate('test_submitted'),
+        type: DialogType.SUCCESS,
+      );
+      // }
     } else {
       customDialog.show(
         context: context,

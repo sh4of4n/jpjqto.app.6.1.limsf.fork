@@ -143,9 +143,9 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   }
 
   Future<void> callPart3JpjTest() async {
-    var testCode = selectedCandidate.testCode;
-    var groupId = selectedCandidate.groupId;
-    var testDate = selectedCandidate.testDate;
+    // var testCode = selectedCandidate.testCode;
+    // var groupId = selectedCandidate.groupId;
+    // var testDate = selectedCandidate.testDate;
 
     setState(() {
       isLoading = true;
