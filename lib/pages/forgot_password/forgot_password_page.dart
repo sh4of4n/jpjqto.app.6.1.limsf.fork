@@ -50,25 +50,25 @@ class ForgotPassword extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    // Padding(
-                    //   padding: EdgeInsets.only(top: 20.0),
-                    //   child: Image.asset(
-                    //     ImagesConstant().logo,
-                    //     width: 1000.w,
-                    //     height: 600.h,
-                    //   ),
-                    // ),
                     Padding(
-                      padding: EdgeInsets.only(top: 40.0),
-                      child: Text(
-                        'JPJ QTO',
-                        style: GoogleFonts.lato(
-                          fontSize: 280.sp,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xff35368D),
-                        ),
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: Image.asset(
+                        ImagesConstant().logo,
+                        width: 1000.w,
+                        height: 600.h,
                       ),
                     ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 40.0),
+                    //   child: Text(
+                    //     'JPJ QTO',
+                    //     style: GoogleFonts.lato(
+                    //       fontSize: 280.sp,
+                    //       fontWeight: FontWeight.w900,
+                    //       color: Color(0xff35368D),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SingleChildScrollView(
@@ -122,19 +122,19 @@ class ForgotPassword extends StatelessWidget {
                     left: 220.w, right: 220.w, top: 250.0.h, bottom: 100.h),
                 child: Column(
                   children: <Widget>[
-                    // Image.asset(
-                    //   ImagesConstant().logo,
-                    //   width: 1000.w,
-                    //   height: 600.h,
-                    // ),
-                    Text(
-                      'JPJ QTO',
-                      style: GoogleFonts.lato(
-                        fontSize: 280.sp,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xff35368D),
-                      ),
+                    Image.asset(
+                      ImagesConstant().logo,
+                      width: 1000.w,
+                      height: 600.h,
                     ),
+                    // Text(
+                    //   'JPJ QTO',
+                    //   style: GoogleFonts.lato(
+                    //     fontSize: 280.sp,
+                    //     fontWeight: FontWeight.w900,
+                    //     color: Color(0xff35368D),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 100.h,
                     ),

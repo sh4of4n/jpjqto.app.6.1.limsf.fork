@@ -59,7 +59,7 @@ class _JrPartIIIState extends State<JrPartIII> {
     var result = await epanduRepo.updatePart3JpjTestStart(
       groupId: widget.groupId,
       icNo: widget.nric,
-      part3Type: 'RPK + JALAN RAYA',
+      part3Type: 'JALAN RAYA',
       testCode: widget.testCode,
     );
 
@@ -172,7 +172,7 @@ class _JrPartIIIState extends State<JrPartIII> {
 
   @override
   Widget build(BuildContext context) {
-    int rpkMark = context.watch<JrSessionModel>().rpkMark;
+    // int rpkMark = context.watch<JrSessionModel>().rpkMark;
     int aMark = context.watch<JrSessionModel>().aMark;
     int aMandatoryMark = context.watch<JrSessionModel>().aMandatoryMark;
     int bMark = context.watch<JrSessionModel>().bMark;
@@ -204,10 +204,10 @@ class _JrPartIIIState extends State<JrPartIII> {
                 children: <Widget>[
                   // _header(),
                   //RpkSessionA(),
-                  Padding(
+                  /* Padding(
                     padding: const EdgeInsets.only(bottom: 1, top: 2),
                     child: SessionR(),
-                  ),
+                  ), */
                   Padding(
                     padding: const EdgeInsets.only(bottom: 1, top: 2),
                     child: SessionA(),
@@ -269,7 +269,7 @@ class _JrPartIIIState extends State<JrPartIII> {
                                     .translate('mandatory_mistake_mark'),
                                 style: TextStyle(color: Colors.black))),
                       ]),
-                      TableRow(children: [
+                      /* TableRow(children: [
                         Center(
                             child: Text('R',
                                 style: TextStyle(color: Colors.black))),
@@ -286,7 +286,7 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: Text('-',
                                 style: TextStyle(color: Colors.black))),
-                      ]),
+                      ]), */
                       TableRow(children: [
                         Center(
                             child: Text('A',
@@ -513,10 +513,11 @@ class _JrPartIIIState extends State<JrPartIII> {
                   Container(
                     child: RaisedButton(
                       onPressed: () {
-                        Future.wait([
-                          updatePart3JpjTestResult('RPK'),
-                          updatePart3JpjTestResult('JALAN RAYA'),
-                        ]);
+                        // Future.wait([
+                        //   updatePart3JpjTestResult('RPK'),
+                        //   updatePart3JpjTestResult('JALAN RAYA'),
+                        // ]);
+                        updatePart3JpjTestResult('JALAN RAYA');
                       },
                       color: ColorConstant.primaryColor,
                       child: Text(

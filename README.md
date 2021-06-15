@@ -1,3 +1,15 @@
+0.0.13
+
+- Remove rpk from on the road module
+
+0.0.12
+
+- Update app logo in app
+
+0.0.11
+
+- Update app icon
+
 0.0.10
 
 - Add custom URL field to client account form
