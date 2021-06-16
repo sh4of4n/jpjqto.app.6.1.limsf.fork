@@ -618,6 +618,7 @@
 
   "no_candidate": "No candidate in queue.",
   "scan_again": "Please select designated queue no and scan again.",
+  "select_queue_no": "Please select designated queue no first.",
   "invalid_qr": "Invalid QR code.",
   "record_not_matched": "Student record does not match, do you want to proceed to jump queue?",
   "record_not_matched_reject": "Student record does not match.",
@@ -628,5 +629,11 @@
   "merchant_no": "Merchant No",
   "change_car": "Change Car",
   "select_queue_tooltip": "Select the candidate queue number before performing QR scan.",
-  "confirm_candidate_tooltip": "Select start test to begin, cancel to call another student."
+  "confirm_candidate_tooltip": "Select start test to begin, cancel to call another student.",
+  "call_btn": "CALL",
+  "call_successful": "Candidate has been called.",
+  "call_cancelled": "Call has been cancelled.",
+  "confirm_cancel_desc": "Are you sure you want to cancel calling this candidate?",
+  "call_tooltip": "Press call to call the next student candidate.",
+  "cancel_tooltip": "Press cancel if the student has not arrived."
 }

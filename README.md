@@ -1,3 +1,8 @@
+0.0.15
+
+- Update JALAN RAYA flow, now with call and cancel button
+- Add guidelines for call and cancel
+
 0.0.14
 
 - Jump queue will always use scanned QR info to proceed

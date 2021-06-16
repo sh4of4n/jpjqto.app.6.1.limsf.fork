@@ -620,6 +620,7 @@
 
   "no_candidate": "Tidak ada calon dalam barisan.",
   "scan_again": "Sila pilih no barisan yang ditentukan dan imbas sekali lagi.",
+  "select_queue_no": "Sila pilih no barisan yang ditentukan dahulu.",
   "invalid_qr": "Kod QR tidak sah.",
   "record_not_matched": "Rekod pelajar tidak sepadan, adakah anda ingin meneruskan untuk melompat barisan?",
   "record_not_matched_reject": "Rekod pelajar tidak sepadan.",
@@ -630,5 +631,11 @@
   "merchant_no": "Nombor Pedagang",
   "change_car": "Tukar Kenderaan",
   "select_queue_tooltip": "Pilih nombor giliran calon sebelum melakukan imbasan QR.",
-  "confirm_candidate_tooltip": "Pilih mula ujian untuk mula, batalkan jika hendak memanggil pelajar lain."
+  "confirm_candidate_tooltip": "Pilih mula ujian untuk mula, batalkan jika hendak memanggil pelajar lain.",
+  "call_btn": "PANGGILAN",
+  "call_successful": "Calon sudah dipanggil.",
+  "call_cancelled": "Panggilan telah dibatalkan.",
+  "confirm_cancel_desc": "Adakah anda pasti mahu membatalkan panggilan calon ini?",
+  "call_tooltip": "Tekan panggilan untuk memanggil calon pelajar seterusnya.",
+  "cancel_tooltip": "Tekan batal sekiranya pelajar belum sampai."
 }

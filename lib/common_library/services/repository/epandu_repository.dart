@@ -600,7 +600,7 @@ class EpanduRepo {
 
     return Response(false,
         message: response.message == null || response.message.isEmpty
-            ? 'Tiada data.'
+            ? '"Tidak ada calon dalam barisan.'
             : response.message.replaceAll(r'\u000d\u000a', ''));
   }
 

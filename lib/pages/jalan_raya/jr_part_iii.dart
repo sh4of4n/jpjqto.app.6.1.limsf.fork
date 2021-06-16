@@ -121,9 +121,8 @@ class _JrPartIIIState extends State<JrPartIII> {
         onPressed: () {
           Provider.of<JrSessionModel>(context, listen: false).reset();
 
-          ExtendedNavigator.of(context).popUntil(
-            ModalRoute.withName(Routes.home),
-          );
+          ExtendedNavigator.of(context)
+              .pushAndRemoveUntil(Routes.home, (r) => false);
         },
         content: AppLocalizations.of(context).translate('test_submitted'),
         type: DialogType.SUCCESS,

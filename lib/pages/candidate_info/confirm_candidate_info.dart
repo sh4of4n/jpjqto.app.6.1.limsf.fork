@@ -109,7 +109,8 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
           child: Text(AppLocalizations.of(context).translate('yes_lbl')),
           onPressed: () {
             ExtendedNavigator.of(context).pop();
-            cancelCallPart3JpjTest();
+            ExtendedNavigator.of(context).pop();
+            // cancelCallPart3JpjTest();
           },
         ),
         TextButton(
