@@ -1,3 +1,8 @@
+0.0.16
+
+- Fix UI clipping in candidate details
+- Return correct error message when update part 3 jpj test result
+
 0.0.15
 
 - Update JALAN RAYA flow, now with call and cancel button

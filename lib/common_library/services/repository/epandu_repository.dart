@@ -600,7 +600,7 @@ class EpanduRepo {
 
     return Response(false,
         message: response.message == null || response.message.isEmpty
-            ? '"Tidak ada calon dalam barisan.'
+            ? 'Tidak ada calon dalam barisan.'
             : response.message.replaceAll(r'\u000d\u000a', ''));
   }
 
@@ -807,7 +807,7 @@ class EpanduRepo {
 
     return Response(false,
         message: response.message == null || response.message.isEmpty
-            ? 'Tiada data.'
+            ? 'Gagal mengemas kini rekod.'
             : response.message.replaceAll(r'\u000d\u000a', ''));
   }
 }

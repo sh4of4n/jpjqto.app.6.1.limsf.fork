@@ -131,7 +131,7 @@ class _JrPartIIIState extends State<JrPartIII> {
     } else {
       customDialog.show(
         context: context,
-        content: 'Gagal mengemas kini rekod.',
+        content: result.message,
         type: DialogType.WARNING,
       );
     }

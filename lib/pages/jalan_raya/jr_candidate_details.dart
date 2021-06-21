@@ -313,8 +313,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
-        ? 200.0
-        : 300.0;
+        ? 300.0
+        : 400.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
@@ -448,212 +448,205 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 50.h),
-                      Container(
-                        width: 1300.h,
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 50.w),
-                            labelText: 'Q-NO',
-                            labelStyle: TextStyle(
-                              fontSize: 80.sp,
-                            ),
-                            // fillColor: Colors.grey.withOpacity(.25),
-                            // filled: true,
-                            // prefixIcon: Icon(Icons.edit),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: primaryColor),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
+                Column(
+                  children: [
+                    SizedBox(height: 50.h),
+                    Container(
+                      width: 1300.h,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 50.w),
+                          labelText: 'Q-NO',
+                          labelStyle: TextStyle(
+                            fontSize: 80.sp,
                           ),
-                          items: candidateList != null
-                              ? candidateList.map<DropdownMenuItem<String>>(
-                                  (dynamic value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.queueNo,
-                                    child: Center(child: Text(value.queueNo)),
-                                  );
-                                }).toList()
-                              : null,
-                          onTap: () {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-                          },
-                          onChanged: (String newValue) {
-                            setState(() {
-                              qNo = newValue;
-                            });
-
-                            getSelectedCandidateInfo(newValue);
-                          },
+                          // fillColor: Colors.grey.withOpacity(.25),
+                          // filled: true,
+                          // prefixIcon: Icon(Icons.edit),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
+                        items: candidateList != null
+                            ? candidateList
+                                .map<DropdownMenuItem<String>>((dynamic value) {
+                                return DropdownMenuItem<String>(
+                                  value: value.queueNo,
+                                  child: Center(child: Text(value.queueNo)),
+                                );
+                              }).toList()
+                            : null,
+                        onTap: () {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                        },
+                        onChanged: (String newValue) {
+                          setState(() {
+                            qNo = newValue;
+                          });
+
+                          getSelectedCandidateInfo(newValue);
+                        },
                       ),
-                      // Text(
-                      //   qNo.isNotEmpty ? qNo : 'Q-NO',
-                      //   style: TextStyle(
-                      //       fontWeight: FontWeight.bold, fontSize: 250.sp),
-                      // ),
-                      SizedBox(height: 50.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 150.w),
-                        child: Table(
-                          // border: TableBorder.all(),
-                          columnWidths: {0: FractionColumnWidth(.30)},
-                          children: [
-                            /* TableRow(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text('Q-NO',
-                                  textAlign: TextAlign.center, style: textStyle),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(qNo, style: textStyle),
-                            ),
-                          ],
-                        ), */
-                            TableRow(children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.h),
-                                child: Text('NRIC', style: textStyle),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.h),
-                                child: Text(nric, style: textStyle),
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.h),
-                                child: Text('NAMA', style: textStyle),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.h),
-                                child: Text(name, style: textStyle),
-                              ),
-                            ]),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    ),
+                    // Text(
+                    //   qNo.isNotEmpty ? qNo : 'Q-NO',
+                    //   style: TextStyle(
+                    //       fontWeight: FontWeight.bold, fontSize: 250.sp),
+                    // ),
+                    SizedBox(height: 50.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 150.w),
+                      child: Table(
+                        // border: TableBorder.all(),
+                        columnWidths: {0: FractionColumnWidth(.30)},
                         children: [
-                          Row(
-                            children: [
-                              CustomButton(
-                                onPressed: () {
-                                  if (selectedCandidate != null)
-                                    callPart3JpjTest(type: 'MANUAL');
-                                  else
-                                    customDialog.show(
-                                      context: context,
-                                      content: AppLocalizations.of(context)
-                                          .translate('select_queue_no'),
-                                      type: DialogType.INFO,
-                                    );
-                                },
-                                buttonColor: Color(0xffdd0e0e),
-                                title: AppLocalizations.of(context)
-                                    .translate('call_btn'),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  customDialog.show(
-                                    context: context,
-                                    content: AppLocalizations.of(context)
-                                        .translate('call_tooltip'),
-                                    type: DialogType.INFO,
-                                  );
-                                },
-                                icon: Icon(Icons.info_outline),
-                              ),
-                            ],
+                          /* TableRow(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.h),
+                            child: Text('Q-NO',
+                                textAlign: TextAlign.center, style: textStyle),
                           ),
-                          Row(
-                            children: [
-                              CustomButton(
-                                // onPressed: () =>
-                                //     cancelCallPart3JpjTest(type: 'MANUAL'),
-                                onPressed: () {
-                                  if (selectedCandidate != null) {
-                                    CustomDialog().show(
-                                      context: context,
-                                      title: Text(AppLocalizations.of(context)
-                                          .translate('warning_title')),
-                                      content: AppLocalizations.of(context)
-                                          .translate('confirm_cancel_desc'),
-                                      customActions: <Widget>[
-                                        TextButton(
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .translate('yes_lbl')),
-                                          onPressed: () {
-                                            ExtendedNavigator.of(context).pop();
-                                            cancelCallPart3JpjTest(
-                                                type: 'MANUAL');
-                                          },
-                                        ),
-                                        TextButton(
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .translate('no_lbl')),
-                                          onPressed: () {
-                                            ExtendedNavigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                      type: DialogType.GENERAL,
-                                    );
-                                  } else
-                                    customDialog.show(
-                                      context: context,
-                                      content: AppLocalizations.of(context)
-                                          .translate('select_queue_no'),
-                                      type: DialogType.INFO,
-                                    );
-                                },
-                                buttonColor: Color(0xffdd0e0e),
-                                title: AppLocalizations.of(context)
-                                    .translate('cancel_btn'),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  customDialog.show(
-                                    context: context,
-                                    content: AppLocalizations.of(context)
-                                        .translate('cancel_tooltip'),
-                                    type: DialogType.INFO,
-                                  );
-                                },
-                                icon: Icon(Icons.info_outline),
-                              ),
-                            ],
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.h),
+                            child: Text(qNo, style: textStyle),
                           ),
                         ],
+                      ), */
+                          TableRow(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text('NRIC', style: textStyle),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(nric, style: textStyle),
+                            ),
+                          ]),
+                          TableRow(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text('NAMA', style: textStyle),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(name, style: textStyle),
+                            ),
+                          ]),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: [
+                            CustomButton(
+                              onPressed: () {
+                                if (selectedCandidate != null)
+                                  callPart3JpjTest(type: 'MANUAL');
+                                else
+                                  customDialog.show(
+                                    context: context,
+                                    content: AppLocalizations.of(context)
+                                        .translate('select_queue_no'),
+                                    type: DialogType.INFO,
+                                  );
+                              },
+                              buttonColor: Color(0xffdd0e0e),
+                              title: AppLocalizations.of(context)
+                                  .translate('call_btn'),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                customDialog.show(
+                                  context: context,
+                                  content: AppLocalizations.of(context)
+                                      .translate('call_tooltip'),
+                                  type: DialogType.INFO,
+                                );
+                              },
+                              icon: Icon(Icons.info_outline),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            CustomButton(
+                              // onPressed: () =>
+                              //     cancelCallPart3JpjTest(type: 'MANUAL'),
+                              onPressed: () {
+                                if (selectedCandidate != null) {
+                                  CustomDialog().show(
+                                    context: context,
+                                    title: Text(AppLocalizations.of(context)
+                                        .translate('warning_title')),
+                                    content: AppLocalizations.of(context)
+                                        .translate('confirm_cancel_desc'),
+                                    customActions: <Widget>[
+                                      TextButton(
+                                        child: Text(AppLocalizations.of(context)
+                                            .translate('yes_lbl')),
+                                        onPressed: () {
+                                          ExtendedNavigator.of(context).pop();
+                                          cancelCallPart3JpjTest(
+                                              type: 'MANUAL');
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text(AppLocalizations.of(context)
+                                            .translate('no_lbl')),
+                                        onPressed: () {
+                                          ExtendedNavigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                    type: DialogType.GENERAL,
+                                  );
+                                } else
+                                  customDialog.show(
+                                    context: context,
+                                    content: AppLocalizations.of(context)
+                                        .translate('select_queue_no'),
+                                    type: DialogType.INFO,
+                                  );
+                              },
+                              buttonColor: Color(0xffdd0e0e),
+                              title: AppLocalizations.of(context)
+                                  .translate('cancel_btn'),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                customDialog.show(
+                                  context: context,
+                                  content: AppLocalizations.of(context)
+                                      .translate('cancel_tooltip'),
+                                  type: DialogType.INFO,
+                                );
+                              },
+                              icon: Icon(Icons.info_outline),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Visibility(
                     visible: isVisible,
-                    child: Expanded(flex: 2, child: _buildQrView(context))),
+                    child: Expanded(child: _buildQrView(context))),
                 Visibility(
                   visible: iconVisible,
                   child: Expanded(
-                    flex: 2,
                     child: IconButton(
                       onPressed: () {
                         setState(() {
