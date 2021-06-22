@@ -635,5 +635,6 @@
   "call_cancelled": "Call has been cancelled.",
   "confirm_cancel_desc": "Are you sure you want to cancel calling this candidate?",
   "call_tooltip": "Press call to call the next student candidate.",
-  "cancel_tooltip": "Press cancel if the student has not arrived."
+  "cancel_tooltip": "Press cancel if the student has not arrived.",
+  "qr_candidate_not_found": "Candidate info from barcode is not in the queue."
 }

@@ -137,57 +137,77 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           });
         });
       } else {
-        customDialog.show(
-          barrierDismissable: true,
-          context: context,
-          content: AppLocalizations.of(context).translate('record_not_matched'),
-          customActions: <Widget>[
-            FlatButton(
-              child: Text(AppLocalizations.of(context).translate('yes_lbl')),
-              onPressed: () async {
-                ExtendedNavigator.of(context).pop();
+        for (int i = 0; i < candidateList.length; i += 1) {
+          if (candidateList[i].testCode == this.testCode) {
+            customDialog.show(
+              barrierDismissable: true,
+              context: context,
+              content:
+                  AppLocalizations.of(context).translate('record_not_matched'),
+              customActions: <Widget>[
+                FlatButton(
+                  child:
+                      Text(AppLocalizations.of(context).translate('yes_lbl')),
+                  onPressed: () async {
+                    ExtendedNavigator.of(context).pop();
 
-                if (success > 0)
-                  Future.wait([
-                    cancelCallPart3JpjTest(),
-                    callPart3JpjTest(type: 'SKIP'),
-                  ]);
-                else
-                  await callPart3JpjTest(type: 'SKIP');
+                    setState(() {
+                      this.name = candidateList[i].fullname;
+                      this.qNo = candidateList[i].queueNo;
+                    });
 
-                ExtendedNavigator.of(context)
-                    .push(
-                  Routes.confirmCandidateInfo,
-                  arguments: ConfirmCandidateInfoArguments(
-                    part3Type: 'JALAN RAYA',
-                    nric: this.nric,
-                    name: this.name,
-                    qNo: this.qNo,
-                    groupId: this.groupId,
-                    testDate: testDate,
-                    testCode: this.testCode,
-                  ),
-                )
-                    .then((value) {
-                  cancelCallPart3JpjTest(type: 'SKIP');
+                    if (success > 0)
+                      Future.wait([
+                        cancelCallPart3JpjTest(),
+                        callPart3JpjTest(type: 'SKIP'),
+                      ]);
+                    else
+                      await callPart3JpjTest(type: 'SKIP');
 
-                  setState(() {
-                    success = 0;
-                  });
-                });
+                    ExtendedNavigator.of(context)
+                        .push(
+                      Routes.confirmCandidateInfo,
+                      arguments: ConfirmCandidateInfoArguments(
+                        part3Type: 'JALAN RAYA',
+                        nric: this.nric,
+                        name: this.name,
+                        qNo: this.qNo,
+                        groupId: this.groupId,
+                        testDate: testDate,
+                        testCode: this.testCode,
+                      ),
+                    )
+                        .then((value) {
+                      cancelCallPart3JpjTest(type: 'SKIP');
 
-                // cancelCallPart3JpjTest();
+                      setState(() {
+                        success = 0;
+                      });
+                    });
 
-                // callPart3JpjTest();
-              },
-            ),
-            FlatButton(
-              child: Text(AppLocalizations.of(context).translate('no_lbl')),
-              onPressed: () => ExtendedNavigator.of(context).pop(),
-            ),
-          ],
-          type: DialogType.GENERAL,
-        );
+                    // cancelCallPart3JpjTest();
+
+                    // callPart3JpjTest();
+                  },
+                ),
+                FlatButton(
+                  child: Text(AppLocalizations.of(context).translate('no_lbl')),
+                  onPressed: () => ExtendedNavigator.of(context).pop(),
+                ),
+              ],
+              type: DialogType.GENERAL,
+            );
+
+            break;
+          } else if (i + 1 == candidateList.length) {
+            customDialog.show(
+              context: context,
+              content: AppLocalizations.of(context)
+                  .translate('qr_candidate_not_found'),
+              type: DialogType.INFO,
+            );
+          }
+        }
       }
     } else {
       customDialog.show(
