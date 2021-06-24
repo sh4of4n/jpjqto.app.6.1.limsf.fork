@@ -12,7 +12,7 @@ class HomeModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       SizedBox(
-        height: ScreenUtil().setHeight(100),
+        height: ScreenUtil().setHeight(30),
       ),
       // Row(
       //   mainAxisAlignment: MainAxisAlignment.spaceAround,

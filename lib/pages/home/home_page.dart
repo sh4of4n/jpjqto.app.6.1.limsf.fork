@@ -41,6 +41,13 @@ class _HomeState extends State<Home> {
   String instituteLogo = '';
   bool isLogoLoaded = false;
 
+  String groupId;
+  String carNo;
+  String plateNo;
+  String dbCode;
+
+  TextStyle textStyle = TextStyle(fontWeight: FontWeight.bold);
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +60,7 @@ class _HomeState extends State<Home> {
 
     _openHiveBoxes();
     _setLocale();
+    _getVehInfo();
   }
 
   @override
@@ -79,97 +87,53 @@ class _HomeState extends State<Home> {
     // await Hive.openBox('emergencyContact');
   }
 
-  /* _getDiProfile() async {
-    // String instituteLogoPath = await localStorage.getInstituteLogo();
+  _getVehInfo() async {
+    String getGroupId = await localStorage.getEnrolledGroupId();
+    String getCarNo = await localStorage.getCarNo();
+    String getPlateNo = await localStorage.getPlateNo();
+    String getDbCode = await localStorage.getMerchantDbCode();
 
-    var result = await authRepo.getDiProfile(context: context);
+    setState(() {
+      groupId = getGroupId;
+      carNo = getCarNo;
+      plateNo = getPlateNo;
+      dbCode = getDbCode;
+    });
+  }
 
-    if (result.isSuccess && result.data != null) {
-      // Uint8List decodedImage = base64Decode(
-      //     result.data);
-
-      setState(() {
-        instituteLogo = result.data;
-        isLogoLoaded = true;
-      });
-    }
-
-    if (instituteLogoPath.isEmpty) {
-      var result = await authRepo.getDiProfile(context: context);
-
-      if (result.isSuccess && result.data != null) {
-        // Uint8List decodedImage = base64Decode(
-        //     result.data);
-
-        setState(() {
-          instituteLogo = result.data;
-          isLogoLoaded = true;
-        });
-      }
-    } else {
-      // Uint8List decodedImage = base64Decode(instituteLogoPath);
-
-      setState(() {
-        instituteLogo = instituteLogoPath;
-        isLogoLoaded = true;
-      });
-    }
-  } */
-
-  /* _getActiveFeed() async {
-    var result = await authRepo.getActiveFeed(
-      context: context,
-      feedType: 'MAIN',
+  vehInfo() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+      child: Table(
+        children: [
+          TableRow(
+            children: [
+              Text('Group ID'),
+              Text(groupId, style: textStyle),
+            ],
+          ),
+          TableRow(
+            children: [
+              Text('Car No'),
+              Text(carNo, style: textStyle),
+            ],
+          ),
+          TableRow(
+            children: [
+              Text('Plate No'),
+              Text(plateNo, style: textStyle),
+            ],
+          ),
+          TableRow(
+            children: [
+              Text('Merchant No'),
+              Text(dbCode, style: textStyle),
+            ],
+          ),
+        ],
+      ),
     );
-
-    if (result.isSuccess) {
-      setState(() {
-        feed = result.data;
-      });
-    }
-  } */
-
-  /* _getCurrentLocation() async {
-    await location.getCurrentLocation();
-    await _checkSavedCoord();
-    userTracking();
-  } */
-
-  // Check if stored latitude and longitude is null
-  /* _checkSavedCoord() async {
-    double _savedLatitude =
-        double.tryParse(await localStorage.getUserLatitude());
-    double _savedLongitude =
-        double.tryParse(await localStorage.getUserLongitude());
-
-    if (_savedLatitude == null || _savedLongitude == null) {
-      localStorage.saveUserLatitude(location.latitude.toString());
-      localStorage.saveUserLongitude(location.longitude.toString());
-    }
-  } */
-
-  // remember to add positionStream.cancel()
-  /* Future<void> userTracking() async {
-    GeolocationStatus geolocationStatus =
-        await Geolocator().checkGeolocationPermissionStatus();
-
-    // print(geolocationStatus);
-
-    if (geolocationStatus == GeolocationStatus.granted) {
-      positionStream = geolocator
-          .getPositionStream(locationOptions)
-          .listen((Position position) async {
-        localStorage.saveUserLatitude(position.latitude.toString());
-        localStorage.saveUserLongitude(position.longitude.toString());
-      });
-    }
-  } */
-
-  /* _openHiveBoxes() async {
-    await Hive.openBox('telcoList');
-    await Hive.openBox('serviceList');
-    // await Hive.openBox('emergencyContact');
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,6 +184,8 @@ class _HomeState extends State<Home> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: 20),
+                vehInfo(),
                 HomeModule(),
                 InkWell(
                   onTap: () =>
