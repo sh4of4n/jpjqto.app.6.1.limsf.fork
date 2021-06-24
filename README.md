@@ -1,5 +1,6 @@
 V.0.0.18
 
+- Add vehicle info in home page
 - Refresh the Q-No list if candidate is already called
 
 V.0.0.17
