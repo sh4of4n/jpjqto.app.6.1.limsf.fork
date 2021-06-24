@@ -1,3 +1,11 @@
+V.0.0.18
+
+- Refresh the Q-No list if candidate is already called
+
+V.0.0.17
+
+- Check and obtain correct skipped candidate info
+
 0.0.16
 
 - Fix UI clipping in candidate details

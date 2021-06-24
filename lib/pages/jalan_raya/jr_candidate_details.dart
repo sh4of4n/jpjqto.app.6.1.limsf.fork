@@ -265,8 +265,14 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     } else {
       customDialog.show(
         context: context,
+        barrierDismissable: false,
         content: result.message,
-        type: DialogType.WARNING,
+        onPressed: () {
+          ExtendedNavigator.of(context).pop();
+
+          getPart3AvailableToCallJpjTestList();
+        },
+        type: DialogType.INFO,
       );
     }
 
