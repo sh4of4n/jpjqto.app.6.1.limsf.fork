@@ -54,7 +54,7 @@ class HomeModule extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Column(
+          /* Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Row(
@@ -68,7 +68,7 @@ class HomeModule extends StatelessWidget {
                 ],
               ),
             ],
-          ),
+          ), */
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

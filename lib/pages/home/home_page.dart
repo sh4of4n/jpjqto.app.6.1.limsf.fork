@@ -109,25 +109,25 @@ class _HomeState extends State<Home> {
           TableRow(
             children: [
               Text('Group ID'),
-              Text(groupId, style: textStyle),
+              Text(groupId ?? '', style: textStyle),
             ],
           ),
           TableRow(
             children: [
               Text('Car No'),
-              Text(carNo, style: textStyle),
+              Text(carNo ?? '', style: textStyle),
             ],
           ),
           TableRow(
             children: [
               Text('Plate No'),
-              Text(plateNo, style: textStyle),
+              Text(plateNo ?? '', style: textStyle),
             ],
           ),
           TableRow(
             children: [
               Text('Merchant No'),
-              Text(dbCode, style: textStyle),
+              Text(dbCode ?? '', style: textStyle),
             ],
           ),
         ],
