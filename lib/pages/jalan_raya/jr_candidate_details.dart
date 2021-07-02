@@ -131,10 +131,6 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         )
             .then((value) {
           cancelCallPart3JpjTest();
-
-          setState(() {
-            success = 0;
-          });
         });
       } else {
         for (int i = 0; i < candidateList.length; i += 1) {
@@ -179,10 +175,6 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     )
                         .then((value) {
                       cancelCallPart3JpjTest(type: 'SKIP');
-
-                      setState(() {
-                        success = 0;
-                      });
                     });
 
                     // cancelCallPart3JpjTest();
@@ -307,6 +299,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       }
 
       setState(() {
+        success = 0;
         candidateList.clear();
         selectedCandidate = null;
 

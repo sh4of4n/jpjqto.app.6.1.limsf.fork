@@ -1,3 +1,7 @@
+V.0.0.20
+
+- Fix unable to back if call cancel jpj test
+
 V.0.0.19
 
 - Remove RPK from the option
