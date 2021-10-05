@@ -25,8 +25,8 @@ class _SettingsState extends State<Settings> {
   double _defIconSize = 30;
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
-  String _clientAcc = '';
-  String _merchantNo = '';
+  String? _clientAcc = '';
+  String? _merchantNo = '';
 
   bool _isLoading = false;
 
@@ -67,34 +67,31 @@ class _SettingsState extends State<Settings> {
                 title: Consumer<LanguageModel>(
                   builder: (context, lang, child) {
                     return Text(
-                      '${AppLocalizations.of(context).translate('language_lbl')} ${lang.language}',
+                      '${AppLocalizations.of(context)!.translate('language_lbl')} ${lang.language}',
                     );
                   },
                 ),
-                onTap: () {
-                  // ExtendedNavigator.of(context).pop();
-                  return showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return LanguageOptions();
-                    },
-                  );
-                },
+                onTap: () => showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return LanguageOptions();
+                  },
+                ),
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.lock, size: _defIconSize),
-                title: Text(AppLocalizations.of(context)
+                title: Text(AppLocalizations.of(context)!
                     .translate('change_password_lbl')),
                 onTap: () {
-                  ExtendedNavigator.of(context).push(Routes.changePassword);
+                  context.router.push(ChangePassword());
                 },
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.exit_to_app, size: _defIconSize),
                 title:
-                    Text(AppLocalizations.of(context).translate('logout_lbl')),
+                    Text(AppLocalizations.of(context)!.translate('logout_lbl')),
                 onTap: _logout,
               ),
               Divider(),
@@ -105,22 +102,22 @@ class _SettingsState extends State<Settings> {
                   if (count == 4) {
                     customDialog.show(
                       context: context,
-                      title: Text(AppLocalizations.of(context)
+                      title: Text(AppLocalizations.of(context)!
                           .translate('delete_account')),
-                      content: AppLocalizations.of(context)
+                      content: AppLocalizations.of(context)!
                           .translate('confirm_delete_account'),
                       customActions: <Widget>[
                         FlatButton(
-                          child: Text(AppLocalizations.of(context)
+                          child: Text(AppLocalizations.of(context)!
                               .translate('yes_lbl')),
                           onPressed: _deleteAccount,
                         ),
                         FlatButton(
-                          child: Text(
-                              AppLocalizations.of(context).translate('no_lbl')),
+                          child: Text(AppLocalizations.of(context)!
+                              .translate('no_lbl')),
                           onPressed: () {
                             count = 0;
-                            ExtendedNavigator.of(context).pop();
+                            context.router.pop();
                           },
                         ),
                       ],
@@ -130,8 +127,8 @@ class _SettingsState extends State<Settings> {
                   }
                 },
                 leading: Icon(Icons.apps, size: _defIconSize),
-                title:
-                    Text(AppLocalizations.of(context).translate('version_lbl')),
+                title: Text(
+                    AppLocalizations.of(context)!.translate('version_lbl')),
                 subtitle: Text('V.$appVersion'),
 
                 /* onTap: () async {
@@ -160,15 +157,15 @@ class _SettingsState extends State<Settings> {
               ListTile(
                 leading: Icon(Icons.code, size: _defIconSize),
                 title:
-                    Text(AppLocalizations.of(context).translate('client_acc')),
-                subtitle: Text(_clientAcc),
+                    Text(AppLocalizations.of(context)!.translate('client_acc')),
+                subtitle: Text(_clientAcc!),
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.shopping_bag_rounded, size: _defIconSize),
-                title:
-                    Text(AppLocalizations.of(context).translate('merchant_no')),
-                subtitle: Text(_merchantNo),
+                title: Text(
+                    AppLocalizations.of(context)!.translate('merchant_no')),
+                subtitle: Text(_merchantNo!),
               ),
             ],
           ),
@@ -181,11 +178,11 @@ class _SettingsState extends State<Settings> {
   _logout() {
     customDialog.show(
         context: context,
-        title: Text(AppLocalizations.of(context).translate('confirm_lbl')),
-        content: AppLocalizations.of(context).translate('confirm_log_out'),
+        title: Text(AppLocalizations.of(context)!.translate('confirm_lbl')),
+        content: AppLocalizations.of(context)!.translate('confirm_log_out'),
         customActions: <Widget>[
           FlatButton(
-            child: Text(AppLocalizations.of(context).translate('yes_lbl')),
+            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
             onPressed: () async {
               // if (widget.data != null) widget.data.cancel();
 
@@ -193,10 +190,9 @@ class _SettingsState extends State<Settings> {
                 _isLoading = true;
               });
 
-              ExtendedNavigator.of(context).pop();
+              context.router.pop();
               await authRepo.logout(context: context, type: 'CLEAR');
-              ExtendedNavigator.of(context)
-                  .pushAndRemoveUntil(Routes.login, (r) => false);
+              context.router.pushAndPopUntil(Login(), predicate: (r) => false);
 
               setState(() {
                 _isLoading = false;
@@ -204,9 +200,9 @@ class _SettingsState extends State<Settings> {
             },
           ),
           FlatButton(
-            child: Text(AppLocalizations.of(context).translate('no_lbl')),
+            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
             onPressed: () {
-              ExtendedNavigator.of(context).pop();
+              context.router.pop();
             },
           ),
         ],
@@ -214,7 +210,7 @@ class _SettingsState extends State<Settings> {
   }
 
   _deleteAccount() async {
-    ExtendedNavigator.of(context).pop();
+    context.router.pop();
 
     setState(() {
       _isLoading = true;
@@ -223,14 +219,13 @@ class _SettingsState extends State<Settings> {
     var result = await authRepo.deleteAppMemberAccount(context: context);
 
     if (result.isSuccess) {
-      ExtendedNavigator.of(context)
-          .pushAndRemoveUntil(Routes.login, (r) => false);
+      context.router.pushAndPopUntil(Login(), predicate: (r) => false);
     } else {
       customDialog.show(
         context: context,
         type: DialogType.ERROR,
         content: result.message.toString(),
-        onPressed: () => ExtendedNavigator.of(context).pop(),
+        onPressed: () => context.router.pop(),
       );
     }
 

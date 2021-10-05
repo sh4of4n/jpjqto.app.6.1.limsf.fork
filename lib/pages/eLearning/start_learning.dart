@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/pages/eTestingSolution/list_part_2.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
@@ -18,8 +18,8 @@ class StartLearning extends StatefulWidget {
 class _StartLearningState extends State<StartLearning> {
   final image = ImagesConstant();
 
-  String _ic = '';
-  String _name = '';
+  String? _ic = '';
+  String? _name = '';
 
 // Default Radio Button Selected Item When App Starts.
   String groupId = 'D';
@@ -37,8 +37,8 @@ class _StartLearningState extends State<StartLearning> {
   }
 
   _getUserInfo() async {
-    String name = await localStorage.getName();
-    String ic = await localStorage.getStudentIc();
+    String? name = await localStorage.getName();
+    String? ic = await localStorage.getStudentIc();
 
     setState(() {
       _name = name;
@@ -61,15 +61,15 @@ class _StartLearningState extends State<StartLearning> {
                 Wrap(
                   children: <Widget>[
                     Text(
-                      AppLocalizations.of(context).translate('instructor_name'),
+                      AppLocalizations.of(context)!.translate('instructor_name'),
                     ),
-                    Text(_name),
+                    Text(_name!),
                   ],
                 ),
                 Wrap(
                   children: <Widget>[
                     Text('    IC NO : '),
-                    Text(_ic),
+                    Text(_ic!),
                   ],
                 ),
                 Divider(),
@@ -151,7 +151,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 1,
                                   groupValue: _groupId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       groupId = 'D';
                                       _groupId = 1;
@@ -172,7 +172,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 2,
                                   groupValue: _groupId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       groupId = 'DA';
                                       _groupId = 2;
@@ -207,7 +207,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 1,
                                   groupValue: _courseCodeId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       courseCode = 'KPP';
                                       _courseCodeId = 1;
@@ -228,7 +228,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 2,
                                   groupValue: _courseCodeId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       courseCode = 'QTI';
                                       _courseCodeId = 2;
@@ -249,7 +249,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 3,
                                   groupValue: _courseCodeId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       courseCode = 'JPJ';
                                       _courseCodeId = 3;
@@ -284,7 +284,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 1,
                                   groupValue: _partId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       part = '2';
                                       _partId = 1;
@@ -305,7 +305,7 @@ class _StartLearningState extends State<StartLearning> {
                                   activeColor: ColorConstant.primaryColor,
                                   value: 2,
                                   groupValue: _partId,
-                                  onChanged: (val) {
+                                  onChanged: (dynamic val) {
                                     setState(() {
                                       part = '3';
                                       _partId = 2;
@@ -328,14 +328,13 @@ class _StartLearningState extends State<StartLearning> {
                 ),
               ],
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text(
-                AppLocalizations.of(context).translate('start_lbl'),
+                AppLocalizations.of(context)!.translate('start_lbl'),
               ),
               onPressed: () {
-                ExtendedNavigator.of(context).push(
-                  Routes.criteriaList,
-                  arguments: CriteriaListArguments(
+                context.router.push(
+                  CriteriaList(
                     studentIc: widget.studentIC,
                     startDateTime: DateTime.now().toString(),
                     group: groupId,

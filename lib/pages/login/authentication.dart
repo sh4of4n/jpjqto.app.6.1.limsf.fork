@@ -41,8 +41,8 @@ class _AuthenticationState extends State<Authentication> {
     // localStorage.reset();
 
     // String wsUrl = wsUrlBox.get('wsUrl');
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
 
     // if (wsUrl == null) {
     await authRepo.getWsUrl(
@@ -57,45 +57,47 @@ class _AuthenticationState extends State<Authentication> {
   }
 
   _setLocale() async {
-    String locale = await localStorage.getLocale();
+    String? locale = await localStorage.getLocale();
 
     if (locale == 'en') {
       Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-          AppLocalizations.of(context).translate('english_lbl'));
+          AppLocalizations.of(context)!.translate('english_lbl'));
     } else {
       Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-          AppLocalizations.of(context).translate('malay_lbl'));
+          AppLocalizations.of(context)!.translate('malay_lbl'));
     }
   }
 
   _checkExistingLogin() async {
-    String userId = await localStorage.getUserId();
-    String groupId = await localStorage.getEnrolledGroupId();
-    String carNo = await localStorage.getCarNo();
-    String plateNo = await localStorage.getPlateNo();
+    String? userId = await localStorage.getUserId();
+    String? groupId = await localStorage.getEnrolledGroupId();
+    String? carNo = await localStorage.getCarNo();
+    String? plateNo = await localStorage.getPlateNo();
 
-    if (userId.isNotEmpty) {
+    if (userId != null && userId.isNotEmpty) {
       if (groupId != null &&
           groupId.isNotEmpty &&
           carNo != null &&
           carNo.isNotEmpty &&
           plateNo != null &&
           plateNo.isNotEmpty) {
-        ExtendedNavigator.of(context).replace(Routes.home);
+        context.router.replace(Home());
       } else {
-        ExtendedNavigator.of(context).replace(Routes.getVehicleInfo);
+        context.router.replace(GetVehicleInfo());
       }
     } else {
-      ExtendedNavigator.of(context).replace(Routes.login);
+      context.router.replace(Login());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
-      context,
+      BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width,
+          maxHeight: MediaQuery.of(context).size.height),
       designSize: Size(1440, 2960),
-      allowFontScaling: true,
+      orientation: Orientation.portrait,
     );
 
     return Scaffold(

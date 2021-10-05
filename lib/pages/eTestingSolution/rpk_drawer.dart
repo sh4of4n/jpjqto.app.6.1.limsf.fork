@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
@@ -23,7 +23,7 @@ class RpkDrawer extends StatelessWidget {
               Wrap(
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).translate('instructor_name'),
+                    AppLocalizations.of(context)!.translate('instructor_name'),
                   ),
                   Text('YEOH SAN JIEK'),
                 ],
@@ -103,10 +103,10 @@ class RpkDrawer extends StatelessWidget {
           ),
           RaisedButton(
             child: Text(
-              AppLocalizations.of(context).translate('start_lbl'),
+              AppLocalizations.of(context)!.translate('start_lbl'),
             ),
             onPressed: () {
-              ExtendedNavigator.of(context).push(Routes.rsmRpkTabs);
+              context.router.push(RsmRpkTabs());
             },
           ),
         ],

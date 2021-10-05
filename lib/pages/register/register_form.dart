@@ -56,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   bool _loginLoading = false;
   final image = ImagesConstant();
 
-  String _phone = '';
+  String? _phone = '';
   String _icNo = '';
   String _name = '';
   String _nickName = '';
@@ -72,17 +72,17 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   bool _obscureConfirmPassword = true;
 
   DeviceInfo deviceInfo = DeviceInfo();
-  String _deviceBrand = '';
-  String _deviceModel = '';
-  String _deviceVersion = '';
-  String _deviceId = '';
-  String _deviceOs = '';
+  String? _deviceBrand = '';
+  String? _deviceModel = '';
+  String? _deviceVersion = '';
+  String? _deviceId = '';
+  String? _deviceOs = '';
 
-  List<CameraDescription> cameras;
+  List<CameraDescription>? cameras;
   final picker = ImagePicker();
   String profilePic = '';
-  File _image;
-  File _croppedImage;
+  late File _image;
+  late File _croppedImage;
   var imageState;
   var ldlList;
   var cdlList;
@@ -194,7 +194,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
               width: 1.5,
             ),
             onPressed: _profilePicOption,
-            child: Text(AppLocalizations.of(context).translate('edit')),
+            child: Text(AppLocalizations.of(context)!.translate('edit')),
           ),
         ],
       ),
@@ -207,17 +207,17 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
       content: '',
       customActions: <Widget>[
         SimpleDialogOption(
-          child: Text(AppLocalizations.of(context).translate('take_photo')),
+          child: Text(AppLocalizations.of(context)!.translate('take_photo')),
           onPressed: () async {
-            ExtendedNavigator.of(context).pop();
-            var newProfilePic = await ExtendedNavigator.of(context).push(
-                Routes.takeProfilePicture,
-                arguments: TakeProfilePictureArguments(camera: cameras));
+            context.router.pop();
+            var newProfilePic = await context.router.push(
+              TakeProfilePicture(camera: cameras),
+            );
 
             if (newProfilePic != null)
               setState(() {
                 profilePic = '';
-                _image = File(newProfilePic);
+                _image = File(newProfilePic as String);
                 _editImage();
                 // profilePicBase64 =
                 //     base64Encode(File(newProfilePic).readAsBytesSync());
@@ -225,10 +225,10 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
           },
         ),
         SimpleDialogOption(
-            child: Text(AppLocalizations.of(context)
+            child: Text(AppLocalizations.of(context)!
                 .translate('choose_existing_photo')),
             onPressed: () {
-              ExtendedNavigator.of(context).pop();
+              context.router.pop();
               _getImageGallery();
             }),
       ],
@@ -241,7 +241,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
 
     if (pickedFile?.path != null) {
       setState(() {
-        _image = File(pickedFile.path);
+        _image = File(pickedFile!.path);
         imageState = AppState.picked;
       });
 
@@ -250,7 +250,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   }
 
   Future<void> _editImage() async {
-    File croppedFile = await ImageCropper.cropImage(
+    File? croppedFile = await ImageCropper.cropImage(
       sourcePath: _image.path,
       aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
       maxWidth: 512,
@@ -340,7 +340,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('login_id'),
                             labelStyle: TextStyle(
                               color: Colors.grey[800],
@@ -352,8 +352,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                           },
                           initialValue: _phone,
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('phone_required_msg');
                             }
                             return null;
@@ -418,7 +418,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('ic_name_lbl'),
                             labelStyle: TextStyle(
                               color: Colors.grey[800],
@@ -430,8 +430,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                 context, _nameFocus, _nickNameFocus);
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('ic_name_required_msg');
                             }
                             return null;
@@ -454,7 +454,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('nick_name_lbl'),
                             labelStyle: TextStyle(
                               color: Colors.grey[800],
@@ -466,8 +466,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                 context, _nickNameFocus, _emailFocus);
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('nick_name_required_msg');
                             }
                             return null;
@@ -491,7 +491,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('email_lbl'),
                             labelStyle: TextStyle(
                               color: Colors.grey[800],
@@ -528,7 +528,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             labelStyle: TextStyle(
                               color: Color(0xff808080),
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('postcode_lbl'),
                             prefixIcon: Icon(Icons.home),
                           ),
@@ -540,8 +540,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             );
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('postcode_required_msg');
                             }
                             return null;
@@ -634,7 +634,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: -10.h),
                             hintStyle: TextStyle(color: primaryColor),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('password_lbl'),
                             labelStyle: TextStyle(
                               color: Colors.grey[800],
@@ -659,8 +659,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                 context, _passwordFocus, _confirmPasswordFocus);
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('password_required_msg');
                             }
                             return null;
@@ -680,7 +680,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: -10.h),
                             hintStyle: TextStyle(color: primaryColor),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('confirm_password'),
                             labelStyle: TextStyle(
                               color: Colors.grey[800],
@@ -702,8 +702,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                           ),
                           obscureText: _obscureConfirmPassword,
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('confirm_password_required');
                             }
                             return null;
@@ -746,7 +746,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                             horizontal: 30.0,
                                           ),
                                           child: Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .translate('sign_up_btn'),
                                             style: TextStyle(
                                               fontSize: 56.sp,
@@ -836,7 +836,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('login_id'),
                             prefixIcon: Icon(Icons.phone_android),
                           ),
@@ -845,8 +845,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                           },
                           initialValue: _phone,
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('phone_required_msg');
                             }
                             return null;
@@ -875,7 +875,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             labelStyle: TextStyle(
                               color: Color(0xff808080),
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('ic_lbl'),
                             fillColor: Colors.white,
                             filled: true,
@@ -889,8 +889,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             );
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('ic_required_msg');
                             }
                             return null;
@@ -911,7 +911,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('ic_name_lbl'),
                             prefixIcon: Icon(Icons.account_circle),
                           ),
@@ -920,8 +920,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                 context, _nameFocus, _nickNameFocus);
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('ic_name_required_msg');
                             }
                             return null;
@@ -945,7 +945,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('nick_name_lbl'),
                             prefixIcon: Icon(Icons.account_circle),
                           ),
@@ -954,8 +954,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                 context, _nickNameFocus, _emailFocus);
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('nick_name_required_msg');
                             }
                             return null;
@@ -980,7 +980,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             hintStyle: TextStyle(
                               color: primaryColor,
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('email_lbl'),
                             prefixIcon: Icon(Icons.mail),
                           ),
@@ -1014,7 +1014,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             labelStyle: TextStyle(
                               color: Color(0xff808080),
                             ),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('postcode_lbl'),
                             prefixIcon: Icon(Icons.home),
                           ),
@@ -1026,8 +1026,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             );
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('postcode_required_msg');
                             }
                             return null;
@@ -1121,7 +1121,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: -10.h),
                             hintStyle: TextStyle(color: primaryColor),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('password_lbl'),
                             prefixIcon: Icon(Icons.lock),
                             suffixIcon: IconButton(
@@ -1143,8 +1143,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                 context, _passwordFocus, _confirmPasswordFocus);
                           },
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('password_required_msg');
                             }
                             return null;
@@ -1165,7 +1165,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: -10.h),
                             hintStyle: TextStyle(color: primaryColor),
-                            labelText: AppLocalizations.of(context)
+                            labelText: AppLocalizations.of(context)!
                                 .translate('confirm_password'),
                             prefixIcon: Icon(Icons.lock),
                             suffixIcon: IconButton(
@@ -1184,8 +1184,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                           ),
                           obscureText: _obscureConfirmPassword,
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('confirm_password_required');
                             }
                             return null;
@@ -1220,7 +1220,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                         textColor: Colors.white,
                                         child: Container(
                                           child: Text(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(context)!
                                                 .translate('sign_up_btn'),
                                             style: TextStyle(
                                               fontSize: 35.sp,
@@ -1255,8 +1255,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   }
 
   _submit() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(new FocusNode());
 
       setState(() {
@@ -1280,7 +1280,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
           longitude: _longitude,
           deviceId: _deviceId,
           deviceBrand: _deviceBrand,
-          deviceModel: Uri.encodeComponent(_deviceModel),
+          deviceModel: Uri.encodeComponent(_deviceModel!),
           deviceVersion: '$_deviceOs $_deviceVersion',
           enqLdlGroup: ldlItem,
           cdlGroup: cdlItem,
@@ -1303,7 +1303,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
               _loginLoading == false
                   ? FlatButton(
                       child: Text(
-                          AppLocalizations.of(context).translate('ok_btn')),
+                          AppLocalizations.of(context)!.translate('ok_btn')),
                       onPressed: _login,
                     )
                   : SpinKitFoldingCube(
@@ -1327,7 +1327,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
       } else {
         setState(() {
           _message =
-              AppLocalizations.of(context).translate('password_not_match_msg');
+              AppLocalizations.of(context)!.translate('password_not_match_msg');
           _isLoading = false;
         });
       }
@@ -1335,15 +1335,14 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   }
 
   _login() async {
-    ExtendedNavigator.of(context).pop();
+    context.router.pop();
 
     setState(() {
       _loginLoading = true;
     });
 
     var result = await authRepo.ePanduJpjQtoLoginResetPwd(
-      context: context,
-      phone: _phone.substring(2),
+      phone: _phone!.substring(2),
       password: _password,
       latitude: _latitude,
       longitude: _longitude,
@@ -1352,21 +1351,18 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
     );
 
     if (result.isSuccess) {
-      var getRegisteredDi =
-          await authRepo.getUserRegisteredDI(context: context, type: 'LOGIN');
+      var getRegisteredDi = await authRepo.getUserRegisteredDI(type: 'LOGIN');
 
       if (getRegisteredDi.isSuccess) {
         localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
-        ExtendedNavigator.of(context)
-            .pushAndRemoveUntil(Routes.getVehicleInfo, (r) => false);
+        context.router
+            .pushAndPopUntil(GetVehicleInfo(), predicate: (r) => false);
       } else {
-        ExtendedNavigator.of(context)
-            .pushAndRemoveUntil(Routes.login, (r) => false);
+        context.router.pushAndPopUntil(Login(), predicate: (r) => false);
       }
     } else {
-      ExtendedNavigator.of(context)
-          .pushAndRemoveUntil(Routes.login, (r) => false);
+      context.router.pushAndPopUntil(Login(), predicate: (r) => false);
     }
 
     setState(() {

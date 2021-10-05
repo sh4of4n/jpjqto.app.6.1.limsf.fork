@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:jpj_qto/common_library/services/repository/base_repository.dart';
 import 'package:jpj_qto/utils/app_config.dart';
 import 'package:jpj_qto/utils/custom_snackbar.dart';
 import 'package:hive/hive.dart';
@@ -8,18 +9,18 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 // import 'package:path/path.dart';
 // import 'package:async/async.dart';
-import 'dart:io';
 import 'package:xml2json/xml2json.dart';
 import '../response.dart';
 
-class Networking {
+class Networking extends BaseRepo {
   final xml2json = Xml2Json();
   final appConfig = AppConfig();
   final customSnackbar = CustomSnackbar();
   final wsUrlBox = Hive.box('ws_url');
   // var body;
-  String url;
-  String customUrl;
+  String? url;
+  String? customUrl;
+  int? milliseconds;
 
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
@@ -27,30 +28,39 @@ class Networking {
     return htmlText.replaceAll(exp, '');
   }
 
-  Networking({this.customUrl});
+  late Uri uri;
+
+  Networking({this.customUrl, this.milliseconds});
 
   Future<Response> getData({path}) async {
     if (customUrl != null) {
       url = customUrl;
     } else {
-      url = await wsUrlBox.get('wsUrl');
+      if (await Hive.box('ws_url').get('userDefinedUrl') != null &&
+          await Hive.box('ws_url').get('userDefinedUrl') != '') {
+        url = await Hive.box('ws_url').get('userDefinedUrl');
+      } else {
+        url = await wsUrlBox.get('wsUrl');
+      }
     }
 
     try {
       http.Response response;
       // for getWsUrl
       if (url == customUrl) {
-        response = await http
-            .get('$url/${path ?? ""}')
-            .timeout(const Duration(milliseconds: 10000));
-
+        uri = Uri.parse('$url/${path ?? ""}');
         print('$url/${path ?? ""}');
-      } else {
-        response = await http
-            .get('$url/webapi/${path ?? ""}')
-            .timeout(const Duration(milliseconds: 30000));
 
+        response = await http
+            .get(uri)
+            .timeout(Duration(milliseconds: milliseconds ?? 10000));
+      } else {
+        uri = Uri.parse('$url/webapi/${path ?? ""}');
         print('$url/webapi/${path ?? ""}');
+
+        response = await http
+            .get(uri)
+            .timeout(Duration(milliseconds: milliseconds ?? 30000));
       }
 
       if (response.statusCode == 200) {
@@ -79,34 +89,33 @@ class Networking {
           message: parsedMessage,
         );
       }
-    } on TimeoutException {
-      return Response(false, message: 'timeout');
-    } on SocketException {
-      return Response(false, message: 'socket');
-    } on FormatException catch (e) {
-      print(e.toString());
-      return Response(false, message: 'format');
-    } on HttpException catch (e) {
-      print(e.toString());
-      return Response(false, message: 'http');
+    } catch (error, stackTrace) {
+      return handleError(error, stackTrace);
     }
   }
 
-  Future<Response> postData({String api, String path, body, headers}) async {
+  Future<Response> postData({String? api, String? path, required body, headers}) async {
     try {
       if (customUrl != null) {
         url = customUrl;
       } else {
-        url = await wsUrlBox.get('wsUrl');
+        if (await Hive.box('ws_url').get('userDefinedUrl') != null &&
+            await Hive.box('ws_url').get('userDefinedUrl') != '') {
+          url = await Hive.box('ws_url').get('userDefinedUrl');
+        } else {
+          url = await wsUrlBox.get('wsUrl');
+        }
       }
-
-      http.Response response = await http
-          .post('$url/webapi/$api${path ?? ""}', body: body, headers: headers)
-          .timeout(const Duration(seconds: 30));
 
       print('$url/webapi/$api${path ?? ""}');
 
       print('body: ' + body);
+
+      uri = Uri.parse('$url/webapi/$api${path ?? ""}');
+
+      http.Response response = await http
+          .post(uri, body: body, headers: headers)
+          .timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         print(response.body);
@@ -132,18 +141,8 @@ class Networking {
           message: message,
         );
       }
-    } on TimeoutException catch (e) {
-      print(e.toString());
-      return Response(false, message: e.toString());
-    } on SocketException catch (e) {
-      print(e.toString());
-      return Response(false, message: e.toString());
-    } on FormatException catch (e) {
-      print(e.toString());
-      return Response(false, message: e.toString());
-    } on HttpException catch (e) {
-      print(e.toString());
-      return Response(false, message: e.toString());
+    } catch (error, stackTrace) {
+      return handleError(error, stackTrace);
     }
   }
 

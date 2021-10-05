@@ -14,18 +14,18 @@ class CustomDialog {
   final double _defIconSize = 120;
 
   show({
-    @required context,
-    @required String content,
+    required BuildContext context,
+    required String? content,
     title,
     customActions,
-    @required type,
-    bool barrierDismissable,
+    required type,
+    bool? barrierDismissable,
     onPressed,
   }) {
-    List<Widget> actions = <Widget>[
+    List<Widget>? actions = <Widget>[
       TextButton(
         child: Text("Ok"),
-        onPressed: onPressed ?? () => ExtendedNavigator.of(context).pop(),
+        onPressed: onPressed ?? () => context.router.pop(),
       )
     ];
 

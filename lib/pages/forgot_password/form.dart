@@ -28,8 +28,8 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
 
   bool _isLoading = false;
 
-  String _phone;
-  String _message = '';
+  String? _phone;
+  String? _message = '';
 
   // var _height = ScreenUtil().setHeight(1200);
 
@@ -76,7 +76,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                     color: primaryColor,
                   ),
                   labelText:
-                      AppLocalizations.of(context).translate('phone_lbl'),
+                      AppLocalizations.of(context)!.translate('phone_lbl'),
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
                   prefixIcon: Icon(Icons.account_circle),
@@ -89,8 +89,8 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                   ),
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
-                    return AppLocalizations.of(context)
+                  if (value!.isEmpty) {
+                    return AppLocalizations.of(context)!
                         .translate('phone_required_msg');
                   }
                   return null;
@@ -108,7 +108,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Wrap(
                   children: <Widget>[
-                    Text(AppLocalizations.of(context)
+                    Text(AppLocalizations.of(context)!
                         .translate('forgot_password_msg')),
                   ],
                 ),
@@ -140,10 +140,10 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      ExtendedNavigator.of(context).pop();
+                      context.router.pop();
                     },
                     child: Text(
-                      AppLocalizations.of(context).translate('go_back_lbl'),
+                      AppLocalizations.of(context)!.translate('go_back_lbl'),
                       style: TextStyle(
                         fontSize: ScreenUtil().setSp(56),
                       ),
@@ -161,11 +161,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
   _submitButton() {
     return Column(
       children: <Widget>[
-        _message.isNotEmpty
+        _message!.isNotEmpty
             ? Container(
                 width: 900.w,
                 child: Text(
-                  _message,
+                  _message!,
                   style: TextStyle(color: Colors.red),
                   textAlign: TextAlign.center,
                 ),
@@ -185,7 +185,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                     onPressed: _submit,
                     textColor: Colors.white,
                     child: Text(
-                      AppLocalizations.of(context).translate('submit_btn'),
+                      AppLocalizations.of(context)!.translate('submit_btn'),
                       style: TextStyle(
                         fontSize: ScreenUtil().setSp(56),
                       ),
@@ -198,8 +198,8 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
   }
 
   _submit() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(new FocusNode());
 
       setState(() {
@@ -208,7 +208,6 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
       });
 
       var result = await authRepo.ePanduJpjQtoLoginResetPwd(
-          context: context,
           phone: _phone,
           password: '',
           deviceRemark: '',
@@ -217,22 +216,22 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
           phDeviceId: '');
 
       if (result.isSuccess) {
-        ExtendedNavigator.of(context).pop();
+        context.router.pop();
         CustomSnackbar().show(
           context,
           message: result.message.toString(),
           type: MessageType.SUCCESS,
         );
       } else {
-        if (result.message.contains('timeout')) {
+        if (result.message!.contains('timeout')) {
           setState(() {
             _message =
-                AppLocalizations.of(context).translate('timeout_exception');
+                AppLocalizations.of(context)!.translate('timeout_exception');
           });
-        } else if (result.message.contains('socket')) {
+        } else if (result.message!.contains('socket')) {
           setState(() {
             _message =
-                AppLocalizations.of(context).translate('socket_exception');
+                AppLocalizations.of(context)!.translate('socket_exception');
           });
         } else {
           setState(() {

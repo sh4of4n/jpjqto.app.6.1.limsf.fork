@@ -3,15 +3,15 @@ import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/pages/eTestingSolution/custom_expansion_tile.dart'
     as custom;
 import 'package:provider/provider.dart';
 
 class SessionI extends StatefulWidget {
-  final Function() notifyParent;
-  SessionI({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionI({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionIState createState() => _SessionIState();
@@ -22,7 +22,7 @@ class _SessionIState extends State<SessionI> {
 
   int i1 = 0, i2 = 0, i3 = 0, i4 = 0, i5 = 0;
 
-  bool sessionH = false;
+  bool? sessionH = false;
   @override
   Widget build(BuildContext context) {
     int iMandatoryMark = context.watch<JrSessionModel>().iMandatoryMark;
@@ -32,7 +32,7 @@ class _SessionIState extends State<SessionI> {
         custom.ExpansionTile(
           headerBackgroundColor: ColorConstant.primaryColor,
           title: Text(
-            AppLocalizations.of(context).translate('jr_session_i'),
+            AppLocalizations.of(context)!.translate('jr_session_i'),
             style:
                 (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           ),
@@ -72,7 +72,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_i1_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -126,7 +126,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_i2_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -180,7 +180,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_i3_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -234,7 +234,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_i4_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -272,11 +272,11 @@ class _SessionIState extends State<SessionI> {
                 checkColor: Colors.black,
                 activeColor: Colors.white,
                 value: sessionH,
-                onChanged: (bool value) {
+                onChanged: (bool? value) {
                   setState(() {
                     sessionH = value;
                     setState(() {
-                      if (value) {
+                      if (value!) {
                         i1 = 1;
                         i2 = 1;
                         i3 = 1;

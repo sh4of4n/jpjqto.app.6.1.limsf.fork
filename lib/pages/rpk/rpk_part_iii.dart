@@ -6,7 +6,7 @@ import 'package:jpj_qto/common_library/utils/loading_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../router.gr.dart';
@@ -15,18 +15,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class RpkPartIII extends StatefulWidget {
-  final String qNo;
-  final String nric;
-  final String name;
-  final String testDate;
-  final String groupId;
-  final String testCode;
-  final String vehNo;
+  final String? qNo;
+  final String? nric;
+  final String? rpkName;
+  final String? testDate;
+  final String? groupId;
+  final String? testCode;
+  final String? vehNo;
 
   RpkPartIII(
     this.qNo,
     this.nric,
-    this.name,
+    this.rpkName,
     this.testDate,
     this.groupId,
     this.testCode,
@@ -76,8 +76,8 @@ class _Part3MainState extends State<RpkPartIII> {
           content: result.message,
           customActions: [
             FlatButton(
-              onPressed: () => ExtendedNavigator.of(context).popUntil(
-                ModalRoute.withName(Routes.confirmCandidateInfo),
+              onPressed: () => context.router.popUntil(
+                ModalRoute.withName('ConfirmCandidateInfo'),
               ),
               child: Text('Ok'),
             ),
@@ -116,11 +116,11 @@ class _Part3MainState extends State<RpkPartIII> {
           onPressed: () {
             Provider.of<RpkSessionModel>(context, listen: false).reset();
 
-            ExtendedNavigator.of(context).popUntil(
-              ModalRoute.withName(Routes.home),
+            context.router.popUntil(
+              ModalRoute.withName('Home'),
             );
           },
-          content: AppLocalizations.of(context).translate('test_submitted'),
+          content: AppLocalizations.of(context)!.translate('test_submitted'),
           type: DialogType.SUCCESS);
     } else {
       customDialog.show(
@@ -143,7 +143,7 @@ class _Part3MainState extends State<RpkPartIII> {
     //       onPressed: () {
     //         Provider.of<RpkSessionModel>(context, listen: false).reset();
 
-    //         ExtendedNavigator.of(context).popUntil(
+    //         context.router.popUntil(
     //           ModalRoute.withName(Routes.home),
     //         );
     //       },
@@ -151,7 +151,7 @@ class _Part3MainState extends State<RpkPartIII> {
     //     TextButton(
     //       child: Text(AppLocalizations.of(context).translate('no_lbl')),
     //       onPressed: () {
-    //         ExtendedNavigator.of(context).pop();
+    //         context.router.pop();
     //       },
     //     ),
     //   ],
@@ -196,26 +196,26 @@ class _Part3MainState extends State<RpkPartIII> {
                             TableRow(
                               children: [
                                 Text('Tarikh'),
-                                Text(widget.testDate.substring(0, 10),
+                                Text(widget.testDate!.substring(0, 10),
                                     style: textStyle),
                               ],
                             ),
                             TableRow(
                               children: [
                                 Text('Nama'),
-                                Text(widget.name, style: textStyle),
+                                Text(widget.rpkName!, style: textStyle),
                               ],
                             ),
                             TableRow(
                               children: [
                                 Text('NRIC'),
-                                Text(widget.nric, style: textStyle),
+                                Text(widget.nric!, style: textStyle),
                               ],
                             ),
                             TableRow(
                               children: [
                                 Text('No Giliran'),
-                                Text(widget.qNo,
+                                Text(widget.qNo!,
                                     style: TextStyle(
                                         fontSize: 80.sp,
                                         fontWeight: FontWeight.bold)),
@@ -277,17 +277,17 @@ class _Part3MainState extends State<RpkPartIII> {
                       TableRow(children: [
                         Center(
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('session_lbl'),
                                 style: TextStyle(color: Colors.black))),
                         Center(
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('normal_mistake_mark'),
                                 style: TextStyle(color: Colors.black))),
                         Center(
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('mandatory_mistake_mark'),
                                 style: TextStyle(color: Colors.black))),
                       ]),
@@ -319,7 +319,7 @@ class _Part3MainState extends State<RpkPartIII> {
                       onPressed: updatePart3JpjTestResult,
                       color: ColorConstant.primaryColor,
                       child: Text(
-                        AppLocalizations.of(context).translate('submit_btn'),
+                        AppLocalizations.of(context)!.translate('submit_btn'),
                       ),
                     ),
                   ),

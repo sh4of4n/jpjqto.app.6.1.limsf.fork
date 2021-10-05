@@ -99,9 +99,9 @@ class _CriteriaListState extends State<CriteriaList> {
     );
 
     if (addLearnResult.isSuccess) {
-      ExtendedNavigator.of(context).pop();
-      ExtendedNavigator.of(context).pop();
-      ExtendedNavigator.of(context).pop();
+      context.router.pop();
+      context.router.pop();
+      context.router.pop();
       print(addLearnResult.message);
     } else {
       customDialog.show(
@@ -111,7 +111,7 @@ class _CriteriaListState extends State<CriteriaList> {
               .toString()
               .replaceAll('\\u000d\\u000a\\u000d\\u000a', ''),
           onPressed: () {
-            ExtendedNavigator.of(context).pop();
+            context.router.pop();
           });
     }
   }
@@ -136,7 +136,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -177,7 +177,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           focusColor: Colors.black,
@@ -201,7 +201,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -239,7 +239,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -262,7 +262,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -300,7 +300,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -323,7 +323,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -361,7 +361,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -384,7 +384,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -422,7 +422,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -445,7 +445,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -483,7 +483,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -506,7 +506,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -544,7 +544,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -567,7 +567,7 @@ class _CriteriaListState extends State<CriteriaList> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 15),
                   child: Column(
                     children: <Widget>[
-                      RatingBar(
+                      RatingBar.builder(
                         itemSize: 25,
                         initialRating: 3,
                         minRating: 1,
@@ -605,7 +605,7 @@ class _CriteriaListState extends State<CriteriaList> {
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
                           ),
-                          labelText: AppLocalizations.of(context)
+                          labelText: AppLocalizations.of(context)!
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
@@ -639,7 +639,7 @@ class _CriteriaListState extends State<CriteriaList> {
                     ),
                     decoration: InputDecoration(
                       hintText:
-                          AppLocalizations.of(context).translate('remark_lbl'),
+                          AppLocalizations.of(context)!.translate('remark_lbl'),
                       border: InputBorder.none,
                     ),
                   ),
@@ -649,7 +649,7 @@ class _CriteriaListState extends State<CriteriaList> {
                 height: ScreenUtil().setHeight(100),
               ),
               RaisedButton(
-                child: Text(AppLocalizations.of(context).translate('next_btn')),
+                child: Text(AppLocalizations.of(context)!.translate('next_btn')),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -683,13 +683,13 @@ class _CriteriaListState extends State<CriteriaList> {
                                       alignment: Alignment.centerLeft,
                                       child: Wrap(
                                         children: [
-                                          Text(AppLocalizations.of(context)
+                                          Text(AppLocalizations.of(context)!
                                                   .translate('start_time_lbl') +
                                               ' : '),
                                           Text(
                                               DateFormat('hh:mm a').format(
                                                   DateTime.tryParse(
-                                                      widget.startDateTime)),
+                                                      widget.startDateTime)!),
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black)),
@@ -710,7 +710,7 @@ class _CriteriaListState extends State<CriteriaList> {
                                         labelStyle: TextStyle(
                                           color: Color(0xff808080),
                                         ),
-                                        labelText: AppLocalizations.of(context)
+                                        labelText: AppLocalizations.of(context)!
                                             .translate('end_time_lbl'),
                                         fillColor: Colors.white,
                                         filled: true,
@@ -728,7 +728,7 @@ class _CriteriaListState extends State<CriteriaList> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.blue[700],
+                                              color: Colors.blue[700]!,
                                               width: 1.6),
                                           // borderRadius: BorderRadius.circular(0),
                                           borderRadius:
@@ -755,7 +755,7 @@ class _CriteriaListState extends State<CriteriaList> {
                                       },
                                       validator: (value) {
                                         if (value == null) {
-                                          return AppLocalizations.of(context)
+                                          return AppLocalizations.of(context)!
                                               .translate('time_required');
                                         }
                                         return null;

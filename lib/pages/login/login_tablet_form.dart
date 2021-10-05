@@ -32,9 +32,9 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
 
   bool _isLoading = false;
 
-  String _phone;
-  String _password;
-  String _loginMessage = '';
+  String? _phone;
+  String? _password;
+  String? _loginMessage = '';
   bool _obscureText = true;
 
   // var _height = ScreenUtil().setHeight(1300);
@@ -47,9 +47,9 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
 
   DeviceInfo deviceInfo = DeviceInfo();
   // String _deviceModel = '';
-  String _deviceVersion = '';
-  String _deviceId = '';
-  String _deviceOs = '';
+  String? _deviceVersion = '';
+  String? _deviceId = '';
+  String? _deviceOs = '';
 
   @override
   void initState() {
@@ -129,7 +129,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                     color: primaryColor,
                   ),
                   labelText:
-                      AppLocalizations.of(context).translate('phone_lbl'),
+                      AppLocalizations.of(context)!.translate('phone_lbl'),
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
                   prefixIcon: Icon(Icons.account_circle, size: 32),
@@ -145,8 +145,8 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                   fieldFocusChange(context, _phoneFocus, _passwordFocus);
                 },
                 validator: (value) {
-                  if (value.isEmpty) {
-                    return AppLocalizations.of(context)
+                  if (value!.isEmpty) {
+                    return AppLocalizations.of(context)!
                         .translate('phone_required_msg');
                   }
                   return null;
@@ -169,7 +169,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                   contentPadding: EdgeInsets.symmetric(vertical: 40.h),
                   hintStyle: TextStyle(color: primaryColor),
                   labelText:
-                      AppLocalizations.of(context).translate('password_lbl'),
+                      AppLocalizations.of(context)!.translate('password_lbl'),
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
                   prefixIcon: Icon(Icons.lock, size: 32),
@@ -194,8 +194,8 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                 ),
                 obscureText: _obscureText,
                 validator: (value) {
-                  if (value.isEmpty) {
-                    return AppLocalizations.of(context)
+                  if (value!.isEmpty) {
+                    return AppLocalizations.of(context)!
                         .translate('password_required_msg');
                   }
                   return null;
@@ -214,10 +214,10 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      ExtendedNavigator.of(context).push(Routes.forgotPassword);
+                      context.router.push(ForgotPassword());
                     },
                     child: Text(
-                      AppLocalizations.of(context)
+                      AppLocalizations.of(context)!
                           .translate('forgot_password_lbl'),
                       style: TextStyle(
                         fontSize: 35.sp,
@@ -234,11 +234,11 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      _loginMessage.isNotEmpty
+                      _loginMessage!.isNotEmpty
                           ? LimitedBox(
                               maxWidth: 800.w,
                               child: Text(
-                                _loginMessage,
+                                _loginMessage!,
                                 style: TextStyle(color: Colors.red),
                                 textAlign: TextAlign.center,
                               ),
@@ -270,11 +270,13 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
               padding: EdgeInsets.symmetric(vertical: 20.h),
               buttonColor: primaryColor,
               shape: StadiumBorder(),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: _submitLogin, // () => localStorage.reset(),
-                textColor: Colors.white,
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                ),
                 child: Text(
-                  AppLocalizations.of(context).translate('login_btn'),
+                  AppLocalizations.of(context)!.translate('login_btn'),
                   style: TextStyle(
                     fontSize: 35.sp,
                   ),
@@ -285,8 +287,8 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
   }
 
   _submitLogin() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(new FocusNode());
 
       setState(() {
@@ -302,7 +304,6 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
       ); */
 
       var result = await authRepo.ePanduJpjQtoLoginResetPwd(
-        context: context,
         phone: _phone,
         password: _password,
         latitude: _latitude,
@@ -313,28 +314,32 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
 
       if (result.isSuccess) {
         if (result.data == 'empty') {
-          var getRegisteredDi = await authRepo.getUserRegisteredDI(
-              context: context, type: 'LOGIN');
+          var getRegisteredDi =
+              await authRepo.getUserRegisteredDI(type: 'LOGIN');
 
           if (getRegisteredDi.isSuccess) {
-            ExtendedNavigator.of(context).replace(Routes.home);
+            localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
+
+            context.router.replace(GetVehicleInfo());
           } else {
             setState(() {
               _isLoading = false;
               _loginMessage = result.message;
             });
           }
-        } else if (result.data.length > 1) {
+        }
+        /* else if (result.data.length > 1) {
           // Navigate to DI selection page
           // Temporary navigate to home
-          ExtendedNavigator.of(context).replace(Routes.home);
+          context.router.replace(Home());
 
           /* Navigator.pushReplacementNamed(context, SELECT_DI,
               arguments: result.data);*/
-        } else {
+        }  */
+        else {
           localStorage.saveDiCode(result.data[0].diCode);
 
-          ExtendedNavigator.of(context).replace(Routes.home);
+          context.router.replace(GetVehicleInfo());
         }
       } else {
         setState(() {

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import '../model/kpp_model.dart';
 import '../../../utils/app_config.dart';
@@ -26,11 +25,11 @@ class AuthRepo {
   Future<Response> getWsUrl({
     context,
     acctUid,
-    acctPwd,
+    required acctPwd,
     loginType,
     callback,
     altWsUrl,
-    int milliseconds,
+    int? milliseconds,
   }) async {
     final String wsVer = '1.1';
     final String wsUrl0 =
@@ -76,7 +75,7 @@ class AuthRepo {
       if (getWsUrlResponse.loginAcctInfo != null) {
         await wsUrlBox.put(
           'wsUrl',
-          getWsUrlResponse.loginAcctInfo.loginAcct.wsUrl
+          getWsUrlResponse.loginAcctInfo!.loginAcct!.wsUrl!
               .replaceAll('1_2', appConfig.wsVer)
               .replaceAll('_wsver_', appConfig.wsVer),
         );
@@ -86,12 +85,12 @@ class AuthRepo {
         localStorage.saveCaPwdEncode(Uri.encodeQueryComponent(acctPwd));
 
         return Response(true,
-            data: getWsUrlResponse.loginAcctInfo.loginAcct.wsUrl
+            data: getWsUrlResponse.loginAcctInfo!.loginAcct!.wsUrl!
                 .replaceAll('1_2', appConfig.wsVer),
             message: '');
       }
     } else if (response.message != null &&
-        response.message.contains('Connection timed out.')) {
+        response.message!.contains('Connection timed out.')) {
       var callbackResult = await wsUrlCallback(
           context: context,
           acctUid: acctUid,
@@ -108,7 +107,7 @@ class AuthRepo {
       // return Response(false,
       //     message: AppLocalizations.of(context).translate('timeout_exception'));
     } else if (response.message != null &&
-        response.message.contains('An error occurred.')) {
+        response.message!.contains('An error occurred.')) {
       var callbackResult = await wsUrlCallback(
         context: context,
         acctUid: acctUid,
@@ -165,20 +164,20 @@ class AuthRepo {
 
   Future<Response> login({
     context,
-    String phone,
-    String password,
-    String latitude,
-    String longitude,
-    String deviceBrand,
-    String deviceModel,
-    String deviceRemark,
-    String phDeviceId,
+    String? phone,
+    String? password,
+    String? latitude,
+    String? longitude,
+    String? deviceBrand,
+    String? deviceModel,
+    required String deviceRemark,
+    String? phDeviceId,
   }) async {
-    final String caUid = await localStorage.getCaUid();
+    final String? caUid = await localStorage.getCaUid();
     // final String caPwd = await localStorage.getCaPwd();
-    final String caPwdUrlEncode = await localStorage.getCaPwdEncode();
-    String pushToken = await Hive.box('ws_url').get('push_token');
-    String appVersion = await localStorage.getAppVersion();
+    final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
+    String? pushToken = await Hive.box('ws_url').get('push_token');
+    String? appVersion = await localStorage.getAppVersion();
     // String appCode = appConfig.appCode;
     // String appId = appConfig.appId;
 
@@ -191,17 +190,17 @@ class AuthRepo {
 
     if (response.isSuccess && response.data != null) {
       LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-      var responseData = loginResponse.table1[0];
+      var responseData = loginResponse.table1![0];
 
       if (responseData.userId != null && responseData.msg == null) {
         print(responseData.userId);
         print(responseData.sessionId);
 
-        localStorage.saveUserId(responseData.userId);
-        localStorage.saveSessionId(responseData.sessionId);
-        localStorage.saveLoginDeviceId(responseData.deviceId);
+        localStorage.saveUserId(responseData.userId!);
+        localStorage.saveSessionId(responseData.sessionId!);
+        localStorage.saveLoginDeviceId(responseData.deviceId!);
 
-        var result = await getUserRegisteredDI(context: context, type: 'LOGIN');
+        var result = await getUserRegisteredDI(type: 'LOGIN');
 
         return result;
       } else if (responseData.msg == 'Reset Password Success') {
@@ -217,26 +216,25 @@ class AuthRepo {
   }
 
   Future<Response> ePanduJpjQtoLoginResetPwd({
-    context,
-    String phone,
-    String password,
-    String latitude,
-    String longitude,
-    String deviceBrand,
-    String deviceModel,
-    String deviceRemark,
-    String phDeviceId,
+    String? phone,
+    String? password,
+    String? latitude,
+    String? longitude,
+    String? deviceBrand,
+    String? deviceModel,
+    String? deviceRemark,
+    String? phDeviceId,
   }) async {
-    final String caUid = await localStorage.getCaUid();
+    final String? caUid = await localStorage.getCaUid();
     // final String caPwd = await localStorage.getCaPwd();
-    final String caPwdUrlEncode = await localStorage.getCaPwdEncode();
-    String pushToken = await Hive.box('ws_url').get('push_token');
-    String appVersion = await localStorage.getAppVersion();
+    final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
+    String? pushToken = await Hive.box('ws_url').get('push_token');
+    String? appVersion = await localStorage.getAppVersion();
     // String appCode = appConfig.appCode;
     // String appId = appConfig.appId;
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark != null && deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
 
     var response = await networking.getData(
       path: 'ePanduJpjQtoLoginResetPwd?$path',
@@ -244,17 +242,17 @@ class AuthRepo {
 
     if (response.isSuccess && response.data != null) {
       LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-      var responseData = loginResponse.table1[0];
+      var responseData = loginResponse.table1![0];
 
       if (responseData.userId != null && responseData.msg == null) {
         print(responseData.userId);
         print(responseData.sessionId);
 
-        localStorage.saveUserId(responseData.userId);
-        localStorage.saveSessionId(responseData.sessionId);
-        localStorage.saveLoginDeviceId(responseData.deviceId);
+        localStorage.saveUserId(responseData.userId!);
+        localStorage.saveSessionId(responseData.sessionId!);
+        localStorage.saveLoginDeviceId(responseData.deviceId!);
 
-        var result = await getUserRegisteredDI(context: context, type: 'LOGIN');
+        var result = await getUserRegisteredDI(type: 'LOGIN');
 
         return result;
       } else if (responseData.msg == 'Reset Password Success') {
@@ -269,12 +267,12 @@ class AuthRepo {
     return Response(false, message: 'Invalid phone and/or password.');
   }
 
-  Future<Response> getUserRegisteredDI({context, @required type}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+  Future<Response> getUserRegisteredDI({required type}) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
-    String userId = await localStorage.getUserId();
-    String diCode = await localStorage.getDiCode();
+    String? userId = await localStorage.getUserId();
+    String? diCode = await localStorage.getDiCode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appCode=${appConfig.appCode}&appId=${appConfig.appId}&diCode=$diCode&userId=$userId';
@@ -288,7 +286,7 @@ class AuthRepo {
           UserRegisteredDiResponse.fromJson(response.data);
       var responseData = userRegisteredDiResponse.armasterProfile;
 
-      var profileResult = await profileRepo.getUserProfile(context: context);
+      var profileResult = await profileRepo.getUserProfile();
 
       if (profileResult.isSuccess) {
         localStorage.saveName(profileResult.data[0].name);
@@ -320,9 +318,9 @@ class AuthRepo {
   }
 
   Future<Response> getDiProfile({context}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String diCode = await localStorage.getDiCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? diCode = await localStorage.getDiCode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode';
@@ -338,16 +336,16 @@ class AuthRepo {
 
       // save merchantDbCode
       localStorage
-          .saveMerchantDbCode(instituteLogoResponse.armaster[0].merchantNo);
+          .saveMerchantDbCode(instituteLogoResponse.armaster![0].merchantNo!);
 
-      if (instituteLogoResponse.armaster[0].merchantIconFilename != null) {
+      if (instituteLogoResponse.armaster![0].merchantIconFilename != null) {
         localStorage.saveInstituteLogo(instituteLogoResponse
-            .armaster[0].merchantIconFilename
+            .armaster![0].merchantIconFilename!
             .replaceAll(removeBracket, '')
             .split('\r\n')[0]);
 
         return Response(true,
-            data: instituteLogoResponse.armaster[0].merchantIconFilename
+            data: instituteLogoResponse.armaster![0].merchantIconFilename!
                 .replaceAll(removeBracket, '')
                 .split('\r\n')[0]);
       }
@@ -358,13 +356,13 @@ class AuthRepo {
 
   //logout
   Future<void> logout({context, type}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
     //  Temporarily use TBS as diCode
     String diCode = appConfig.diCode;
     // String diCode = await localStorage.getDiCode();
-    String sessionId = await localStorage.getSessionId();
+    String? sessionId = await localStorage.getSessionId();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&sessionId=$sessionId&isLogout=true';
@@ -396,31 +394,31 @@ class AuthRepo {
   // method was called checkExistingUser
   Future<Response> getUserByUserPhone({
     context,
-    String countryCode,
-    String phone,
-    String userId,
-    String diCode,
-    String name,
-    String nickName,
-    String add1,
-    String add2,
-    String add3,
-    String postcode,
-    String city,
-    String state,
-    String country,
-    String email,
-    String icNo,
-    @required String scenario,
+    String? countryCode,
+    String? phone,
+    String? userId,
+    String? diCode,
+    String? name,
+    String? nickName,
+    String? add1,
+    String? add2,
+    String? add3,
+    String? postcode,
+    String? city,
+    String? state,
+    String? country,
+    String? email,
+    String? icNo,
+    required String scenario,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userPhone;
-    String defPhone = phone;
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userPhone;
+    String? defPhone = phone;
 
     if (scenario == 'INVITE') {
-      if (countryCode.contains('60')) {
-        if (phone.startsWith('0')) {
+      if (countryCode!.contains('60')) {
+        if (phone!.startsWith('0')) {
           userPhone = countryCode + phone.substring(1);
           defPhone = phone.substring(1);
         } else {
@@ -429,13 +427,13 @@ class AuthRepo {
         }
       }
 
-      if (userId.isEmpty) userId = 'EPANDU';
+      if (userId!.isEmpty) userId = 'EPANDU';
     } else {
       userPhone = phone;
     }
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&userPhone=${Uri.encodeComponent(userPhone)}&appCode=${appConfig.appCode}&appId=${appConfig.appId}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&userPhone=${Uri.encodeComponent(userPhone!)}&appCode=${appConfig.appCode}&appId=${appConfig.appId}';
 
     var response = await networking.getData(
       path: 'GetUserByUserPhoneAppId?$path',
@@ -483,26 +481,26 @@ class AuthRepo {
 
   Future<Response> createAppAccount(
     context,
-    String countryCode,
-    String phone,
-    String userId,
-    String diCode,
-    String name,
-    String nickName,
-    String add1,
-    String add2,
-    String add3,
-    String postCode,
-    String city,
-    String state,
-    String country,
-    String email,
-    String icNo,
+    String? countryCode,
+    String? phone,
+    String? userId,
+    String? diCode,
+    String? name,
+    String? nickName,
+    String? add1,
+    String? add2,
+    String? add3,
+    String? postCode,
+    String? city,
+    String? state,
+    String? country,
+    String? email,
+    String? icNo,
   ) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String trimIc = icNo?.replaceAll('-', '');
-    String appVersion = await localStorage.getAppVersion();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? trimIc = icNo?.replaceAll('-', '');
+    String? appVersion = await localStorage.getAppVersion();
 
     CreateAppAccountWithAppIdRequest params = CreateAppAccountWithAppIdRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -561,9 +559,9 @@ class AuthRepo {
 
   Future<Response> verifyOldPassword(
       {context, currentPassword, newPassword}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appCode=${appConfig.appCode}&appId=${appConfig.appId}&userId=$userId&userPwd=$currentPassword';
@@ -576,14 +574,14 @@ class AuthRepo {
       GetUserByUserIdPwdResponse getUserByUserIdPwdResponse =
           GetUserByUserIdPwdResponse.fromJson(response.data);
 
-      if (getUserByUserIdPwdResponse.table1[0].result == 'Valid user.') {
+      if (getUserByUserIdPwdResponse.table1![0].result == 'Valid user.') {
         var result = await saveUserPassword(
             context: context, userId: userId, password: newPassword);
 
         return result;
       }
       return Response(false,
-          message: getUserByUserIdPwdResponse.table1[0].result);
+          message: getUserByUserIdPwdResponse.table1![0].result);
     }
 
     return Response(false, message: response.message);
@@ -591,8 +589,8 @@ class AuthRepo {
 
   // was called updatePassword
   Future<Response> saveUserPassword({context, userId, password}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
     String appCode = appConfig.appCode;
     String appId = appConfig.appId;
 
@@ -622,8 +620,8 @@ class AuthRepo {
 
   // Enrollment
   Future<Response> getDiList({context}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd';
@@ -645,16 +643,16 @@ class AuthRepo {
 
   Future<Response> getDiNearMe({
     context,
-    @required merchantNo,
-    @required startIndex,
-    @required noOfRecords,
-    @required latitude,
-    @required longitude,
-    @required maxRadius,
+    required merchantNo,
+    required startIndex,
+    required noOfRecords,
+    required latitude,
+    required longitude,
+    required maxRadius,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd' +
@@ -679,8 +677,8 @@ class AuthRepo {
   }
 
   Future<Response> getGroupIdByDiCodeForOnline({context, diCode}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode';
@@ -703,10 +701,10 @@ class AuthRepo {
   }
 
   Future<Response> getEnrollHistory({groupId}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String diCode = await localStorage.getDiCode();
-    String icNo = await localStorage.getStudentIc();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? diCode = await localStorage.getDiCode();
+    String? icNo = await localStorage.getStudentIc();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&icNo=$icNo&groupId=${groupId ?? ''}';
@@ -730,27 +728,27 @@ class AuthRepo {
 
   Future<Response> saveEnrollmentWithParticular({
     context,
-    String phoneCountryCode,
-    String phone,
-    String diCode,
-    String icNo,
-    String groupId,
-    String name,
-    String email,
-    String nationality,
-    String dateOfBirthString,
-    String gender,
-    String race,
-    List<int> userProfileImage,
-    String userProfileImageBase64String,
-    bool removeUserProfileImage,
+    String? phoneCountryCode,
+    String? phone,
+    String? diCode,
+    String? icNo,
+    String? groupId,
+    String? name,
+    String? email,
+    String? nationality,
+    String? dateOfBirthString,
+    String? gender,
+    String? race,
+    List<int>? userProfileImage,
+    String? userProfileImageBase64String,
+    bool? removeUserProfileImage,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
 
-    String userId = await localStorage.getUserId();
-    String phoneCountryCode = await localStorage.getCountryCode();
-    String phone = await localStorage.getUserPhone();
+    String? userId = await localStorage.getUserId();
+    String? phoneCountryCode = await localStorage.getCountryCode();
+    String? phone = await localStorage.getUserPhone();
 
     SaveEnrollmentRequest saveEnrollmentRequest = SaveEnrollmentRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -790,8 +788,8 @@ class AuthRepo {
         await networking.postData(api: api, body: body, headers: headers);
 
     if (response.data == 'True') {
-      localStorage.saveDiCode(diCode);
-      localStorage.saveStudentIc(icNo);
+      localStorage.saveDiCode(diCode!);
+      localStorage.saveStudentIc(icNo!);
 
       return Response(true, message: 'Your enrollment is successful.');
     }
@@ -806,27 +804,27 @@ class AuthRepo {
 
   Future<Response> saveEnrollmentPackageWithParticular({
     context,
-    String phoneCountryCode,
-    String phone,
-    String diCode,
-    String icNo,
-    String packageCode,
-    String name,
-    String email,
-    String nationality,
-    String dateOfBirthString,
-    String gender,
-    String race,
-    List<int> userProfileImage,
-    String userProfileImageBase64String,
-    bool removeUserProfileImage,
+    String? phoneCountryCode,
+    String? phone,
+    String? diCode,
+    String? icNo,
+    String? packageCode,
+    String? name,
+    String? email,
+    String? nationality,
+    String? dateOfBirthString,
+    String? gender,
+    String? race,
+    List<int>? userProfileImage,
+    String? userProfileImageBase64String,
+    bool? removeUserProfileImage,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
 
-    String userId = await localStorage.getUserId();
-    String phoneCountryCode = await localStorage.getCountryCode();
-    String phone = await localStorage.getUserPhone();
+    String? userId = await localStorage.getUserId();
+    String? phoneCountryCode = await localStorage.getCountryCode();
+    String? phone = await localStorage.getUserPhone();
 
     SaveEnrollmentPackageRequest saveEnrollmentPackageRequest =
         SaveEnrollmentPackageRequest(
@@ -867,8 +865,8 @@ class AuthRepo {
         await networking.postData(api: api, body: body, headers: headers);
 
     if (response.data == 'True') {
-      localStorage.saveDiCode(diCode);
-      localStorage.saveStudentIc(icNo);
+      localStorage.saveDiCode(diCode!);
+      localStorage.saveStudentIc(icNo!);
 
       return Response(true, message: 'Your enrollment is successful.');
     }
@@ -883,12 +881,12 @@ class AuthRepo {
 
   Future<Response> getActiveFeed({
     context,
-    @required feedType,
-    @required startIndex,
-    @required noOfRecords,
+    required feedType,
+    required startIndex,
+    required noOfRecords,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&feedType=${feedType ?? ''}&startIndex=$startIndex&noOfRecords=$noOfRecords';
@@ -910,8 +908,8 @@ class AuthRepo {
   }
 
   Future<Response> getLdlkEnqGroupList() async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd';
@@ -933,8 +931,8 @@ class AuthRepo {
   }
 
   Future<Response> getCdlList() async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd';
@@ -956,8 +954,8 @@ class AuthRepo {
   }
 
   Future<Response> getLanguageList() async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd';
@@ -979,10 +977,10 @@ class AuthRepo {
   }
 
   Future<Response> deleteAppMemberAccount({context}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
 
-    String userId = await localStorage.getUserId();
+    String? userId = await localStorage.getUserId();
 
     DeleteAppMemberAccountRequest deleteAppMemberAccountRequest =
         DeleteAppMemberAccountRequest(
@@ -1013,9 +1011,9 @@ class AuthRepo {
   }
 
   Future<Response> requestVerificationCode(
-      {context, phoneCountryCode, phone}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+      {context, required phoneCountryCode, phone}) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
     String appCode = appConfig.appCode;
     String appId = appConfig.appId;
 
@@ -1042,32 +1040,32 @@ class AuthRepo {
 
   Future<Response> register({
     context,
-    String countryCode,
-    String phone,
-    String icNo,
-    String name,
-    String nickName,
-    String email,
-    String postcode,
-    String signUpPwd,
-    String latitude,
-    String longitude,
-    String deviceId,
-    String deviceBrand,
-    String deviceModel,
-    String deviceVersion,
-    List<int> userProfileImage,
-    String userProfileImageBase64String,
-    bool removeUserProfileImage,
-    @required String enqLdlGroup,
-    @required String cdlGroup,
-    String langCode,
-    @required bool findDrvJobs,
+    String? countryCode,
+    String? phone,
+    String? icNo,
+    String? name,
+    String? nickName,
+    String? email,
+    String? postcode,
+    String? signUpPwd,
+    String? latitude,
+    String? longitude,
+    String? deviceId,
+    String? deviceBrand,
+    String? deviceModel,
+    String? deviceVersion,
+    List<int>? userProfileImage,
+    String? userProfileImageBase64String,
+    bool? removeUserProfileImage,
+    required String enqLdlGroup,
+    required String cdlGroup,
+    String? langCode,
+    required bool findDrvJobs,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String appVersion = await localStorage.getAppVersion();
-    String pushToken = await Hive.box('ws_url').get('push_token');
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? appVersion = await localStorage.getAppVersion();
+    String? pushToken = await Hive.box('ws_url').get('push_token');
 
     RegisterRequest params = RegisterRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -1148,32 +1146,32 @@ class AuthRepo {
 
   Future<Response> ePanduJpjQtoSignUp({
     context,
-    String countryCode,
-    String phone,
-    String icNo,
-    String name,
-    String nickName,
-    String email,
-    String postcode,
-    String signUpPwd,
-    String latitude,
-    String longitude,
-    String deviceId,
-    String deviceBrand,
-    String deviceModel,
-    String deviceVersion,
-    List<int> userProfileImage,
-    String userProfileImageBase64String,
-    bool removeUserProfileImage,
-    @required String enqLdlGroup,
-    @required String cdlGroup,
-    String langCode,
-    @required bool findDrvJobs,
+    String? countryCode,
+    String? phone,
+    String? icNo,
+    String? name,
+    String? nickName,
+    String? email,
+    String? postcode,
+    String? signUpPwd,
+    String? latitude,
+    String? longitude,
+    String? deviceId,
+    String? deviceBrand,
+    String? deviceModel,
+    String? deviceVersion,
+    List<int>? userProfileImage,
+    String? userProfileImageBase64String,
+    bool? removeUserProfileImage,
+    required String enqLdlGroup,
+    required String cdlGroup,
+    String? langCode,
+    required bool findDrvJobs,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String appVersion = await localStorage.getAppVersion();
-    String pushToken = await Hive.box('ws_url').get('push_token');
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? appVersion = await localStorage.getAppVersion();
+    String? pushToken = await Hive.box('ws_url').get('push_token');
 
     RegisterRequest params = RegisterRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -1351,52 +1349,53 @@ class AuthRepo {
 
   Future<Response> registerUserToDI({
     context,
-    String appVersion,
+    String? appVersion,
     // String loginId,
-    String bodyTemperature,
-    String scannedAppId,
-    String scannedAppVer,
-    String scannedLoginId,
-    String scannedUserId,
-    @required String scanCode,
-    String deviceRemark,
-    String phDeviceId,
-    String phLine1Number,
-    String phNetOpName,
-    String phPhoneType,
-    String phSimSerialNo,
-    String bdBoard,
-    String bdBrand,
-    String bdDevice,
-    String bdDisplay,
-    String bdManufacturer,
-    String bdModel,
-    String bdProduct,
-    String pfDeviceId,
-    String regId,
-    String latitude,
-    String longitude,
+    String? bodyTemperature,
+    String? scannedAppId,
+    String? scannedAppVer,
+    String? scannedLoginId,
+    String? scannedUserId,
+    required String scanCode,
+    String? deviceRemark,
+    String? phDeviceId,
+    String? phLine1Number,
+    String? phNetOpName,
+    String? phPhoneType,
+    String? phSimSerialNo,
+    String? bdBoard,
+    String? bdBrand,
+    String? bdDevice,
+    String? bdDisplay,
+    String? bdManufacturer,
+    String? bdModel,
+    String? bdProduct,
+    String? pfDeviceId,
+    String? regId,
+    String? latitude,
+    String? longitude,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
     // String diCode = await localStorage.getDiCode();
 
-    String countryCode = await localStorage.getCountryCode();
-    String phone = await localStorage.getUserPhone();
+    String countryCode =
+        await (localStorage.getCountryCode() as FutureOr<String>);
+    String phone = await (localStorage.getUserPhone() as FutureOr<String>);
     String loginId = (countryCode + phone).replaceAll('+6', '');
-    String merchantNo = await localStorage.getMerchantDbCode();
+    String? merchantNo = await localStorage.getMerchantDbCode();
 
     RegisterUserToDIRequest params = RegisterUserToDIRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
       caUid: caUid,
       caPwd: caPwd,
-      appCode: appConfig.appCode ?? '',
-      appId: appConfig.appId ?? '',
-      appVersion: appVersion ?? '',
-      merchantNo: merchantNo ?? '',
-      loginId: loginId ?? '',
-      userId: userId ?? '',
+      appCode: appConfig.appCode,
+      appId: appConfig.appId,
+      appVersion: appVersion,
+      merchantNo: merchantNo,
+      loginId: loginId,
+      userId: userId,
       bodyTemperature: bodyTemperature ?? '',
       scannedAppId: scannedAppId ?? '',
       scannedAppVer: scannedAppVer ?? '',
@@ -1446,12 +1445,12 @@ class AuthRepo {
 
   // DI enrollment
   Future<Response> getPackageListByPackageCodeList({
-    @required context,
-    @required diCode,
-    @required packageCodeJson,
+    required context,
+    required diCode,
+    required packageCodeJson,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&packageCodeJson=$packageCodeJson';
@@ -1473,11 +1472,11 @@ class AuthRepo {
   }
 
   Future<Response> getPackageDetlList({
-    @required diCode,
-    @required packageCode,
+    required diCode,
+    required packageCode,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&packageCode=$packageCode';
@@ -1500,11 +1499,11 @@ class AuthRepo {
   Future getAuthorizationStatusList({
     context,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
-    String merchantNo = await localStorage.getMerchantDbCode();
-    String deviceId = await localStorage.getLoginDeviceId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
+    String? merchantNo = await localStorage.getMerchantDbCode();
+    String? deviceId = await localStorage.getLoginDeviceId();
 
     String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}' +
         '&caUid=$caUid' +
@@ -1533,16 +1532,16 @@ class AuthRepo {
 
   Future getDeviceRequestList({
     context,
-    @required phone,
-    @required authzStatus,
-    @required startIndex,
-    @required noOfRecords,
+    required phone,
+    required authzStatus,
+    required startIndex,
+    required noOfRecords,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
-    String merchantNo = await localStorage.getMerchantDbCode();
-    String deviceId = await localStorage.getLoginDeviceId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
+    String? merchantNo = await localStorage.getMerchantDbCode();
+    String? deviceId = await localStorage.getLoginDeviceId();
     // String phoneCountryCode = await localStorage.getCountryCode();
     // String phone = await localStorage.getUserPhone();
     // String loginId = (phoneCountryCode + phone).replaceAll('+6', '');
@@ -1591,10 +1590,10 @@ class AuthRepo {
     deviceAuthzStatus,
     authzUser,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
-    String merchantNo = await localStorage.getMerchantDbCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
+    String? merchantNo = await localStorage.getMerchantDbCode();
 
     UpdateUserDeviceStatusRequest params = UpdateUserDeviceStatusRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -1629,19 +1628,19 @@ class AuthRepo {
   }
 
   Future getOrderListByDateRange({
-    @required String dateFromString,
-    @required String dateToString,
-    String orderNo,
-    String icNo,
-    @required String orderStatus,
-    @required String paymentStatus,
-    @required int startIndex,
-    @required int noOfRecords,
+    required String dateFromString,
+    required String dateToString,
+    String? orderNo,
+    String? icNo,
+    required String orderStatus,
+    required String paymentStatus,
+    required int startIndex,
+    required int noOfRecords,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
-    String merchantNo = await localStorage.getMerchantDbCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
+    String? merchantNo = await localStorage.getMerchantDbCode();
 
     String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}' +
         '&caUid=$caUid' +
@@ -1672,10 +1671,10 @@ class AuthRepo {
   }
 
   Future acceptOrder({docDoc, docRef}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
-    String merchantNo = await localStorage.getMerchantDbCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
+    String? merchantNo = await localStorage.getMerchantDbCode();
 
     AcceptOrderRequest params = AcceptOrderRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,

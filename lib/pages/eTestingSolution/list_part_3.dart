@@ -2,7 +2,7 @@ import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/pages/eTestingSolution/custom_expansion_tile.dart'
     as custom;
@@ -10,8 +10,8 @@ import 'package:jpj_qto/pages/eTestingSolution/custom_expansion_tile.dart'
 final localStorage = LocalStorage();
 
 class SessionA extends StatefulWidget {
-  final Function() notifyParent;
-  SessionA({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionA({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionAState createState() => _SessionAState();
@@ -42,7 +42,7 @@ class _SessionAState extends State<SessionA> {
       a22 = 0,
       a23 = 0,
       a24 = 0;
-  bool sessionB = false;
+  bool? sessionB = false;
   int countSessionA = 0;
   int countMarkA = 0;
 
@@ -54,7 +54,7 @@ class _SessionAState extends State<SessionA> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_a'),
+              AppLocalizations.of(context)!.translate('part3_session_a'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -66,7 +66,7 @@ class _SessionAState extends State<SessionA> {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .translate('part3_session_a_bold_lbl1'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
@@ -87,14 +87,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a1 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -111,7 +111,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a1')),
                           )),
                     ),
@@ -144,14 +144,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a2 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -168,7 +168,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a2')),
                           )),
                     ),
@@ -201,14 +201,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a3 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -225,7 +225,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a3')),
                           )),
                     ),
@@ -258,14 +258,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a4 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -282,7 +282,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b4')),
                           )),
                     ),
@@ -315,14 +315,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a5 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -339,7 +339,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a5')),
                           )),
                     ),
@@ -372,14 +372,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a6 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -396,7 +396,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a6')),
                           )),
                     ),
@@ -429,14 +429,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a7 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -453,7 +453,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a7')),
                           )),
                     ),
@@ -486,14 +486,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a8 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -510,7 +510,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a8')),
                           )),
                     ),
@@ -543,14 +543,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a9 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -567,7 +567,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a9')),
                           )),
                     ),
@@ -600,14 +600,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a10 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -624,7 +624,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a10')),
                           )),
                     ),
@@ -657,14 +657,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a11 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -681,7 +681,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a11')),
                           )),
                     ),
@@ -714,14 +714,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a12 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -738,7 +738,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a12')),
                           )),
                     ),
@@ -767,7 +767,7 @@ class _SessionAState extends State<SessionA> {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .translate('part3_session_a_bold_lbl2'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
@@ -787,14 +787,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a13 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -811,7 +811,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a13')),
                           )),
                     ),
@@ -844,14 +844,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a14 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -868,7 +868,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a14')),
                           )),
                     ),
@@ -901,14 +901,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a15 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -925,7 +925,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a15')),
                           )),
                     ),
@@ -958,14 +958,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a16 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -982,7 +982,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a16')),
                           )),
                     ),
@@ -1015,14 +1015,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a17 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1039,7 +1039,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a17')),
                           )),
                     ),
@@ -1072,14 +1072,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a18 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1096,7 +1096,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a18')),
                           )),
                     ),
@@ -1129,14 +1129,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a19 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1153,7 +1153,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a19')),
                           )),
                     ),
@@ -1186,14 +1186,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a20 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1210,7 +1210,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a20')),
                           )),
                     ),
@@ -1239,7 +1239,7 @@ class _SessionAState extends State<SessionA> {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .translate('part3_session_a_bold_lbl3'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
@@ -1259,14 +1259,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a21 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1283,7 +1283,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a21')),
                           )),
                     ),
@@ -1316,14 +1316,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a22 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1340,7 +1340,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a22')),
                           )),
                     ),
@@ -1373,14 +1373,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a23 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1397,7 +1397,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a23')),
                           )),
                     ),
@@ -1430,14 +1430,14 @@ class _SessionAState extends State<SessionA> {
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA += 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     a24 = 1;
                     countSessionA += 1;
                     localStorage.setPart3MarkSessionA(countSessionA);
                     countMarkA -= 1;
                     localStorage.setPart2MarkB(countMarkA);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1454,7 +1454,7 @@ class _SessionAState extends State<SessionA> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_a24')),
                           )),
                     ),
@@ -1492,11 +1492,11 @@ class _SessionAState extends State<SessionA> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionB,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionB = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             a1 = 1;
                             a2 = 1;
                             a3 = 1;
@@ -1525,7 +1525,7 @@ class _SessionAState extends State<SessionA> {
                             countMarkA = 0;
                             localStorage.setPart3MarkSessionA(countSessionA);
                             localStorage.setPart2MarkB(countMarkA);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             a1 = 0;
                             a2 = 0;
@@ -1555,7 +1555,7 @@ class _SessionAState extends State<SessionA> {
                             countMarkA = 24;
                             localStorage.setPart3MarkSessionA(countSessionA);
                             localStorage.setPart2MarkB(countMarkA);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -1585,8 +1585,8 @@ class _SessionAState extends State<SessionA> {
 }
 
 class SessionB extends StatefulWidget {
-  final Function() notifyParent;
-  SessionB({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionB({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionBState createState() => _SessionBState();
@@ -1613,7 +1613,7 @@ class _SessionBState extends State<SessionB> {
       b18 = 0,
       b19 = 0,
       b20 = 0;
-  bool sessionB = false;
+  bool? sessionB = false;
   int countSessionB = 0;
   int countMarkBN = 0;
   int countMarkBM = 0;
@@ -1626,7 +1626,7 @@ class _SessionBState extends State<SessionB> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_b'),
+              AppLocalizations.of(context)!.translate('part3_session_b'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -1642,14 +1642,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b1 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1666,7 +1666,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b1')),
                           )),
                     ),
@@ -1699,14 +1699,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b2 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1723,7 +1723,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b2')),
                           )),
                     ),
@@ -1756,14 +1756,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b3 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1780,7 +1780,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b3')),
                           )),
                     ),
@@ -1813,14 +1813,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b4 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1837,7 +1837,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b4')),
                           )),
                     ),
@@ -1866,7 +1866,7 @@ class _SessionBState extends State<SessionB> {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .translate('part3_session_b_bold_lbl1'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
@@ -1886,14 +1886,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b5 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1910,7 +1910,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b5')),
                           )),
                     ),
@@ -1943,14 +1943,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b6 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -1967,7 +1967,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b6')),
                           )),
                     ),
@@ -2000,14 +2000,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b7 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2024,7 +2024,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b7')),
                           )),
                     ),
@@ -2057,14 +2057,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b8 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2081,7 +2081,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b8')),
                           )),
                     ),
@@ -2114,14 +2114,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b9 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2138,7 +2138,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b9')),
                           )),
                     ),
@@ -2171,14 +2171,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b10 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2195,7 +2195,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b10')),
                           )),
                     ),
@@ -2228,14 +2228,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b11 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2252,7 +2252,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b11')),
                           )),
                     ),
@@ -2281,7 +2281,7 @@ class _SessionBState extends State<SessionB> {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
-                  AppLocalizations.of(context)
+                  AppLocalizations.of(context)!
                       .translate('part3_session_b_bold_lbl2'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
@@ -2301,14 +2301,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b12 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2325,7 +2325,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b12')),
                           )),
                     ),
@@ -2358,14 +2358,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b13 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2382,7 +2382,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b13')),
                           )),
                     ),
@@ -2415,14 +2415,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b14 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2439,7 +2439,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b14')),
                           )),
                     ),
@@ -2472,14 +2472,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b15 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2496,7 +2496,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b15')),
                           )),
                     ),
@@ -2529,14 +2529,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b16 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2553,7 +2553,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b16')),
                           )),
                     ),
@@ -2586,14 +2586,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b17 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2610,7 +2610,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b17')),
                           )),
                     ),
@@ -2643,14 +2643,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b18 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2667,7 +2667,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b18')),
                           )),
                     ),
@@ -2700,14 +2700,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN -= 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b19 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBN += 1;
                     localStorage.setPart3MarkB(countMarkBN);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2724,7 +2724,7 @@ class _SessionBState extends State<SessionB> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_b19')),
                           )),
                     ),
@@ -2757,14 +2757,14 @@ class _SessionBState extends State<SessionB> {
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBM -= 1;
                     localStorage.setPart3MarkBM(countMarkBM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     b20 = 1;
                     countSessionB += 1;
                     localStorage.setPart3MarkSessionB(countSessionB);
                     countMarkBM += 1;
                     localStorage.setPart3MarkBM(countMarkBM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2782,7 +2782,7 @@ class _SessionBState extends State<SessionB> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_b20_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -2822,11 +2822,11 @@ class _SessionBState extends State<SessionB> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionB,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionB = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             b1 = 1;
                             b2 = 1;
                             b3 = 1;
@@ -2853,7 +2853,7 @@ class _SessionBState extends State<SessionB> {
                             localStorage.setPart3MarkBM(countMarkBM);
                             localStorage.setPart3MarkSessionB(countSessionB);
                             localStorage.setPart3MarkB(countMarkBN);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             b1 = 0;
                             b2 = 0;
@@ -2881,7 +2881,7 @@ class _SessionBState extends State<SessionB> {
                             localStorage.setPart3MarkBM(countMarkBM);
                             localStorage.setPart3MarkSessionB(countSessionB);
                             localStorage.setPart3MarkB(countMarkBN);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -2911,8 +2911,8 @@ class _SessionBState extends State<SessionB> {
 }
 
 class SessionC extends StatefulWidget {
-  final Function() notifyParent;
-  SessionC({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionC({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionCState createState() => _SessionCState();
@@ -2933,7 +2933,7 @@ class _SessionCState extends State<SessionC> {
 
   int countMarkCM = 0;
   int countMarkC = 0;
-  bool sessionC = false;
+  bool? sessionC = false;
 
   @override
   Widget build(BuildContext context) {
@@ -2943,7 +2943,7 @@ class _SessionCState extends State<SessionC> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_c'),
+              AppLocalizations.of(context)!.translate('part3_session_c'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -2968,7 +2968,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct marks
                     countMarkC -= 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c1 = 1;
                     countSessionC += 1;
@@ -2977,7 +2977,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct marks
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -2994,7 +2994,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c1')),
                           )),
                     ),
@@ -3029,7 +3029,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct marks
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c2 = 1;
                     countSessionC += 1;
@@ -3038,7 +3038,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct marks
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3055,7 +3055,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c2')),
                           )),
                     ),
@@ -3090,7 +3090,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c3 = 1;
                     countSessionC += 1;
@@ -3099,7 +3099,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3116,7 +3116,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c3')),
                           )),
                     ),
@@ -3150,7 +3150,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC -= 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c4 = 1;
                     countSessionC += 1;
@@ -3159,7 +3159,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3176,7 +3176,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c4')),
                           )),
                     ),
@@ -3210,7 +3210,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c5 = 1;
                     countSessionC += 1;
@@ -3218,7 +3218,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3235,7 +3235,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c5')),
                           )),
                     ),
@@ -3276,7 +3276,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3293,7 +3293,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c6')),
                           )),
                     ),
@@ -3338,7 +3338,7 @@ class _SessionCState extends State<SessionC> {
                     //count normal deduct mark
                     countMarkC += 1;
                     localStorage.setPart3MarkC(countMarkC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3355,7 +3355,7 @@ class _SessionCState extends State<SessionC> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_c7')),
                           )),
                     ),
@@ -3388,14 +3388,14 @@ class _SessionCState extends State<SessionC> {
                     localStorage.setPart3MarkCM(countMarkCM);
                     countSessionC -= 1;
                     localStorage.setPart2MarkSessionC(countSessionC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c8 = 1;
                     countSessionC += 1;
                     localStorage.setPart2MarkSessionC(countSessionC);
                     countMarkCM += 1;
                     localStorage.setPart3MarkCM(countMarkCM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3413,7 +3413,7 @@ class _SessionCState extends State<SessionC> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_c8_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -3447,14 +3447,14 @@ class _SessionCState extends State<SessionC> {
                     localStorage.setPart3MarkCM(countMarkCM);
                     countSessionC -= 1;
                     localStorage.setPart2MarkSessionC(countSessionC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c9 = 1;
                     countSessionC += 1;
                     localStorage.setPart2MarkSessionC(countSessionC);
                     countMarkCM += 1;
                     localStorage.setPart3MarkCM(countMarkCM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3472,7 +3472,7 @@ class _SessionCState extends State<SessionC> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_c9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -3506,14 +3506,14 @@ class _SessionCState extends State<SessionC> {
                     localStorage.setPart3MarkCM(countMarkCM);
                     countSessionC -= 1;
                     localStorage.setPart2MarkSessionC(countSessionC);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     c10 = 1;
                     countSessionC += 1;
                     localStorage.setPart2MarkSessionC(countSessionC);
                     countMarkCM += 1;
                     localStorage.setPart3MarkCM(countMarkCM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3531,7 +3531,7 @@ class _SessionCState extends State<SessionC> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_c10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -3571,11 +3571,11 @@ class _SessionCState extends State<SessionC> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionC,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionC = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             c1 = 1;
                             c2 = 1;
                             c3 = 1;
@@ -3592,7 +3592,7 @@ class _SessionCState extends State<SessionC> {
                             countMarkC = 7;
                             localStorage.setPart3MarkCM(countMarkCM);
                             localStorage.setPart3MarkC(countMarkC);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             c1 = 0;
                             c2 = 0;
@@ -3610,7 +3610,7 @@ class _SessionCState extends State<SessionC> {
                             countMarkC = 0;
                             localStorage.setPart3MarkCM(countMarkCM);
                             localStorage.setPart3MarkC(countMarkC);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -3640,8 +3640,8 @@ class _SessionCState extends State<SessionC> {
 }
 
 class SessionD extends StatefulWidget {
-  final Function() notifyParent;
-  SessionD({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionD({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionDState createState() => _SessionDState();
@@ -3669,7 +3669,7 @@ class _SessionDState extends State<SessionD> {
   int countSessionD = 0;
   int countMarkDM = 0;
   int countMarkD = 0;
-  bool sessionD = false;
+  bool? sessionD = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -3679,7 +3679,7 @@ class _SessionDState extends State<SessionD> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_d'),
+              AppLocalizations.of(context)!.translate('part3_session_d'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -3701,14 +3701,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d1 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3725,7 +3725,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d1')),
                           )),
                     ),
@@ -3758,14 +3758,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d2 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3782,7 +3782,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d2')),
                           )),
                     ),
@@ -3815,14 +3815,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d3 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3839,7 +3839,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d3')),
                           )),
                     ),
@@ -3872,14 +3872,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d4 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3896,7 +3896,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d4')),
                           )),
                     ),
@@ -3929,14 +3929,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d5 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -3953,7 +3953,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d5')),
                           )),
                     ),
@@ -3986,14 +3986,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d6 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4010,7 +4010,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d6')),
                           )),
                     ),
@@ -4047,14 +4047,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d7 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4071,7 +4071,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d7')),
                           )),
                     ),
@@ -4104,14 +4104,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d8 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4128,7 +4128,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d8')),
                           )),
                     ),
@@ -4161,14 +4161,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d9 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4185,7 +4185,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d9')),
                           )),
                     ),
@@ -4218,14 +4218,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d10 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4242,7 +4242,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d10')),
                           )),
                     ),
@@ -4275,14 +4275,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD -= 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d11 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkD += 1;
                     localStorage.setPart3MarkD(countMarkD);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4299,7 +4299,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d11')),
                           )),
                     ),
@@ -4332,14 +4332,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d12 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4356,7 +4356,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d12')),
                           )),
                     ),
@@ -4389,14 +4389,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d13 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4414,7 +4414,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d13_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -4449,14 +4449,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d14 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4474,7 +4474,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d14_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -4509,14 +4509,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d15 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4534,7 +4534,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d15_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -4569,14 +4569,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d16 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4594,7 +4594,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d16_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -4629,14 +4629,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d17 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4654,7 +4654,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d17_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -4689,14 +4689,14 @@ class _SessionDState extends State<SessionD> {
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM -= 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     d18 = 1;
                     countSessionD += 1;
                     localStorage.setPart3MarkSessionD(countSessionD);
                     countMarkDM += 1;
                     localStorage.setPart3MarkDM(countMarkDM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4714,7 +4714,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d18_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -4754,11 +4754,11 @@ class _SessionDState extends State<SessionD> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionD,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionD = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             d1 = 1;
                             d2 = 1;
                             d3 = 1;
@@ -4783,7 +4783,7 @@ class _SessionDState extends State<SessionD> {
                             countMarkDM = 6;
                             localStorage.setPart3MarkD(countMarkD);
                             localStorage.setPart3MarkDM(countMarkDM);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             d1 = 0;
                             d2 = 0;
@@ -4809,7 +4809,7 @@ class _SessionDState extends State<SessionD> {
                             countMarkDM = 0;
                             localStorage.setPart3MarkD(countMarkD);
                             localStorage.setPart3MarkDM(countMarkDM);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -4839,8 +4839,8 @@ class _SessionDState extends State<SessionD> {
 }
 
 class SessionE extends StatefulWidget {
-  final Function() notifyParent;
-  SessionE({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionE({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionEState createState() => _SessionEState();
@@ -4872,7 +4872,7 @@ class _SessionEState extends State<SessionE> {
   int countMarkE = 0;
 
   int countSessionE = 0;
-  bool sessionE = false;
+  bool? sessionE = false;
 
   @override
   Widget build(BuildContext context) {
@@ -4883,7 +4883,7 @@ class _SessionEState extends State<SessionE> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_e'),
+              AppLocalizations.of(context)!.translate('part3_session_e'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -4908,7 +4908,7 @@ class _SessionEState extends State<SessionE> {
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e1 = 1;
                     countSessionE += 1;
@@ -4917,7 +4917,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4934,7 +4934,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e1')),
                           )),
                     ),
@@ -4969,7 +4969,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e2 = 1;
                     countSessionE += 1;
@@ -4978,7 +4978,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -4995,7 +4995,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e2')),
                           )),
                     ),
@@ -5030,7 +5030,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e3 = 1;
                     countSessionE += 1;
@@ -5039,7 +5039,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5056,7 +5056,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e3')),
                           )),
                     ),
@@ -5091,7 +5091,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e4 = 1;
                     countSessionE += 1;
@@ -5100,7 +5100,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5117,7 +5117,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e4')),
                           )),
                     ),
@@ -5152,7 +5152,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e5 = 1;
                     countSessionE += 1;
@@ -5161,7 +5161,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5178,7 +5178,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e5')),
                           )),
                     ),
@@ -5213,7 +5213,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e6 = 1;
                     countSessionE += 1;
@@ -5222,7 +5222,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct normal mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5239,7 +5239,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e6')),
                           )),
                     ),
@@ -5278,7 +5278,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e7 = 1;
                     countSessionE += 1;
@@ -5287,7 +5287,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5304,7 +5304,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e7')),
                           )),
                     ),
@@ -5340,7 +5340,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e8 = 1;
                     countSessionE += 1;
@@ -5349,7 +5349,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5366,7 +5366,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e8')),
                           )),
                     ),
@@ -5401,7 +5401,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e9 = 1;
                     countSessionE += 1;
@@ -5410,7 +5410,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5427,7 +5427,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e9')),
                           )),
                     ),
@@ -5462,7 +5462,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e10 = 1;
                     countSessionE += 1;
@@ -5471,7 +5471,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5488,7 +5488,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e10')),
                           )),
                     ),
@@ -5524,7 +5524,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e11 = 1;
                     countSessionE += 1;
@@ -5533,7 +5533,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5550,7 +5550,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e11')),
                           )),
                     ),
@@ -5586,7 +5586,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e12 = 1;
                     countSessionE += 1;
@@ -5595,7 +5595,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5612,7 +5612,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e12')),
                           )),
                     ),
@@ -5648,7 +5648,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE -= 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e13 = 1;
                     countSessionE += 1;
@@ -5657,7 +5657,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkE += 1;
                     localStorage.setPart3MarkE(countMarkE);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5674,7 +5674,7 @@ class _SessionEState extends State<SessionE> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_e13')),
                           )),
                     ),
@@ -5710,7 +5710,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e14 = 1;
                     countSessionE += 1;
@@ -5719,7 +5719,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5737,7 +5737,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e14_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -5775,7 +5775,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e15 = 1;
                     countSessionE += 1;
@@ -5784,7 +5784,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5802,7 +5802,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e15_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -5840,7 +5840,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e16 = 1;
                     countSessionE += 1;
@@ -5849,7 +5849,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5867,7 +5867,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e16_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -5905,7 +5905,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e17 = 1;
                     countSessionE += 1;
@@ -5914,7 +5914,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5932,7 +5932,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e17_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -5970,7 +5970,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e18 = 1;
                     countSessionE += 1;
@@ -5979,7 +5979,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -5997,7 +5997,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e18_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -6035,7 +6035,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e19 = 1;
                     countSessionE += 1;
@@ -6044,7 +6044,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6062,7 +6062,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e19_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -6100,7 +6100,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     e20 = 1;
                     countSessionE += 1;
@@ -6109,7 +6109,7 @@ class _SessionEState extends State<SessionE> {
                     //count deduct mandatory mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkEM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6127,7 +6127,7 @@ class _SessionEState extends State<SessionE> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_e20_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -6167,11 +6167,11 @@ class _SessionEState extends State<SessionE> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionE,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionE = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             e1 = 1;
                             e2 = 1;
                             e3 = 1;
@@ -6197,7 +6197,7 @@ class _SessionEState extends State<SessionE> {
                             localStorage.setPart3MarkEM(countMarkEM);
                             countMarkE = 13;
                             localStorage.setPart3MarkE(countMarkE);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             e1 = 0;
                             e2 = 0;
@@ -6223,7 +6223,7 @@ class _SessionEState extends State<SessionE> {
                             localStorage.setPart3MarkEM(countMarkEM);
                             countMarkE = 0;
                             localStorage.setPart3MarkE(countMarkE);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -6253,8 +6253,8 @@ class _SessionEState extends State<SessionE> {
 }
 
 class SessionF extends StatefulWidget {
-  final Function() notifyParent;
-  SessionF({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionF({Key? key, this.notifyParent}) : super(key: key);
   @override
   _SessionFState createState() => _SessionFState();
 }
@@ -6281,7 +6281,7 @@ class _SessionFState extends State<SessionF> {
   int countSessionF = 0;
   //int countDeductMarkF = 0;
 
-  bool sessionF = false;
+  bool? sessionF = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -6291,7 +6291,7 @@ class _SessionFState extends State<SessionF> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_f'),
+              AppLocalizations.of(context)!.translate('part3_session_f'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -6316,7 +6316,7 @@ class _SessionFState extends State<SessionF> {
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f1 = 1;
                     countSessionF += 1;
@@ -6325,7 +6325,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6342,7 +6342,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, top: 10, bottom: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f1')),
                           )),
                     ),
@@ -6377,7 +6377,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f2 = 1;
                     countSessionF += 1;
@@ -6386,7 +6386,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6403,7 +6403,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f2')),
                           )),
                     ),
@@ -6438,7 +6438,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f3 = 1;
                     countSessionF += 1;
@@ -6447,7 +6447,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6464,7 +6464,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f3')),
                           )),
                     ),
@@ -6499,7 +6499,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f4 = 1;
                     countSessionF += 1;
@@ -6508,7 +6508,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6525,7 +6525,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f4')),
                           )),
                     ),
@@ -6560,7 +6560,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f5 = 1;
                     countSessionF += 1;
@@ -6569,7 +6569,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6586,7 +6586,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f5')),
                           )),
                     ),
@@ -6621,7 +6621,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f6 = 1;
                     countSessionF += 1;
@@ -6630,7 +6630,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6647,7 +6647,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f6')),
                           )),
                     ),
@@ -6686,7 +6686,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f7 = 1;
                     countSessionF += 1;
@@ -6695,7 +6695,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6712,7 +6712,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f7')),
                           )),
                     ),
@@ -6747,7 +6747,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF -= 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f8 = 1;
                     countSessionF += 1;
@@ -6756,7 +6756,7 @@ class _SessionFState extends State<SessionF> {
                     //count normal deduct mark
                     countMarkF += 1;
                     localStorage.setPart3MarkF(countMarkF);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6773,7 +6773,7 @@ class _SessionFState extends State<SessionF> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_f8')),
                           )),
                     ),
@@ -6809,7 +6809,7 @@ class _SessionFState extends State<SessionF> {
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f9 = 1;
                     countSessionF += 1;
@@ -6818,7 +6818,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6836,7 +6836,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_f9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -6872,7 +6872,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f10 = 1;
                     countSessionF += 1;
@@ -6881,7 +6881,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6899,7 +6899,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_f10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -6936,7 +6936,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f11 = 1;
                     countSessionF += 1;
@@ -6945,7 +6945,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -6963,7 +6963,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_f11_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -7000,7 +7000,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f12 = 1;
                     countSessionF += 1;
@@ -7009,7 +7009,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7027,7 +7027,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_f12_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -7064,7 +7064,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f13 = 1;
                     countSessionF += 1;
@@ -7073,7 +7073,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7091,7 +7091,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_f13_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -7128,7 +7128,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM -= 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     f14 = 1;
                     countSessionF += 1;
@@ -7137,7 +7137,7 @@ class _SessionFState extends State<SessionF> {
                     //count mandatory deduct mark
                     countMarkEM += 1;
                     localStorage.setPart3MarkFM(countMarkEM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7155,7 +7155,7 @@ class _SessionFState extends State<SessionF> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_f14_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -7195,11 +7195,11 @@ class _SessionFState extends State<SessionF> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionF,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionF = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             f1 = 1;
                             f2 = 1;
                             f3 = 1;
@@ -7219,7 +7219,7 @@ class _SessionFState extends State<SessionF> {
                             countMarkF = 8;
                             localStorage.setPart3MarkFM(countMarkEM);
                             localStorage.setPart3MarkF(countMarkF);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             f1 = 0;
                             f2 = 0;
@@ -7240,7 +7240,7 @@ class _SessionFState extends State<SessionF> {
                             countMarkF = 0;
                             localStorage.setPart3MarkFM(countMarkEM);
                             localStorage.setPart3MarkF(countMarkF);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -7270,8 +7270,8 @@ class _SessionFState extends State<SessionF> {
 }
 
 class SessionG extends StatefulWidget {
-  final Function() notifyParent;
-  SessionG({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionG({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionGState createState() => _SessionGState();
@@ -7294,7 +7294,7 @@ class _SessionGState extends State<SessionG> {
   int countMarkGM = 0;
   int countMarkG = 0;
 
-  bool sessionG = false;
+  bool? sessionG = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -7304,7 +7304,7 @@ class _SessionGState extends State<SessionG> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_g'),
+              AppLocalizations.of(context)!.translate('part3_session_g'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -7326,14 +7326,14 @@ class _SessionGState extends State<SessionG> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g1 = 1;
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7350,7 +7350,7 @@ class _SessionGState extends State<SessionG> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g1')),
                           )),
                     ),
@@ -7383,14 +7383,14 @@ class _SessionGState extends State<SessionG> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g2 = 1;
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7407,7 +7407,7 @@ class _SessionGState extends State<SessionG> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g2')),
                           )),
                     ),
@@ -7440,14 +7440,14 @@ class _SessionGState extends State<SessionG> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g3 = 1;
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7464,7 +7464,7 @@ class _SessionGState extends State<SessionG> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g3')),
                           )),
                     ),
@@ -7497,14 +7497,14 @@ class _SessionGState extends State<SessionG> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g4 = 1;
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7521,7 +7521,7 @@ class _SessionGState extends State<SessionG> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g4')),
                           )),
                     ),
@@ -7554,14 +7554,14 @@ class _SessionGState extends State<SessionG> {
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG -= 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g5 = 1;
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
                     countMarkG += 1;
                     localStorage.setPart3MarkG(countMarkG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7578,7 +7578,7 @@ class _SessionGState extends State<SessionG> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g5')),
                           )),
                     ),
@@ -7613,7 +7613,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g6 = 1;
                     countMarkG += 1;
@@ -7622,7 +7622,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7639,7 +7639,7 @@ class _SessionGState extends State<SessionG> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g6')),
                           )),
                     ),
@@ -7678,7 +7678,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g7 = 1;
                     countMarkG += 1;
@@ -7687,7 +7687,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7705,7 +7705,7 @@ class _SessionGState extends State<SessionG> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_g7'),
                             ),
                           )),
@@ -7741,7 +7741,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g8 = 1;
                     countMarkGM += 1;
@@ -7750,7 +7750,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7768,7 +7768,7 @@ class _SessionGState extends State<SessionG> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_g8_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -7805,7 +7805,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g9 = 1;
                     countMarkGM += 1;
@@ -7814,7 +7814,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7832,7 +7832,7 @@ class _SessionGState extends State<SessionG> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_g9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -7868,7 +7868,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG -= 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     g10 = 1;
                     countMarkGM += 1;
@@ -7877,7 +7877,7 @@ class _SessionGState extends State<SessionG> {
                     //total marks on top of checkbox
                     countSessionG += 1;
                     localStorage.setPart3MarkSessionH(countSessionG);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -7895,7 +7895,7 @@ class _SessionGState extends State<SessionG> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_g10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -7935,11 +7935,11 @@ class _SessionGState extends State<SessionG> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionG,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionG = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             g1 = 1;
                             g2 = 1;
                             g3 = 1;
@@ -7958,7 +7958,7 @@ class _SessionGState extends State<SessionG> {
                             localStorage.setPart3MarkSessionH(countSessionG);
                             localStorage.setPart3MarkGM(countMarkGM);
                             localStorage.setPart3MarkG(countMarkG);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             g1 = 0;
                             g2 = 0;
@@ -7978,7 +7978,7 @@ class _SessionGState extends State<SessionG> {
                             localStorage.setPart3MarkSessionH(countSessionG);
                             localStorage.setPart3MarkGM(countMarkGM);
                             localStorage.setPart3MarkG(countMarkG);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -8008,8 +8008,8 @@ class _SessionGState extends State<SessionG> {
 }
 
 class SessionH extends StatefulWidget {
-  final Function() notifyParent;
-  SessionH({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionH({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionHState createState() => _SessionHState();
@@ -8031,7 +8031,7 @@ class _SessionHState extends State<SessionH> {
   int countSessionH = 0;
   int countMarkHM = 0;
   int countMarkH = 0;
-  bool sessionH = false;
+  bool? sessionH = false;
 
   @override
   Widget build(BuildContext context) {
@@ -8042,7 +8042,7 @@ class _SessionHState extends State<SessionH> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_h'),
+              AppLocalizations.of(context)!.translate('part3_session_h'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -8064,14 +8064,14 @@ class _SessionHState extends State<SessionH> {
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH -= 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h1 = 1;
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH += 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8088,7 +8088,7 @@ class _SessionHState extends State<SessionH> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_g1')),
                           )),
                     ),
@@ -8121,14 +8121,14 @@ class _SessionHState extends State<SessionH> {
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH -= 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h2 = 1;
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH += 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8145,7 +8145,7 @@ class _SessionHState extends State<SessionH> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_h2')),
                           )),
                     ),
@@ -8178,14 +8178,14 @@ class _SessionHState extends State<SessionH> {
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH -= 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h3 = 1;
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH += 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8202,7 +8202,7 @@ class _SessionHState extends State<SessionH> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_h3')),
                           )),
                     ),
@@ -8235,14 +8235,14 @@ class _SessionHState extends State<SessionH> {
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH -= 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h4 = 1;
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH += 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8259,7 +8259,7 @@ class _SessionHState extends State<SessionH> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_h4')),
                           )),
                     ),
@@ -8292,14 +8292,14 @@ class _SessionHState extends State<SessionH> {
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH -= 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h5 = 1;
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
                     countMarkH += 1;
                     localStorage.setPart3MarkH(countMarkH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8316,7 +8316,7 @@ class _SessionHState extends State<SessionH> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_h5')),
                           )),
                     ),
@@ -8351,7 +8351,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h6 = 1;
                     countMarkH += 1;
@@ -8360,7 +8360,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8377,7 +8377,7 @@ class _SessionHState extends State<SessionH> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_h6')),
                           )),
                     ),
@@ -8416,7 +8416,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h7 = 1;
                     countMarkH += 1;
@@ -8425,7 +8425,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8443,7 +8443,7 @@ class _SessionHState extends State<SessionH> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_h7'),
                             ),
                           )),
@@ -8479,7 +8479,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h8 = 1;
                     countMarkH += 1;
@@ -8488,7 +8488,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8506,7 +8506,7 @@ class _SessionHState extends State<SessionH> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_h8'),
                             ),
                           )),
@@ -8542,7 +8542,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h9 = 1;
                     countMarkHM += 1;
@@ -8551,7 +8551,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8569,7 +8569,7 @@ class _SessionHState extends State<SessionH> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_h9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -8605,7 +8605,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h10 = 1;
                     countMarkHM += 1;
@@ -8614,7 +8614,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8632,7 +8632,7 @@ class _SessionHState extends State<SessionH> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_h10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -8669,7 +8669,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h11 = 1;
                     countMarkHM += 1;
@@ -8678,7 +8678,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8696,7 +8696,7 @@ class _SessionHState extends State<SessionH> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_h11_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -8733,7 +8733,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH -= 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     h12 = 1;
                     countMarkHM += 1;
@@ -8742,7 +8742,7 @@ class _SessionHState extends State<SessionH> {
                     //total marks on top of checkbox
                     countSessionH += 1;
                     localStorage.setPart3MarkSessionH(countSessionH);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8760,7 +8760,7 @@ class _SessionHState extends State<SessionH> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_h12_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -8800,11 +8800,11 @@ class _SessionHState extends State<SessionH> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionH,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionH = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             h1 = 1;
                             h2 = 1;
                             h3 = 1;
@@ -8823,7 +8823,7 @@ class _SessionHState extends State<SessionH> {
                             localStorage.setPart3MarkSessionH(countSessionH);
                             localStorage.setPart3MarkHM(countMarkHM);
                             localStorage.setPart3MarkH(countMarkH);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             h1 = 0;
                             h2 = 0;
@@ -8844,7 +8844,7 @@ class _SessionHState extends State<SessionH> {
                             localStorage.setPart3MarkSessionH(countSessionH);
                             localStorage.setPart3MarkHM(countMarkHM);
                             localStorage.setPart3MarkH(countMarkH);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -8874,8 +8874,8 @@ class _SessionHState extends State<SessionH> {
 }
 
 class SessionI extends StatefulWidget {
-  final Function() notifyParent;
-  SessionI({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionI({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionIState createState() => _SessionIState();
@@ -8895,7 +8895,7 @@ class _SessionIState extends State<SessionI> {
   int countSessionI = 0;
   int countMarkIM = 0;
   int countMarkI = 0;
-  bool sessionI = false;
+  bool? sessionI = false;
 
   @override
   Widget build(BuildContext context) {
@@ -8906,7 +8906,7 @@ class _SessionIState extends State<SessionI> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('part3_session_i'),
+              AppLocalizations.of(context)!.translate('part3_session_i'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -8928,14 +8928,14 @@ class _SessionIState extends State<SessionI> {
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI -= 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i1 = 1;
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI += 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -8952,7 +8952,7 @@ class _SessionIState extends State<SessionI> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_i1')),
                           )),
                     ),
@@ -8985,14 +8985,14 @@ class _SessionIState extends State<SessionI> {
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI -= 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i2 = 1;
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI += 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9009,7 +9009,7 @@ class _SessionIState extends State<SessionI> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_i2')),
                           )),
                     ),
@@ -9042,14 +9042,14 @@ class _SessionIState extends State<SessionI> {
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI -= 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i3 = 1;
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI += 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9066,7 +9066,7 @@ class _SessionIState extends State<SessionI> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_i3')),
                           )),
                     ),
@@ -9099,14 +9099,14 @@ class _SessionIState extends State<SessionI> {
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI -= 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i4 = 1;
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI += 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9123,7 +9123,7 @@ class _SessionIState extends State<SessionI> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_i4')),
                           )),
                     ),
@@ -9156,14 +9156,14 @@ class _SessionIState extends State<SessionI> {
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI -= 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i5 = 1;
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
                     countMarkI += 1;
                     localStorage.setPart3MarkI(countMarkI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9180,7 +9180,7 @@ class _SessionIState extends State<SessionI> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_i5')),
                           )),
                     ),
@@ -9215,7 +9215,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI -= 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i6 = 1;
                     countMarkI += 1;
@@ -9224,7 +9224,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9241,7 +9241,7 @@ class _SessionIState extends State<SessionI> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_i6')),
                           )),
                     ),
@@ -9280,7 +9280,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI -= 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i7 = 1;
                     countMarkIM += 1;
@@ -9289,7 +9289,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9307,7 +9307,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_i7_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -9343,7 +9343,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI -= 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i8 = 1;
                     countMarkIM += 1;
@@ -9352,7 +9352,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9370,7 +9370,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_i8_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -9406,7 +9406,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI -= 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i9 = 1;
                     countMarkIM += 1;
@@ -9415,7 +9415,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9433,7 +9433,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('part3_session_i9_bold'),
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           )),
@@ -9469,7 +9469,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI -= 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else {
                     i10 = 1;
                     countMarkIM += 1;
@@ -9478,7 +9478,7 @@ class _SessionIState extends State<SessionI> {
                     //total marks on top of checkbox
                     countSessionI += 1;
                     localStorage.setPart3MarkSessionI(countSessionI);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9496,7 +9496,7 @@ class _SessionIState extends State<SessionI> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_i10_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -9536,11 +9536,11 @@ class _SessionIState extends State<SessionI> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionI,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionI = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             i1 = 1;
                             i2 = 1;
                             i3 = 1;
@@ -9557,7 +9557,7 @@ class _SessionIState extends State<SessionI> {
                             localStorage.setPart3MarkSessionI(countSessionI);
                             localStorage.setPart3MarkIM(countMarkIM);
                             localStorage.setPart3MarkI(countMarkI);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           } else {
                             i1 = 0;
                             i2 = 0;
@@ -9576,7 +9576,7 @@ class _SessionIState extends State<SessionI> {
                             localStorage.setPart3MarkSessionI(countSessionI);
                             localStorage.setPart3MarkIM(countMarkIM);
                             localStorage.setPart3MarkI(countMarkI);
-                            widget.notifyParent();
+                            widget.notifyParent!();
                           }
                         });
                       });
@@ -9606,8 +9606,8 @@ class _SessionIState extends State<SessionI> {
 }
 
 class SessionJ extends StatefulWidget {
-  final Function() notifyParent;
-  SessionJ({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionJ({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionJState createState() => _SessionJState();
@@ -9617,7 +9617,7 @@ class _SessionJState extends State<SessionJ> {
   int j1 = 0, j2 = 0, j3 = 0, j4 = 0, j5 = 0;
   int countMarkJM = 0;
 
-  bool sessionH = false;
+  bool? sessionH = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -9625,7 +9625,7 @@ class _SessionJState extends State<SessionJ> {
         custom.ExpansionTile(
           headerBackgroundColor: ColorConstant.primaryColor,
           title: Text(
-            AppLocalizations.of(context).translate('part3_session_j'),
+            AppLocalizations.of(context)!.translate('part3_session_j'),
             style:
                 (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           ),
@@ -9644,13 +9644,13 @@ class _SessionJState extends State<SessionJ> {
                     j1 = 0;
                     countMarkJM -= 1;
                     localStorage.setPart3MarkJM(countMarkJM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else if (j1 == 0) {
                     j1 = 1;
                     countMarkJM += 1;
                     localStorage.setPart3MarkJM(countMarkJM);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9668,7 +9668,7 @@ class _SessionJState extends State<SessionJ> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_j1_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -9702,12 +9702,12 @@ class _SessionJState extends State<SessionJ> {
                     countMarkJM -= 1;
                     localStorage.setPart3MarkJM(countMarkJM);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else if (j2 == 0) {
                     j2 = 1;
                     countMarkJM += 1;
                     localStorage.setPart3MarkJM(countMarkJM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9725,7 +9725,7 @@ class _SessionJState extends State<SessionJ> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_j2_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -9759,13 +9759,13 @@ class _SessionJState extends State<SessionJ> {
                     countMarkJM -= 1;
                     localStorage.setPart3MarkJM(countMarkJM);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else if (j3 == 0) {
                     j3 = 1;
                     countMarkJM += 1;
                     localStorage.setPart3MarkJM(countMarkJM);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9783,7 +9783,7 @@ class _SessionJState extends State<SessionJ> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_j3_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -9816,13 +9816,13 @@ class _SessionJState extends State<SessionJ> {
                     j4 = 0;
                     countMarkJM -= 1;
                     localStorage.setPart3MarkJM(countMarkJM);
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   } else if (j4 == 0) {
                     j4 = 1;
                     countMarkJM += 1;
                     localStorage.setPart3MarkJM(countMarkJM);
 
-                    widget.notifyParent();
+                    widget.notifyParent!();
                   }
                 });
               },
@@ -9840,7 +9840,7 @@ class _SessionJState extends State<SessionJ> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_j4_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -9878,18 +9878,18 @@ class _SessionJState extends State<SessionJ> {
                 checkColor: Colors.black,
                 activeColor: Colors.white,
                 value: sessionH,
-                onChanged: (bool value) {
+                onChanged: (bool? value) {
                   setState(() {
                     sessionH = value;
                     setState(() {
-                      if (value) {
+                      if (value!) {
                         j1 = 1;
                         j2 = 1;
                         j3 = 1;
                         j4 = 1;
                         countMarkJM = 4;
                         localStorage.setPart3MarkJM(countMarkJM);
-                        widget.notifyParent();
+                        widget.notifyParent!();
                       } else {
                         j1 = 0;
                         j2 = 0;
@@ -9897,7 +9897,7 @@ class _SessionJState extends State<SessionJ> {
                         j4 = 0;
                         countMarkJM = 0;
                         localStorage.setPart3MarkJM(countMarkJM);
-                        widget.notifyParent();
+                        widget.notifyParent!();
                       }
                     });
                   });

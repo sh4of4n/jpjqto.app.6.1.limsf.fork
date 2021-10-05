@@ -1,5 +1,3 @@
-// import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -13,7 +11,7 @@ import 'application.dart';
 import 'common_library/services/model/bill_model.dart';
 import 'common_library/services/model/kpp_model.dart';
 import 'common_library/utils/custom_dialog.dart';
-import 'router.gr.dart' as router;
+import 'router.gr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,12 +48,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AppLocalizationsDelegate _newLocaleDelegate;
+  AppLocalizationsDelegate? _newLocaleDelegate;
   final localStorage = LocalStorage();
 
   //final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   // String _homeScreenText = "Waiting for token...";
   final customDialog = CustomDialog();
+  final _appRouter = AppRouter();
 
   @override
   void initState() {
@@ -67,9 +66,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _loadSavedLocale() async {
-    String storedLocale = await localStorage.getLocale();
+    String? storedLocale = await localStorage.getLocale();
 
-    onLocaleChange(Locale(storedLocale));
+    onLocaleChange(
+      Locale(storedLocale!),
+    );
   }
 
   void onLocaleChange(Locale locale) {
@@ -80,7 +81,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'ePandu SPIM',
       // debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -96,16 +97,14 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: [
         // THIS CLASS WILL BE ADDED LATER
         // A class which loads the translations from JSON files
-        _newLocaleDelegate,
+        _newLocaleDelegate!,
         // Built-in localization of basic text for Material widgets
         GlobalMaterialLocalizations.delegate,
         // Built-in localization for text direction LTR/RTL
         GlobalWidgetsLocalizations.delegate,
       ],
-      builder: ExtendedNavigator<router.Router>(
-        initialRoute: router.Routes.authentication,
-        router: router.Router(),
-      ),
+      routerDelegate: _appRouter.delegate(initialRoutes: [Authentication()]),
+      routeInformationParser: _appRouter.defaultRouteParser(),
       // initialRoute: AUTH,
       // onGenerateRoute: RouteGenerator.generateRoute,
     );

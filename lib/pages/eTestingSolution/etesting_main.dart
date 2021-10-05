@@ -20,7 +20,7 @@ class _ETestMain extends State<ETestMain> {
   final kppRepo = KppRepo();
   final image = ImagesConstant();
   final localStorage = LocalStorage();
-  String instituteLogo = '';
+  String? instituteLogo = '';
   bool isLogoLoaded = false;
   final primaryColor = ColorConstant.primaryColor;
 
@@ -32,7 +32,7 @@ class _ETestMain extends State<ETestMain> {
   }
 
   _getDiProfile() async {
-    String instituteLogoPath = await localStorage.getInstituteLogo();
+    String instituteLogoPath = (await localStorage.getInstituteLogo())!;
 
     if (instituteLogoPath.isEmpty) {
       var result = await authRepo.getDiProfile(context: context);
@@ -82,9 +82,9 @@ class _ETestMain extends State<ETestMain> {
               FadeInImage(
                 alignment: Alignment.center,
                 placeholder: MemoryImage(kTransparentImage),
-                image: instituteLogo.isNotEmpty
-                    ? NetworkImage(instituteLogo)
-                    : MemoryImage(kTransparentImage),
+                image: (instituteLogo!.isNotEmpty
+                    ? NetworkImage(instituteLogo!)
+                    : MemoryImage(kTransparentImage)) as ImageProvider<Object>,
               ),
               SizedBox(
                 height: ScreenUtil().setHeight(80),
@@ -97,19 +97,18 @@ class _ETestMain extends State<ETestMain> {
                     Container(
                       width: ScreenUtil().setWidth(400),
                       height: ScreenUtil().setHeight(500),
-                      child: RaisedButton(
+                      child: ElevatedButton(
                         child: Text(
                           'RSM - Part 2',
                           style: TextStyle(fontSize: ScreenUtil().setSp(100)),
                         ),
-                        onPressed: () => ExtendedNavigator.of(context)
-                            .push(Routes.rsmRpkTabs),
+                        onPressed: () => context.router.push(RsmRpkTabs()),
                       ),
                     ),
                     Container(
                       width: ScreenUtil().setWidth(400),
                       height: ScreenUtil().setHeight(500),
-                      child: RaisedButton(
+                      child: ElevatedButton(
                         child: Text(
                           'RPK - part 3',
                           style: TextStyle(fontSize: ScreenUtil().setSp(100)),

@@ -16,19 +16,19 @@ class LearnRepo {
 
   Future<Response> addLearnResult({
     context,
-    String groupId,
-    String courseCode,
-    String part,
-    String studentIc,
-    String dateTimeFromString,
-    String dateTimeToString,
-    String remark,
-    String detlInJson,
+    String? groupId,
+    String? courseCode,
+    String? part,
+    String? studentIc,
+    required String dateTimeFromString,
+    required String dateTimeToString,
+    String? remark,
+    String? detlInJson,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String diCode = await localStorage.getDiCode();
-    String getUserId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getDiCode();
+    String? getUserId = await localStorage.getUserId();
 
     AddLearnResult params = AddLearnResult(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -62,22 +62,22 @@ class LearnRepo {
     // Success
     if (response.isSuccess) {
       return Response(true,
-          message: AppLocalizations.of(context).translate('ekpp_submit_lbl'));
+          message: AppLocalizations.of(context)!.translate('ekpp_submit_lbl'));
     } else if (response.message != null &&
-        response.message.contains('timeout')) {
+        response.message!.contains('timeout')) {
       return Response(false,
-          message: AppLocalizations.of(context).translate('timeout_exception'));
+          message: AppLocalizations.of(context)!.translate('timeout_exception'));
     } else if (response.message != null &&
-        response.message.contains('socket')) {
+        response.message!.contains('socket')) {
       return Response(false,
-          message: AppLocalizations.of(context).translate('socket_exception'));
-    } else if (response.message != null && response.message.contains('http')) {
+          message: AppLocalizations.of(context)!.translate('socket_exception'));
+    } else if (response.message != null && response.message!.contains('http')) {
       return Response(false,
-          message: AppLocalizations.of(context).translate('http_exception'));
+          message: AppLocalizations.of(context)!.translate('http_exception'));
     } else if (response.message != null &&
-        response.message.contains('format')) {
+        response.message!.contains('format')) {
       return Response(false,
-          message: AppLocalizations.of(context).translate('format_exception'));
+          message: AppLocalizations.of(context)!.translate('format_exception'));
     }
 
     return Response(false, message: response.message);

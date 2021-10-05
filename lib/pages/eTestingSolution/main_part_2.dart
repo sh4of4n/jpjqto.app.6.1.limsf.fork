@@ -1,7 +1,7 @@
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'list_part_2.dart';
 
@@ -16,35 +16,35 @@ class _Part2MainState extends State<Part2Main>
   final image = ImagesConstant();
   final localStorage = LocalStorage();
 
-  int marksCM = 0;
-  int marksDM = 0;
-  int marksEM = 0;
-  int marksFM = 0;
-  int marksGM = 0;
-  int marksHM = 0;
+  int? marksCM = 0;
+  int? marksDM = 0;
+  int? marksEM = 0;
+  int? marksFM = 0;
+  int? marksGM = 0;
+  int? marksHM = 0;
 
-  int marksC = 0;
-  int marksD = 0;
-  int marksE = 0;
-  int marksF = 0;
-  int marksG = 0;
+  int? marksC = 0;
+  int? marksD = 0;
+  int? marksE = 0;
+  int? marksF = 0;
+  int? marksG = 0;
   int marksH = 0;
-  int marksB = 0;
+  int? marksB = 0;
 
   _getBMark() async {
-    int _markB = await localStorage.getPart2MarkSessionB();
-    int _markCM = await localStorage.getPart2MarkCM();
-    int _markDM = await localStorage.getPart2MarkDM();
-    int _markEM = await localStorage.getPart2MarkEM();
-    int _markFM = await localStorage.getPart2MarkFM();
-    int _markGM = await localStorage.getPart2MarkGM();
-    int _markHM = await localStorage.getPart2MarkHM();
+    int? _markB = await localStorage.getPart2MarkSessionB();
+    int? _markCM = await localStorage.getPart2MarkCM();
+    int? _markDM = await localStorage.getPart2MarkDM();
+    int? _markEM = await localStorage.getPart2MarkEM();
+    int? _markFM = await localStorage.getPart2MarkFM();
+    int? _markGM = await localStorage.getPart2MarkGM();
+    int? _markHM = await localStorage.getPart2MarkHM();
 
-    int _deductMarkC = await localStorage.getCountMarkC();
-    int _deductMarkD = await localStorage.getCountMarkD();
-    int _deductMarkE = await localStorage.getCountMarkE();
-    int _deductMarkF = await localStorage.getCountMarkF();
-    int _deductMarkG = await localStorage.getCountMarkG();
+    int? _deductMarkC = await localStorage.getCountMarkC();
+    int? _deductMarkD = await localStorage.getCountMarkD();
+    int? _deductMarkE = await localStorage.getCountMarkE();
+    int? _deductMarkF = await localStorage.getCountMarkF();
+    int? _deductMarkG = await localStorage.getCountMarkG();
 
     setState(() {
       marksB = _markB;
@@ -139,16 +139,16 @@ class _Part2MainState extends State<Part2Main>
                 TableRow(children: [
                   Center(
                       child: Text(
-                          AppLocalizations.of(context).translate('session_lbl'),
+                          AppLocalizations.of(context)!.translate('session_lbl'),
                           style: TextStyle(color: Colors.black))),
                   Center(
                       child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .translate('normal_mistake_mark'),
                           style: TextStyle(color: Colors.black))),
                   Center(
                       child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .translate('mandatory_mistake_mark'),
                           style: TextStyle(color: Colors.black))),
                 ]),
@@ -328,7 +328,7 @@ class _Part2MainState extends State<Part2Main>
                 },
                 color: ColorConstant.primaryColor,
                 child: Text(
-                  AppLocalizations.of(context).translate('submit_btn'),
+                  AppLocalizations.of(context)!.translate('submit_btn'),
                 ),
               ),
             ),

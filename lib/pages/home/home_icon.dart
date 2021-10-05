@@ -35,7 +35,7 @@ class HomeIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
         onTap: () {
           component != null
-              ? ExtendedNavigator.of(context).push(component)
+              ? context.router.push(component)
               : SizedBox.shrink();
         },
         child: Container(

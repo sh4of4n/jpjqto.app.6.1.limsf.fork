@@ -35,20 +35,20 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   );
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController qrController;
+  QRViewController? qrController;
   bool iconVisible = true;
   bool isVisible = false;
 
-  String qNo = '';
-  String nric = '';
-  String name = '';
+  String? qNo = '';
+  String? nric = '';
+  String? name = '';
   String testDate = '';
-  String groupId = '';
-  String testCode = '';
-  String vehNo = '';
-  String merchantNo = '';
+  String? groupId = '';
+  String? testCode = '';
+  String? vehNo = '';
+  String? merchantNo = '';
 
-  List<dynamic> candidateList = [];
+  List<dynamic>? candidateList = [];
   var selectedCandidate;
 
   bool isLoading = false;
@@ -66,7 +66,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       isLoading = true;
     });
 
-    String vehNo = await localStorage.getPlateNo();
+    String? vehNo = await localStorage.getPlateNo();
 
     var result = await epanduRepo.getPart3AvailableToCallJpjTestList(
         part3Type: 'JALAN RAYA', vehNo: vehNo);
@@ -90,13 +90,13 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   }
 
   getSelectedCandidateInfo(queueNo) {
-    for (int i = 0; i < candidateList.length; i += 1) {
-      if (candidateList[i].queueNo == queueNo) {
-        selectedCandidate = candidateList[i];
+    for (int i = 0; i < candidateList!.length; i += 1) {
+      if (candidateList![i].queueNo == queueNo) {
+        selectedCandidate = candidateList![i];
 
         setState(() {
-          nric = candidateList[i].nricNo;
-          name = candidateList[i].fullname;
+          nric = candidateList![i].nricNo;
+          name = candidateList![i].fullname;
         });
 
         break;
@@ -116,13 +116,12 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           await callPart3JpjTest();
         }
 
-        ExtendedNavigator.of(context)
+        context.router
             .push(
-          Routes.confirmCandidateInfo,
-          arguments: ConfirmCandidateInfoArguments(
+          ConfirmCandidateInfo(
             part3Type: 'JALAN RAYA',
             nric: this.nric,
-            name: this.name,
+            candidateName: this.name,
             qNo: this.qNo,
             groupId: this.groupId,
             testDate: testDate,
@@ -133,23 +132,23 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           cancelCallPart3JpjTest();
         });
       } else {
-        for (int i = 0; i < candidateList.length; i += 1) {
-          if (candidateList[i].testCode == this.testCode) {
+        for (int i = 0; i < candidateList!.length; i += 1) {
+          if (candidateList![i].testCode == this.testCode) {
             customDialog.show(
               barrierDismissable: true,
               context: context,
               content:
-                  AppLocalizations.of(context).translate('record_not_matched'),
+                  AppLocalizations.of(context)!.translate('record_not_matched'),
               customActions: <Widget>[
-                FlatButton(
+                TextButton(
                   child:
-                      Text(AppLocalizations.of(context).translate('yes_lbl')),
+                      Text(AppLocalizations.of(context)!.translate('yes_lbl')),
                   onPressed: () async {
-                    ExtendedNavigator.of(context).pop();
+                    context.router.pop();
 
                     setState(() {
-                      this.name = candidateList[i].fullname;
-                      this.qNo = candidateList[i].queueNo;
+                      this.name = candidateList![i].fullname;
+                      this.qNo = candidateList![i].queueNo;
                     });
 
                     if (success > 0)
@@ -160,13 +159,12 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     else
                       await callPart3JpjTest(type: 'SKIP');
 
-                    ExtendedNavigator.of(context)
+                    context.router
                         .push(
-                      Routes.confirmCandidateInfo,
-                      arguments: ConfirmCandidateInfoArguments(
+                      ConfirmCandidateInfo(
                         part3Type: 'JALAN RAYA',
                         nric: this.nric,
-                        name: this.name,
+                        candidateName: this.name,
                         qNo: this.qNo,
                         groupId: this.groupId,
                         testDate: testDate,
@@ -182,19 +180,20 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     // callPart3JpjTest();
                   },
                 ),
-                FlatButton(
-                  child: Text(AppLocalizations.of(context).translate('no_lbl')),
-                  onPressed: () => ExtendedNavigator.of(context).pop(),
+                TextButton(
+                  child:
+                      Text(AppLocalizations.of(context)!.translate('no_lbl')),
+                  onPressed: () => context.router.pop(),
                 ),
               ],
               type: DialogType.GENERAL,
             );
 
             break;
-          } else if (i + 1 == candidateList.length) {
+          } else if (i + 1 == candidateList!.length) {
             customDialog.show(
               context: context,
-              content: AppLocalizations.of(context)
+              content: AppLocalizations.of(context)!
                   .translate('qr_candidate_not_found'),
               type: DialogType.INFO,
             );
@@ -205,8 +204,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       customDialog.show(
         barrierDismissable: true,
         context: context,
-        content:
-            AppLocalizations.of(context).translate('record_not_matched_reject'),
+        content: AppLocalizations.of(context)!
+            .translate('record_not_matched_reject'),
         type: DialogType.WARNING,
       );
     }
@@ -237,12 +236,12 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       if (type == 'MANUAL') {
         customDialog.show(
           context: context,
-          content: AppLocalizations.of(context).translate('call_successful'),
+          content: AppLocalizations.of(context)!.translate('call_successful'),
           type: DialogType.SUCCESS,
         );
       }
 
-      /* ExtendedNavigator.of(context).push(
+      /* context.router.push(
         Routes.confirmCandidateInfo,
         arguments: ConfirmCandidateInfoArguments(
           part3Type: 'JALAN RAYA',
@@ -260,7 +259,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         barrierDismissable: false,
         content: result.message,
         onPressed: () {
-          ExtendedNavigator.of(context).pop();
+          context.router.pop();
 
           getPart3AvailableToCallJpjTestList();
         },
@@ -289,18 +288,18 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     );
 
     if (result.isSuccess) {
-      // ExtendedNavigator.of(context).pop();
+      // context.router.pop();
       if (type == 'MANUAL') {
         customDialog.show(
           context: context,
-          content: AppLocalizations.of(context).translate('call_cancelled'),
+          content: AppLocalizations.of(context)!.translate('call_cancelled'),
           type: DialogType.SUCCESS,
         );
       }
 
       setState(() {
         success = 0;
-        candidateList.clear();
+        candidateList!.clear();
         selectedCandidate = null;
 
         if (type != 'HOME') getPart3AvailableToCallJpjTestList();
@@ -355,7 +354,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     });
 
     qrController.scannedDataStream.listen((scanData) async {
-      await qrController?.pauseCamera();
+      await qrController.pauseCamera();
 
       setState(() {
         try {
@@ -366,7 +365,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           iconVisible = true;
           isVisible = false;
 
-          if (qNo.isNotEmpty) {
+          if (qNo!.isNotEmpty) {
             compareCandidateInfo();
           } else {
             nric = '';
@@ -374,7 +373,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
             customDialog.show(
               barrierDismissable: true,
               context: context,
-              content: AppLocalizations.of(context).translate('scan_again'),
+              content: AppLocalizations.of(context)!.translate('scan_again'),
               type: DialogType.INFO,
             );
           }
@@ -382,11 +381,11 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           customDialog.show(
             barrierDismissable: true,
             context: context,
-            content: AppLocalizations.of(context).translate('invalid_qr'),
+            content: AppLocalizations.of(context)!.translate('invalid_qr'),
             customActions: [
               FlatButton(
                 onPressed: () {
-                  ExtendedNavigator.of(context).pop();
+                  context.router.pop();
 
                   qrController.resumeCamera();
                 },
@@ -412,30 +411,26 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     if (success > 0) {
       return CustomDialog().show(
         context: context,
-        title: Text(AppLocalizations.of(context).translate('warning_title')),
-        content: AppLocalizations.of(context).translate('confirm_exit_desc'),
+        title: Text(AppLocalizations.of(context)!.translate('warning_title')),
+        content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
         customActions: <Widget>[
           TextButton(
-            child: Text(AppLocalizations.of(context).translate('yes_lbl')),
+            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
             onPressed: () async {
-              ExtendedNavigator.of(context).pop();
-
               await cancelCallPart3JpjTest(type: 'HOME');
-
-              ExtendedNavigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text(AppLocalizations.of(context).translate('no_lbl')),
+            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
             onPressed: () {
-              ExtendedNavigator.of(context).pop();
+              context.router.pop();
             },
           ),
         ],
         type: DialogType.GENERAL,
       );
     }
-    ExtendedNavigator.of(context).pop();
+    context.router.pop();
     return true;
   }
 
@@ -451,13 +446,13 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
               onPressed: () {
                 customDialog.show(
                   context: context,
-                  content: AppLocalizations.of(context)
+                  content: AppLocalizations.of(context)!
                       .translate('select_queue_tooltip'),
                   type: DialogType.INFO,
                 );
               },
               icon: Icon(Icons.info_outline),
-              tooltip: AppLocalizations.of(context)
+              tooltip: AppLocalizations.of(context)!
                   .translate('select_queue_tooltip'),
             ),
           ],
@@ -492,7 +487,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                           ),
                         ),
                         items: candidateList != null
-                            ? candidateList
+                            ? candidateList!
                                 .map<DropdownMenuItem<String>>((dynamic value) {
                                 return DropdownMenuItem<String>(
                                   value: value.queueNo,
@@ -507,7 +502,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                             currentFocus.unfocus();
                           }
                         },
-                        onChanged: (String newValue) {
+                        onChanged: (String? newValue) {
                           setState(() {
                             qNo = newValue;
                           });
@@ -548,7 +543,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(nric, style: textStyle),
+                              child: Text(nric!, style: textStyle),
                             ),
                           ]),
                           TableRow(children: [
@@ -558,7 +553,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(name, style: textStyle),
+                              child: Text(name!, style: textStyle),
                             ),
                           ]),
                         ],
@@ -576,20 +571,20 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                 else
                                   customDialog.show(
                                     context: context,
-                                    content: AppLocalizations.of(context)
+                                    content: AppLocalizations.of(context)!
                                         .translate('select_queue_no'),
                                     type: DialogType.INFO,
                                   );
                               },
                               buttonColor: Color(0xffdd0e0e),
-                              title: AppLocalizations.of(context)
+                              title: AppLocalizations.of(context)!
                                   .translate('call_btn'),
                             ),
                             IconButton(
                               onPressed: () {
                                 customDialog.show(
                                   context: context,
-                                  content: AppLocalizations.of(context)
+                                  content: AppLocalizations.of(context)!
                                       .translate('call_tooltip'),
                                   type: DialogType.INFO,
                                 );
@@ -607,25 +602,27 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                 if (selectedCandidate != null) {
                                   CustomDialog().show(
                                     context: context,
-                                    title: Text(AppLocalizations.of(context)
+                                    title: Text(AppLocalizations.of(context)!
                                         .translate('warning_title')),
-                                    content: AppLocalizations.of(context)
+                                    content: AppLocalizations.of(context)!
                                         .translate('confirm_cancel_desc'),
                                     customActions: <Widget>[
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)
-                                            .translate('yes_lbl')),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .translate('yes_lbl')),
                                         onPressed: () {
-                                          ExtendedNavigator.of(context).pop();
+                                          context.router.pop();
                                           cancelCallPart3JpjTest(
                                               type: 'MANUAL');
                                         },
                                       ),
                                       TextButton(
-                                        child: Text(AppLocalizations.of(context)
-                                            .translate('no_lbl')),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .translate('no_lbl')),
                                         onPressed: () {
-                                          ExtendedNavigator.of(context).pop();
+                                          context.router.pop();
                                         },
                                       ),
                                     ],
@@ -634,20 +631,20 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                 } else
                                   customDialog.show(
                                     context: context,
-                                    content: AppLocalizations.of(context)
+                                    content: AppLocalizations.of(context)!
                                         .translate('select_queue_no'),
                                     type: DialogType.INFO,
                                   );
                               },
                               buttonColor: Color(0xffdd0e0e),
-                              title: AppLocalizations.of(context)
+                              title: AppLocalizations.of(context)!
                                   .translate('cancel_btn'),
                             ),
                             IconButton(
                               onPressed: () {
                                 customDialog.show(
                                   context: context,
-                                  content: AppLocalizations.of(context)
+                                  content: AppLocalizations.of(context)!
                                       .translate('cancel_tooltip'),
                                   type: DialogType.INFO,
                                 );

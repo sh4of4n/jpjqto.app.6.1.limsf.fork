@@ -5,12 +5,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class LoadingModel extends StatelessWidget {
   final isVisible;
   final Color color;
-  final Color backgroundColor;
-  final double opacity;
+  final Color? backgroundColor;
+  final double? opacity;
 
   LoadingModel({
-    @required this.isVisible,
-    @required this.color,
+    required this.isVisible,
+    required this.color,
     this.backgroundColor,
     this.opacity,
   });
@@ -31,7 +31,7 @@ class LoadingModel extends StatelessWidget {
           ),
           Center(
             child: SpinKitChasingDots(
-              color: color ?? Colors.blue,
+              color: color,
             ),
           ),
         ],

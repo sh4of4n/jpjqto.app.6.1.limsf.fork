@@ -7,13 +7,13 @@ import 'package:jpj_qto/utils/custom_snackbar.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:path/path.dart' show join;
-import 'package:path_provider/path_provider.dart';
+// import 'package:path/path.dart' show join;
+// import 'package:path_provider/path_provider.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
 class TakeProfilePicture extends StatefulWidget {
-  final List<CameraDescription> camera;
+  final List<CameraDescription>? camera;
 
   TakeProfilePicture(this.camera);
 
@@ -24,16 +24,16 @@ class TakeProfilePicture extends StatefulWidget {
 class TakeProfilePictureState extends State<TakeProfilePicture> {
   final customSnackbar = CustomSnackbar();
   final localStorage = LocalStorage();
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
+  CameraController? _controller;
+  Future<void>? _initializeControllerFuture;
   final primaryColor = ColorConstant.primaryColor;
-  CameraDescription cameraDescription;
+  CameraDescription? cameraDescription;
 
   @override
   void initState() {
     super.initState();
     // initializeCamera();
-    loadCamera(widget.camera[1]);
+    loadCamera(widget.camera![1]);
   }
 
   /* initializeCamera() {
@@ -56,7 +56,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
     });
 
     if (_controller != null) {
-      await _controller.dispose();
+      await _controller!.dispose();
     }
     _controller = CameraController(
       cameraDescription,
@@ -65,17 +65,17 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
     );
 
     // If the controller is updated then update the UI.
-    _controller.addListener(() {
+    _controller!.addListener(() {
       if (mounted) setState(() {});
-      if (_controller.value.hasError) {
+      if (_controller!.value.hasError) {
         customSnackbar.show(context,
-            message: 'Camera error ${_controller.value.errorDescription}',
+            message: 'Camera error ${_controller!.value.errorDescription}',
             type: MessageType.ERROR);
       }
     });
 
     try {
-      _initializeControllerFuture = _controller.initialize();
+      _initializeControllerFuture = _controller!.initialize();
     } on CameraException catch (e) {
       print(e);
     }
@@ -87,7 +87,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -97,22 +97,22 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
       appBar: AppBar(
         title: Text('Take a picture'),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
-              if (cameraDescription == widget.camera[1]) {
+              if (cameraDescription == widget.camera![1]) {
                 setState(() {
-                  cameraDescription = widget.camera[0];
+                  cameraDescription = widget.camera![0];
                 });
               } else {
                 setState(() {
-                  cameraDescription = widget.camera[1];
+                  cameraDescription = widget.camera![1];
                 });
               }
 
-              loadCamera(cameraDescription);
+              loadCamera(cameraDescription!);
             },
             child: Text(
-              AppLocalizations.of(context).translate('toggle_camera'),
+              AppLocalizations.of(context)!.translate('toggle_camera'),
             ),
           ),
         ],
@@ -121,7 +121,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
+            return CameraPreview(_controller!);
           } else {
             return Center(
                 child: SpinKitFoldingCube(
@@ -136,12 +136,12 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
           try {
             await _initializeControllerFuture;
 
-            final path = join(
-              (await getTemporaryDirectory()).path,
-              '${DateTime.now()}.png',
-            );
+            // final path = join(
+            //   (await getTemporaryDirectory()).path,
+            //   '${DateTime.now()}.png',
+            // );
 
-            await _controller.takePicture(path);
+            XFile file = await _controller!.takePicture();
 
             // localStorage
             //     .saveProfilePic(base64Encode(File(path).readAsBytesSync()));
@@ -150,7 +150,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
 
             // print(test);
 
-            ExtendedNavigator.of(context).pop(path);
+            context.router.pop(file.path);
             /* Navigator.push(
               context,
               MaterialPageRoute(
@@ -168,9 +168,9 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
 
 // A widget that displays the picture taken by the user.
 class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
+  final String? imagePath;
 
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+  const DisplayPictureScreen({Key? key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +178,7 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Image.file(File(imagePath!)),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
@@ -6,7 +7,6 @@ import 'package:jpj_qto/common_library/utils/loading_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../router.gr.dart';
@@ -14,18 +14,18 @@ import 'sessions/session.dart';
 
 // ignore: must_be_immutable
 class JrPartIII extends StatefulWidget {
-  final String qNo;
-  final String nric;
-  final String name;
-  final String testDate;
-  final String groupId;
-  final String testCode;
-  final String vehNo;
+  final String? qNo;
+  final String? nric;
+  final String? jrName;
+  final String? testDate;
+  final String? groupId;
+  final String? testCode;
+  final String? vehNo;
 
   JrPartIII(
     this.qNo,
     this.nric,
-    this.name,
+    this.jrName,
     this.testDate,
     this.groupId,
     this.testCode,
@@ -70,9 +70,9 @@ class _JrPartIIIState extends State<JrPartIII> {
           title: Icon(Icons.error_outline),
           content: result.message,
           customActions: [
-            FlatButton(
-              onPressed: () => ExtendedNavigator.of(context).popUntil(
-                ModalRoute.withName(Routes.confirmCandidateInfo),
+            TextButton(
+              onPressed: () => context.router.popUntil(
+                ModalRoute.withName('ConfirmCandidateInfo'),
               ),
               child: Text('Ok'),
             ),
@@ -121,10 +121,9 @@ class _JrPartIIIState extends State<JrPartIII> {
         onPressed: () {
           Provider.of<JrSessionModel>(context, listen: false).reset();
 
-          ExtendedNavigator.of(context)
-              .pushAndRemoveUntil(Routes.home, (r) => false);
+          context.router.pushAndPopUntil(Home(), predicate: (r) => false);
         },
-        content: AppLocalizations.of(context).translate('test_submitted'),
+        content: AppLocalizations.of(context)!.translate('test_submitted'),
         type: DialogType.SUCCESS,
       );
       // }
@@ -152,7 +151,7 @@ class _JrPartIIIState extends State<JrPartIII> {
     //       onPressed: () {
     //         Provider.of<JrSessionModel>(context, listen: false).reset();
 
-    //         ExtendedNavigator.of(context).popUntil(
+    //         context.router.popUntil(
     //           ModalRoute.withName(Routes.home),
     //         );
     //       },
@@ -160,7 +159,7 @@ class _JrPartIIIState extends State<JrPartIII> {
     //     TextButton(
     //       child: Text(AppLocalizations.of(context).translate('no_lbl')),
     //       onPressed: () {
-    //         ExtendedNavigator.of(context).pop();
+    //         context.router.pop();
     //       },
     //     ),
     //   ],
@@ -254,17 +253,17 @@ class _JrPartIIIState extends State<JrPartIII> {
                       TableRow(children: [
                         Center(
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('session_lbl'),
                                 style: TextStyle(color: Colors.black))),
                         Center(
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('normal_mistake_mark'),
                                 style: TextStyle(color: Colors.black))),
                         Center(
                             child: Text(
-                                AppLocalizations.of(context)
+                                AppLocalizations.of(context)!
                                     .translate('mandatory_mistake_mark'),
                                 style: TextStyle(color: Colors.black))),
                       ]),
@@ -510,7 +509,7 @@ class _JrPartIIIState extends State<JrPartIII> {
                     height: ScreenUtil().setHeight(100),
                   ),
                   Container(
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         // Future.wait([
                         //   updatePart3JpjTestResult('RPK'),
@@ -518,9 +517,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         // ]);
                         updatePart3JpjTestResult('JALAN RAYA');
                       },
-                      color: ColorConstant.primaryColor,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            ColorConstant.primaryColor),
+                      ),
                       child: Text(
-                        AppLocalizations.of(context).translate('submit_btn'),
+                        AppLocalizations.of(context)!.translate('submit_btn'),
                       ),
                     ),
                   ),

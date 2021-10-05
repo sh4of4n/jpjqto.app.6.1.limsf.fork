@@ -1,18 +1,18 @@
 class AddLearnResult {
-  String wsCodeCrypt;
-  String caUid;
-  String caPwd;
-  String appId;
-  String userId;
-  String diCode;
-  String icNo;
-  String groupId;
-  String courseCode;
-  String part;
-  String dateTimeFromString;
-  String dateTimeToString;
-  String remark;
-  String detlInJson;
+  String? wsCodeCrypt;
+  String? caUid;
+  String? caPwd;
+  String? appId;
+  String? userId;
+  String? diCode;
+  String? icNo;
+  String? groupId;
+  String? courseCode;
+  String? part;
+  String? dateTimeFromString;
+  String? dateTimeToString;
+  String? remark;
+  String? detlInJson;
 
   AddLearnResult({
     this.wsCodeCrypt,
@@ -69,15 +69,15 @@ class AddLearnResult {
 }
 
 class DetlInJson {
-  List<DetailInJson> learnResultDetl;
+  List<DetailInJson>? learnResultDetl;
 
   DetlInJson({this.learnResultDetl});
 
   DetlInJson.fromJson(Map<String, dynamic> json) {
     if (json['LearnResultDetl'] != null) {
-      learnResultDetl = new List<DetailInJson>();
+      learnResultDetl = new List<DetailInJson>.empty(growable: true);
       json['LearnResultDetl'].forEach((v) {
-        learnResultDetl.add(new DetailInJson.fromJson(v));
+        learnResultDetl!.add(new DetailInJson.fromJson(v));
       });
     }
   }
@@ -86,16 +86,16 @@ class DetlInJson {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.learnResultDetl != null) {
       data['LearnResultDetl'] =
-          this.learnResultDetl.map((v) => v.toJson()).toList();
+          this.learnResultDetl!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class DetailInJson {
-  String ruleCode;
-  String ruleGrade;
-  String remark;
+  String? ruleCode;
+  String? ruleGrade;
+  String? remark;
 
   DetailInJson({this.ruleCode, this.ruleGrade, this.remark});
 
@@ -106,7 +106,7 @@ class DetailInJson {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, String>();
+    final Map<String, dynamic> data = new Map<String, String?>();
     data['ruleCode'] = this.ruleCode;
     data['ruleGrade'] = this.ruleGrade;
     data['remark'] = this.remark;
@@ -129,13 +129,13 @@ class EkppTag {
 }
 
 class EkppTagReturn {
-  List<EkppTag> tags;
+  List<EkppTag>? tags;
 
   EkppTagReturn([this.tags]);
 
   Map toJson() {
-    List<Map> tags =
-        this.tags != null ? this.tags.map((i) => i.toJson()).toList() : null;
+    List<Map>? tags =
+        this.tags != null ? this.tags!.map((i) => i.toJson()).toList() : null;
 
     return {'LearnResultDetl': tags};
   }

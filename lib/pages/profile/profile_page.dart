@@ -10,7 +10,7 @@ class Profile extends StatefulWidget {
   final userProfile;
   final isLoading;
 
-  Profile({@required this.userProfile, @required this.isLoading});
+  Profile({required this.userProfile, required this.isLoading});
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -131,21 +131,21 @@ class _ProfileState extends State<Profile>
               ListTile(
                 leading: Icon(Icons.account_box),
                 title:
-                    Text(AppLocalizations.of(context).translate('ic_name_lbl')),
+                    Text(AppLocalizations.of(context)!.translate('ic_name_lbl')),
                 subtitle:
                     Text('${widget.userProfile?.name}', style: _subtitleStyle),
               ),
             ListTile(
               leading: Icon(Icons.account_box),
               title:
-                  Text(AppLocalizations.of(context).translate('nick_name_lbl')),
+                  Text(AppLocalizations.of(context)!.translate('nick_name_lbl')),
               subtitle: Text('${widget.userProfile?.nickName}',
                   style: _subtitleStyle),
             ),
             if (widget.userProfile?.icNo != null)
               ListTile(
                 leading: Icon(Icons.perm_identity),
-                title: Text(AppLocalizations.of(context).translate('ic_lbl')),
+                title: Text(AppLocalizations.of(context)!.translate('ic_lbl')),
                 subtitle:
                     Text('${widget.userProfile?.icNo}', style: _subtitleStyle),
               ),
@@ -153,7 +153,7 @@ class _ProfileState extends State<Profile>
               ListTile(
                 leading: Icon(Icons.phone),
                 title:
-                    Text(AppLocalizations.of(context).translate('contact_no')),
+                    Text(AppLocalizations.of(context)!.translate('contact_no')),
                 subtitle:
                     Text('${widget.userProfile?.phone}', style: _subtitleStyle),
               ),
@@ -161,17 +161,17 @@ class _ProfileState extends State<Profile>
               ListTile(
                 leading: Icon(Icons.email),
                 title:
-                    Text(AppLocalizations.of(context).translate('email_lbl')),
+                    Text(AppLocalizations.of(context)!.translate('email_lbl')),
                 subtitle: Text(
                     widget.userProfile?.eMail != null
                         ? '${widget.userProfile?.eMail}'
-                        : AppLocalizations.of(context).translate('no_email'),
+                        : AppLocalizations.of(context)!.translate('no_email'),
                     style: _subtitleStyle),
               ),
             if (widget.userProfile?.birthDate != null)
               ListTile(
                 leading: Icon(Icons.date_range),
-                title: Text(AppLocalizations.of(context).translate('dob_lbl')),
+                title: Text(AppLocalizations.of(context)!.translate('dob_lbl')),
                 subtitle: Text(
                     '${widget.userProfile.birthDate.isNotEmpty ? widget.userProfile.birthDate.substring(0, 10) : ''}',
                     style: _subtitleStyle),

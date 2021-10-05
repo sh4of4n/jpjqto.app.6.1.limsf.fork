@@ -34,21 +34,21 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   );
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController qrController;
+  QRViewController? qrController;
   bool iconVisible = true;
   bool isVisible = false;
 
   var result;
-  String qNo = '';
-  String nric = '';
-  String name = '';
-  String groupId = '';
-  String testCode = '';
-  String vehNo = '';
-  String merchantNo = '';
+  String? qNo = '';
+  String? nric = '';
+  String? name = '';
+  String? groupId = '';
+  String? testCode = '';
+  String? vehNo = '';
+  String? merchantNo = '';
 
-  List<dynamic> candidateList = [];
-  var selectedCandidate;
+  List<dynamic>? candidateList = [];
+  late var selectedCandidate;
 
   bool isLoading = false;
 
@@ -64,7 +64,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       isLoading = true;
     });
 
-    String vehNo = await localStorage.getPlateNo();
+    String? vehNo = await localStorage.getPlateNo();
 
     var result = await epanduRepo.getPart3AvailableToCallJpjTestList(
         part3Type: 'RPK', vehNo: vehNo);
@@ -76,7 +76,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     } else {
       customDialog.show(
         context: context,
-        content: AppLocalizations.of(context).translate('no_candidate'),
+        content: AppLocalizations.of(context)!.translate('no_candidate'),
         type: DialogType.INFO,
       );
     }
@@ -87,13 +87,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   }
 
   getSelectedCandidateInfo(queueNo) {
-    for (int i = 0; i < candidateList.length; i += 1) {
-      if (candidateList[i].queueNo == queueNo) {
-        selectedCandidate = candidateList[i];
+    for (int i = 0; i < candidateList!.length; i += 1) {
+      if (candidateList![i].queueNo == queueNo) {
+        selectedCandidate = candidateList![i];
 
         setState(() {
-          nric = candidateList[i].nricNo;
-          name = candidateList[i].fullname;
+          nric = candidateList![i].nricNo;
+          name = candidateList![i].fullname;
         });
 
         break;
@@ -113,19 +113,20 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         customDialog.show(
           barrierDismissable: true,
           context: context,
-          content: AppLocalizations.of(context).translate('record_not_matched'),
+          content:
+              AppLocalizations.of(context)!.translate('record_not_matched'),
           customActions: <Widget>[
-            FlatButton(
-              child: Text(AppLocalizations.of(context).translate('yes_lbl')),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
               onPressed: () {
-                ExtendedNavigator.of(context).pop();
+                context.router.pop();
 
                 callPart3JpjTest();
               },
             ),
-            FlatButton(
-              child: Text(AppLocalizations.of(context).translate('no_lbl')),
-              onPressed: () => ExtendedNavigator.of(context).pop(),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+              onPressed: () => context.router.pop(),
             ),
           ],
           type: DialogType.GENERAL,
@@ -135,8 +136,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       customDialog.show(
         barrierDismissable: true,
         context: context,
-        content:
-            AppLocalizations.of(context).translate('record_not_matched_reject'),
+        content: AppLocalizations.of(context)!
+            .translate('record_not_matched_reject'),
         type: DialogType.WARNING,
       );
     }
@@ -162,12 +163,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     );
 
     if (result.isSuccess) {
-      ExtendedNavigator.of(context).push(
-        Routes.confirmCandidateInfo,
-        arguments: ConfirmCandidateInfoArguments(
+      context.router.push(
+        ConfirmCandidateInfo(
           part3Type: 'RPK',
           nric: nric,
-          name: name,
+          candidateName: name,
           qNo: qNo,
           groupId: groupId,
           testDate: testDate,
@@ -224,7 +224,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     });
 
     qrController.scannedDataStream.listen((scanData) async {
-      await qrController?.pauseCamera();
+      await qrController.pauseCamera();
 
       setState(() {
         try {
@@ -234,13 +234,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           iconVisible = true;
           isVisible = false;
 
-          if (qNo.isNotEmpty) {
+          if (qNo!.isNotEmpty) {
             compareCandidateInfo();
           } else {
             customDialog.show(
               barrierDismissable: true,
               context: context,
-              content: AppLocalizations.of(context).translate('scan_again'),
+              content: AppLocalizations.of(context)!.translate('scan_again'),
               type: DialogType.INFO,
             );
           }
@@ -248,11 +248,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           customDialog.show(
             barrierDismissable: true,
             context: context,
-            content: AppLocalizations.of(context).translate('invalid_qr'),
+            content: AppLocalizations.of(context)!.translate('invalid_qr'),
             customActions: [
-              FlatButton(
+              TextButton(
                 onPressed: () {
-                  ExtendedNavigator.of(context).pop();
+                  context.router.pop();
 
                   qrController.resumeCamera();
                 },
@@ -278,20 +278,20 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('calling')),
+        title: Text(AppLocalizations.of(context)!.translate('calling')),
         actions: [
           IconButton(
             onPressed: () {
               customDialog.show(
                 context: context,
-                content: AppLocalizations.of(context)
+                content: AppLocalizations.of(context)!
                     .translate('select_queue_tooltip'),
                 type: DialogType.INFO,
               );
             },
             icon: Icon(Icons.info_outline),
             tooltip:
-                AppLocalizations.of(context).translate('select_queue_tooltip'),
+                AppLocalizations.of(context)!.translate('select_queue_tooltip'),
           ),
         ],
       ),
@@ -327,7 +327,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           ),
                         ),
                         items: candidateList != null
-                            ? candidateList
+                            ? candidateList!
                                 .map<DropdownMenuItem<String>>((dynamic value) {
                                 return DropdownMenuItem<String>(
                                   value: value.queueNo,
@@ -342,7 +342,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                             currentFocus.unfocus();
                           }
                         },
-                        onChanged: (String newValue) {
+                        onChanged: (String? newValue) {
                           setState(() {
                             qNo = newValue;
                           });
@@ -383,7 +383,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(nric, style: textStyle),
+                              child: Text(nric!, style: textStyle),
                             ),
                           ]),
                           TableRow(children: [
@@ -393,7 +393,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(name, style: textStyle),
+                              child: Text(name!, style: textStyle),
                             ),
                           ]),
                         ],

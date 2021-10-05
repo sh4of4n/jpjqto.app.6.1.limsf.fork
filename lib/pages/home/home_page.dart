@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/services/location.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
@@ -41,10 +40,10 @@ class _HomeState extends State<Home> {
   String instituteLogo = '';
   bool isLogoLoaded = false;
 
-  String groupId;
-  String carNo;
-  String plateNo;
-  String dbCode;
+  String? groupId;
+  String? carNo;
+  String? plateNo;
+  String? dbCode;
 
   TextStyle textStyle = TextStyle(fontWeight: FontWeight.bold);
 
@@ -70,14 +69,14 @@ class _HomeState extends State<Home> {
   }
 
   _setLocale() async {
-    String locale = await localStorage.getLocale();
+    String? locale = await localStorage.getLocale();
 
     if (locale == 'en') {
       Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-          AppLocalizations.of(context).translate('english_lbl'));
+          AppLocalizations.of(context)!.translate('english_lbl'));
     } else {
       Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-          AppLocalizations.of(context).translate('malay_lbl'));
+          AppLocalizations.of(context)!.translate('malay_lbl'));
     }
   }
 
@@ -88,10 +87,10 @@ class _HomeState extends State<Home> {
   }
 
   _getVehInfo() async {
-    String getGroupId = await localStorage.getEnrolledGroupId();
-    String getCarNo = await localStorage.getCarNo();
-    String getPlateNo = await localStorage.getPlateNo();
-    String getDbCode = await localStorage.getMerchantDbCode();
+    String? getGroupId = await localStorage.getEnrolledGroupId();
+    String? getCarNo = await localStorage.getCarNo();
+    String? getPlateNo = await localStorage.getPlateNo();
+    String? getDbCode = await localStorage.getMerchantDbCode();
 
     setState(() {
       groupId = getGroupId;
@@ -137,12 +136,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: Size(1440, 2960),
-      allowFontScaling: true,
-    );
-
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -163,9 +156,8 @@ class _HomeState extends State<Home> {
           elevation: 0,
           actions: <Widget>[
             IconButton(
-              onPressed: () => Navigator.pushNamed(
-                context,
-                Routes.profileTab,
+              onPressed: () => context.router.push(
+                ProfileTab(),
               ),
               icon: Icon(Icons.settings),
             ),
@@ -188,10 +180,9 @@ class _HomeState extends State<Home> {
                 vehInfo(),
                 HomeModule(),
                 InkWell(
-                  onTap: () =>
-                      ExtendedNavigator.of(context).push(Routes.getVehicleInfo),
+                  onTap: () => context.router.push(GetVehicleInfo()),
                   child: Text(
-                      AppLocalizations.of(context).translate('change_car')),
+                      AppLocalizations.of(context)!.translate('change_car')),
                 )
                 /* Expanded(
                   child: GestureDetector(

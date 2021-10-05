@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LanguageModel extends ChangeNotifier {
-  String language;
+  String? language;
 
   void selectedLanguage(String lang) {
     language = '($lang)';
@@ -373,30 +373,30 @@ class JrSessionModel extends ChangeNotifier {
   }
 
   void setResultRpk({
-    int rpk1,
-    int rpk2,
-    int rpk3,
-    int rpk4,
-    int rpk5,
-    int rpk6,
-    int rpk7,
-    int rpk8,
-    int rpk9,
-    int rpk10,
-    int rpk11,
-    int rpk12,
-    int rpk13,
-    int rpk14,
-    int rpk15,
-    int rpk16,
-    int rpk17,
-    int rpk18,
-    int rpk19,
-    int rpk20,
-    int rpk21,
-    int rpk22,
-    int rpk23,
-    int rpk24,
+    int? rpk1,
+    int? rpk2,
+    int? rpk3,
+    int? rpk4,
+    int? rpk5,
+    int? rpk6,
+    int? rpk7,
+    int? rpk8,
+    int? rpk9,
+    int? rpk10,
+    int? rpk11,
+    int? rpk12,
+    int? rpk13,
+    int? rpk14,
+    int? rpk15,
+    int? rpk16,
+    int? rpk17,
+    int? rpk18,
+    int? rpk19,
+    int? rpk20,
+    int? rpk21,
+    int? rpk22,
+    int? rpk23,
+    int? rpk24,
   }) {
     if (rpk1 != null) {
       if (this.rpk1 != 1 && rpk1 == 1)

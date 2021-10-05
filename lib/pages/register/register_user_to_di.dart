@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
-import '../../router.gr.dart';
 
 class RegisterUserToDi extends StatelessWidget {
   final data;
@@ -53,27 +52,27 @@ class RegisterUserToDi extends StatelessWidget {
               children: <Widget>[
                 data.status == 'success'
                     ? Text(
-                        AppLocalizations.of(context).translate('scan_success') +
+                        AppLocalizations.of(context)!.translate('scan_success') +
                             ' ' +
                             data.barcode.qRCode[0].name +
                             ' ' +
-                            AppLocalizations.of(context)
+                            AppLocalizations.of(context)!
                                 .translate('organisation'),
                         style: inputStyle)
                     : Text(
-                        AppLocalizations.of(context).translate('scan_fail') +
+                        AppLocalizations.of(context)!.translate('scan_fail') +
                             ' ' +
                             data.barcode.qRCode[0].name +
                             ' ' +
-                            AppLocalizations.of(context)
+                            AppLocalizations.of(context)!
                                 .translate('organisation'),
                         style: inputStyle),
                 CustomButton(
-                  onPressed: () => ExtendedNavigator.of(context).popUntil(
-                    ModalRoute.withName(Routes.home),
+                  onPressed: () => context.router.popUntil(
+                    ModalRoute.withName('Home'),
                   ),
                   buttonColor: Color(0xffdd0e0e),
-                  title: AppLocalizations.of(context).translate('ok_btn'),
+                  title: AppLocalizations.of(context)!.translate('ok_btn'),
                 ),
               ],
             ),

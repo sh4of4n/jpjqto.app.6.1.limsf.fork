@@ -7,7 +7,6 @@ import '../model/fpx_model.dart';
 import '../networking.dart';
 import '../response.dart';
 import '../../../utils/app_config.dart';
-import 'package:flutter/material.dart';
 import 'package:xml2json/xml2json.dart';
 
 class FpxRepo {
@@ -16,9 +15,9 @@ class FpxRepo {
   final xml2json = Xml2Json();
   final networking = Networking();
 
-  Future<Response> getAppPaymentMenu({@required context}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+  Future<Response> getAppPaymentMenu({required context}) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appCode=${appConfig.appCode}';
@@ -40,12 +39,12 @@ class FpxRepo {
   }
 
   Future<Response> getMerchantPaymentGateway({
-    @required context,
-    @required diCode,
+    required context,
+    required diCode,
     gatewayId,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appCode=${appConfig.appCode}&diCode=$diCode&gatewayId=${gatewayId ?? ''}';
@@ -68,15 +67,15 @@ class FpxRepo {
   }
 
   Future<Response> createOrder({
-    @required context,
-    @required diCode,
-    @required icNo,
-    @required packageCode,
+    required context,
+    required diCode,
+    required icNo,
+    required packageCode,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
-    String diCode = await localStorage.getMerchantDbCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
+    String? diCode = await localStorage.getMerchantDbCode();
 
     CreateOrderRequest createOrderRequest = CreateOrderRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -110,16 +109,16 @@ class FpxRepo {
   }
 
   Future<Response> createOrderWithAmt({
-    @required context,
-    @required diCode,
-    @required icNo,
-    @required packageCode,
-    @required amountString,
+    required context,
+    required diCode,
+    required icNo,
+    required packageCode,
+    required amountString,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
-    String diCode = await localStorage.getMerchantDbCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
+    String? diCode = await localStorage.getMerchantDbCode();
 
     CreateOrderWithAmtRequest createOrderRequest = CreateOrderWithAmtRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -154,15 +153,15 @@ class FpxRepo {
   }
 
   Future<Response> getOrderListByIcNo({
-    @required context,
-    @required icNo,
-    @required startIndex,
-    @required noOfRecords,
-    @required diCode,
+    required context,
+    required icNo,
+    required startIndex,
+    required noOfRecords,
+    required diCode,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&icNo=$icNo&startIndex=$startIndex&noOfRecords=$noOfRecords';
@@ -183,13 +182,13 @@ class FpxRepo {
   }
 
   Future<Response> getOrderDetlByOrderNo({
-    @required diCode,
-    @required docDoc,
-    @required docRef,
+    required diCode,
+    required docDoc,
+    required docRef,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&docDoc=$docDoc&docRef=$docRef';
@@ -210,11 +209,11 @@ class FpxRepo {
   }
 
   Future<Response> fpxSendB2CBankEnquiry({
-    @required context,
+    required context,
     callbackUrl,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd';
@@ -236,18 +235,18 @@ class FpxRepo {
   }
 
   Future<Response> fpxSendB2CAuthRequest({
-    @required context,
-    @required docDoc,
-    @required docRef,
-    @required bankId,
-    @required icNo,
-    @required diCode,
+    required context,
+    required docDoc,
+    required docRef,
+    required bankId,
+    required icNo,
+    required diCode,
     callbackUrl,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
-    String email = await localStorage.getEmail();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
+    String? email = await localStorage.getEmail();
 
     String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd' +
         '&diCode=$diCode&userId=$userId&icNo=$icNo&docDoc=$docDoc&docRef=$docRef&email=$email&bankId=$bankId&callbackUrl=${callbackUrl ?? ''}';
@@ -269,19 +268,19 @@ class FpxRepo {
   }
 
   Future<Response> fpxSendB2CAuthRequestWithAmt({
-    @required context,
-    @required docDoc,
-    @required docRef,
-    @required bankId,
-    @required icNo,
-    @required diCode,
-    @required amountString,
+    required context,
+    required docDoc,
+    required docRef,
+    required bankId,
+    required icNo,
+    required diCode,
+    required amountString,
     callbackUrl,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
-    String email = await localStorage.getEmail();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
+    String? email = await localStorage.getEmail();
 
     String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd' +
         '&diCode=$diCode&userId=$userId&icNo=$icNo&docDoc=$docDoc&docRef=$docRef&email=$email&bankId=$bankId&callbackUrl=${callbackUrl ?? ''}&appCode=${appConfig.appCode}&amountString=$amountString';
@@ -303,14 +302,14 @@ class FpxRepo {
   }
 
   Future<Response> getOnlinePaymentListByIcNo({
-    @required context,
-    @required icNo,
-    @required startIndex,
-    @required noOfRecords,
+    required context,
+    required icNo,
+    required startIndex,
+    required noOfRecords,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
 
     String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd' +
         '&userId=$userId&icNo=$icNo&startIndex=$startIndex&noOfRecords=$noOfRecords';
@@ -332,14 +331,14 @@ class FpxRepo {
   }
 
   Future<Response> getOnlinePaymentByOrderNo({
-    @required diCode,
-    @required icNo,
-    @required docDoc,
-    @required docRef,
+    required diCode,
+    required icNo,
+    required docDoc,
+    required docRef,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
 
     String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd' +
         '&diCode=$diCode&userId=$userId&icNo=$icNo&docDoc=$docDoc&docRef=$docRef';

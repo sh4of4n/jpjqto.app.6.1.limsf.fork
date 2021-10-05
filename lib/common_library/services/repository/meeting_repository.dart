@@ -13,9 +13,9 @@ class ChatRepo {
   //user ID = Dbcode
 
   Future<Response> getUserMeetingAccount({context}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userID = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userID = await localStorage.getUserId();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&dbcode=$userID&meetingTool=Zoom';
@@ -28,7 +28,7 @@ class ChatRepo {
       GetUserMeetingAccountResponse getUserMeetingAccountResponse =
           GetUserMeetingAccountResponse.fromJson(response.data);
 
-      print("get response message: " + response.message);
+      print("get response message: " + response.message!);
 
       return Response(true, data: getUserMeetingAccountResponse.zmMeetingUser);
     }
@@ -38,9 +38,9 @@ class ChatRepo {
 
   Future<Response> saveUserMeetingAccount(
       {context, meetingUserId, personalMeetingId, refreshToken}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
 
     SaveUserMeetingAccount savePickupRequest = SaveUserMeetingAccount(
         wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -59,14 +59,14 @@ class ChatRepo {
     var response =
         await networking.postData(api: api, body: body, headers: headers);
 
-    print("post response message: " + response.message);
+    print("post response message: " + response.message!);
 
     if (response.isSuccess && response.data == 'True') {
       return Response(true);
     }
 
     return Response(false,
-        message: response.message.replaceAll(r'\u000d\u000a', ''));
+        message: response.message!.replaceAll(r'\u000d\u000a', ''));
   }
 
   Future<Response> saveMeeting(
@@ -88,9 +88,9 @@ class ChatRepo {
       bannerBase64String,
       removeBanner,
       dataKey}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwd();
-    String userId = await localStorage.getUserId();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? userId = await localStorage.getUserId();
 
     SaveMeeting saveMeeting = SaveMeeting(
         wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -131,7 +131,7 @@ class ChatRepo {
     }
 
     return Response(false,
-        message: response.message.replaceAll(r'\u000d\u000a', ''));
+        message: response.message!.replaceAll(r'\u000d\u000a', ''));
   }
 
   Future<Response> getMeetingByStatusResponse(
@@ -142,8 +142,8 @@ class ChatRepo {
       status,
       byStartTime,
       isAscending}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
     String userID = "";
 
     String path =
@@ -164,10 +164,10 @@ class ChatRepo {
   }
 
   Future<Response> getUserRegisteredDI({context}) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
-    String userId = await localStorage.getUserId();
-    String diCode = await localStorage.getDiCode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
+    String? diCode = await localStorage.getDiCode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId';

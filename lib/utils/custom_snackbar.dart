@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 enum MessageType {
   INFO,
@@ -25,12 +25,12 @@ class CustomSnackbar {
 
   void show(
     BuildContext context, {
-    @required message,
-    @required MessageType type,
-    int duration,
+    required message,
+    required MessageType type,
+    int? duration,
   }) {
-    Color backgroundColor;
-    Icon icon;
+    Color? backgroundColor;
+    Icon? icon;
 
     switch (type) {
       case MessageType.ERROR:
@@ -92,7 +92,7 @@ class CustomSnackbar {
   void _showFlushbar(
     BuildContext context,
     type, {
-    message,
+    required message,
     bgColor,
     textSize,
     textColor,
@@ -109,7 +109,9 @@ class CustomSnackbar {
       ),
       padding: _defaultPadding,
       margin: type == MessageType.TOAST ? _defaultMargin : EdgeInsets.all(0.0),
-      borderRadius: type == MessageType.TOAST ? _defaultBorderRadius : 0.0,
+      borderRadius: type == MessageType.TOAST
+          ? _defaultBorderRadius as BorderRadius
+          : BorderRadius.circular(0.0),
       icon: icon,
       backgroundColor: bgColor != null ? bgColor : Color(0xFF303030),
       duration: Duration(milliseconds: duration ?? _defaultDuration),

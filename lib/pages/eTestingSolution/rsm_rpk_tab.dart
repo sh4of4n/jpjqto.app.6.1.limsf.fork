@@ -12,7 +12,7 @@ class RsmRpkTabs extends StatefulWidget {
 
 class _RsmRpkTabsState extends State<RsmRpkTabs>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
   final image = ImagesConstant();
 
   @override

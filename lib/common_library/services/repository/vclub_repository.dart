@@ -18,8 +18,8 @@ class VclubRepo {
     startIndex,
     noOfRecords,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&keywordSearch=$keywordSearch&startIndex=$startIndex&noOfRecords=$noOfRecords';
@@ -49,8 +49,8 @@ class VclubRepo {
     longitude,
     maxRadius,
   }) async {
-    String caUid = await localStorage.getCaUid();
-    String caPwd = await localStorage.getCaPwdEncode();
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantType=$merchantType&keywordSearch=$keywordSearch&startIndex=$startIndex&noOfRecords=$noOfRecords&latitude=$latitude&longitude=$longitude&maxRadius=$maxRadius';

@@ -19,7 +19,7 @@ class _OperatorScanQRState extends State<OperatorScanQR> {
   final primaryColor = ColorConstant.primaryColor;
   final myImage = ImagesConstant();
   final authRepo = AuthRepo();
-  String dropdownValue = 'PNU 5555';
+  String? dropdownValue = 'PNU 5555';
   final iconText = TextStyle(
     fontSize: ScreenUtil().setSp(60),
     color: Colors.black,
@@ -78,7 +78,7 @@ class _OperatorScanQRState extends State<OperatorScanQR> {
                       currentFocus.unfocus();
                     }
                   },
-                  onChanged: (String newValue) {
+                  onChanged: (String? newValue) {
                     setState(() {
                       dropdownValue = newValue;
                     });
@@ -97,13 +97,13 @@ class _OperatorScanQRState extends State<OperatorScanQR> {
               ),
               Container(
                 width: ScreenUtil().setWidth(1000),
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
-                    ExtendedNavigator.of(context).push(Routes.rpkDrawer);
+                    context.router.push(RpkDrawer());
                     //Navigator.pushNamed(context, RsmRpkTab);
                   },
                   child: Text(
-                    AppLocalizations.of(context).translate('scan_lbl'),
+                    AppLocalizations.of(context)!.translate('scan_lbl'),
                     style: (TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
                   ),
@@ -126,7 +126,7 @@ class _OperatorScanQRState extends State<OperatorScanQR> {
                         decoration: new InputDecoration(
                           contentPadding: EdgeInsets.only(
                               left: 15, bottom: 11, top: 11, right: 15),
-                          hintText: AppLocalizations.of(context)
+                          hintText: AppLocalizations.of(context)!
                               .translate('enter_student_ic'),
                         ),
                       ),
@@ -136,8 +136,7 @@ class _OperatorScanQRState extends State<OperatorScanQR> {
                         color: Colors.grey[300],
                         child: IconButton(
                           onPressed: () {
-                            ExtendedNavigator.of(context)
-                                .push(Routes.rpkDrawer);
+                            context.router.push(RpkDrawer());
                             //Navigator.pushNamed(context, RsmRpkTab);
                           },
                           icon: Icon(Icons.arrow_forward),

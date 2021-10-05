@@ -3,15 +3,15 @@ import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/pages/eTestingSolution/custom_expansion_tile.dart'
     as custom;
 import 'package:provider/provider.dart';
 
 class SessionD extends StatefulWidget {
-  final Function() notifyParent;
-  SessionD({Key key, this.notifyParent}) : super(key: key);
+  final Function()? notifyParent;
+  SessionD({Key? key, this.notifyParent}) : super(key: key);
 
   @override
   _SessionDState createState() => _SessionDState();
@@ -41,7 +41,7 @@ class _SessionDState extends State<SessionD> {
       d19 = 0,
       d20 = 0;
 
-  bool sessionD = false;
+  bool? sessionD = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _SessionDState extends State<SessionD> {
           title: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              AppLocalizations.of(context).translate('jr_session_d'),
+              AppLocalizations.of(context)!.translate('jr_session_d'),
               style:
                   (TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             ),
@@ -95,7 +95,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d1')),
                           )),
                     ),
@@ -146,7 +146,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d2')),
                           )),
                     ),
@@ -197,7 +197,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d3')),
                           )),
                     ),
@@ -248,7 +248,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d4')),
                           )),
                     ),
@@ -299,7 +299,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d5')),
                           )),
                     ),
@@ -350,7 +350,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d6')),
                           )),
                     ),
@@ -405,7 +405,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d7')),
                           )),
                     ),
@@ -456,7 +456,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d8')),
                           )),
                     ),
@@ -507,7 +507,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d9')),
                           )),
                     ),
@@ -558,7 +558,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d10')),
                           )),
                     ),
@@ -609,7 +609,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d11')),
                           )),
                     ),
@@ -660,7 +660,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d12')),
                           )),
                     ),
@@ -711,7 +711,7 @@ class _SessionDState extends State<SessionD> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .translate('part3_session_d13')),
                           )),
                     ),
@@ -763,7 +763,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d14_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -817,7 +817,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d15_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -871,7 +871,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d16_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -925,7 +925,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d17_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -979,7 +979,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d18_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -1033,7 +1033,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d19_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -1087,7 +1087,7 @@ class _SessionDState extends State<SessionD> {
                             padding: const EdgeInsets.only(
                                 left: 10, bottom: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
+                              AppLocalizations.of(context)!
                                   .translate('part3_session_d20_bold'),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -1127,11 +1127,11 @@ class _SessionDState extends State<SessionD> {
                     checkColor: Colors.black,
                     activeColor: Colors.white,
                     value: sessionD,
-                    onChanged: (bool value) {
+                    onChanged: (bool? value) {
                       setState(() {
                         sessionD = value;
                         setState(() {
-                          if (value) {
+                          if (value!) {
                             d1 = 1;
                             d2 = 1;
                             d3 = 1;

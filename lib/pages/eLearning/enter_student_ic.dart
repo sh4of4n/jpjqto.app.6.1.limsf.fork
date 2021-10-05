@@ -61,14 +61,15 @@ class _LearningEnterStudentICState extends State<LearningEnterStudentIC> {
               children: <Widget>[
                 Container(
                   width: ScreenUtil().setWidth(1000),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
-                      ExtendedNavigator.of(context)
-                          .push(Routes.startLearning, arguments: _ic.text);
+                      context.router.push(
+                        StartLearning(studentIC: _ic.text),
+                      );
                       //Navigator.pushNamed(context, RsmRpkTab);
                     },
                     child: Text(
-                      AppLocalizations.of(context).translate('scan_lbl'),
+                      AppLocalizations.of(context)!.translate('scan_lbl'),
                       style: (TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
                     ),
@@ -92,19 +93,19 @@ class _LearningEnterStudentICState extends State<LearningEnterStudentIC> {
                           decoration: new InputDecoration(
                             contentPadding: EdgeInsets.only(
                                 left: 15, bottom: 11, top: 11, right: 15),
-                            hintText: AppLocalizations.of(context)
+                            hintText: AppLocalizations.of(context)!
                                 .translate('ic_lbl'),
                           ),
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return AppLocalizations.of(context)
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
                                   .translate('ic_required_msg');
                             }
                             return null;
                           },
                           onSaved: (value) {
                             if (value != _ic.text) {
-                              _ic.text = value;
+                              _ic.text = value!;
                             }
                           },
                         ),
@@ -114,11 +115,11 @@ class _LearningEnterStudentICState extends State<LearningEnterStudentIC> {
                           color: Colors.grey[300],
                           child: IconButton(
                             onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                _formKey.currentState.save();
-                                ExtendedNavigator.of(context).push(
-                                    Routes.startLearning,
-                                    arguments: _ic.text);
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                context.router.push(
+                                  StartLearning(studentIC: _ic.text),
+                                );
                               }
                             },
                             icon: Icon(Icons.arrow_forward),

@@ -20,9 +20,9 @@ class _RegisterMobileState extends State<RegisterMobile> {
   final authRepo = AuthRepo();
   final _formKey = GlobalKey<FormState>();
 
-  String _countryCode = '+60';
+  String? _countryCode = '+60';
   String _phone = '';
-  String _message = '';
+  String? _message = '';
   bool _isLoading = false;
   final image = ImagesConstant();
 
@@ -73,7 +73,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 130.w),
                   child: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .translate('enter_your_mobile_no'),
                   ),
                 ),
@@ -118,7 +118,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                   /* hintStyle: TextStyle(
                                       color: Colors.blue,
                                     ), */
-                                  hintText: AppLocalizations.of(context)
+                                  hintText: AppLocalizations.of(context)!
                                       .translate('phone_lbl'),
                                   // fillColor: Colors.grey.withOpacity(.25),
                                   // filled: true,
@@ -140,8 +140,8 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                     ), */
                                 ),
                                 validator: (value) {
-                                  if (value.isEmpty) {
-                                    return AppLocalizations.of(context)
+                                  if (value!.isEmpty) {
+                                    return AppLocalizations.of(context)!
                                         .translate('phone_required_msg');
                                   }
                                   return null;
@@ -159,13 +159,13 @@ class _RegisterMobileState extends State<RegisterMobile> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          _message.isNotEmpty
+                          _message!.isNotEmpty
                               ? Container(
                                   margin: EdgeInsets.symmetric(vertical: 20.h),
                                   alignment: Alignment.center,
                                   width: 1300.w,
                                   child: Text(
-                                    _message,
+                                    _message!,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 )
@@ -193,7 +193,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                           horizontal: 30.0,
                                         ),
                                         child: Text(
-                                          AppLocalizations.of(context)
+                                          AppLocalizations.of(context)!
                                               .translate('next_btn'),
                                           style: TextStyle(
                                             fontSize: 56.sp,
@@ -252,7 +252,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 130.w),
                   child: Text(
-                    AppLocalizations.of(context)
+                    AppLocalizations.of(context)!
                         .translate('enter_your_mobile_no'),
                     style: TextStyle(
                       fontSize: 35.sp,
@@ -300,7 +300,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                   /* hintStyle: TextStyle(
                                       color: Colors.blue,
                                     ), */
-                                  hintText: AppLocalizations.of(context)
+                                  hintText: AppLocalizations.of(context)!
                                       .translate('phone_lbl'),
                                   // fillColor: Colors.grey.withOpacity(.25),
                                   // filled: true,
@@ -322,8 +322,8 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                     ), */
                                 ),
                                 validator: (value) {
-                                  if (value.isEmpty) {
-                                    return AppLocalizations.of(context)
+                                  if (value!.isEmpty) {
+                                    return AppLocalizations.of(context)!
                                         .translate('phone_required_msg');
                                   }
                                   return null;
@@ -341,13 +341,13 @@ class _RegisterMobileState extends State<RegisterMobile> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          _message.isNotEmpty
+                          _message!.isNotEmpty
                               ? Container(
                                   margin: EdgeInsets.symmetric(vertical: 20.h),
                                   alignment: Alignment.center,
                                   width: 1300.w,
                                   child: Text(
-                                    _message,
+                                    _message!,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 )
@@ -367,7 +367,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                       color: Color(0xffdd0e0e),
                                       textColor: Colors.white,
                                       child: Text(
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .translate('next_btn'),
                                         style: TextStyle(
                                           fontSize: 35.sp,
@@ -390,8 +390,8 @@ class _RegisterMobileState extends State<RegisterMobile> {
   }
 
   _next() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(new FocusNode());
 
       String mobileNo = '';
@@ -415,9 +415,8 @@ class _RegisterMobileState extends State<RegisterMobile> {
       );
 
       if (result.isSuccess) {
-        ExtendedNavigator.of(context).push(
-          Routes.registerVerification,
-          arguments: RegisterVerificationArguments(
+        context.router.push(
+          RegisterVerification(
             data: SignUpArguments(
               phoneCountryCode: _countryCode,
               phone: mobileNo,

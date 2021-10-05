@@ -1,7 +1,7 @@
 // import 'package:epandu/pages/edompet/edompet.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:jpj_qto/pages/profile/profile_page.dart';
-import 'package:jpj_qto/pages/settings/settings.dart';
+import 'package:jpj_qto/pages/profile/profile_page.dart' as ProfilePage;
+import 'package:jpj_qto/pages/settings/settings.dart' as SettingsPage;
 import 'package:jpj_qto/common_library/services/model/profile_model.dart';
 import 'package:jpj_qto/common_library/services/repository/profile_repository.dart';
 import 'package:jpj_qto/utils/constants.dart';
@@ -41,7 +41,7 @@ class _ProfileTabState extends State<ProfileTab>
       ),
     ),
   ];
-  TabController _tabController;
+  TabController? _tabController;
   int _tabIndex = 0;
   final profileRepo = ProfileRepo();
   final localStorage = LocalStorage();
@@ -61,7 +61,7 @@ class _ProfileTabState extends State<ProfileTab>
   String paymentMessage = '';
   String attendanceMessage = '';
 
-  UserProfile userProfile;
+  UserProfile? userProfile;
   bool isLoading = false;
 
   @override
@@ -72,7 +72,7 @@ class _ProfileTabState extends State<ProfileTab>
     super.initState();
 
     _tabController = TabController(vsync: this, length: myTabs.length);
-    _tabController.addListener(_getTabSelection);
+    _tabController!.addListener(_getTabSelection);
 
     _getUserProfile();
     // _getUserInfo();
@@ -83,7 +83,7 @@ class _ProfileTabState extends State<ProfileTab>
       isLoading = true;
     });
 
-    var result = await profileRepo.getUserProfile(context: context);
+    var result = await profileRepo.getUserProfile();
 
     if (result.isSuccess) {
       setState(() {
@@ -137,18 +137,18 @@ class _ProfileTabState extends State<ProfileTab>
   }
 
   _getUserInfo() async {
-    String _getName = await localStorage.getName();
-    String _getNickName = await localStorage.getNickName();
-    String _getEmail = await localStorage.getEmail();
-    String _getPhone = await localStorage.getUserPhone();
-    String _getCountry = await localStorage.getCountry();
-    String _getState = await localStorage.getState();
-    String _getStudentIc = await localStorage.getStudentIc();
+    String? _getName = await localStorage.getName();
+    String? _getNickName = await localStorage.getNickName();
+    String? _getEmail = await localStorage.getEmail();
+    String? _getPhone = await localStorage.getUserPhone();
+    String? _getCountry = await localStorage.getCountry();
+    String? _getState = await localStorage.getState();
+    String? _getStudentIc = await localStorage.getStudentIc();
 
-    String _getBirthDate = await localStorage.getBirthDate();
-    String _getRace = await localStorage.getRace();
-    String _getNationality = await localStorage.getNationality();
-    String _getProfilePic = await localStorage.getProfilePic();
+    String? _getBirthDate = await localStorage.getBirthDate();
+    String? _getRace = await localStorage.getRace();
+    String? _getNationality = await localStorage.getNationality();
+    String? _getProfilePic = await localStorage.getProfilePic();
 
     setState(() {
       userProfile = UserProfile(
@@ -171,18 +171,18 @@ class _ProfileTabState extends State<ProfileTab>
 
   _getTabSelection() {
     setState(() {
-      _tabIndex = _tabController.index;
+      _tabIndex = _tabController!.index;
     });
   }
 
   _getTitle() {
     switch (_tabIndex) {
       case 0:
-        return Text(AppLocalizations.of(context).translate('profile_title'));
+        return Text(AppLocalizations.of(context)!.translate('profile_title'));
       // case 1:
       //   return Text(AppLocalizations.of(context).translate('edompet_title'));
       case 1:
-        return Text(AppLocalizations.of(context).translate('settings_lbl'));
+        return Text(AppLocalizations.of(context)!.translate('settings_lbl'));
     }
   }
 
@@ -215,11 +215,11 @@ class _ProfileTabState extends State<ProfileTab>
         ),
         shape: StadiumBorder(),
         onPressed: () async {
-          await ExtendedNavigator.of(context)
-              .push(Routes.updateProfile)
+          await context.router
+              .push(UpdateProfile())
               .then((value) => _getUserInfo());
         },
-        child: Text(AppLocalizations.of(context).translate('edit_profile')),
+        child: Text(AppLocalizations.of(context)!.translate('edit_profile')),
       ),
     );
   }
@@ -247,12 +247,12 @@ class _ProfileTabState extends State<ProfileTab>
           ),
           backgroundColor: Colors.transparent,
           body: TabBarView(controller: _tabController, children: [
-            Profile(
+            ProfilePage.Profile(
               userProfile: userProfile,
               isLoading: isLoading,
             ),
             // Edompet(),
-            Settings(),
+            SettingsPage.Settings(),
           ]),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -286,7 +286,7 @@ class _ProfileTabState extends State<ProfileTab>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 }

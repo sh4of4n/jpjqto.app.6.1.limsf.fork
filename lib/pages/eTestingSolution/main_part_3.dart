@@ -1,7 +1,7 @@
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'list_part_3.dart';
 
@@ -15,48 +15,48 @@ class _Part3MainState extends State<Part3Main>
     with AutomaticKeepAliveClientMixin {
   final image = ImagesConstant();
   final localStorage = LocalStorage();
-  int marksA = 0;
-  int marksB = 0;
-  int marksC = 0;
-  int marksD = 0;
-  int marksE = 0;
-  int marksF = 0;
-  int marksG = 0;
-  int marksH = 0;
-  int marksI = 0;
-  int marksJ = 0;
+  int? marksA = 0;
+  int? marksB = 0;
+  int? marksC = 0;
+  int? marksD = 0;
+  int? marksE = 0;
+  int? marksF = 0;
+  int? marksG = 0;
+  int? marksH = 0;
+  int? marksI = 0;
+  int? marksJ = 0;
 
-  int marksBM = 0;
-  int marksCM = 0;
-  int marksDM = 0;
-  int marksEM = 0;
-  int marksFM = 0;
-  int marksGM = 0;
-  int marksHM = 0;
-  int marksIM = 0;
-  int marksJM = 0;
+  int? marksBM = 0;
+  int? marksCM = 0;
+  int? marksDM = 0;
+  int? marksEM = 0;
+  int? marksFM = 0;
+  int? marksGM = 0;
+  int? marksHM = 0;
+  int? marksIM = 0;
+  int? marksJM = 0;
 
   _getBMark() async {
-    int _markA = await localStorage.getPart3MarkSessionA();
-    int _markB = await localStorage.getPart3MarkB();
-    int _markC = await localStorage.getPart3MarkC();
-    int _markD = await localStorage.getPart3MarkD();
-    int _markE = await localStorage.getPart3MarkE();
-    int _markF = await localStorage.getPart3MarkF();
-    int _markG = await localStorage.getPart3MarkG();
-    int _markH = await localStorage.getPart3MarkH();
-    int _markI = await localStorage.getPart3MarkI();
-    int _markJ = await localStorage.getPart3MarkJ();
+    int? _markA = await localStorage.getPart3MarkSessionA();
+    int? _markB = await localStorage.getPart3MarkB();
+    int? _markC = await localStorage.getPart3MarkC();
+    int? _markD = await localStorage.getPart3MarkD();
+    int? _markE = await localStorage.getPart3MarkE();
+    int? _markF = await localStorage.getPart3MarkF();
+    int? _markG = await localStorage.getPart3MarkG();
+    int? _markH = await localStorage.getPart3MarkH();
+    int? _markI = await localStorage.getPart3MarkI();
+    int? _markJ = await localStorage.getPart3MarkJ();
 
-    int _markBM = await localStorage.getPart3MarkBM();
-    int _markCM = await localStorage.getPart3MarkCM();
-    int _markDM = await localStorage.getPart3MarkDM();
-    int _markEM = await localStorage.getPart3MarkEM();
-    int _markFM = await localStorage.getPart3MarkFM();
-    int _markGM = await localStorage.getPart3MarkGM();
-    int _markHM = await localStorage.getPart3MarkHM();
-    int _markIM = await localStorage.getPart3MarkIM();
-    int _markJM = await localStorage.getPart3MarkJM();
+    int? _markBM = await localStorage.getPart3MarkBM();
+    int? _markCM = await localStorage.getPart3MarkCM();
+    int? _markDM = await localStorage.getPart3MarkDM();
+    int? _markEM = await localStorage.getPart3MarkEM();
+    int? _markFM = await localStorage.getPart3MarkFM();
+    int? _markGM = await localStorage.getPart3MarkGM();
+    int? _markHM = await localStorage.getPart3MarkHM();
+    int? _markIM = await localStorage.getPart3MarkIM();
+    int? _markJM = await localStorage.getPart3MarkJM();
 
     setState(() {
       marksA = _markA;
@@ -165,16 +165,16 @@ class _Part3MainState extends State<Part3Main>
                 TableRow(children: [
                   Center(
                       child: Text(
-                          AppLocalizations.of(context).translate('session_lbl'),
+                          AppLocalizations.of(context)!.translate('session_lbl'),
                           style: TextStyle(color: Colors.black))),
                   Center(
                       child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .translate('normal_mistake_mark'),
                           style: TextStyle(color: Colors.black))),
                   Center(
                       child: Text(
-                          AppLocalizations.of(context)
+                          AppLocalizations.of(context)!
                               .translate('mandatory_mistake_mark'),
                           style: TextStyle(color: Colors.black))),
                 ]),
@@ -411,7 +411,7 @@ class _Part3MainState extends State<Part3Main>
                 },
                 color: ColorConstant.primaryColor,
                 child: Text(
-                  AppLocalizations.of(context).translate('submit_btn'),
+                  AppLocalizations.of(context)!.translate('submit_btn'),
                 ),
               ),
             ),

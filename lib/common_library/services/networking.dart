@@ -14,15 +14,17 @@ class Networking extends BaseRepo {
   final customSnackbar = CustomSnackbar();
   final wsUrlBox = Hive.box('ws_url');
   // var body;
-  String url;
-  String customUrl;
-  int milliseconds;
+  String? url;
+  String? customUrl;
+  int? milliseconds;
 
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
 
     return htmlText.replaceAll(exp, '');
   }
+
+  late Uri uri;
 
   Networking({this.customUrl, this.milliseconds});
 
@@ -42,16 +44,18 @@ class Networking extends BaseRepo {
       http.Response response;
       // for getWsUrl
       if (url == customUrl) {
+        uri = Uri.parse('$url/${path ?? ""}');
         print('$url/${path ?? ""}');
 
         response = await http
-            .get('$url/${path ?? ""}')
+            .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 10000));
       } else {
+        uri = Uri.parse('$url/webapi/${path ?? ""}');
         print('$url/webapi/${path ?? ""}');
 
         response = await http
-            .get('$url/webapi/${path ?? ""}')
+            .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 30000));
       }
 
@@ -86,7 +90,7 @@ class Networking extends BaseRepo {
     }
   }
 
-  Future<Response> postData({String api, String path, body, headers}) async {
+  Future<Response> postData({String? api, String? path, required body, headers}) async {
     try {
       if (customUrl != null) {
         url = customUrl;
@@ -103,8 +107,10 @@ class Networking extends BaseRepo {
 
       print('body: ' + body);
 
+      uri = Uri.parse('$url/webapi/$api${path ?? ""}');
+
       http.Response response = await http
-          .post('$url/webapi/$api${path ?? ""}', body: body, headers: headers)
+          .post(uri, body: body, headers: headers)
           .timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {

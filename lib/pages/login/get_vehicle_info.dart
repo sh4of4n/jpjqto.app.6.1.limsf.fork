@@ -32,7 +32,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
   final merchantNoFocus = FocusNode();
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController qrController;
+  QRViewController? qrController;
   bool showCameraIcon = true;
   bool showQR = false;
 
@@ -79,7 +79,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
       this.qrController = qrController;
     });
     qrController.scannedDataStream.listen((scanData) async {
-      await qrController?.pauseCamera();
+      await qrController.pauseCamera();
 
       try {
         setState(() {
@@ -98,11 +98,11 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
         customDialog.show(
           barrierDismissable: true,
           context: context,
-          content: AppLocalizations.of(context).translate('invalid_qr'),
+          content: AppLocalizations.of(context)!.translate('invalid_qr'),
           customActions: [
-            FlatButton(
+            TextButton(
               onPressed: () {
-                ExtendedNavigator.of(context).pop();
+                context.router.pop();
 
                 qrController.resumeCamera();
               },
@@ -117,12 +117,12 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
 
   @override
   void dispose() {
-    groupIdController?.dispose();
-    plateNoController?.dispose();
-    carNoController?.dispose();
-    groupIdFocus?.dispose();
-    plateNoFocus?.dispose();
-    carNoFocus?.dispose();
+    groupIdController.dispose();
+    plateNoController.dispose();
+    carNoController.dispose();
+    groupIdFocus.dispose();
+    plateNoFocus.dispose();
+    carNoFocus.dispose();
     qrController?.dispose();
     super.dispose();
   }
@@ -135,8 +135,8 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
   }
 
   _submit() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(new FocusNode());
 
       localStorage.saveEnrolledGroupId(groupIdController.text);
@@ -145,8 +145,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
       localStorage
           .saveMerchantDbCode(merchantNoController.text.replaceAll(' ', ''));
 
-      ExtendedNavigator.of(context)
-          .pushAndRemoveUntil(Routes.home, (r) => false);
+      context.router.pushAndPopUntil(Home(), predicate: (r) => false);
     }
   }
 
@@ -183,13 +182,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         suffixIcon: IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
-                            WidgetsBinding.instance.addPostFrameCallback(
+                            WidgetsBinding.instance!.addPostFrameCallback(
                                 (_) => groupIdController.clear());
                           },
                         ),
                       ),
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Group ID is required.';
                         }
                         return null;
@@ -208,13 +207,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         suffixIcon: IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
-                            WidgetsBinding.instance.addPostFrameCallback(
+                            WidgetsBinding.instance!.addPostFrameCallback(
                                 (_) => carNoController.clear());
                           },
                         ),
                       ),
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Car no is required.';
                         }
                         return null;
@@ -233,13 +232,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         suffixIcon: IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
-                            WidgetsBinding.instance.addPostFrameCallback(
+                            WidgetsBinding.instance!.addPostFrameCallback(
                                 (_) => plateNoController.clear());
                           },
                         ),
                       ),
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Plate no is required.';
                         }
                         return null;
@@ -258,13 +257,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         suffixIcon: IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
-                            WidgetsBinding.instance.addPostFrameCallback(
+                            WidgetsBinding.instance!.addPostFrameCallback(
                                 (_) => merchantNoController.clear());
                           },
                         ),
                       ),
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Merchant no is required.';
                         }
                         return null;
