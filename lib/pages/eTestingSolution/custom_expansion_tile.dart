@@ -83,11 +83,11 @@ class ExpansionTile extends StatefulWidget {
 class _ExpansionTileState extends State<ExpansionTile>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeOutTween =
-  CurveTween(curve: Curves.easeOut);
+      CurveTween(curve: Curves.easeOut);
   static final Animatable<double> _easeInTween =
-  CurveTween(curve: Curves.easeIn);
+      CurveTween(curve: Curves.easeIn);
   static final Animatable<double> _halfTween =
-  Tween<double>(begin: 0.0, end: 0.5);
+      Tween<double>(begin: 0.0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -168,10 +168,7 @@ class _ExpansionTileState extends State<ExpansionTile>
                 onTap: _handleTap,
                 leading: widget.leading,
                 title: DefaultTextStyle(
-                  style: Theme.of(context)
-                      .textTheme
-                      .subhead!
-                      .copyWith(color: titleColor),
+                  style: TextStyle(color: titleColor),
                   child: widget.title,
                 ),
                 trailing: widget.trailing ??
@@ -196,7 +193,7 @@ class _ExpansionTileState extends State<ExpansionTile>
     );
   }
 
-  @override
+  /* @override
   void didChangeDependencies() {
     final ThemeData theme = Theme.of(context);
     _borderColorTween..end = theme.dividerColor;
@@ -208,7 +205,7 @@ class _ExpansionTileState extends State<ExpansionTile>
       ..end = theme.accentColor;
     _backgroundColorTween..end = widget.backgroundColor;
     super.didChangeDependencies();
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {

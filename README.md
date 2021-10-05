@@ -2,6 +2,7 @@ V.0.0.21
 
 - Fix login on tablet
 - Migration to dart 2.12
+- Fix null errors when login
 
 V.0.0.20
 

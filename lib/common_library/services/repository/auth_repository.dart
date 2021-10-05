@@ -289,18 +289,18 @@ class AuthRepo {
       var profileResult = await profileRepo.getUserProfile();
 
       if (profileResult.isSuccess) {
-        localStorage.saveName(profileResult.data[0].name);
-        localStorage.saveNickName(profileResult.data[0].nickName);
-        localStorage.saveEmail(profileResult.data[0].eMail);
-        localStorage.savePostCode(profileResult.data[0].postcode);
-        localStorage.saveUserPhone(profileResult.data[0].phone);
-        localStorage.saveCountry(profileResult.data[0].countryName);
-        localStorage.saveState(profileResult.data[0].stateName);
-        localStorage.saveStudentIc(profileResult.data[0].icNo);
-        localStorage.saveBirthDate(profileResult.data[0].birthDate);
-        localStorage.saveRace(profileResult.data[0].race);
-        localStorage.saveNationality(profileResult.data[0].nationality);
-        localStorage.saveGender(profileResult.data[0].gender);
+        localStorage.saveName(profileResult.data[0].name ?? '');
+        localStorage.saveNickName(profileResult.data[0].nickName ?? '');
+        localStorage.saveEmail(profileResult.data[0].eMail ?? '');
+        localStorage.savePostCode(profileResult.data[0].postcode ?? '');
+        localStorage.saveUserPhone(profileResult.data[0].phone ?? '');
+        localStorage.saveCountry(profileResult.data[0].countryName ?? '');
+        localStorage.saveState(profileResult.data[0].stateName ?? '');
+        localStorage.saveStudentIc(profileResult.data[0].icNo ?? '');
+        localStorage.saveBirthDate(profileResult.data[0].birthDate ?? '');
+        localStorage.saveRace(profileResult.data[0].race ?? '');
+        localStorage.saveNationality(profileResult.data[0].nationality ?? '');
+        localStorage.saveGender(profileResult.data[0].gender ?? '');
         if (profileResult.data[0].picturePath != null)
           localStorage.saveProfilePic(profileResult.data[0].picturePath
               .replaceAll(removeBracket, '')

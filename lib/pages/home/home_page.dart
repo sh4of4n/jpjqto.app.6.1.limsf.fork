@@ -153,6 +153,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          foregroundColor: Colors.grey,
           elevation: 0,
           actions: <Widget>[
             IconButton(
