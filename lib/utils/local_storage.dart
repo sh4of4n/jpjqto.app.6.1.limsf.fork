@@ -37,6 +37,8 @@ class LocalStorage {
   static const String kMsgDoc = 'MSG_DOC';
   static const String kMsgRef = 'MSG_REF';
 
+  static const String kType = '';
+
   static const String part2MarkSessionB = 'part2MarkB';
   static const String part2MarkSessionC = 'part2MarkC';
   static const String part2MarkSessionD = 'part2MarkD';
@@ -777,6 +779,15 @@ class LocalStorage {
     return Preference.setString(kMsgRef, msgRef);
   }
 
+  
+  Future<String?> getType() async {
+    return Preference.getString(kType, def: '');
+  }
+
+  Future<bool> saveType(String msgRef) async {
+    return Preference.setString(kType, msgRef);
+  }
+
   Future<void> reset() async {
     // await Preference.removeAll();
     await Preference.remove(kWsUrl);
@@ -813,5 +824,6 @@ class LocalStorage {
     await Preference.remove(kPlateNo);
     await Preference.remove(kMsgDoc);
     await Preference.remove(kMsgRef);
+    await Preference.remove(kType);
   }
 }

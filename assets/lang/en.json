@@ -628,6 +628,7 @@
   "client_acc": "Client Account",
   "merchant_no": "Merchant No",
   "change_car": "Change Car",
+  "change_bahagian": "Change Bahagian",
   "select_queue_tooltip": "Select the candidate queue number before performing QR scan.",
   "confirm_candidate_tooltip": "Select start test to begin, cancel to call another student.",
   "call_btn": "CALL",

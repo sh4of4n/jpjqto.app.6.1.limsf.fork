@@ -358,10 +358,10 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
 
       setState(() {
         try {
-          merchantNo = jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
-          testCode = jsonDecode(scanData.code)['Table1'][0]['test_code'];
-          groupId = jsonDecode(scanData.code)['Table1'][0]['group_id'];
-          nric = jsonDecode(scanData.code)['Table1'][0]['nric_no'];
+          merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
+          testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
+          groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
+          nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
           iconVisible = true;
           isVisible = false;
 
@@ -473,7 +473,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                               vertical: 0, horizontal: 50.w),
                           labelText: 'Q-NO',
                           labelStyle: TextStyle(
-                            fontSize: 80.sp,
+                            // fontSize: 80.sp,
                           ),
                           // fillColor: Colors.grey.withOpacity(.25),
                           // filled: true,
@@ -491,7 +491,13 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                 .map<DropdownMenuItem<String>>((dynamic value) {
                                 return DropdownMenuItem<String>(
                                   value: value.queueNo,
-                                  child: Center(child: Text(value.queueNo)),
+                                  child: Center(
+                                      child: Text(
+                                    value.queueNo,
+                                    style: TextStyle(
+                                      // fontSize: 80.sp,
+                                    ),
+                                  )),
                                 );
                               }).toList()
                             : null,

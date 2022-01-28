@@ -22,9 +22,9 @@ class RpkCandidateDetails extends StatefulWidget {
 }
 
 class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
-  final localStorage = LocalStorage();
   String barcode = "";
   final primaryColor = ColorConstant.primaryColor;
+  final localStorage = LocalStorage();
   final myImage = ImagesConstant();
   final authRepo = AuthRepo();
   final epanduRepo = EpanduRepo();
@@ -39,10 +39,10 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   bool iconVisible = true;
   bool isVisible = false;
 
+  var result;
   String? qNo = '';
   String? nric = '';
   String? name = '';
-  String testDate = '';
   String? groupId = '';
   String? testCode = '';
   String? vehNo = '';
@@ -78,8 +78,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     } else {
       customDialog.show(
         context: context,
-        // content: AppLocalizations.of(context).translate('no_candidate'),
-        content: result.message,
+        content: AppLocalizations.of(context)!.translate('no_candidate'),
         type: DialogType.INFO,
       );
     }
@@ -119,7 +118,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         context.router
             .push(
           ConfirmCandidateInfo(
-            part3Type: 'RPK',
+            part3Type: 'JALAN RAYA',
             nric: this.nric,
             candidateName: this.name,
             qNo: this.qNo,
@@ -129,76 +128,30 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           ),
         )
             .then((value) {
-          cancelCallPart3JpjTest();
+          cancelCallRpkJpjTest();
         });
       } else {
-        for (int i = 0; i < candidateList!.length; i += 1) {
-          if (candidateList![i].testCode == this.testCode) {
-            customDialog.show(
-              barrierDismissable: true,
-              context: context,
-              content:
-                  AppLocalizations.of(context)!.translate('record_not_matched'),
-              customActions: <Widget>[
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-                  onPressed: () async {
-                    context.router.pop();
+        customDialog.show(
+          barrierDismissable: true,
+          context: context,
+          content:
+              AppLocalizations.of(context)!.translate('record_not_matched'),
+          customActions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+              onPressed: () {
+                context.router.pop();
 
-                    setState(() {
-                      this.name = candidateList![i].fullname;
-                      this.qNo = candidateList![i].queueNo;
-                    });
-
-                    if (success > 0)
-                      Future.wait([
-                        cancelCallPart3JpjTest(),
-                        callPart3JpjTest(type: 'SKIP'),
-                      ]);
-                    else
-                      await callPart3JpjTest(type: 'SKIP');
-
-                    context.router
-                        .push(
-                      ConfirmCandidateInfo(
-                        part3Type: 'RPK',
-                        nric: this.nric,
-                        candidateName: this.name,
-                        qNo: this.qNo,
-                        groupId: this.groupId,
-                        testDate: testDate,
-                        testCode: this.testCode,
-                      ),
-                    )
-                        .then((value) {
-                      cancelCallPart3JpjTest(type: 'SKIP');
-                    });
-
-                    // cancelCallPart3JpjTest();
-
-                    // callPart3JpjTest();
-                  },
-                ),
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('no_lbl')),
-                  onPressed: () => context.router.pop(),
-                ),
-              ],
-              type: DialogType.GENERAL,
-            );
-
-            break;
-          } else if (i + 1 == candidateList!.length) {
-            customDialog.show(
-              context: context,
-              content: AppLocalizations.of(context)!
-                  .translate('qr_candidate_not_found'),
-              type: DialogType.INFO,
-            );
-          }
-        }
+                callPart3JpjTest();
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+              onPressed: () => context.router.pop(),
+            ),
+          ],
+          type: DialogType.GENERAL,
+        );
       }
     } else {
       customDialog.show(
@@ -211,10 +164,10 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     }
   }
 
-  Future<void> callPart3JpjTest({type}) async {
+  Future<void> callPart3JpjTest({String? type}) async {
     var testCode = selectedCandidate.testCode;
     var groupId = selectedCandidate.groupId;
-    // var testDate = selectedCandidate.testDate;
+    var testDate = selectedCandidate.testDate;
 
     setState(() {
       isLoading = true;
@@ -224,46 +177,29 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
 
     var result = await epanduRepo.callRpkJpjTest(
       vehNo: vehNo,
-      part3Type: 'JALAN RAYA',
-      groupId: type == 'SKIP' ? this.groupId : groupId,
-      testCode: type == 'SKIP' ? this.testCode : testCode,
+      part3Type: 'RPK',
+      groupId: groupId,
+      testCode: testCode,
       icNo: nric,
     );
 
     if (result.isSuccess) {
-      success += 1;
-
-      if (type == 'MANUAL') {
-        customDialog.show(
-          context: context,
-          content: AppLocalizations.of(context)!.translate('call_successful'),
-          type: DialogType.SUCCESS,
-        );
-      }
-
-      /* context.router.push(
-        Routes.confirmCandidateInfo,
-        arguments: ConfirmCandidateInfoArguments(
-          part3Type: 'JALAN RAYA',
+      context.router.push(
+        ConfirmCandidateInfo(
+          part3Type: 'RPK',
           nric: nric,
-          name: name,
+          candidateName: name,
           qNo: qNo,
           groupId: groupId,
           testDate: testDate,
           testCode: testCode,
         ),
-      ); */
+      );
     } else {
       customDialog.show(
         context: context,
-        barrierDismissable: false,
         content: result.message,
-        onPressed: () {
-          context.router.pop();
-
-          getPart3AvailableToCallJpjTestList();
-        },
-        type: DialogType.INFO,
+        type: DialogType.WARNING,
       );
     }
 
@@ -272,7 +208,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     });
   }
 
-  Future<void> cancelCallPart3JpjTest({type}) async {
+  Future<void> cancelCallRpkJpjTest({type}) async {
     var testCode = selectedCandidate.testCode;
     var groupId = selectedCandidate.groupId;
 
@@ -298,7 +234,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       }
 
       setState(() {
-        success = 0;
         candidateList!.clear();
         selectedCandidate = null;
 
@@ -331,8 +266,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
-        ? 300.0
-        : 400.0;
+        ? 200.0
+        : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
@@ -361,15 +296,12 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
           testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
           groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
-          nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
           iconVisible = true;
           isVisible = false;
 
           if (qNo!.isNotEmpty) {
             compareCandidateInfo();
           } else {
-            nric = '';
-
             customDialog.show(
               barrierDismissable: true,
               context: context,
@@ -383,7 +315,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             context: context,
             content: AppLocalizations.of(context)!.translate('invalid_qr'),
             customActions: [
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   context.router.pop();
 
@@ -407,62 +339,35 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     super.dispose();
   }
 
-  Future<bool> _onWillPop() async {
-    if (success > 0) {
-      return CustomDialog().show(
-        context: context,
-        title: Text(AppLocalizations.of(context)!.translate('warning_title')),
-        content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-            onPressed: () async {
-              await cancelCallPart3JpjTest(type: 'HOME');
-            },
-          ),
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-            onPressed: () {
-              context.router.pop();
-            },
-          ),
-        ],
-        type: DialogType.GENERAL,
-      );
-    }
-    // context.router.pop();
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Calling'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                customDialog.show(
-                  context: context,
-                  content: AppLocalizations.of(context)!
-                      .translate('select_queue_tooltip'),
-                  type: DialogType.INFO,
-                );
-              },
-              icon: Icon(Icons.info_outline),
-              tooltip: AppLocalizations.of(context)!
-                  .translate('select_queue_tooltip'),
-            ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.translate('calling')),
+        actions: [
+          IconButton(
+            onPressed: () {
+              customDialog.show(
+                context: context,
+                content: AppLocalizations.of(context)!
+                    .translate('select_queue_tooltip'),
+                type: DialogType.INFO,
+              );
+            },
+            icon: Icon(Icons.info_outline),
+            tooltip:
+                AppLocalizations.of(context)!.translate('select_queue_tooltip'),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
                   children: [
                     SizedBox(height: 50.h),
                     Container(
@@ -473,7 +378,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                               vertical: 0, horizontal: 50.w),
                           labelText: 'Q-NO',
                           labelStyle: TextStyle(
-                            // fontSize: 80.sp,
+                            fontSize: 80.sp,
                           ),
                           // fillColor: Colors.grey.withOpacity(.25),
                           // filled: true,
@@ -495,7 +400,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                       child: Text(
                                     value.queueNo,
                                     style: TextStyle(
-                                      // fontSize: 80.sp,
+                                      fontSize: 80.sp,
                                     ),
                                   )),
                                 );
@@ -619,8 +524,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                                 .translate('yes_lbl')),
                                         onPressed: () {
                                           context.router.pop();
-                                          cancelCallPart3JpjTest(
-                                              type: 'MANUAL');
+                                          cancelCallRpkJpjTest(type: 'MANUAL');
                                         },
                                       ),
                                       TextButton(
@@ -663,32 +567,35 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                     ),
                   ],
                 ),
-                Visibility(
-                    visible: isVisible,
-                    child: Expanded(child: _buildQrView(context))),
-                Visibility(
-                  visible: iconVisible,
-                  child: Expanded(
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isVisible = true;
-                          iconVisible = false;
-                        });
-                      },
-                      iconSize: 150,
-                      icon: Icon(Icons.camera_alt),
-                    ),
+              ),
+              Visibility(
+                  visible: isVisible,
+                  child: Expanded(flex: 2, child: _buildQrView(context))),
+              Visibility(
+                visible: iconVisible,
+                child: Expanded(
+                  flex: 2,
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isVisible = true;
+                        iconVisible = false;
+
+                        // qrController?.resumeCamera();
+                      });
+                    },
+                    iconSize: 150,
+                    icon: Icon(Icons.camera_alt),
                   ),
                 ),
-              ],
-            ),
-            LoadingModel(
-              isVisible: isLoading,
-              color: ColorConstant.primaryColor,
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          LoadingModel(
+            isVisible: isLoading,
+            color: ColorConstant.primaryColor,
+          ),
+        ],
       ),
     );
   }

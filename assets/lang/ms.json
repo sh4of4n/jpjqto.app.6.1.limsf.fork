@@ -630,6 +630,7 @@
   "client_acc": "Akaun ID",
   "merchant_no": "Nombor Pedagang",
   "change_car": "Tukar Kenderaan",
+  "change_bahagian": "Tukar Bahagian",
   "select_queue_tooltip": "Pilih nombor giliran calon sebelum melakukan imbasan QR.",
   "confirm_candidate_tooltip": "Pilih mula ujian untuk mula, batalkan jika hendak memanggil pelajar lain.",
   "call_btn": "PANGGILAN",

@@ -54,21 +54,21 @@ class HomeModule extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          /* Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  HomeIcon(
-                    component: Routes.rpkCandidateDetails,
-                    image: imageConstant.kppIcon,
-                    name: 'RPK',
-                  ),
-                ],
-              ),
-            ],
-          ), */
+          //  Column(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: <Widget>[
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: <Widget>[
+          //         HomeIcon(
+          //           component: RpkCandidateDetails(),
+          //           image: imageConstant.kppIcon,
+          //           name: 'RPK',
+          //         ),
+          //       ],
+          //     ),
+          //   ],
+          // ), 
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

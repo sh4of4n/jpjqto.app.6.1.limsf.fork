@@ -73,7 +73,7 @@ class _AuthenticationState extends State<Authentication> {
     String? groupId = await localStorage.getEnrolledGroupId();
     String? carNo = await localStorage.getCarNo();
     String? plateNo = await localStorage.getPlateNo();
-
+    String? type = await localStorage.getType();
     if (userId != null && userId.isNotEmpty) {
       if (groupId != null &&
           groupId.isNotEmpty &&
@@ -81,9 +81,14 @@ class _AuthenticationState extends State<Authentication> {
           carNo.isNotEmpty &&
           plateNo != null &&
           plateNo.isNotEmpty) {
-        context.router.replace(Home());
+        if (type == "RPK") {
+          context.router.replace(HomePageRpk());
+        } else {
+          context.router.replace(Home());
+        }
       } else {
-        context.router.replace(GetVehicleInfo());
+        // context.router.replace(GetVehicleInfo());
+        context.router.replace(HomeSelect());
       }
     } else {
       context.router.replace(Login());

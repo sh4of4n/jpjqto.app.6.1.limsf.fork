@@ -53,15 +53,15 @@ class _Part3MainState extends State<RpkPartIII> {
   void initState() {
     super.initState();
 
-    updatePart3JpjTestStart();
+    updateRpkJpjTestStart();
   }
 
-  Future<void> updatePart3JpjTestStart() async {
+  Future<void> updateRpkJpjTestStart() async {
     setState(() {
       isVisible = true;
     });
 
-    var result = await epanduRepo.updatePart3JpjTestStart(
+    var result = await epanduRepo.updateRpkJpjTestStart(
       testCode: widget.testCode,
       groupId: widget.groupId,
       icNo: widget.nric,
@@ -90,7 +90,7 @@ class _Part3MainState extends State<RpkPartIII> {
     });
   }
 
-  updatePart3JpjTestResult() async {
+  updateRpkJpjTestResult() async {
     setState(() {
       isVisible = true;
     });
@@ -100,7 +100,7 @@ class _Part3MainState extends State<RpkPartIII> {
 
     // print(resultJson);
 
-    var result = await epanduRepo.updatePart3JpjTestResult(
+    var result = await epanduRepo.updateRpkJpjTestResult(
       vehNo: widget.vehNo,
       resultJson: resultJson,
       testCode: widget.testCode,
@@ -117,7 +117,7 @@ class _Part3MainState extends State<RpkPartIII> {
             Provider.of<RpkSessionModel>(context, listen: false).reset();
 
             context.router.popUntil(
-              ModalRoute.withName('Home'),
+              ModalRoute.withName('HomePageRpk'),
             );
           },
           content: AppLocalizations.of(context)!.translate('test_submitted'),
@@ -316,7 +316,7 @@ class _Part3MainState extends State<RpkPartIII> {
                   ),
                   Container(
                     child: RaisedButton(
-                      onPressed: updatePart3JpjTestResult,
+                      onPressed: updateRpkJpjTestResult,
                       color: ColorConstant.primaryColor,
                       child: Text(
                         AppLocalizations.of(context)!.translate('submit_btn'),

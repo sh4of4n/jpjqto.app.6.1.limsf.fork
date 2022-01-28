@@ -1356,8 +1356,10 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
       if (getRegisteredDi.isSuccess) {
         localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
-        context.router
-            .pushAndPopUntil(GetVehicleInfo(), predicate: (r) => false);
+        // context.router
+        //     .pushAndPopUntil(GetVehicleInfo(), predicate: (r) => false);
+         context.router
+            .pushAndPopUntil(HomeSelect(), predicate: (r) => false);
       } else {
         context.router.pushAndPopUntil(Login(), predicate: (r) => false);
       }

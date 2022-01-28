@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/coming_soon/coming_soon.dart';
 import 'package:jpj_qto/pages/eLearning/elearning.dart';
 import 'package:jpj_qto/pages/forgot_password/forgot_password.dart';
+import 'package:jpj_qto/pages/home/home_page_rpk.dart';
+import 'package:jpj_qto/pages/home/home_select.dart';
 import 'package:jpj_qto/pages/profile/profile.dart';
 import 'package:jpj_qto/pages/register/register.dart';
 import 'package:jpj_qto/pages/rpk/rpk.dart';
@@ -47,6 +49,8 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     AutoRoute(page: JrCandidateDetails, name: 'JrCandidateDetails'),
     AutoRoute(page: JrPartIII, name: 'JrPartIII'),
     AutoRoute(page: ConfirmCandidateInfo, name: 'ConfirmCandidateInfo'),
+    AutoRoute(page: HomeSelect, name: 'HomeSelect'),
+      AutoRoute(page: HomePageRpk, name: 'HomePageRpk'),
   ],
 )
 class $AppRouter {}

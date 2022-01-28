@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/services/location.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
@@ -12,14 +13,14 @@ import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../router.gr.dart';
-import 'home_module.dart';
+import 'home_icon.dart';
 
-class Home extends StatefulWidget {
+class HomePageRpk extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageRpkState createState() => _HomePageRpkState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageRpkState extends State<HomePageRpk> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final authRepo = AuthRepo();
@@ -168,7 +169,7 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 SizedBox(height: 20),
                 Text(
-                  'Ujian Memandu Bahagian III',
+                  'Ujian Memandu Bahagian II',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -177,6 +178,14 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 20),
                 vehInfo(),
                 HomeModule(),
+                // InkWell(
+                //   onTap: () => context.router.push(GetVehicleInfo(
+                //     type: 'RPK'
+                //   )),
+                //   child: Text(
+                //       AppLocalizations.of(context)!.translate('change_car')),
+                // )
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),
                   child: Container(
@@ -186,7 +195,7 @@ class _HomeState extends State<Home> {
                         primary: Colors.yellow[100],
                       ),
                       onPressed: () {
-                        context.router.push(GetVehicleInfo(type: 'Jalan Raya'));
+                        context.router.push(GetVehicleInfo(type: 'RPK'));
                       },
                       child: Text(
                         AppLocalizations.of(context)!.translate('change_car'),
@@ -197,12 +206,6 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                // InkWell(
-                //   onTap: () =>
-                //       context.router.push(GetVehicleInfo(type: 'Jalan Raya')),
-                //   child: Text(
-                //       AppLocalizations.of(context)!.translate('change_car')),
-                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),
                   child: Container(
@@ -224,6 +227,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
+
                 /* Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -252,5 +256,40 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+}
+
+class HomeModule extends StatelessWidget {
+  final imageConstant = ImagesConstant();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      SizedBox(
+        height: ScreenUtil().setHeight(30),
+      ),
+      SizedBox(height: ScreenUtil().setHeight(80)),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  HomeIcon(
+                    component: RpkCandidateDetails(),
+                    image: imageConstant.kppIcon,
+                    name: 'RPK',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+      SizedBox(height: ScreenUtil().setHeight(100)),
+    ]);
   }
 }

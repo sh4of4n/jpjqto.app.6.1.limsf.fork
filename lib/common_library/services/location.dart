@@ -4,10 +4,7 @@ import 'package:flutter_geocoder/geocoder.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 
 class Location {
-  final locationOptions = LocationOptions(
-    accuracy: LocationAccuracy.high,
-    distanceFilter: 100,
-  );
+
   double? latitude;
   double? longitude;
   String? address;

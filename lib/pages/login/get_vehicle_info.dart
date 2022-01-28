@@ -14,6 +14,9 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../../router.gr.dart';
 
 class GetVehicleInfo extends StatefulWidget {
+  final String type;
+  GetVehicleInfo({Key? key, required this.type}) : super(key: key);
+
   @override
   _GetVehicleInfoState createState() => _GetVehicleInfoState();
 }
@@ -40,7 +43,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
   void initState() {
     super.initState();
 
-    getSavedInfo();
+    //getSavedInfo();
   }
 
   @override
@@ -84,13 +87,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
       try {
         setState(() {
           groupIdController.text =
-              jsonDecode(scanData.code)['Table1'][0]['group_id'];
+              jsonDecode(scanData.code!)['Table1'][0]['group_id'];
           carNoController.text =
-              jsonDecode(scanData.code)['Table1'][0]['car_no'];
+              jsonDecode(scanData.code!)['Table1'][0]['car_no'];
           plateNoController.text =
-              jsonDecode(scanData.code)['Table1'][0]['plate_no'];
+              jsonDecode(scanData.code!)['Table1'][0]['plate_no'];
           merchantNoController.text =
-              jsonDecode(scanData.code)['Table1'][0]['merchant_no'];
+              jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
           showCameraIcon = true;
           showQR = false;
         });
@@ -144,8 +147,12 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
       localStorage.savePlateNo(plateNoController.text.replaceAll(' ', ''));
       localStorage
           .saveMerchantDbCode(merchantNoController.text.replaceAll(' ', ''));
-
-      context.router.pushAndPopUntil(Home(), predicate: (r) => false);
+      localStorage.saveType(widget.type);
+      if (widget.type == "RPK") {
+        context.router.pushAndPopUntil(HomePageRpk(), predicate: (r) => false);
+      } else if (widget.type == "Jalan Raya") {
+        context.router.pushAndPopUntil(Home(), predicate: (r) => false);
+      }
     }
   }
 
@@ -253,7 +260,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       focusNode: merchantNoFocus,
                       controller: merchantNoController,
                       decoration: InputDecoration(
-                        labelText: 'Merchant No',
+                        labelText: 'Permit No',
                         suffixIcon: IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
@@ -264,7 +271,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Merchant no is required.';
+                          return 'Permit No is required.';
                         }
                         return null;
                       },

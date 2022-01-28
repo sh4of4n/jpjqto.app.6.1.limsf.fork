@@ -701,6 +701,54 @@ class EpanduRepo {
             : response.message!.replaceAll(r'\u000d\u000a', ''));
   }
 
+  Future<Response> cancelCallRpkJpjTest({
+    context,
+    required part3Type,
+    required groupId,
+    required icNo,
+    required testCode,
+  }) async {
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String? userId = await localStorage.getUserId();
+
+    CancelCallRpkJpjTestRequest verifyScanCodeRequest =
+        CancelCallRpkJpjTestRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      diCode: diCode,
+      userId: userId,
+      // part3Type: part3Type,
+      groupId: groupId,
+      nricNo: icNo,
+      testCode: testCode,
+    );
+
+    String body = jsonEncode(verifyScanCodeRequest);
+    String api = 'CancelCallRpkJpjTest';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    if (response.isSuccess && response.data != null) {
+      CancelCallRpkJpjTestResponse verifyScanCodeResponse =
+          CancelCallRpkJpjTestResponse.fromJson(response.data);
+
+      return Response(true, data: verifyScanCodeResponse.jpjTestTrn);
+    }
+
+    return Response(false,
+        message: response.message == null || response.message!.isEmpty
+            ? 'Tiada data.'
+            : response.message!.replaceAll(r'\u000d\u000a', ''));
+  }
+
   Future<Response> updatePart3JpjTestStart({
     context,
     required part3Type,
@@ -731,6 +779,54 @@ class EpanduRepo {
 
     String body = jsonEncode(verifyScanCodeRequest);
     String api = 'UpdatePart3JpjTestStart';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    if (response.isSuccess && response.data != null) {
+      CancelCallPart3JpjTestResponse verifyScanCodeResponse =
+          CancelCallPart3JpjTestResponse.fromJson(response.data);
+
+      return Response(true, data: verifyScanCodeResponse.jpjTestTrn);
+    }
+
+    return Response(false,
+        message: response.message == null || response.message!.isEmpty
+            ? 'Tiada data.'
+            : response.message!.replaceAll(r'\u000d\u000a', ''));
+  }
+
+   Future<Response> updateRpkJpjTestStart({
+    context,
+    required part3Type,
+    required groupId,
+    required icNo,
+    required testCode,
+  }) async {
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String? userId = await localStorage.getUserId();
+
+    CancelCallRpkJpjTestRequest verifyScanCodeRequest =
+        CancelCallRpkJpjTestRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      diCode: diCode,
+      userId: userId,
+      part3Type: part3Type,
+      groupId: groupId,
+      nricNo: icNo,
+      testCode: testCode,
+    );
+
+    String body = jsonEncode(verifyScanCodeRequest);
+    String api = 'UpdateRpkJpjTestStart';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
     var response =
@@ -808,6 +904,148 @@ class EpanduRepo {
     return Response(false,
         message: response.message == null || response.message!.isEmpty
             ? 'Gagal mengemas kini rekod.'
+            : response.message!.replaceAll(r'\u000d\u000a', ''));
+  }
+
+  Future<Response> updateRpkJpjTestResult({
+    context,
+    required vehNo,
+    required part3Type,
+    required groupId,
+    required icNo,
+    required testCode,
+    required resultJson,
+  }) async {
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String? userId = await localStorage.getUserId();
+
+    UpdateRpkJpjTestResultRequest verifyScanCodeRequest =
+        UpdateRpkJpjTestResultRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      diCode: diCode,
+      userId: userId,
+      vehNo: vehNo,
+      part3Type: part3Type,
+      groupId: groupId,
+      nricNo: icNo,
+      testCode: testCode,
+      resultJson: resultJson,
+    );
+
+    String body = jsonEncode(verifyScanCodeRequest);
+    String api = 'UpdateRpkJpjTestResult';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    if (response.isSuccess && response.data != null) {
+      if (part3Type == 'RPK') {
+        UpdateRpkJpjTestResultResponse
+            updatePart3JpjTestResultRpkResponse =
+            UpdateRpkJpjTestResultResponse.fromJson(response.data);
+
+        return Response(true,
+            data: updatePart3JpjTestResultRpkResponse.jpjTestRpk);
+      } else {
+        UpdateRpkJpjTestResultJrResponse updatePart3JpjTestResultJrResponse =
+            UpdateRpkJpjTestResultJrResponse.fromJson(response.data);
+
+        return Response(true,
+            data: updatePart3JpjTestResultJrResponse.jpjTestDdtl);
+      }
+    }
+
+    return Response(false,
+        message: response.message == null || response.message!.isEmpty
+            ? 'Gagal mengemas kini rekod.'
+            : response.message!.replaceAll(r'\u000d\u000a', ''));
+  }
+
+  Future<Response> getRpkAvailableToCallJpjTestList({vehNo}) async {
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+    String? userId = await localStorage.getUserId();
+    String? diCode = await localStorage.getMerchantDbCode();
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&vehNo=$vehNo';
+
+    var response = await networking.getData(
+      path: 'GetRpkAvailableToCallJpjTestList?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      GetRpkAvailableToCallJpjTestListResponse
+          getPart3AvailableToCallJpjTestListResponse =
+          GetRpkAvailableToCallJpjTestListResponse.fromJson(response.data);
+
+      return Response(true,
+          data: getPart3AvailableToCallJpjTestListResponse.jpjTestTrn);
+    }
+
+    return Response(false,
+        message: response.message == null || response.message!.isEmpty
+            ? 'Tidak ada calon dalam barisan.'
+            : response.message!.replaceAll(r'\u000d\u000a', ''));
+  }
+
+   Future<Response> callRpkJpjTest({
+    context,
+    required vehNo,
+    required part3Type,
+    required groupId,
+    required icNo,
+    required testCode,
+  }) async {
+    // String customUrl =
+    //     'http://192.168.168.2/etesting.MainService/${appConfig.wsVer}/MainService.svc';
+
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String? userId = await localStorage.getUserId();
+
+    CallRpkJpjTestRequest verifyScanCodeRequest = CallRpkJpjTestRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      diCode: diCode,
+      userId: userId,
+      vehNo: vehNo,
+      part3Type: part3Type,
+      groupId: groupId,
+      nricNo: icNo,
+      testCode: testCode,
+    );
+
+    String body = jsonEncode(verifyScanCodeRequest);
+    String api = 'CallRpkJpjTest';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    if (response.isSuccess && response.data != null) {
+      CallRpkJpjTestResponse verifyScanCodeResponse =
+          CallRpkJpjTestResponse.fromJson(response.data);
+
+      return Response(true, data: verifyScanCodeResponse.jpjTestTrn);
+    }
+
+    return Response(false,
+        message: response.message == null || response.message!.isEmpty
+            ? 'Tiada data.'
             : response.message!.replaceAll(r'\u000d\u000a', ''));
   }
 }

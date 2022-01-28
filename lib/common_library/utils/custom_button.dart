@@ -23,8 +23,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      minWidth: minWidth ?? 88.0,
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16),
+      // minWidth: minWidth ?? 88.0,
       height: height ?? 36.0,
       buttonColor: buttonColor,
       shape: StadiumBorder(),
