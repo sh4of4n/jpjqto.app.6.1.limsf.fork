@@ -167,7 +167,10 @@ class _Part3MainState extends State<RpkPartIII> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        appBar: AppBar(title: Text('RPK')),
+        appBar: AppBar(
+          title: Text('RPK'),
+          automaticallyImplyLeading: false,
+        ),
         /*appBar: AppBar(
           title: Text('RSM',style: TextStyle(color: Colors.black),),
         ),

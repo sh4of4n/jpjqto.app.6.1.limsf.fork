@@ -55,7 +55,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
   void initState() {
     super.initState();
 
-    _getCurrentLocation();
+    // _getCurrentLocation();
     _getDeviceInfo();
   }
 
@@ -245,6 +245,26 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                             )
                           : SizedBox.shrink(),
                       _loginButton(),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InkWell(
+                            onTap: () {
+                              context.router.push(RegisterMobile());
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .translate('sign_up_btn'),
+                              style: TextStyle(
+                                fontSize: 36.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -321,7 +341,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
 
             // context.router.replace(GetVehicleInfo());
-             context.router.replace(HomeSelect());
+            context.router.replace(HomeSelect());
           } else {
             setState(() {
               _isLoading = false;
@@ -341,7 +361,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
           localStorage.saveDiCode(result.data[0].diCode);
 
           // context.router.replace(GetVehicleInfo());
-           context.router.replace(HomeSelect());
+          context.router.replace(HomeSelect());
         }
       } else {
         setState(() {

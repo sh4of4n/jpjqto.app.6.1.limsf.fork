@@ -100,28 +100,59 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
   } */
 
   Future<bool> _onWillPop() async {
-    return CustomDialog().show(
-      context: context,
-      title: Text(AppLocalizations.of(context)!.translate('warning_title')),
-      content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
-      customActions: <Widget>[
-        TextButton(
-          child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-          onPressed: () {
-            context.router.pop();
-            context.router.pop();
-            // cancelCallPart3JpjTest();
+    return (await showDialog(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                  AppLocalizations.of(context)!.translate('warning_title')),
+              content: SingleChildScrollView(
+                  child: Text(AppLocalizations.of(context)!
+                      .translate('confirm_exit_desc'))),
+              actions: <Widget>[
+                TextButton(
+                  child:
+                      Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+                  onPressed: () async {
+                    await context.router.pop(true);
+                    await cancelCallPart3JpjTest();
+                  },
+                ),
+                TextButton(
+                  child:
+                      Text(AppLocalizations.of(context)!.translate('no_lbl')),
+                  onPressed: () {
+                    context.router.pop(false);
+                  },
+                ),
+              ],
+            );
           },
-        ),
-        TextButton(
-          child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-          onPressed: () {
-            context.router.pop();
-          },
-        ),
-      ],
-      type: DialogType.GENERAL,
-    );
+        )) ??
+        false;
+    // await CustomDialog().show(
+    //   context: context,
+    //   title: Text(AppLocalizations.of(context)!.translate('warning_title')),
+    //   content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
+    //   customActions: <Widget>[
+    //     TextButton(
+    //       child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+    //       onPressed: () {
+    //         context.router.pop(true);
+    //         context.router.pop(true);
+    //         // cancelCallPart3JpjTest();
+    //       },
+    //     ),
+    //     TextButton(
+    //       child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+    //       onPressed: () {
+    //         context.router.pop(false);
+    //       },
+    //     ),
+    //   ],
+    //   type: DialogType.GENERAL,
+    // );
   }
 
   Future<void> cancelCallPart3JpjTest() async {
@@ -137,18 +168,22 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
     );
 
     if (result.isSuccess) {
-      context.router.pop();
+      // context.router.pop();
     } else {
-      customDialog.show(
-        context: context,
-        content: result.message,
-        type: DialogType.WARNING,
-      );
+      if (mounted) {
+        customDialog.show(
+          context: context,
+          content: result.message,
+          type: DialogType.WARNING,
+        );
+      }
     }
 
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   startTest() async {
@@ -217,7 +252,8 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                   ),
                   Text(widget.nric!, style: TextStyle(fontSize: 80.sp)),
                   SizedBox(height: 20.h),
-                  Text(widget.candidateName!, style: TextStyle(fontSize: 80.sp)),
+                  Text(widget.candidateName!,
+                      style: TextStyle(fontSize: 80.sp)),
                   SizedBox(height: 30.h),
                   Text(
                     widget.groupId!,
@@ -240,7 +276,9 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       CustomButton(
-                        onPressed: _onWillPop,
+                        onPressed: () {
+                          context.router.pop();
+                        },
                         buttonColor: Color(0xffdd0e0e),
                         title: AppLocalizations.of(context)!
                             .translate('cancel_btn'),

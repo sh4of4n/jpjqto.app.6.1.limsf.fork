@@ -1,4 +1,9 @@
-V.0.0.21
+V.0.0.24
+
+- Add Daftar button in tablet login page
+- Fixed show error after complete RPK
+
+V.0.0.23
 
 - Fix login on tablet
 - Migration to dart 2.12

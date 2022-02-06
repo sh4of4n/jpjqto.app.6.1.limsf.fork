@@ -76,17 +76,25 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         candidateList = result.data;
       });
     } else {
-      customDialog.show(
-        context: context,
-        // content: AppLocalizations.of(context).translate('no_candidate'),
-        content: result.message,
-        type: DialogType.INFO,
-      );
+      if (mounted) {
+        setState(() {
+          candidateList = [];
+          nric = '';
+          name = '';
+        });
+        customDialog.show(
+          context: context,
+          // content: AppLocalizations.of(context).translate('no_candidate'),
+          content: result.message,
+          type: DialogType.INFO,
+        );
+      }
     }
-
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   getSelectedCandidateInfo(queueNo) {
@@ -113,7 +121,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     if (this.groupId == groupId) {
       if (this.testCode == testCode) {
         if (success == 0) {
-          await callPart3JpjTest();
+          // await callPart3JpjTest();
         }
 
         context.router
@@ -129,7 +137,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           ),
         )
             .then((value) {
-          cancelCallPart3JpjTest();
+          // cancelCallPart3JpjTest();
+          getPart3AvailableToCallJpjTestList();
         });
       } else {
         for (int i = 0; i < candidateList!.length; i += 1) {
@@ -296,25 +305,30 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           type: DialogType.SUCCESS,
         );
       }
+      if (mounted) {
+        setState(() {
+          success = 0;
+          candidateList!.clear();
+          selectedCandidate = null;
 
-      setState(() {
-        success = 0;
-        candidateList!.clear();
-        selectedCandidate = null;
-
-        if (type != 'HOME') getPart3AvailableToCallJpjTestList();
-      });
+          if (type != 'HOME') getPart3AvailableToCallJpjTestList();
+        });
+      }
     } else {
-      customDialog.show(
-        context: context,
-        content: result.message,
-        type: DialogType.WARNING,
-      );
+      if (mounted) {
+        customDialog.show(
+          context: context,
+          content: result.message,
+          type: DialogType.WARNING,
+        );
+      }
     }
 
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -409,28 +423,59 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
 
   Future<bool> _onWillPop() async {
     if (success > 0) {
-      return CustomDialog().show(
-        context: context,
-        title: Text(AppLocalizations.of(context)!.translate('warning_title')),
-        content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-            onPressed: () async {
-              await cancelCallPart3JpjTest(type: 'HOME');
+      // return CustomDialog().show(
+      //   context: context,
+      //   title: Text(AppLocalizations.of(context)!.translate('warning_title')),
+      //   content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
+      //   customActions: <Widget>[
+      //     TextButton(
+      //       child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+      //       onPressed: () async {
+      //         await cancelCallPart3JpjTest(type: 'HOME');
+      //       },
+      //     ),
+      //     TextButton(
+      //       child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+      //       onPressed: () {
+      //         context.router.pop();
+      //       },
+      //     ),
+      //   ],
+      //   type: DialogType.GENERAL,
+      // );
+      return (await showDialog(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(
+                    AppLocalizations.of(context)!.translate('warning_title')),
+                content: SingleChildScrollView(
+                    child: Text(AppLocalizations.of(context)!
+                        .translate('confirm_exit_desc'))),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                        AppLocalizations.of(context)!.translate('yes_lbl')),
+                    onPressed: () async {
+                      await context.router.pop(true);
+                      await cancelCallPart3JpjTest();
+                    },
+                  ),
+                  TextButton(
+                    child:
+                        Text(AppLocalizations.of(context)!.translate('no_lbl')),
+                    onPressed: () {
+                      context.router.pop(false);
+                    },
+                  ),
+                ],
+              );
             },
-          ),
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-            onPressed: () {
-              context.router.pop();
-            },
-          ),
-        ],
-        type: DialogType.GENERAL,
-      );
+          )) ??
+          false;
     }
-    context.router.pop();
+    // return context.router.pop(true);
     return true;
   }
 
@@ -473,8 +518,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                               vertical: 0, horizontal: 50.w),
                           labelText: 'Q-NO',
                           labelStyle: TextStyle(
-                            // fontSize: 80.sp,
-                          ),
+                              // fontSize: 80.sp,
+                              ),
                           // fillColor: Colors.grey.withOpacity(.25),
                           // filled: true,
                           // prefixIcon: Icon(Icons.edit),
@@ -495,8 +540,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                       child: Text(
                                     value.queueNo,
                                     style: TextStyle(
-                                      // fontSize: 80.sp,
-                                    ),
+                                        // fontSize: 80.sp,
+                                        ),
                                   )),
                                 );
                               }).toList()

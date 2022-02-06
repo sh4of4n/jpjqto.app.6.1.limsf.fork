@@ -194,6 +194,7 @@ class _JrPartIIIState extends State<JrPartIII> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Jalan Raya'),
+          automaticallyImplyLeading: false,
         ),
         body: Stack(
           children: [

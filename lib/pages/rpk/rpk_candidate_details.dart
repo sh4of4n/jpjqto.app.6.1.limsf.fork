@@ -76,12 +76,14 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         candidateList = result.data;
       });
     } else {
-      customDialog.show(
-        context: context,
-        // content: AppLocalizations.of(context).translate('no_candidate'),
-        content: result.message,
-        type: DialogType.INFO,
-      );
+      if (mounted) {
+        customDialog.show(
+          context: context,
+          // content: AppLocalizations.of(context).translate('no_candidate'),
+          content: result.message,
+          type: DialogType.INFO,
+        );
+      }
     }
 
     setState(() {
@@ -113,7 +115,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     if (this.groupId == groupId) {
       if (this.testCode == testCode) {
         if (success == 0) {
-          await callPart3JpjTest();
+          // await callPart3JpjTest();
         }
 
         context.router
@@ -129,7 +131,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           ),
         )
             .then((value) {
-          cancelCallPart3JpjTest();
+          // cancelCallPart3JpjTest();
         });
       } else {
         for (int i = 0; i < candidateList!.length; i += 1) {
@@ -240,28 +242,15 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           type: DialogType.SUCCESS,
         );
       }
-
-      /* context.router.push(
-        Routes.confirmCandidateInfo,
-        arguments: ConfirmCandidateInfoArguments(
-          part3Type: 'JALAN RAYA',
-          nric: nric,
-          name: name,
-          qNo: qNo,
-          groupId: groupId,
-          testDate: testDate,
-          testCode: testCode,
-        ),
-      ); */
     } else {
       customDialog.show(
         context: context,
         barrierDismissable: false,
         content: result.message,
         onPressed: () {
-          context.router.pop();
-
-          getPart3AvailableToCallJpjTestList();
+          context.router
+              .pop()
+              .then((value) => getPart3AvailableToCallJpjTestList());
         },
         type: DialogType.INFO,
       );
@@ -305,16 +294,19 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         if (type != 'HOME') getPart3AvailableToCallJpjTestList();
       });
     } else {
-      customDialog.show(
-        context: context,
-        content: result.message,
-        type: DialogType.WARNING,
-      );
+      if (mounted) {
+        customDialog.show(
+          context: context,
+          content: result.message,
+          type: DialogType.WARNING,
+        );
+      }
     }
-
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -473,8 +465,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                               vertical: 0, horizontal: 50.w),
                           labelText: 'Q-NO',
                           labelStyle: TextStyle(
-                            // fontSize: 80.sp,
-                          ),
+                              // fontSize: 80.sp,
+                              ),
                           // fillColor: Colors.grey.withOpacity(.25),
                           // filled: true,
                           // prefixIcon: Icon(Icons.edit),
@@ -495,8 +487,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                       child: Text(
                                     value.queueNo,
                                     style: TextStyle(
-                                      // fontSize: 80.sp,
-                                    ),
+                                        // fontSize: 80.sp,
+                                        ),
                                   )),
                                 );
                               }).toList()
