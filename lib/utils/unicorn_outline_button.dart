@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class UnicornOutlineButton extends StatelessWidget {
+class UnicornOutlinedButton extends StatelessWidget {
   final _GradientPainter _painter;
   final Widget _child;
   final VoidCallback _callback;
   final double _radius;
 
-  UnicornOutlineButton({
+  UnicornOutlinedButton({
     required double strokeWidth,
     required double radius,
     required Gradient gradient,

@@ -246,19 +246,21 @@ class _ChangePasswordFormState extends State<ChangePasswordForm>
           ? SpinKitFoldingCube(
               color: primaryColor,
             )
-          : ButtonTheme(
-              minWidth: ScreenUtil().setWidth(420),
-              padding: EdgeInsets.symmetric(vertical: 11.0),
-              buttonColor: primaryColor,
-              shape: StadiumBorder(),
-              child: RaisedButton(
-                onPressed: _submit,
-                textColor: Colors.white,
-                child: Text(
-                  AppLocalizations.of(context)!.translate('submit_btn'),
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(56),
-                  ),
+          : ElevatedButton(
+              onPressed: _submit,
+              style: ElevatedButton.styleFrom(
+                onPrimary: Colors.white,
+                primary: primaryColor,
+                minimumSize: Size(88, 36),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 11.0),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                ),
+              ),
+              child: Text(
+                AppLocalizations.of(context)!.translate('submit_btn'),
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(56),
                 ),
               ),
             ),

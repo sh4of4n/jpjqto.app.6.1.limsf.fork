@@ -130,15 +130,15 @@ class _ProfileState extends State<Profile>
             if (widget.userProfile?.name != null)
               ListTile(
                 leading: Icon(Icons.account_box),
-                title:
-                    Text(AppLocalizations.of(context)!.translate('ic_name_lbl')),
+                title: Text(
+                    AppLocalizations.of(context)!.translate('ic_name_lbl')),
                 subtitle:
                     Text('${widget.userProfile?.name}', style: _subtitleStyle),
               ),
             ListTile(
               leading: Icon(Icons.account_box),
-              title:
-                  Text(AppLocalizations.of(context)!.translate('nick_name_lbl')),
+              title: Text(
+                  AppLocalizations.of(context)!.translate('nick_name_lbl')),
               subtitle: Text('${widget.userProfile?.nickName}',
                   style: _subtitleStyle),
             ),
@@ -198,7 +198,7 @@ class _ProfileState extends State<Profile>
             /* ButtonTheme(
               padding: EdgeInsets.all(0.0),
               shape: StadiumBorder(),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, ENROLL),
                 textColor: Colors.white,
                 padding: const EdgeInsets.all(0.0),

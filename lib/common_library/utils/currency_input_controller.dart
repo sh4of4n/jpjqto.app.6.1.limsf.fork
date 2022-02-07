@@ -38,6 +38,7 @@ class CurrencyInputController extends TextEditingController {
 
     final clearText = _getOnlyNumbers(string: string);
 
+    // ignore: unnecessary_null_comparison
     return clearText != null ? (clearText.length == string.length) : false;
   }
 

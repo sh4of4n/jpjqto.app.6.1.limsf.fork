@@ -109,25 +109,25 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
     // _getCdlList();
   }
 
-  Future<void> _getLdlkEnqGroupList() async {
-    var result = await authRepo.getLdlkEnqGroupList();
+  // Future<void> _getLdlkEnqGroupList() async {
+  //   var result = await authRepo.getLdlkEnqGroupList();
 
-    if (result.isSuccess) {
-      setState(() {
-        ldlList = result.data;
-      });
-    }
-  }
+  //   if (result.isSuccess) {
+  //     setState(() {
+  //       ldlList = result.data;
+  //     });
+  //   }
+  // }
 
-  Future<void> _getCdlList() async {
-    var result = await authRepo.getCdlList();
+  // Future<void> _getCdlList() async {
+  //   var result = await authRepo.getCdlList();
 
-    if (result.isSuccess) {
-      setState(() {
-        cdlList = result.data;
-      });
-    }
-  }
+  //   if (result.isSuccess) {
+  //     setState(() {
+  //       cdlList = result.data;
+  //     });
+  //   }
+  // }
 
   /* _getCurrentLocation() async {
     await location.getCurrentLocation();
@@ -188,10 +188,18 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
             ),
             iconSize: 80,
           ),
-          OutlineButton(
-            borderSide: BorderSide(
-              color: Colors.blue,
-              width: 1.5,
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              primary: Colors.black87,
+              minimumSize: Size(88, 36),
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(2)),
+              ),
+              side: BorderSide(
+                color: Colors.blue,
+                width: 1.5,
+              ),
             ),
             onPressed: _profilePicOption,
             child: Text(AppLocalizations.of(context)!.translate('edit')),
@@ -237,7 +245,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   }
 
   Future _getImageGallery() async {
-    var pickedFile = await picker.getImage(source: ImageSource.gallery);
+    var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile?.path != null) {
       setState(() {
@@ -733,24 +741,24 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                   : ButtonTheme(
                                       padding: EdgeInsets.all(0.0),
                                       shape: StadiumBorder(),
-                                      child: RaisedButton(
+                                      child: ElevatedButton(
                                         onPressed: _submit,
-                                        color: Color(0xffdd0e0e),
-                                        textColor: Colors.white,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
+                                        style: ElevatedButton.styleFrom(
+                                          onPrimary: Colors.white,
+                                          primary: Color(0xffdd0e0e),
+                                          minimumSize: Size(88, 36),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 30.0),
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18.0)),
                                           ),
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 30.0,
-                                          ),
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .translate('sign_up_btn'),
-                                            style: TextStyle(
-                                              fontSize: 56.sp,
-                                            ),
+                                        ),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .translate('sign_up_btn'),
+                                          style: TextStyle(
+                                            fontSize: 56.sp,
                                           ),
                                         ),
                                       ),
@@ -1214,10 +1222,19 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                     )
                                   : ButtonTheme(
                                       shape: StadiumBorder(),
-                                      child: RaisedButton(
+                                      child: ElevatedButton(
                                         onPressed: _submit,
-                                        color: Color(0xffdd0e0e),
-                                        textColor: Colors.white,
+                                        style: ElevatedButton.styleFrom(
+                                          onPrimary: Colors.white,
+                                          primary: Color(0xffdd0e0e),
+                                          minimumSize: Size(88, 36),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(2)),
+                                          ),
+                                        ),
                                         child: Container(
                                           child: Text(
                                             AppLocalizations.of(context)!
@@ -1301,7 +1318,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
             barrierDismissable: false,
             customActions: <Widget>[
               _loginLoading == false
-                  ? FlatButton(
+                  ? TextButton(
                       child: Text(
                           AppLocalizations.of(context)!.translate('ok_btn')),
                       onPressed: _login,
@@ -1358,8 +1375,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
 
         // context.router
         //     .pushAndPopUntil(GetVehicleInfo(), predicate: (r) => false);
-         context.router
-            .pushAndPopUntil(HomeSelect(), predicate: (r) => false);
+        context.router.pushAndPopUntil(HomeSelect(), predicate: (r) => false);
       } else {
         context.router.pushAndPopUntil(Login(), predicate: (r) => false);
       }

@@ -181,9 +181,17 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                   padding: EdgeInsets.symmetric(vertical: 11.0),
                   buttonColor: primaryColor,
                   shape: StadiumBorder(),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: _submit,
-                    textColor: Colors.white,
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.white,
+                      primary: Colors.grey[300],
+                      minimumSize: Size(88, 36),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                      ),
+                    ),
                     child: Text(
                       AppLocalizations.of(context)!.translate('submit_btn'),
                       style: TextStyle(

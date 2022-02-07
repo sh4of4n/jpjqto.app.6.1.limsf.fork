@@ -294,10 +294,18 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
           ),
           iconSize: 70,
         ),
-        OutlineButton(
-          borderSide: BorderSide(
-            color: Colors.blue,
-            width: 1.5,
+        OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            primary: Colors.black87,
+            minimumSize: Size(88, 36),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+            ),
+            side: BorderSide(
+              color: Colors.blue,
+              width: 1.5,
+            ),
           ),
           onPressed: _profilePicOption,
           child: Text(AppLocalizations.of(context)!.translate('edit')),
@@ -343,7 +351,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   }
 
   Future _getImageGallery() async {
-    var pickedFile = await picker.getImage(source: ImageSource.gallery);
+    var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile?.path != null) {
       setState(() {
@@ -1050,23 +1058,22 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
           : ButtonTheme(
               padding: EdgeInsets.all(0.0),
               shape: StadiumBorder(),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: _submit,
-                color: Color(0xffdd0e0e),
-                textColor: Colors.white,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18.0),
+                style: ElevatedButton.styleFrom(
+                  onPrimary: Colors.white,
+                  primary: Color(0xffdd0e0e),
+                  minimumSize: Size(88, 36),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(18)),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30.0,
-                    vertical: 10.0,
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.translate('save_btn'),
-                    style: TextStyle(
-                      fontSize: ScreenUtil().setSp(56),
-                    ),
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.translate('save_btn'),
+                  style: TextStyle(
+                    fontSize: ScreenUtil().setSp(56),
                   ),
                 ),
               ),

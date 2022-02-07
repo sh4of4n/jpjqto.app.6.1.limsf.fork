@@ -64,6 +64,9 @@ class _RegisterMobileState extends State<RegisterMobile> {
             title: Image.asset(image.logo2, height: 90.h),
             elevation: 0,
             backgroundColor: Colors.transparent,
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -177,28 +180,25 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                 ? SpinKitFoldingCube(
                                     color: Colors.blue,
                                   )
-                                : ButtonTheme(
-                                    padding: EdgeInsets.all(0.0),
-                                    shape: StadiumBorder(),
-                                    child: RaisedButton(
-                                      onPressed: _next,
-                                      color: Color(0xffdd0e0e),
-                                      textColor: Colors.white,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
+                                : ElevatedButton(
+                                    onPressed: _next,
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xffdd0e0e),
+                                      onPrimary: Colors.white,
+                                      minimumSize: Size(88, 36),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(18.0),
                                         ),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 30.0,
-                                        ),
-                                        child: Text(
-                                          AppLocalizations.of(context)!
-                                              .translate('next_btn'),
-                                          style: TextStyle(
-                                            fontSize: 56.sp,
-                                          ),
-                                        ),
+                                      ),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 30),
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .translate('next_btn'),
+                                      style: TextStyle(
+                                        fontSize: 56.sp,
                                       ),
                                     ),
                                   ),
@@ -362,10 +362,19 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                 : ButtonTheme(
                                     // padding: EdgeInsets.all(0.0),
                                     shape: StadiumBorder(),
-                                    child: RaisedButton(
+                                    child: ElevatedButton(
                                       onPressed: _next,
-                                      color: Color(0xffdd0e0e),
-                                      textColor: Colors.white,
+                                      style: ElevatedButton.styleFrom(
+                                        onPrimary: Colors.white,
+                                        primary: Color(0xffdd0e0e),
+                                        minimumSize: Size(88, 36),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(2)),
+                                        ),
+                                      ),
                                       child: Text(
                                         AppLocalizations.of(context)!
                                             .translate('next_btn'),

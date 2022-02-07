@@ -9,9 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../router.gr.dart';
 import 'list_part_iii.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class RpkPartIII extends StatefulWidget {
@@ -75,7 +73,7 @@ class _Part3MainState extends State<RpkPartIII> {
           title: Icon(Icons.error_outline),
           content: result.message,
           customActions: [
-            FlatButton(
+            TextButton(
               onPressed: () => context.router.popUntil(
                 ModalRoute.withName('ConfirmCandidateInfo'),
               ),
@@ -318,9 +316,17 @@ class _Part3MainState extends State<RpkPartIII> {
                     height: ScreenUtil().setHeight(100),
                   ),
                   Container(
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: updateRpkJpjTestResult,
-                      color: ColorConstant.primaryColor,
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: ColorConstant.primaryColor,
+                        primary: Color(0xffdd0e0e),
+                        minimumSize: Size(88, 36),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
+                        ),
+                      ),
                       child: Text(
                         AppLocalizations.of(context)!.translate('submit_btn'),
                       ),

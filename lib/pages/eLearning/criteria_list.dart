@@ -648,8 +648,9 @@ class _CriteriaListState extends State<CriteriaList> {
               SizedBox(
                 height: ScreenUtil().setHeight(100),
               ),
-              RaisedButton(
-                child: Text(AppLocalizations.of(context)!.translate('next_btn')),
+              ElevatedButton(
+                child:
+                    Text(AppLocalizations.of(context)!.translate('next_btn')),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -764,7 +765,7 @@ class _CriteriaListState extends State<CriteriaList> {
                                   ),
                                   SizedBox(
                                     width: 320.0,
-                                    child: RaisedButton(
+                                    child: ElevatedButton(
                                       onPressed: () {
                                         addLearnResult(DateFormat("HH:mm:ss")
                                             .format(DateFormat.jm()
@@ -775,7 +776,11 @@ class _CriteriaListState extends State<CriteriaList> {
                                         "Save",
                                         style: TextStyle(color: Colors.white),
                                       ),
-                                      color: const Color(0xFF1BC0C5),
+                                      style: ElevatedButton.styleFrom(
+                                        textStyle: TextStyle(
+                                          color: const Color(0xFF1BC0C5),
+                                        ),
+                                      ),
                                     ),
                                   )
                                 ],

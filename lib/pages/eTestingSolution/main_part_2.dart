@@ -77,6 +77,7 @@ class _Part2MainState extends State<Part2Main>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       /*appBar: AppBar(
         title: Text('RSM',style: TextStyle(color: Colors.black),),
@@ -139,7 +140,8 @@ class _Part2MainState extends State<Part2Main>
                 TableRow(children: [
                   Center(
                       child: Text(
-                          AppLocalizations.of(context)!.translate('session_lbl'),
+                          AppLocalizations.of(context)!
+                              .translate('session_lbl'),
                           style: TextStyle(color: Colors.black))),
                   Center(
                       child: Text(
@@ -298,7 +300,7 @@ class _Part2MainState extends State<Part2Main>
               height: ScreenUtil().setHeight(100),
             ),
             Container(
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   localStorage.setPart2MarkSessionB(0);
                   localStorage.setPart2MarkSessionC(0);
@@ -326,7 +328,15 @@ class _Part2MainState extends State<Part2Main>
 
                   refresh();
                 },
-                color: ColorConstant.primaryColor,
+                style: ElevatedButton.styleFrom(
+                  onPrimary: Colors.black87,
+                  primary: ColorConstant.primaryColor,
+                  minimumSize: Size(88, 36),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(2)),
+                  ),
+                ),
                 child: Text(
                   AppLocalizations.of(context)!.translate('submit_btn'),
                 ),
@@ -342,6 +352,5 @@ class _Part2MainState extends State<Part2Main>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

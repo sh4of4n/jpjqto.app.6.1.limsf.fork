@@ -208,12 +208,22 @@ class _ProfileTabState extends State<ProfileTab>
           ? EdgeInsets.symmetric(vertical: 70.h)
           : EdgeInsets.symmetric(vertical: 40.h),
       margin: EdgeInsets.only(right: 15.w),
-      child: OutlineButton(
-        borderSide: BorderSide(
-          color: Colors.blue,
-          width: 1.5,
+      child: OutlinedButton(
+        // borderSide: BorderSide(
+        //   color: Colors.blue,
+        //   width: 1.5,
+        // ),
+        // shape: StadiumBorder(),
+        style: OutlinedButton.styleFrom(
+          primary: Colors.black87,
+          minimumSize: Size(88, 36),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          shape: StadiumBorder(),
+          side: BorderSide(
+            color: Colors.blue,
+            width: 1.5,
+          ),
         ),
-        shape: StadiumBorder(),
         onPressed: () async {
           await context.router
               .push(UpdateProfile())

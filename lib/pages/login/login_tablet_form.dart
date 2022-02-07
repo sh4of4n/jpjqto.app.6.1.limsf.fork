@@ -71,18 +71,18 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
     // print('deviceId: ' + deviceId);
   }
 
-  _getCurrentLocation() async {
-    await location.getCurrentLocation();
+  // _getCurrentLocation() async {
+  //   await location.getCurrentLocation();
 
-    setState(() {
-      _latitude =
-          location.latitude != null ? location.latitude.toString() : '999';
-      _longitude =
-          location.longitude != null ? location.longitude.toString() : '999';
-    });
+  //   setState(() {
+  //     _latitude =
+  //         location.latitude != null ? location.latitude.toString() : '999';
+  //     _longitude =
+  //         location.longitude != null ? location.longitude.toString() : '999';
+  //   });
 
-    // print('$_latitude, $_longitude');
-  }
+  //   // print('$_latitude, $_longitude');
+  // }
 
   @override
   Widget build(BuildContext context) {

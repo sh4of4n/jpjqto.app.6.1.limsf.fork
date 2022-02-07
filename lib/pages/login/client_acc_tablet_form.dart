@@ -41,7 +41,7 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
 
   String _message = '';
   bool _obscureText = true;
-  String? _connectedUrl = '';
+  // String? _connectedUrl = '';
   String? _connectedCa = '';
 
   final urlController = TextEditingController();
@@ -74,7 +74,7 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
 
     setState(() {
       urlController.text = savedUrl ?? '';
-      _connectedUrl = savedUrl;
+      // _connectedUrl = savedUrl;
     });
   }
 
@@ -278,23 +278,23 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
     );
   }
 
-  _showConnectedUrl() {
-    if (_connectedUrl != null && _connectedUrl!.isNotEmpty) {
-      return Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Text(
-                '${AppLocalizations.of(context)!.translate('connected_url')}: $_connectedUrl'),
-          ),
-          SizedBox(
-            height: 40.h,
-          ),
-        ],
-      );
-    }
-    return Container(width: 0, height: 0);
-  }
+  // _showConnectedUrl() {
+  //   if (_connectedUrl != null && _connectedUrl!.isNotEmpty) {
+  //     return Column(
+  //       children: <Widget>[
+  //         Padding(
+  //           padding: EdgeInsets.symmetric(horizontal: 20.h),
+  //           child: Text(
+  //               '${AppLocalizations.of(context)!.translate('connected_url')}: $_connectedUrl'),
+  //         ),
+  //         SizedBox(
+  //           height: 40.h,
+  //         ),
+  //       ],
+  //     );
+  //   }
+  //   return Container(width: 0, height: 0);
+  // }
 
   _showConnectedCa() {
     if (_connectedCa!.isNotEmpty) {

@@ -101,7 +101,7 @@ class RpkDrawer extends StatelessWidget {
               ),
             ],
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text(
               AppLocalizations.of(context)!.translate('start_lbl'),
             ),

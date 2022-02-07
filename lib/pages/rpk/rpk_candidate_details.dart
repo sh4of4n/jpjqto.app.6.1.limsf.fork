@@ -375,7 +375,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             context: context,
             content: AppLocalizations.of(context)!.translate('invalid_qr'),
             customActions: [
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   context.router.pop();
 

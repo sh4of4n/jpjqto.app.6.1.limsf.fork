@@ -107,12 +107,12 @@ class _SettingsState extends State<Settings> {
                       content: AppLocalizations.of(context)!
                           .translate('confirm_delete_account'),
                       customActions: <Widget>[
-                        FlatButton(
+                        TextButton(
                           child: Text(AppLocalizations.of(context)!
                               .translate('yes_lbl')),
                           onPressed: _deleteAccount,
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Text(AppLocalizations.of(context)!
                               .translate('no_lbl')),
                           onPressed: () {
@@ -181,7 +181,7 @@ class _SettingsState extends State<Settings> {
         title: Text(AppLocalizations.of(context)!.translate('confirm_lbl')),
         content: AppLocalizations.of(context)!.translate('confirm_log_out'),
         customActions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
             onPressed: () async {
               // if (widget.data != null) widget.data.cancel();
@@ -199,7 +199,7 @@ class _SettingsState extends State<Settings> {
               });
             },
           ),
-          FlatButton(
+          TextButton(
             child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
             onPressed: () {
               context.router.pop();
