@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/coming_soon/coming_soon.dart';
+import 'package:jpj_qto/pages/checklist/checklist.dart';
+import 'package:jpj_qto/pages/checklist/checklist_home.dart';
+import 'package:jpj_qto/pages/checklist/checklist_result.dart';
 import 'package:jpj_qto/pages/eLearning/elearning.dart';
 import 'package:jpj_qto/pages/forgot_password/forgot_password.dart';
 import 'package:jpj_qto/pages/home/home_page_rpk.dart';
@@ -50,7 +53,11 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     AutoRoute(page: JrPartIII, name: 'JrPartIII'),
     AutoRoute(page: ConfirmCandidateInfo, name: 'ConfirmCandidateInfo'),
     AutoRoute(page: HomeSelect, name: 'HomeSelect'),
-      AutoRoute(page: HomePageRpk, name: 'HomePageRpk'),
+    AutoRoute(page: HomePageRpk, name: 'HomePageRpk'),
+    AutoRoute(page: HomePageRpk, name: 'HomePageRpk'),
+    AutoRoute(page: CheckListPage),
+    AutoRoute(page: ChecklistHome),
+    AutoRoute(page: ChecklistResultPage),
   ],
 )
 class $AppRouter {}

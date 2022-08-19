@@ -1,3 +1,8 @@
+19/08/2022 V.0.0.25
+ePandu ws 6.1.127.0
+- Add Checklist
+
+
 V.0.0.24
 
 - Add Daftar button in tablet login page

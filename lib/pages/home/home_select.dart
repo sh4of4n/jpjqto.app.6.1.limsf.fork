@@ -41,6 +41,12 @@ class _HomeSelectState extends State<HomeSelect> {
           actions: <Widget>[
             IconButton(
               onPressed: () => context.router.push(
+                CheckListRoute(),
+              ),
+              icon: Icon(Icons.check),
+            ),
+            IconButton(
+              onPressed: () => context.router.push(
                 ProfileTab(),
               ),
               icon: Icon(Icons.settings),
@@ -65,9 +71,7 @@ class _HomeSelectState extends State<HomeSelect> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 HomeIcon(
-                                  component: GetVehicleInfo(
-                                    type: 'RPK'
-                                  ),
+                                  component: GetVehicleInfo(type: 'RPK'),
                                   image: imageConstant.kppIcon,
                                   name: 'RPK',
                                 ),
@@ -82,9 +86,7 @@ class _HomeSelectState extends State<HomeSelect> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 HomeIcon(
-                                  component: GetVehicleInfo(
-                                    type: 'Jalan Raya'
-                                  ),
+                                  component: GetVehicleInfo(type: 'Jalan Raya'),
                                   image: imageConstant.kppIcon,
                                   name: 'Jalan Raya',
                                 ),
