@@ -10,6 +10,7 @@ import 'package:jpj_qto/router.gr.dart';
 import '../../common_library/services/model/checklist_model.dart';
 import '../../common_library/services/repository/checklist_repository.dart';
 import '../../common_library/utils/custom_dialog.dart';
+import '../../utils/constants.dart';
 
 class CheckListPage extends StatefulWidget {
   CheckListPage({Key? key}) : super(key: key);
@@ -123,10 +124,13 @@ class _CheckListPageState extends State<CheckListPage> {
     updateFuture.then((value) {
       EasyLoading.dismiss();
       customDialog.show(
-        context: context,
-        content: 'Checklist updated successfully',
-        type: DialogType.SUCCESS,
-      );
+          context: context,
+          content: 'Checklist updated successfully',
+          type: DialogType.SUCCESS,
+          onPressed: () async {
+            await context.router.pop();
+            await context.router.pop();
+          });
     });
   }
 
@@ -149,6 +153,7 @@ class _CheckListPageState extends State<CheckListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ColorConstant.primaryColor,
         title: Text('Checklist'),
         actions: [
           IconButton(

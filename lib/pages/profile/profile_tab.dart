@@ -84,56 +84,57 @@ class _ProfileTabState extends State<ProfileTab>
     });
 
     var result = await profileRepo.getUserProfile();
+    if (mounted) {
+      if (result.isSuccess) {
+        setState(() {
+          userProfile = UserProfile(
+            name: result.data[0].name,
+            nickName: result.data[0].nickName,
+            eMail: result.data[0].eMail,
+            phone: result.data[0].phone,
+            countryName: result.data[0].countryName,
+            stateName: result.data[0].stateName,
+            icNo: result.data[0].icNo,
+            birthDate: result.data[0].birthDate,
+            race: result.data[0].race,
+            nationality: result.data[0].nationality,
+            picturePath: result.data[0].picturePath != null &&
+                    result.data[0].picturePath.isNotEmpty
+                ? result.data[0].picturePath
+                    .replaceAll(removeBracket, '')
+                    .split('\r\n')[0]
+                : '',
+          );
+        });
 
-    if (result.isSuccess) {
-      setState(() {
-        userProfile = UserProfile(
-          name: result.data[0].name,
-          nickName: result.data[0].nickName,
-          eMail: result.data[0].eMail,
-          phone: result.data[0].phone,
-          countryName: result.data[0].countryName,
-          stateName: result.data[0].stateName,
-          icNo: result.data[0].icNo,
-          birthDate: result.data[0].birthDate,
-          race: result.data[0].race,
-          nationality: result.data[0].nationality,
-          picturePath: result.data[0].picturePath != null &&
-                  result.data[0].picturePath.isNotEmpty
-              ? result.data[0].picturePath
-                  .replaceAll(removeBracket, '')
-                  .split('\r\n')[0]
-              : '',
-        );
-      });
-
-      localStorage.saveName(result.data[0].name ?? '');
-      localStorage.saveNickName(result.data[0].nickName ?? '');
-      localStorage.saveEmail(result.data[0].eMail ?? '');
-      localStorage.saveUserPhone(result.data[0].phone ?? '');
-      localStorage.saveCountry(result.data[0].countryName ?? '');
-      localStorage.saveState(result.data[0].stateName ?? '');
-      localStorage.saveStudentIc(result.data[0].icNo ?? '');
-      localStorage.saveBirthDate(result.data[0].birthDate ?? '');
-      localStorage.saveRace(result.data[0].race ?? '');
-      localStorage.saveNationality(result.data[0].nationality ?? '');
-      localStorage.saveGender(result.data[0].gender ?? '');
-      if (result.data[0].picturePath != null)
-        localStorage.saveProfilePic(result.data[0].picturePath
-            .replaceAll(removeBracket, '')
-            .split('\r\n')[0]);
-    } else {
-      _getUserInfo();
-      /* customDialog.show(
+        localStorage.saveName(result.data[0].name ?? '');
+        localStorage.saveNickName(result.data[0].nickName ?? '');
+        localStorage.saveEmail(result.data[0].eMail ?? '');
+        localStorage.saveUserPhone(result.data[0].phone ?? '');
+        localStorage.saveCountry(result.data[0].countryName ?? '');
+        localStorage.saveState(result.data[0].stateName ?? '');
+        localStorage.saveStudentIc(result.data[0].icNo ?? '');
+        localStorage.saveBirthDate(result.data[0].birthDate ?? '');
+        localStorage.saveRace(result.data[0].race ?? '');
+        localStorage.saveNationality(result.data[0].nationality ?? '');
+        localStorage.saveGender(result.data[0].gender ?? '');
+        if (result.data[0].picturePath != null)
+          localStorage.saveProfilePic(result.data[0].picturePath
+              .replaceAll(removeBracket, '')
+              .split('\r\n')[0]);
+      } else {
+        _getUserInfo();
+        /* customDialog.show(
         context: context,
         content: result.message,
         type: DialogType.WARNING,
       ); */
-    }
+      }
 
-    setState(() {
-      isLoading = false;
-    });
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   _getUserInfo() async {

@@ -1,3 +1,8 @@
+20/08/2022 V.0.0.26
+ePandu ws 6.1.127.0
+- Add RSM button (no function)
+- Adjust Checklist button positoon
+
 19/08/2022 V.0.0.25
 ePandu ws 6.1.127.0
 - Add Checklist

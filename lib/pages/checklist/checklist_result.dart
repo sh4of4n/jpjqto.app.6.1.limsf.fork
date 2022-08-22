@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_library/services/repository/checklist_repository.dart';
+import '../../utils/constants.dart';
 
 class ChecklistResultPage extends StatefulWidget {
   ChecklistResultPage({Key? key}) : super(key: key);
@@ -46,6 +47,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ColorConstant.primaryColor,
         title: Text('Checklist Result'),
       ),
       body: FutureBuilder(
