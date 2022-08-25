@@ -1,3 +1,8 @@
+25/08/2022 V.0.0.27
+ePandu ws 6.1.127.0
+- Fixed RPK button missing
+
+
 20/08/2022 V.0.0.26
 ePandu ws 6.1.127.0
 - Add RSM button (no function)

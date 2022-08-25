@@ -55,129 +55,56 @@ class _HomeSelectState extends State<HomeSelect> {
           ],
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
             child: Column(
               children: <Widget>[
-                Ink(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(1.0, 2.0),
-                        blurRadius: 5.0,
-                        spreadRadius: 2.0,
-                      ),
-                    ],
-                  ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(15.0),
-                    onTap: () {
-                      context.router.push(
-                        CheckListRoute(),
-                      );
-                    },
-                    child: Container(
-                      width: ScreenUtil().setWidth(650),
-                      height: ScreenUtil().setHeight(650),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Image.network(
-                              'https://cdn-icons-png.flaticon.com/512/1533/1533031.png',
-                              width: ScreenUtil().setWidth(450),
-                              height: ScreenUtil().setHeight(450),
-                            ),
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            'Checklist',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(60),
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                SizedBox(height: 20),
+                Column(
                   children: [
                     HomeIcon(
-                      component: GetVehicleInfo(type: 'RPK'),
-                      image: imageConstant.kppIcon,
-                      name: 'RPK',
+                      component: CheckListRoute(),
+                      image: imageConstant.checkList,
+                      name: 'Checklist',
                     ),
                     SizedBox(
-                      width: 8.0,
+                      height: 8.0,
                     ),
-                    HomeIcon(
-                      component: GetVehicleInfo(type: 'Jalan Raya'),
-                      image: imageConstant.kppIcon,
-                      name: 'Jalan Raya',
-                    ),
-                    // Expanded(
-                    //   child: Ink(
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.white,
-                    //       borderRadius: BorderRadius.circular(15.0),
-                    //       boxShadow: [
-                    //         BoxShadow(
-                    //           color: Colors.black12,
-                    //           offset: Offset(1.0, 2.0),
-                    //           blurRadius: 5.0,
-                    //           spreadRadius: 2.0,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     child: Column(
-                    //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       children: <Widget>[
-                    //         Center(
-                    //           child: Image.asset(
-                    //             imageConstant.kppIcon,
-                    //             // width: ScreenUtil().setWidth(450),
-                    //             // height: ScreenUtil().setHeight(450),
-                    //           ),
-                    //         ),
-                    //         SizedBox(height: 10.0),
-                    //         Text(
-                    //           'RPK',
-                    //           style: TextStyle(
-                    //             fontSize: ScreenUtil().setSp(60),
-                    //             fontWeight: FontWeight.w500,
-                    //             color: Colors.black,
-                    //           ),
-                    //           textAlign: TextAlign.center,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
-                SizedBox(
-                  height: 8.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    HomeIcon(
-                      component: null,
-                      image: imageConstant.kppIcon,
-                      name: 'RSM',
-                    ),
-                    Expanded(child: SizedBox()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                HomeIcon(
+                                  component: GetVehicleInfo(type: 'RPK'),
+                                  image: imageConstant.kppIcon,
+                                  name: 'RPK',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                HomeIcon(
+                                  component: GetVehicleInfo(type: 'Jalan Raya'),
+                                  image: imageConstant.kppIcon,
+                                  name: 'Bahagian III',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ],

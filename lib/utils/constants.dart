@@ -118,6 +118,7 @@ class ImagesConstant {
   String profileIcon = 'assets/images/profile-icon.png';
   String productsIcon = 'assets/images/products-icon.png';
   String reviewIcon = 'assets/images/review-icon.png';
+  String checkList = 'assets/images/checklist.png';
 }
 
 /* class Common {

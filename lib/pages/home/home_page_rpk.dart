@@ -44,6 +44,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
   String? dbCode;
 
   TextStyle textStyle = TextStyle(fontWeight: FontWeight.bold);
+  final imageConstant = ImagesConstant();
 
   @override
   void initState() {
@@ -177,7 +178,12 @@ class _HomePageRpkState extends State<HomePageRpk> {
                 ),
                 SizedBox(height: 20),
                 vehInfo(),
-                HomeModule(),
+                // HomeModule(),
+                HomeIcon(
+                  component: RpkCandidateDetails(),
+                  image: imageConstant.kppIcon,
+                  name: 'RPK',
+                ),
                 // InkWell(
                 //   onTap: () => context.router.push(GetVehicleInfo(
                 //     type: 'RPK'
@@ -269,25 +275,10 @@ class HomeModule extends StatelessWidget {
         height: ScreenUtil().setHeight(30),
       ),
       SizedBox(height: ScreenUtil().setHeight(80)),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  HomeIcon(
-                    component: RpkCandidateDetails(),
-                    image: imageConstant.kppIcon,
-                    name: 'RPK',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+      HomeIcon(
+        component: RpkCandidateDetails(),
+        image: imageConstant.kppIcon,
+        name: 'RPK',
       ),
       SizedBox(height: ScreenUtil().setHeight(100)),
     ]);
