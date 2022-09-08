@@ -42,6 +42,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   String? qNo = '';
   String? nric = '';
   String? name = '';
+  String? kewarganegaraan = '';
   String testDate = '';
   String? groupId = '';
   String? testCode = '';
@@ -99,6 +100,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         setState(() {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
+          kewarganegaraan = candidateList![i].nationality;
         });
 
         break;
@@ -149,8 +151,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                     context.router.pop();
 
                     setState(() {
-                      this.name = candidateList![i].fullname;
-                      this.qNo = candidateList![i].queueNo;
+                      name = candidateList![i].fullname;
+                      qNo = candidateList![i].queueNo;
+                      kewarganegaraan = candidateList![i].nationality;
                     });
 
                     if (success > 0)
@@ -554,6 +557,20 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                               child: Text(name!, style: textStyle),
                             ),
                           ]),
+                          // TableRow(children: [
+                          //   Padding(
+                          //     padding: EdgeInsets.symmetric(vertical: 10.h),
+                          //     child: FittedBox(
+                          //       fit: BoxFit.fitWidth,
+                          //       child:
+                          //           Text('KEWARGANEGARAAN', style: textStyle),
+                          //     ),
+                          //   ),
+                          //   Padding(
+                          //     padding: EdgeInsets.symmetric(vertical: 10.h),
+                          //     child: Text(kewarganegaraan!, style: textStyle),
+                          //   ),
+                          // ]),
                         ],
                       ),
                     ),

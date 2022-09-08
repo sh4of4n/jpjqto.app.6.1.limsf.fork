@@ -45,7 +45,9 @@
   "ic_lbl": "IC/Passport",
   "ic_required_lbl": "IC/Passport*",
   "ic_required_msg": "IC/Passport is required.",
+  "ic_no_required_msg": "IC/No is required.",
   "ic_name_required_msg": "IC/Passport name is required.",
+  "permit_code_required_msg": "Permit Code is required.",
   "institute_code_required_lbl": "Institute code*",
   "institute_code_msg": "Institute code is required.",
   "dob_required_msg": "Date of birth is required.",
@@ -637,5 +639,10 @@
   "confirm_cancel_desc": "Are you sure you want to cancel calling this candidate?",
   "call_tooltip": "Press call to call the next student candidate.",
   "cancel_tooltip": "Press cancel if the student has not arrived.",
-  "qr_candidate_not_found": "Candidate info from barcode is not in the queue."
+  "qr_candidate_not_found": "Candidate info from barcode is not in the queue.",
+
+  "checklist": "Checklist",
+  "checklist_result": "Checklist Result",
+  "select_all_mandatory_field": "Please select all mandatory fields",
+  "checklist_updated_successfully": "Checklist updated successfully"
 }

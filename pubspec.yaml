@@ -60,7 +60,9 @@ dependencies:
   flutter_countdown_timer:
   flutter_localizations:
     sdk: flutter
-
+  sentry_flutter:
+  form_builder_validators:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

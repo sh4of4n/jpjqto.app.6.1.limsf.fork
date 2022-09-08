@@ -4649,3 +4649,43 @@ class AcceptOrderSlsTrn {
     return data;
   }
 }
+
+
+class ResultResponse {
+  List<Result>? result;
+
+  ResultResponse({this.result});
+
+  ResultResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Result'] != null) {
+      result = <Result>[];
+      json['Result'].forEach((v) {
+        result!.add(new Result.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['Result'] = this.result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Result {
+  String? result;
+
+  Result({this.result});
+
+  Result.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    return data;
+  }
+}

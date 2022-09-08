@@ -11,9 +11,9 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i20;
-import 'package:camera/camera.dart' as _i22;
-import 'package:flutter/material.dart' as _i21;
+import 'package:auto_route/auto_route.dart' as _i21;
+import 'package:camera/camera.dart' as _i23;
+import 'package:flutter/material.dart' as _i22;
 
 import 'coming_soon/coming_soon.dart' as _i8;
 import 'common_library/utils/image_viewer.dart' as _i7;
@@ -33,156 +33,157 @@ import 'pages/profile/profile.dart' as _i6;
 import 'pages/profile/take_profile_picture.dart' as _i11;
 import 'pages/register/register.dart' as _i4;
 import 'pages/rpk/rpk.dart' as _i12;
+import 'pages/rpk/rule.dart' as _i20;
 import 'pages/settings/settings.dart' as _i3;
 
-class AppRouter extends _i20.RootStackRouter {
-  AppRouter([_i21.GlobalKey<_i21.NavigatorState>? navigatorKey])
+class AppRouter extends _i21.RootStackRouter {
+  AppRouter([_i22.GlobalKey<_i22.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i20.PageFactory> pagesMap = {
+  final Map<String, _i21.PageFactory> pagesMap = {
     Authentication.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i1.Authentication());
     },
     ClientAccount.name: (routeData) {
       final args = routeData.argsAs<ClientAccountArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i1.ClientAccount(args.data));
     },
     Login.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i1.Login());
     },
     ForgotPassword.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i2.ForgotPassword());
     },
     ChangePassword.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i3.ChangePassword());
     },
     RegisterMobile.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i4.RegisterMobile());
     },
     RegisterVerification.name: (routeData) {
       final args = routeData.argsAs<RegisterVerificationArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i4.RegisterVerification(args.data));
     },
     RegisterForm.name: (routeData) {
       final args = routeData.argsAs<RegisterFormArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i4.RegisterForm(args.data));
     },
     GetVehicleInfo.name: (routeData) {
       final args = routeData.argsAs<GetVehicleInfoArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i1.GetVehicleInfo(key: args.key, type: args.type));
     },
     Home.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i5.Home());
     },
     Settings.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i3.Settings());
     },
     Profile.name: (routeData) {
       final args = routeData.argsAs<ProfileArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i6.Profile(
               userProfile: args.userProfile, isLoading: args.isLoading));
     },
     ProfileTab.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i6.ProfileTab());
     },
     UpdateProfile.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i6.UpdateProfile());
     },
     RegisterUserToDi.name: (routeData) {
       final args = routeData.argsAs<RegisterUserToDiArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i4.RegisterUserToDi(args.data));
     },
     IdentityBarcode.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i6.IdentityBarcode());
     },
     ImageViewer.name: (routeData) {
       final args = routeData.argsAs<ImageViewerArgs>(
           orElse: () => const ImageViewerArgs());
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i7.ImageViewer(title: args.title, image: args.image));
     },
     ComingSoon.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i8.ComingSoon());
     },
     StartLearning.name: (routeData) {
       final args = routeData.argsAs<StartLearningArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i9.StartLearning(args.studentIC));
     },
     CriteriaList.name: (routeData) {
       final args = routeData.argsAs<CriteriaListArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i9.CriteriaList(args.studentIc, args.startDateTime,
               args.group, args.course, args.part));
     },
     RsmRpkTabs.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i10.RsmRpkTabs());
     },
     RpkDrawer.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i10.RpkDrawer());
     },
     TakeProfilePicture.name: (routeData) {
       final args = routeData.argsAs<TakeProfilePictureArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i11.TakeProfilePicture(args.camera));
     },
     OperatorScanQR.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i10.OperatorScanQR());
     },
     LearningEnterStudentIC.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i9.LearningEnterStudentIC());
     },
     RpkCandidateDetails.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i12.RpkCandidateDetails());
     },
     RpkPartIII.name: (routeData) {
       final args = routeData.argsAs<RpkPartIIIArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i12.RpkPartIII(args.qNo, args.nric, args.rpkName,
               args.testDate, args.groupId, args.testCode, args.vehNo));
     },
     JrCandidateDetails.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i13.JrCandidateDetails());
     },
     JrPartIII.name: (routeData) {
       final args = routeData.argsAs<JrPartIIIArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i13.JrPartIII(args.qNo, args.nric, args.jrName, args.testDate,
               args.groupId, args.testCode, args.vehNo));
     },
     ConfirmCandidateInfo.name: (routeData) {
       final args = routeData.argsAs<ConfirmCandidateInfoArgs>();
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i14.ConfirmCandidateInfo(
               part3Type: args.part3Type,
@@ -196,82 +197,89 @@ class AppRouter extends _i20.RootStackRouter {
     HomeSelect.name: (routeData) {
       final args = routeData.argsAs<HomeSelectArgs>(
           orElse: () => const HomeSelectArgs());
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i15.HomeSelect(key: args.key));
     },
     HomePageRpk.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i16.HomePageRpk());
     },
     CheckListRoute.name: (routeData) {
       final args = routeData.argsAs<CheckListRouteArgs>(
           orElse: () => const CheckListRouteArgs());
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i17.CheckListPage(key: args.key));
     },
     ChecklistHome.name: (routeData) {
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i18.ChecklistHome());
     },
     ChecklistResultRoute.name: (routeData) {
       final args = routeData.argsAs<ChecklistResultRouteArgs>(
           orElse: () => const ChecklistResultRouteArgs());
-      return _i20.MaterialPageX<dynamic>(
+      return _i21.MaterialPageX<dynamic>(
           routeData: routeData, child: _i19.ChecklistResultPage(key: args.key));
+    },
+    RuleRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<RuleRouteArgs>(orElse: () => const RuleRouteArgs());
+      return _i21.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i20.RulePage(key: args.key));
     }
   };
 
   @override
-  List<_i20.RouteConfig> get routes => [
-        _i20.RouteConfig(Authentication.name, path: '/'),
-        _i20.RouteConfig(ClientAccount.name, path: '/client-account'),
-        _i20.RouteConfig(Login.name, path: '/Login'),
-        _i20.RouteConfig(ForgotPassword.name, path: '/forgot-password'),
-        _i20.RouteConfig(ChangePassword.name, path: '/change-password'),
-        _i20.RouteConfig(RegisterMobile.name, path: '/register-mobile'),
-        _i20.RouteConfig(RegisterVerification.name,
+  List<_i21.RouteConfig> get routes => [
+        _i21.RouteConfig(Authentication.name, path: '/'),
+        _i21.RouteConfig(ClientAccount.name, path: '/client-account'),
+        _i21.RouteConfig(Login.name, path: '/Login'),
+        _i21.RouteConfig(ForgotPassword.name, path: '/forgot-password'),
+        _i21.RouteConfig(ChangePassword.name, path: '/change-password'),
+        _i21.RouteConfig(RegisterMobile.name, path: '/register-mobile'),
+        _i21.RouteConfig(RegisterVerification.name,
             path: '/register-verification'),
-        _i20.RouteConfig(RegisterForm.name, path: '/register-form'),
-        _i20.RouteConfig(GetVehicleInfo.name, path: '/get-vehicle-info'),
-        _i20.RouteConfig(Home.name, path: '/Home'),
-        _i20.RouteConfig(Settings.name, path: '/Settings'),
-        _i20.RouteConfig(Profile.name, path: '/Profile'),
-        _i20.RouteConfig(ProfileTab.name, path: '/profile-tab'),
-        _i20.RouteConfig(UpdateProfile.name, path: '/update-profile'),
-        _i20.RouteConfig(RegisterUserToDi.name, path: '/register-user-to-di'),
-        _i20.RouteConfig(IdentityBarcode.name, path: '/identity-barcode'),
-        _i20.RouteConfig(ImageViewer.name, path: '/image-viewer'),
-        _i20.RouteConfig(ComingSoon.name, path: '/coming-soon'),
-        _i20.RouteConfig(StartLearning.name, path: '/start-learning'),
-        _i20.RouteConfig(CriteriaList.name, path: '/criteria-list'),
-        _i20.RouteConfig(RsmRpkTabs.name, path: '/rsm-rpk-tabs'),
-        _i20.RouteConfig(RpkDrawer.name, path: '/rpk-drawer'),
-        _i20.RouteConfig(TakeProfilePicture.name,
+        _i21.RouteConfig(RegisterForm.name, path: '/register-form'),
+        _i21.RouteConfig(GetVehicleInfo.name, path: '/get-vehicle-info'),
+        _i21.RouteConfig(Home.name, path: '/Home'),
+        _i21.RouteConfig(Settings.name, path: '/Settings'),
+        _i21.RouteConfig(Profile.name, path: '/Profile'),
+        _i21.RouteConfig(ProfileTab.name, path: '/profile-tab'),
+        _i21.RouteConfig(UpdateProfile.name, path: '/update-profile'),
+        _i21.RouteConfig(RegisterUserToDi.name, path: '/register-user-to-di'),
+        _i21.RouteConfig(IdentityBarcode.name, path: '/identity-barcode'),
+        _i21.RouteConfig(ImageViewer.name, path: '/image-viewer'),
+        _i21.RouteConfig(ComingSoon.name, path: '/coming-soon'),
+        _i21.RouteConfig(StartLearning.name, path: '/start-learning'),
+        _i21.RouteConfig(CriteriaList.name, path: '/criteria-list'),
+        _i21.RouteConfig(RsmRpkTabs.name, path: '/rsm-rpk-tabs'),
+        _i21.RouteConfig(RpkDrawer.name, path: '/rpk-drawer'),
+        _i21.RouteConfig(TakeProfilePicture.name,
             path: '/take-profile-picture'),
-        _i20.RouteConfig(OperatorScanQR.name, path: '/operator-scan-qR'),
-        _i20.RouteConfig(LearningEnterStudentIC.name,
+        _i21.RouteConfig(OperatorScanQR.name, path: '/operator-scan-qR'),
+        _i21.RouteConfig(LearningEnterStudentIC.name,
             path: '/learning-enter-student-iC'),
-        _i20.RouteConfig(RpkCandidateDetails.name,
+        _i21.RouteConfig(RpkCandidateDetails.name,
             path: '/rpk-candidate-details'),
-        _i20.RouteConfig(RpkPartIII.name, path: '/rpk-part-ii-i'),
-        _i20.RouteConfig(JrCandidateDetails.name,
+        _i21.RouteConfig(RpkPartIII.name, path: '/rpk-part-ii-i'),
+        _i21.RouteConfig(JrCandidateDetails.name,
             path: '/jr-candidate-details'),
-        _i20.RouteConfig(JrPartIII.name, path: '/jr-part-ii-i'),
-        _i20.RouteConfig(ConfirmCandidateInfo.name,
+        _i21.RouteConfig(JrPartIII.name, path: '/jr-part-ii-i'),
+        _i21.RouteConfig(ConfirmCandidateInfo.name,
             path: '/confirm-candidate-info'),
-        _i20.RouteConfig(HomeSelect.name, path: '/home-select'),
-        _i20.RouteConfig(HomePageRpk.name, path: '/home-page-rpk'),
-        _i20.RouteConfig(HomePageRpk.name, path: '/home-page-rpk'),
-        _i20.RouteConfig(CheckListRoute.name, path: '/check-list-page'),
-        _i20.RouteConfig(ChecklistHome.name, path: '/checklist-home'),
-        _i20.RouteConfig(ChecklistResultRoute.name,
-            path: '/checklist-result-page')
+        _i21.RouteConfig(HomeSelect.name, path: '/home-select'),
+        _i21.RouteConfig(HomePageRpk.name, path: '/home-page-rpk'),
+        _i21.RouteConfig(HomePageRpk.name, path: '/home-page-rpk'),
+        _i21.RouteConfig(CheckListRoute.name, path: '/check-list-page'),
+        _i21.RouteConfig(ChecklistHome.name, path: '/checklist-home'),
+        _i21.RouteConfig(ChecklistResultRoute.name,
+            path: '/checklist-result-page'),
+        _i21.RouteConfig(RuleRoute.name, path: '/rule-page')
       ];
 }
 
 /// generated route for
 /// [_i1.Authentication]
-class Authentication extends _i20.PageRouteInfo<void> {
+class Authentication extends _i21.PageRouteInfo<void> {
   const Authentication() : super(Authentication.name, path: '/');
 
   static const String name = 'Authentication';
@@ -279,7 +287,7 @@ class Authentication extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ClientAccount]
-class ClientAccount extends _i20.PageRouteInfo<ClientAccountArgs> {
+class ClientAccount extends _i21.PageRouteInfo<ClientAccountArgs> {
   ClientAccount({required dynamic data})
       : super(ClientAccount.name,
             path: '/client-account', args: ClientAccountArgs(data: data));
@@ -300,7 +308,7 @@ class ClientAccountArgs {
 
 /// generated route for
 /// [_i1.Login]
-class Login extends _i20.PageRouteInfo<void> {
+class Login extends _i21.PageRouteInfo<void> {
   const Login() : super(Login.name, path: '/Login');
 
   static const String name = 'Login';
@@ -308,7 +316,7 @@ class Login extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ForgotPassword]
-class ForgotPassword extends _i20.PageRouteInfo<void> {
+class ForgotPassword extends _i21.PageRouteInfo<void> {
   const ForgotPassword() : super(ForgotPassword.name, path: '/forgot-password');
 
   static const String name = 'ForgotPassword';
@@ -316,7 +324,7 @@ class ForgotPassword extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.ChangePassword]
-class ChangePassword extends _i20.PageRouteInfo<void> {
+class ChangePassword extends _i21.PageRouteInfo<void> {
   const ChangePassword() : super(ChangePassword.name, path: '/change-password');
 
   static const String name = 'ChangePassword';
@@ -324,7 +332,7 @@ class ChangePassword extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.RegisterMobile]
-class RegisterMobile extends _i20.PageRouteInfo<void> {
+class RegisterMobile extends _i21.PageRouteInfo<void> {
   const RegisterMobile() : super(RegisterMobile.name, path: '/register-mobile');
 
   static const String name = 'RegisterMobile';
@@ -333,7 +341,7 @@ class RegisterMobile extends _i20.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.RegisterVerification]
 class RegisterVerification
-    extends _i20.PageRouteInfo<RegisterVerificationArgs> {
+    extends _i21.PageRouteInfo<RegisterVerificationArgs> {
   RegisterVerification({required dynamic data})
       : super(RegisterVerification.name,
             path: '/register-verification',
@@ -355,7 +363,7 @@ class RegisterVerificationArgs {
 
 /// generated route for
 /// [_i4.RegisterForm]
-class RegisterForm extends _i20.PageRouteInfo<RegisterFormArgs> {
+class RegisterForm extends _i21.PageRouteInfo<RegisterFormArgs> {
   RegisterForm({required dynamic data})
       : super(RegisterForm.name,
             path: '/register-form', args: RegisterFormArgs(data: data));
@@ -376,8 +384,8 @@ class RegisterFormArgs {
 
 /// generated route for
 /// [_i1.GetVehicleInfo]
-class GetVehicleInfo extends _i20.PageRouteInfo<GetVehicleInfoArgs> {
-  GetVehicleInfo({_i21.Key? key, required String type})
+class GetVehicleInfo extends _i21.PageRouteInfo<GetVehicleInfoArgs> {
+  GetVehicleInfo({_i22.Key? key, required String type})
       : super(GetVehicleInfo.name,
             path: '/get-vehicle-info',
             args: GetVehicleInfoArgs(key: key, type: type));
@@ -388,7 +396,7 @@ class GetVehicleInfo extends _i20.PageRouteInfo<GetVehicleInfoArgs> {
 class GetVehicleInfoArgs {
   const GetVehicleInfoArgs({this.key, required this.type});
 
-  final _i21.Key? key;
+  final _i22.Key? key;
 
   final String type;
 
@@ -400,7 +408,7 @@ class GetVehicleInfoArgs {
 
 /// generated route for
 /// [_i5.Home]
-class Home extends _i20.PageRouteInfo<void> {
+class Home extends _i21.PageRouteInfo<void> {
   const Home() : super(Home.name, path: '/Home');
 
   static const String name = 'Home';
@@ -408,7 +416,7 @@ class Home extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.Settings]
-class Settings extends _i20.PageRouteInfo<void> {
+class Settings extends _i21.PageRouteInfo<void> {
   const Settings() : super(Settings.name, path: '/Settings');
 
   static const String name = 'Settings';
@@ -416,7 +424,7 @@ class Settings extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.Profile]
-class Profile extends _i20.PageRouteInfo<ProfileArgs> {
+class Profile extends _i21.PageRouteInfo<ProfileArgs> {
   Profile({required dynamic userProfile, required dynamic isLoading})
       : super(Profile.name,
             path: '/Profile',
@@ -440,7 +448,7 @@ class ProfileArgs {
 
 /// generated route for
 /// [_i6.ProfileTab]
-class ProfileTab extends _i20.PageRouteInfo<void> {
+class ProfileTab extends _i21.PageRouteInfo<void> {
   const ProfileTab() : super(ProfileTab.name, path: '/profile-tab');
 
   static const String name = 'ProfileTab';
@@ -448,7 +456,7 @@ class ProfileTab extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.UpdateProfile]
-class UpdateProfile extends _i20.PageRouteInfo<void> {
+class UpdateProfile extends _i21.PageRouteInfo<void> {
   const UpdateProfile() : super(UpdateProfile.name, path: '/update-profile');
 
   static const String name = 'UpdateProfile';
@@ -456,7 +464,7 @@ class UpdateProfile extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.RegisterUserToDi]
-class RegisterUserToDi extends _i20.PageRouteInfo<RegisterUserToDiArgs> {
+class RegisterUserToDi extends _i21.PageRouteInfo<RegisterUserToDiArgs> {
   RegisterUserToDi({required dynamic data})
       : super(RegisterUserToDi.name,
             path: '/register-user-to-di',
@@ -478,7 +486,7 @@ class RegisterUserToDiArgs {
 
 /// generated route for
 /// [_i6.IdentityBarcode]
-class IdentityBarcode extends _i20.PageRouteInfo<void> {
+class IdentityBarcode extends _i21.PageRouteInfo<void> {
   const IdentityBarcode()
       : super(IdentityBarcode.name, path: '/identity-barcode');
 
@@ -487,8 +495,8 @@ class IdentityBarcode extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.ImageViewer]
-class ImageViewer extends _i20.PageRouteInfo<ImageViewerArgs> {
-  ImageViewer({String? title, _i21.NetworkImage? image})
+class ImageViewer extends _i21.PageRouteInfo<ImageViewerArgs> {
+  ImageViewer({String? title, _i22.NetworkImage? image})
       : super(ImageViewer.name,
             path: '/image-viewer',
             args: ImageViewerArgs(title: title, image: image));
@@ -501,7 +509,7 @@ class ImageViewerArgs {
 
   final String? title;
 
-  final _i21.NetworkImage? image;
+  final _i22.NetworkImage? image;
 
   @override
   String toString() {
@@ -511,7 +519,7 @@ class ImageViewerArgs {
 
 /// generated route for
 /// [_i8.ComingSoon]
-class ComingSoon extends _i20.PageRouteInfo<void> {
+class ComingSoon extends _i21.PageRouteInfo<void> {
   const ComingSoon() : super(ComingSoon.name, path: '/coming-soon');
 
   static const String name = 'ComingSoon';
@@ -519,7 +527,7 @@ class ComingSoon extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.StartLearning]
-class StartLearning extends _i20.PageRouteInfo<StartLearningArgs> {
+class StartLearning extends _i21.PageRouteInfo<StartLearningArgs> {
   StartLearning({required dynamic studentIC})
       : super(StartLearning.name,
             path: '/start-learning',
@@ -541,7 +549,7 @@ class StartLearningArgs {
 
 /// generated route for
 /// [_i9.CriteriaList]
-class CriteriaList extends _i20.PageRouteInfo<CriteriaListArgs> {
+class CriteriaList extends _i21.PageRouteInfo<CriteriaListArgs> {
   CriteriaList(
       {required String studentIc,
       required String startDateTime,
@@ -586,7 +594,7 @@ class CriteriaListArgs {
 
 /// generated route for
 /// [_i10.RsmRpkTabs]
-class RsmRpkTabs extends _i20.PageRouteInfo<void> {
+class RsmRpkTabs extends _i21.PageRouteInfo<void> {
   const RsmRpkTabs() : super(RsmRpkTabs.name, path: '/rsm-rpk-tabs');
 
   static const String name = 'RsmRpkTabs';
@@ -594,7 +602,7 @@ class RsmRpkTabs extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.RpkDrawer]
-class RpkDrawer extends _i20.PageRouteInfo<void> {
+class RpkDrawer extends _i21.PageRouteInfo<void> {
   const RpkDrawer() : super(RpkDrawer.name, path: '/rpk-drawer');
 
   static const String name = 'RpkDrawer';
@@ -602,8 +610,8 @@ class RpkDrawer extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.TakeProfilePicture]
-class TakeProfilePicture extends _i20.PageRouteInfo<TakeProfilePictureArgs> {
-  TakeProfilePicture({required List<_i22.CameraDescription>? camera})
+class TakeProfilePicture extends _i21.PageRouteInfo<TakeProfilePictureArgs> {
+  TakeProfilePicture({required List<_i23.CameraDescription>? camera})
       : super(TakeProfilePicture.name,
             path: '/take-profile-picture',
             args: TakeProfilePictureArgs(camera: camera));
@@ -614,7 +622,7 @@ class TakeProfilePicture extends _i20.PageRouteInfo<TakeProfilePictureArgs> {
 class TakeProfilePictureArgs {
   const TakeProfilePictureArgs({required this.camera});
 
-  final List<_i22.CameraDescription>? camera;
+  final List<_i23.CameraDescription>? camera;
 
   @override
   String toString() {
@@ -624,7 +632,7 @@ class TakeProfilePictureArgs {
 
 /// generated route for
 /// [_i10.OperatorScanQR]
-class OperatorScanQR extends _i20.PageRouteInfo<void> {
+class OperatorScanQR extends _i21.PageRouteInfo<void> {
   const OperatorScanQR()
       : super(OperatorScanQR.name, path: '/operator-scan-qR');
 
@@ -633,7 +641,7 @@ class OperatorScanQR extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.LearningEnterStudentIC]
-class LearningEnterStudentIC extends _i20.PageRouteInfo<void> {
+class LearningEnterStudentIC extends _i21.PageRouteInfo<void> {
   const LearningEnterStudentIC()
       : super(LearningEnterStudentIC.name, path: '/learning-enter-student-iC');
 
@@ -642,7 +650,7 @@ class LearningEnterStudentIC extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.RpkCandidateDetails]
-class RpkCandidateDetails extends _i20.PageRouteInfo<void> {
+class RpkCandidateDetails extends _i21.PageRouteInfo<void> {
   const RpkCandidateDetails()
       : super(RpkCandidateDetails.name, path: '/rpk-candidate-details');
 
@@ -651,7 +659,7 @@ class RpkCandidateDetails extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.RpkPartIII]
-class RpkPartIII extends _i20.PageRouteInfo<RpkPartIIIArgs> {
+class RpkPartIII extends _i21.PageRouteInfo<RpkPartIIIArgs> {
   RpkPartIII(
       {required String? qNo,
       required String? nric,
@@ -706,7 +714,7 @@ class RpkPartIIIArgs {
 
 /// generated route for
 /// [_i13.JrCandidateDetails]
-class JrCandidateDetails extends _i20.PageRouteInfo<void> {
+class JrCandidateDetails extends _i21.PageRouteInfo<void> {
   const JrCandidateDetails()
       : super(JrCandidateDetails.name, path: '/jr-candidate-details');
 
@@ -715,7 +723,7 @@ class JrCandidateDetails extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.JrPartIII]
-class JrPartIII extends _i20.PageRouteInfo<JrPartIIIArgs> {
+class JrPartIII extends _i21.PageRouteInfo<JrPartIIIArgs> {
   JrPartIII(
       {required String? qNo,
       required String? nric,
@@ -771,7 +779,7 @@ class JrPartIIIArgs {
 /// generated route for
 /// [_i14.ConfirmCandidateInfo]
 class ConfirmCandidateInfo
-    extends _i20.PageRouteInfo<ConfirmCandidateInfoArgs> {
+    extends _i21.PageRouteInfo<ConfirmCandidateInfoArgs> {
   ConfirmCandidateInfo(
       {required String? part3Type,
       required String? nric,
@@ -826,8 +834,8 @@ class ConfirmCandidateInfoArgs {
 
 /// generated route for
 /// [_i15.HomeSelect]
-class HomeSelect extends _i20.PageRouteInfo<HomeSelectArgs> {
-  HomeSelect({_i21.Key? key})
+class HomeSelect extends _i21.PageRouteInfo<HomeSelectArgs> {
+  HomeSelect({_i22.Key? key})
       : super(HomeSelect.name,
             path: '/home-select', args: HomeSelectArgs(key: key));
 
@@ -837,7 +845,7 @@ class HomeSelect extends _i20.PageRouteInfo<HomeSelectArgs> {
 class HomeSelectArgs {
   const HomeSelectArgs({this.key});
 
-  final _i21.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -847,7 +855,7 @@ class HomeSelectArgs {
 
 /// generated route for
 /// [_i16.HomePageRpk]
-class HomePageRpk extends _i20.PageRouteInfo<void> {
+class HomePageRpk extends _i21.PageRouteInfo<void> {
   const HomePageRpk() : super(HomePageRpk.name, path: '/home-page-rpk');
 
   static const String name = 'HomePageRpk';
@@ -855,8 +863,8 @@ class HomePageRpk extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.CheckListPage]
-class CheckListRoute extends _i20.PageRouteInfo<CheckListRouteArgs> {
-  CheckListRoute({_i21.Key? key})
+class CheckListRoute extends _i21.PageRouteInfo<CheckListRouteArgs> {
+  CheckListRoute({_i22.Key? key})
       : super(CheckListRoute.name,
             path: '/check-list-page', args: CheckListRouteArgs(key: key));
 
@@ -866,7 +874,7 @@ class CheckListRoute extends _i20.PageRouteInfo<CheckListRouteArgs> {
 class CheckListRouteArgs {
   const CheckListRouteArgs({this.key});
 
-  final _i21.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -876,7 +884,7 @@ class CheckListRouteArgs {
 
 /// generated route for
 /// [_i18.ChecklistHome]
-class ChecklistHome extends _i20.PageRouteInfo<void> {
+class ChecklistHome extends _i21.PageRouteInfo<void> {
   const ChecklistHome() : super(ChecklistHome.name, path: '/checklist-home');
 
   static const String name = 'ChecklistHome';
@@ -885,8 +893,8 @@ class ChecklistHome extends _i20.PageRouteInfo<void> {
 /// generated route for
 /// [_i19.ChecklistResultPage]
 class ChecklistResultRoute
-    extends _i20.PageRouteInfo<ChecklistResultRouteArgs> {
-  ChecklistResultRoute({_i21.Key? key})
+    extends _i21.PageRouteInfo<ChecklistResultRouteArgs> {
+  ChecklistResultRoute({_i22.Key? key})
       : super(ChecklistResultRoute.name,
             path: '/checklist-result-page',
             args: ChecklistResultRouteArgs(key: key));
@@ -897,10 +905,31 @@ class ChecklistResultRoute
 class ChecklistResultRouteArgs {
   const ChecklistResultRouteArgs({this.key});
 
-  final _i21.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
     return 'ChecklistResultRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i20.RulePage]
+class RuleRoute extends _i21.PageRouteInfo<RuleRouteArgs> {
+  RuleRoute({_i22.Key? key})
+      : super(RuleRoute.name,
+            path: '/rule-page', args: RuleRouteArgs(key: key));
+
+  static const String name = 'RuleRoute';
+}
+
+class RuleRouteArgs {
+  const RuleRouteArgs({this.key});
+
+  final _i22.Key? key;
+
+  @override
+  String toString() {
+    return 'RuleRouteArgs{key: $key}';
   }
 }

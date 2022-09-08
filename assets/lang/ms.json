@@ -45,6 +45,8 @@
   "ic_lbl": "IC/Pasport",
   "ic_required_lbl": "IC/Pasport*",
   "ic_required_msg": "IC/Pasport diperlukan.",
+  "ic_no_required_msg": "IC/No diperlukan.",
+  "permit_code_required_msg": "Permit Code diperlukan.",
   "ic_name_required_msg": "Nama IC/Pasport diperlukan.",
   "institute_code_required_lbl": "Kod institut*",
   "institute_code_msg": "Kod institut diperlukan.",
@@ -639,5 +641,9 @@
   "confirm_cancel_desc": "Adakah anda pasti mahu membatalkan panggilan calon ini?",
   "call_tooltip": "Tekan panggilan untuk memanggil calon pelajar seterusnya.",
   "cancel_tooltip": "Tekan batal sekiranya pelajar belum sampai.",
-  "qr_candidate_not_found": "Maklumat calon tidak dalam barisan."
+  "qr_candidate_not_found": "Maklumat calon tidak dalam barisan.",
+  "checklist": "Senari Semak",
+  "checklist_result": "Hasil senarai semak",
+  "select_all_mandatory_field": "Sila pilih semua medan wajib",
+  "checklist_updated_successfully": "Senarai semak berjaya dikemas kini"
 }

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -8,6 +11,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations_delegate.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'application.dart';
 import 'common_library/services/model/bill_model.dart';
 import 'common_library/services/model/kpp_model.dart';
@@ -16,8 +20,7 @@ import 'router.gr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  EasyLoading.instance
-  ..userInteractions = false;
+  EasyLoading.instance..userInteractions = false;
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(KppExamDataAdapter());
@@ -27,22 +30,33 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LanguageModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => JrSessionModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => RpkSessionModel(),
-        ),
-      ],
-      child: MyApp(),
-    ),
-  );
+  runZonedGuarded(() async {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn =
+            'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
+      },
+    );
+
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => LanguageModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => JrSessionModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => RpkSessionModel(),
+          ),
+        ],
+        child: MyApp(),
+      ),
+    );
+  }, (exception, stackTrace) async {
+    await Sentry.captureException(exception, stackTrace: stackTrace);
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -94,7 +108,9 @@ class _MyAppState extends State<MyApp> {
         primaryTextTheme: FontTheme().primaryFont,
       ),
       // List all of the app's supported locales here
-      supportedLocales: application.supportedLocales(),
+      supportedLocales: [
+        ...application.supportedLocales(),
+      ],
       // These delegates make sure that the localization data for the proper language is loaded
       localizationsDelegates: [
         // THIS CLASS WILL BE ADDED LATER
@@ -104,6 +120,9 @@ class _MyAppState extends State<MyApp> {
         GlobalMaterialLocalizations.delegate,
         // Built-in localization for text direction LTR/RTL
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+
+        FormBuilderLocalizations.delegate,
       ],
       routerDelegate: _appRouter.delegate(initialRoutes: [Authentication()]),
       routeInformationParser: _appRouter.defaultRouteParser(),

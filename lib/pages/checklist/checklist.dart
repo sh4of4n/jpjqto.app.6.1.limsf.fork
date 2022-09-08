@@ -5,10 +5,12 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/router.gr.dart';
 
 import '../../common_library/services/model/checklist_model.dart';
 import '../../common_library/services/repository/checklist_repository.dart';
+import '../../common_library/utils/app_localizations.dart';
 import '../../common_library/utils/custom_dialog.dart';
 import '../../utils/constants.dart';
 
@@ -43,95 +45,101 @@ class _CheckListPageState extends State<CheckListPage> {
   }
 
   void updateJpjCheckListSkim() async {
-    checklistSkimArr = [];
-    checklistLitarArr = [];
-    checklistSystemArr = [];
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      checklistSkimArr = [];
+      checklistLitarArr = [];
+      checklistSystemArr = [];
 
-    for (var element in checklist[0].data) {
-      if (element.mandatory == 'true' &&
-          (element.isCheck == null || element.isCheck == false)) {
-        customDialog.show(
-          context: context,
-          content: 'Please select all mandatory fields',
-          type: DialogType.INFO,
-        );
-        return;
+      for (var element in checklist[0].data) {
+        if (element.mandatory == 'true' &&
+            (element.isCheck == null || element.isCheck == false)) {
+          customDialog.show(
+            context: context,
+            content: AppLocalizations.of(context)!
+                .translate('select_all_mandatory_field'),
+            type: DialogType.INFO,
+          );
+          return;
+        }
+        checklistSkimArr.add(JpjCheckListJson(
+          checkCode: element.checkCode,
+          status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+          remark: '',
+        ));
       }
-      checklistSkimArr.add(JpjCheckListJson(
-        checkCode: element.checkCode,
-        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
-        remark: '',
-      ));
-    }
 
-    for (var element in checklist[1].data) {
-      if (element.mandatory == 'true' &&
-          (element.isCheck == null || element.isCheck == false)) {
-        customDialog.show(
-          context: context,
-          content: 'Please select all mandatory fields',
-          type: DialogType.INFO,
-        );
-        return;
+      for (var element in checklist[1].data) {
+        if (element.mandatory == 'true' &&
+            (element.isCheck == null || element.isCheck == false)) {
+          customDialog.show(
+            context: context,
+            content: 'Please select all mandatory fields',
+            type: DialogType.INFO,
+          );
+          return;
+        }
+        checklistLitarArr.add(JpjCheckListJson(
+          checkCode: element.checkCode,
+          status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+          remark: '',
+        ));
       }
-      checklistLitarArr.add(JpjCheckListJson(
-        checkCode: element.checkCode,
-        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
-        remark: '',
-      ));
-    }
 
-    for (var element in checklist[2].data) {
-      if (element.mandatory == 'true' &&
-          (element.isCheck == null || element.isCheck == false)) {
-        customDialog.show(
-          context: context,
-          content: 'Please select all mandatory fields',
-          type: DialogType.INFO,
-        );
-        return;
+      for (var element in checklist[2].data) {
+        if (element.mandatory == 'true' &&
+            (element.isCheck == null || element.isCheck == false)) {
+          customDialog.show(
+            context: context,
+            content: 'Please select all mandatory fields',
+            type: DialogType.INFO,
+          );
+          return;
+        }
+        checklistSystemArr.add(JpjCheckListJson(
+          checkCode: element.checkCode,
+          status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+          remark: '',
+        ));
       }
-      checklistSystemArr.add(JpjCheckListJson(
-        checkCode: element.checkCode,
-        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
-        remark: '',
-      ));
+
+      EasyLoading.show(status: 'Updating...');
+
+      JpjCheckListRequest requestSkim = JpjCheckListRequest(
+        jpjCheckList: checklistSkimArr,
+      );
+
+      JpjCheckListRequest requestLitar = JpjCheckListRequest(
+        jpjCheckList: checklistLitarArr,
+      );
+
+      JpjCheckListRequest requestSystem = JpjCheckListRequest(
+        jpjCheckList: checklistSystemArr,
+      );
+
+      Future updateFuture = Future.wait([
+        checklistRepo.updateJpjCheckListSkim(
+            checkListJson: jsonEncode(requestSkim.toJson()),
+            plateNo: _formKey.currentState?.fields['plateNo']!.value),
+        checklistRepo.updateJpjCheckListLitar(
+            checkListJson: jsonEncode(requestLitar.toJson()),
+            plateNo: _formKey.currentState?.fields['plateNo']!.value),
+        checklistRepo.updateJpjCheckListSistem(
+            checkListJson: jsonEncode(requestSystem.toJson()),
+            plateNo: _formKey.currentState?.fields['plateNo']!.value),
+      ]);
+
+      updateFuture.then((value) {
+        EasyLoading.dismiss();
+        customDialog.show(
+            context: context,
+            content: AppLocalizations.of(context)!
+                .translate('checklist_updated_successfully'),
+            type: DialogType.SUCCESS,
+            onPressed: () async {
+              context.router.popUntil((route) => route.settings.name == 'HomeSelect');
+            });
+      });
     }
-
-    EasyLoading.show(status: 'Updating...');
-
-    JpjCheckListRequest requestSkim = JpjCheckListRequest(
-      jpjCheckList: checklistSkimArr,
-    );
-
-    JpjCheckListRequest requestLitar = JpjCheckListRequest(
-      jpjCheckList: checklistLitarArr,
-    );
-
-    JpjCheckListRequest requestSystem = JpjCheckListRequest(
-      jpjCheckList: checklistSystemArr,
-    );
-
-    Future updateFuture = Future.wait([
-      checklistRepo.updateJpjCheckListSkim(
-          checkListJson: jsonEncode(requestSkim.toJson()), plateNo: 'abc123'),
-      checklistRepo.updateJpjCheckListLitar(
-          checkListJson: jsonEncode(requestLitar.toJson()), plateNo: 'abc123'),
-      checklistRepo.updateJpjCheckListSistem(
-          checkListJson: jsonEncode(requestSystem.toJson()), plateNo: 'abc123'),
-    ]);
-
-    updateFuture.then((value) {
-      EasyLoading.dismiss();
-      customDialog.show(
-          context: context,
-          content: 'Checklist updated successfully',
-          type: DialogType.SUCCESS,
-          onPressed: () async {
-            await context.router.pop();
-            await context.router.pop();
-          });
-    });
   }
 
   Future<void> storeChecklist() async {
@@ -154,7 +162,7 @@ class _CheckListPageState extends State<CheckListPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstant.primaryColor,
-        title: Text('Checklist'),
+        title: Text(AppLocalizations.of(context)!.translate('checklist')),
         actions: [
           IconButton(
             onPressed: () {
@@ -181,8 +189,19 @@ class _CheckListPageState extends State<CheckListPage> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 16.0,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: FormBuilder(
+                      key: _formKey,
+                      child: FormBuilderTextField(
+                        name: 'plateNo',
+                        decoration:
+                            const InputDecoration(labelText: 'Plate No.'),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                      ),
+                    ),
                   ),
                   ExpandableNotifier(
                     child: Padding(

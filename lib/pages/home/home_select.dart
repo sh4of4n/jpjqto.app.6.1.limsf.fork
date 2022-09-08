@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:auto_route/auto_route.dart';
 
 import '../../router.gr.dart';
+import '../rpk/list_part_iii.dart';
 import 'home_icon.dart';
 
 class HomeSelect extends StatefulWidget {
@@ -48,7 +49,8 @@ class _HomeSelectState extends State<HomeSelect> {
             // ),
             IconButton(
               onPressed: () => context.router.push(
-                ProfileTab(),
+                // ProfileTab(),
+                RuleRoute(),
               ),
               icon: Icon(Icons.settings),
             ),
@@ -56,7 +58,7 @@ class _HomeSelectState extends State<HomeSelect> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            // height: MediaQuery.of(context).size.height,
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
@@ -65,7 +67,7 @@ class _HomeSelectState extends State<HomeSelect> {
                     HomeIcon(
                       component: CheckListRoute(),
                       image: imageConstant.checkList,
-                      name: 'Checklist',
+                      name: AppLocalizations.of(context)!.translate('checklist'),
                     ),
                     SizedBox(
                       height: 8.0,
