@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
@@ -33,8 +34,9 @@ void main() async {
   runZonedGuarded(() async {
     await SentryFlutter.init(
       (options) {
-        options.dsn =
-            'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
+        options.dsn = kDebugMode
+            ? ''
+            : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
       },
     );
 

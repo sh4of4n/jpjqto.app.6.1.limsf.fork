@@ -277,7 +277,7 @@ class AuthRepo {
     String? appVersion = await localStorage.getAppVersion();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&appId=$appId&permitCode=$permitCode&mySikapId=$mySikapId&appVersion=$appVersion}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&appId=$appId&permitCode=$permitCode&mySikapId=$mySikapId&appVersion=$appVersion';
 
     var response = await networking.getData(
       path: 'JpjQtoLoginWithMySikap?$path',

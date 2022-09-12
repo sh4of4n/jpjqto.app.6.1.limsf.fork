@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
+import '../../common_library/services/repository/etesting_repository.dart';
 import '../../router.gr.dart';
 
 class Settings extends StatefulWidget {
@@ -21,6 +22,7 @@ class _SettingsState extends State<Settings> {
   String appVersion = '';
   int count = 0;
   final authRepo = AuthRepo();
+  final etestingRepo = EtestingRepo();
   final customDialog = CustomDialog();
   double _defIconSize = 30;
   final primaryColor = ColorConstant.primaryColor;
@@ -190,13 +192,28 @@ class _SettingsState extends State<Settings> {
                 _isLoading = true;
               });
 
-              context.router.pop();
-              await authRepo.logout(context: context, type: 'CLEAR');
-              context.router.pushAndPopUntil(Login(), predicate: (r) => false);
+              await context.router.pop();
+              // await authRepo.logout(context: context, type: 'CLEAR');
+              var result = await etestingRepo.updateMySikapStatusOut();
+              if (!result.isSuccess) {
+                const snackBar = SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  content: Text('Something went wrong'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                setState(() {
+                  _isLoading = false;
+                });
+                return;
+              }
+              await context.router
+                  .pushAndPopUntil(Login(), predicate: (r) => false);
 
-              setState(() {
-                _isLoading = false;
-              });
+              if (mounted) {
+                setState(() {
+                  _isLoading = false;
+                });
+              }
             },
           ),
           TextButton(

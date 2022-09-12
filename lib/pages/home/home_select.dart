@@ -49,8 +49,8 @@ class _HomeSelectState extends State<HomeSelect> {
             // ),
             IconButton(
               onPressed: () => context.router.push(
-                ProfileTab(),
-                // RuleRoute(),
+                // ProfileTab(),
+                RuleRoute(),
               ),
               icon: Icon(Icons.settings),
             ),

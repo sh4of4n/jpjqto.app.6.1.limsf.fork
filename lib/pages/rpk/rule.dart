@@ -11,7 +11,7 @@ class RulePage extends StatefulWidget {
 
 class _RulePageState extends State<RulePage> {
   final etestingRepo = EtestingRepo();
-
+  var ruleList;
   Future? ruleFuture;
 
   @override
@@ -20,8 +20,20 @@ class _RulePageState extends State<RulePage> {
     getRule();
   }
 
-  void getRule() {
-    ruleFuture = etestingRepo.getRule(elementCode: 'RPK');
+  Future<void> getRule() async {
+    ruleFuture = etestingRepo.getRule(elementCode: 'PART3');
+    ruleList = await ruleFuture;
+  }
+
+  void updatePart3JpjTestResult() {
+    var a = {
+      'Result': [{}]
+    };
+    for (var element in ruleList.data) {
+      a['Result']![0][element.ruleCode] = element.isCheck == null || element.isCheck == false ? 0 : '1';
+    }
+
+    print(a);
   }
 
   @override
@@ -29,6 +41,16 @@ class _RulePageState extends State<RulePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('data'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              updatePart3JpjTestResult();
+            },
+            icon: Icon(
+              Icons.save,
+            ),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: ruleFuture,

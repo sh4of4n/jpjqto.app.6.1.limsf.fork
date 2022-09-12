@@ -101,3 +101,36 @@ class Rule {
     return data;
   }
 }
+
+class ResultRequest {
+  String? wsCodeCrypt;
+  String? caUid;
+  String? caPwd;
+  String? userId;
+  String? permitCode;
+
+  ResultRequest(
+      {this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.userId,
+      this.permitCode});
+
+  ResultRequest.fromJson(Map<String, dynamic> json) {
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    userId = json['userId'];
+    permitCode = json['permitCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wsCodeCrypt'] = this.wsCodeCrypt;
+    data['caUid'] = this.caUid;
+    data['caPwd'] = this.caPwd;
+    data['userId'] = this.userId;
+    data['permitCode'] = this.permitCode;
+    return data;
+  }
+}
