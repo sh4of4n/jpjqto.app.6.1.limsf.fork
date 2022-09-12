@@ -5,6 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
 import '../../common_library/services/repository/checklist_repository.dart';
+import '../../common_library/utils/uppercase_formatter.dart';
 import '../../utils/constants.dart';
 
 class ChecklistResultPage extends StatefulWidget {
@@ -68,6 +69,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                   children: [
                     FormBuilderTextField(
                       name: 'plateNo',
+                      inputFormatters: [UpperCaseTextFormatter()],
                       decoration: const InputDecoration(labelText: 'Plate No.'),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),

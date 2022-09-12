@@ -49,8 +49,8 @@ class _HomeSelectState extends State<HomeSelect> {
             // ),
             IconButton(
               onPressed: () => context.router.push(
-                // ProfileTab(),
-                RuleRoute(),
+                ProfileTab(),
+                // RuleRoute(),
               ),
               icon: Icon(Icons.settings),
             ),
@@ -67,7 +67,8 @@ class _HomeSelectState extends State<HomeSelect> {
                     HomeIcon(
                       component: CheckListRoute(),
                       image: imageConstant.checkList,
-                      name: AppLocalizations.of(context)!.translate('checklist'),
+                      name:
+                          AppLocalizations.of(context)!.translate('checklist'),
                     ),
                     SizedBox(
                       height: 8.0,

@@ -5,6 +5,7 @@ import '../response.dart';
 
 class BaseRepo {
   handleError(error, stackTrace) {
+    print(error);
     if (error is TimeoutException) {
       return Response(false,
           message: 'Connection timed out. Please try again.');

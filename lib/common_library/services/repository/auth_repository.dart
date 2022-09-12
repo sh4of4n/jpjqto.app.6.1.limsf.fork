@@ -268,7 +268,7 @@ class AuthRepo {
   }
 
   Future<Response> jpjQtoLoginWithMySikap({
-    required String userId,
+    required String mySikapId,
     required String permitCode,
   }) async {
     final String? caUid = await localStorage.getCaUid();
@@ -277,7 +277,7 @@ class AuthRepo {
     String? appVersion = await localStorage.getAppVersion();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&appId=$appId&permitCode=${permitCode.toUpperCase()}&userId=$userId&appVersion=$appVersion}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&appId=$appId&permitCode=$permitCode&mySikapId=$mySikapId&appVersion=$appVersion}';
 
     var response = await networking.getData(
       path: 'JpjQtoLoginWithMySikap?$path',
@@ -288,8 +288,9 @@ class AuthRepo {
       var responseData = loginResponse.result![0];
 
       if (responseData.result == 'True') {
-        localStorage.saveUserId(userId);
+        localStorage.saveUserId(responseData.userId!);
         localStorage.saveDiCode(permitCode);
+        localStorage.saveMerchantDbCode(permitCode);
         return response;
       }
     }
@@ -403,12 +404,12 @@ class AuthRepo {
 
     await localStorage.reset();
     // Hive.box('ws_url').clear();
-    if (type == 'CLEAR') {
-      Hive.box('telcoList').clear();
-      Hive.box('serviceList').clear();
-      // Hive.box('ws_url').delete('show_badge');
-      // Hive.box('inboxStorage').clear();
-    }
+    // if (type == 'CLEAR') {
+    //   Hive.box('telcoList').clear();
+    //   Hive.box('serviceList').clear();
+    //   // Hive.box('ws_url').delete('show_badge');
+    //   // Hive.box('inboxStorage').clear();
+    // }
     // Hive.box('emergencyContact').clear();
 
     /* await getWsUrl(

@@ -1,3 +1,9 @@
+10/09/2022 V.0.0.28
+ePandu ws 6.1.136.0
+- Enable keyin plate number in SKIM checklist
+- Login to MySikap
+
+
 25/08/2022 V.0.0.27
 ePandu ws 6.1.127.0
 - Fixed RPK button missing

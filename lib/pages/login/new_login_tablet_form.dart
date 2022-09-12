@@ -13,12 +13,13 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../common_library/utils/uppercase_formatter.dart';
 import '../../router.gr.dart';
 
-class NewLoginForm extends StatefulWidget {
+class NewLoginTabletForm extends StatefulWidget {
   @override
-  _NewLoginFormState createState() => _NewLoginFormState();
+  _NewLoginTabletFormState createState() => _NewLoginTabletFormState();
 }
 
-class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
+class _NewLoginTabletFormState extends State<NewLoginTabletForm>
+    with PageBaseClass {
   final authRepo = AuthRepo();
 
   final _formKey = GlobalKey<FormState>();
@@ -72,6 +73,19 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     // print('deviceId: ' + deviceId);
   }
 
+  // _getCurrentLocation() async {
+  //   await location.getCurrentLocation();
+
+  //   setState(() {
+  //     _latitude =
+  //         location.latitude != null ? location.latitude.toString() : '999';
+  //     _longitude =
+  //         location.longitude != null ? location.longitude.toString() : '999';
+  //   });
+
+  //   // print('$_latitude, $_longitude');
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,7 +109,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
       ),
       child: Padding(
         padding:
-            EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 20.0),
+            EdgeInsets.only(left: 50.w, right: 50.w, top: 48.h, bottom: 60.h),
         child: Form(
           key: _formKey,
           child: Column(
@@ -105,18 +119,21 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                 height: 35.h,
               ),
               TextFormField(
+                style: TextStyle(
+                  fontSize: 35.sp,
+                ),
                 focusNode: _phoneFocus,
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 16.0),
+                  contentPadding: EdgeInsets.symmetric(vertical: 40.h),
                   hintStyle: TextStyle(
                     color: primaryColor,
                   ),
                   labelText: 'IC/NO',
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
-                  prefixIcon: Icon(Icons.account_circle),
+                  prefixIcon: Icon(Icons.account_circle, size: 32),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(30),
@@ -142,29 +159,32 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                 },
               ),
               SizedBox(
-                height: 70.h,
+                height: 50.h,
               ),
               TextFormField(
-                focusNode: _passwordFocus,
+                style: TextStyle(
+                  fontSize: 35.sp,
+                ),
                 inputFormatters: [UpperCaseTextFormatter()],
+                focusNode: _passwordFocus,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 16.0),
+                  contentPadding: EdgeInsets.symmetric(vertical: 40.h),
                   hintStyle: TextStyle(color: primaryColor),
                   labelText: 'Permit Code',
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
-                  prefixIcon: Icon(Icons.lock),
-                  // suffixIcon: IconButton(
-                  //   icon: Icon(
-                  //       _obscureText ? Icons.visibility_off : Icons.visibility),
-                  //   onPressed: () {
-                  //     setState(
-                  //       () {
-                  //         _obscureText = !_obscureText;
-                  //       },
-                  //     );
-                  //   },
-                  // ),
+                  prefixIcon: Icon(Icons.lock, size: 32),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        _obscureText ? Icons.visibility_off : Icons.visibility),
+                    onPressed: () {
+                      setState(
+                        () {
+                          _obscureText = !_obscureText;
+                        },
+                      );
+                    },
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(30),
@@ -187,7 +207,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                 },
               ),
               SizedBox(
-                height: 60.h,
+                height: 40.h,
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
@@ -200,14 +220,14 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
               //         AppLocalizations.of(context)!
               //             .translate('forgot_password_lbl'),
               //         style: TextStyle(
-              //           fontSize: 56.sp,
+              //           fontSize: 35.sp,
               //         ),
               //       ),
               //     ),
               //   ],
               // ),
               // SizedBox(
-              //   height: 40.h,
+              //   height: 30.h,
               // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -225,29 +245,33 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                             )
                           : SizedBox.shrink(),
                       _loginButton(),
+                      // SizedBox(
+                      //   height: 40.h,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: <Widget>[
+                      //     InkWell(
+                      //       onTap: () {
+                      //         context.router.push(RegisterMobile());
+                      //       },
+                      //       child: Text(
+                      //         AppLocalizations.of(context)!
+                      //             .translate('sign_up_btn'),
+                      //         style: TextStyle(
+                      //           fontSize: 36.sp,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: 40.h,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     InkWell(
-              //       onTap: () {
-              //         context.router.push(RegisterMobile());
-              //       },
-              //       child: Text(
-              //         AppLocalizations.of(context)!.translate('sign_up_btn'),
-              //         style: TextStyle(
-              //           fontSize: 56.sp,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
+              SizedBox(
+                height: 40.h,
+              ),
             ],
           ),
         ),
@@ -262,8 +286,8 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
               color: primaryColor,
             )
           : ButtonTheme(
-              minWidth: 420.w,
-              padding: EdgeInsets.symmetric(vertical: 11.0),
+              minWidth: 250.w,
+              padding: EdgeInsets.symmetric(vertical: 20.h),
               buttonColor: primaryColor,
               shape: StadiumBorder(),
               child: ElevatedButton(
@@ -274,7 +298,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                 child: Text(
                   AppLocalizations.of(context)!.translate('login_btn'),
                   style: TextStyle(
-                    fontSize: 56.sp,
+                    fontSize: 35.sp,
                   ),
                 ),
               ),

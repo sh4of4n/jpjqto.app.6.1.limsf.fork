@@ -17,7 +17,7 @@ class ChecklistRepo {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwdEncode();
     String? userId = await localStorage.getUserId();
-    String? diCode = await localStorage.getMerchantDbCode();
+    String? diCode = await localStorage.getDiCode();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&checkType=$checkType';
@@ -66,9 +66,7 @@ class ChecklistRepo {
     var response =
         await networking.postData(api: api, body: body, headers: headers);
 
-    if (response.isSuccess &&
-        response.data != null &&
-        response.data.toString().toUpperCase() == 'TRUE') {
+    if (response.isSuccess && response.data != null) {
       GetCheckListResponse getCheckListResponse =
           GetCheckListResponse.fromJson(response.data);
       return Response(true, data: getCheckListResponse);
@@ -77,7 +75,6 @@ class ChecklistRepo {
   }
 
   Future<Response> updateJpjCheckListLitar({
-    required String plateNo,
     required String checkListJson,
   }) async {
     String? caUid = await localStorage.getCaUid();
@@ -92,7 +89,6 @@ class ChecklistRepo {
       userId: userId,
       diCode: diCode,
       checkListJson: checkListJson,
-      plateNo: plateNo,
     );
 
     String body = jsonEncode(params);
@@ -102,9 +98,7 @@ class ChecklistRepo {
     var response =
         await networking.postData(api: api, body: body, headers: headers);
 
-    if (response.isSuccess &&
-        response.data != null &&
-        response.data.toString().toUpperCase() == 'TRUE') {
+    if (response.isSuccess && response.data != null) {
       GetCheckListResponse getCheckListResponse =
           GetCheckListResponse.fromJson(response.data);
       return Response(true, data: getCheckListResponse);
@@ -112,9 +106,7 @@ class ChecklistRepo {
     return Response(false, message: '', data: []);
   }
 
-  
   Future<Response> updateJpjCheckListSistem({
-    required String plateNo,
     required String checkListJson,
   }) async {
     String? caUid = await localStorage.getCaUid();
@@ -129,7 +121,6 @@ class ChecklistRepo {
       userId: userId,
       diCode: diCode,
       checkListJson: checkListJson,
-      plateNo: plateNo,
     );
 
     String body = jsonEncode(params);
@@ -139,9 +130,7 @@ class ChecklistRepo {
     var response =
         await networking.postData(api: api, body: body, headers: headers);
 
-    if (response.isSuccess &&
-        response.data != null &&
-        response.data.toString().toUpperCase() == 'TRUE') {
+    if (response.isSuccess && response.data != null) {
       GetCheckListResponse getCheckListResponse =
           GetCheckListResponse.fromJson(response.data);
       return Response(true, data: getCheckListResponse);
@@ -149,7 +138,6 @@ class ChecklistRepo {
     return Response(false, message: '', data: []);
   }
 
-  
   Future<Response> getJpjCheckListSkim({
     required plateNo,
   }) async {
@@ -179,7 +167,6 @@ class ChecklistRepo {
     );
   }
 
-  
   Future<Response> getJpjCheckListLitar({
     required plateNo,
   }) async {
@@ -209,7 +196,6 @@ class ChecklistRepo {
     );
   }
 
-  
   Future<Response> getJpjCheckListSistem({
     required plateNo,
   }) async {

@@ -4650,7 +4650,6 @@ class AcceptOrderSlsTrn {
   }
 }
 
-
 class ResultResponse {
   List<Result>? result;
 
@@ -4676,16 +4675,19 @@ class ResultResponse {
 
 class Result {
   String? result;
+  String? userId;
 
-  Result({this.result});
+  Result({this.result, this.userId});
 
   Result.fromJson(Map<String, dynamic> json) {
     result = json['result'];
+    userId = json['user_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['result'] = this.result;
+    data['user_id'] = this.userId;
     return data;
   }
 }

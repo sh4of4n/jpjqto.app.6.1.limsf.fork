@@ -1,5 +1,6 @@
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/pages/login/new_login_form.dart';
+import 'package:jpj_qto/pages/login/new_login_tablet_form.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -151,7 +152,8 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 120.h,
                         ),
-                        LoginTabletForm(),
+                        // LoginTabletForm(),
+                        NewLoginTabletForm(),
                       ],
                     ),
                   ),

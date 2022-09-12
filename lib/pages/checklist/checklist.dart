@@ -12,6 +12,7 @@ import '../../common_library/services/model/checklist_model.dart';
 import '../../common_library/services/repository/checklist_repository.dart';
 import '../../common_library/utils/app_localizations.dart';
 import '../../common_library/utils/custom_dialog.dart';
+import '../../common_library/utils/uppercase_formatter.dart';
 import '../../utils/constants.dart';
 
 class CheckListPage extends StatefulWidget {
@@ -44,7 +45,28 @@ class _CheckListPageState extends State<CheckListPage> {
     return await checklistRepo.getCheckList(checkType: 'SISTEM');
   }
 
-  void updateJpjCheckListSkim() async {
+  Future updateJpjCheckListSkim(requestSkim) async {
+    var a = checklistRepo.updateJpjCheckListSkim(
+        checkListJson: jsonEncode(requestSkim.toJson()),
+        plateNo: _formKey.currentState?.fields['plateNo']!.value);
+    return a;
+  }
+
+  Future updateJpjCheckListLitar(requestLitar) async {
+    var a = checklistRepo.updateJpjCheckListLitar(
+      checkListJson: jsonEncode(requestLitar.toJson()),
+    );
+    return a;
+  }
+
+  Future updateJpjCheckListSistem(requestSystem) async {
+    var a = checklistRepo.updateJpjCheckListSistem(
+      checkListJson: jsonEncode(requestSystem.toJson()),
+    );
+    return a;
+  }
+
+  void updateJpjCheckList() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       checklistSkimArr = [];
       checklistLitarArr = [];
@@ -116,29 +138,39 @@ class _CheckListPageState extends State<CheckListPage> {
         jpjCheckList: checklistSystemArr,
       );
 
-      Future updateFuture = Future.wait([
-        checklistRepo.updateJpjCheckListSkim(
-            checkListJson: jsonEncode(requestSkim.toJson()),
-            plateNo: _formKey.currentState?.fields['plateNo']!.value),
-        checklistRepo.updateJpjCheckListLitar(
-            checkListJson: jsonEncode(requestLitar.toJson()),
-            plateNo: _formKey.currentState?.fields['plateNo']!.value),
-        checklistRepo.updateJpjCheckListSistem(
-            checkListJson: jsonEncode(requestSystem.toJson()),
-            plateNo: _formKey.currentState?.fields['plateNo']!.value),
+      var updateFuture = Future.wait([
+        updateJpjCheckListSkim(requestSkim),
+        updateJpjCheckListLitar(requestLitar),
+        updateJpjCheckListSistem(requestSystem),
       ]);
 
-      updateFuture.then((value) {
-        EasyLoading.dismiss();
+      try {
+        var updateResult = await updateFuture;
+        for (var element in updateResult) {
+          if (!element.isSuccess) {
+            await EasyLoading.dismiss();
+            const snackBar = SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text('Something went wrong'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            return;
+          }
+        }
+        await EasyLoading.dismiss();
         customDialog.show(
             context: context,
             content: AppLocalizations.of(context)!
                 .translate('checklist_updated_successfully'),
             type: DialogType.SUCCESS,
+            barrierDismissable: false,
             onPressed: () async {
-              context.router.popUntil((route) => route.settings.name == 'HomeSelect');
+              context.router
+                  .popUntil((route) => route.settings.name == 'HomeSelect');
             });
-      });
+      } catch (e) {
+        await EasyLoading.dismiss();
+      }
     }
   }
 
@@ -174,7 +206,7 @@ class _CheckListPageState extends State<CheckListPage> {
           ),
           IconButton(
             onPressed: () {
-              updateJpjCheckListSkim();
+              updateJpjCheckList();
             },
             icon: Icon(
               Icons.save,
@@ -195,6 +227,7 @@ class _CheckListPageState extends State<CheckListPage> {
                       key: _formKey,
                       child: FormBuilderTextField(
                         name: 'plateNo',
+                        inputFormatters: [UpperCaseTextFormatter()],
                         decoration:
                             const InputDecoration(labelText: 'Plate No.'),
                         validator: FormBuilderValidators.compose([
