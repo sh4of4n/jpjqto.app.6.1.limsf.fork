@@ -1,5 +1,5 @@
 13/09/2022 V.0.0.29
-ePandu ws 6.1.138.0
+ePandu ws 6.1.138.0 
 - Checklist - Update single category, instead of update all
             - Fixed typo
 
