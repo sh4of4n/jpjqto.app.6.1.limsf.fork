@@ -29,6 +29,9 @@ class _CheckListPageState extends State<CheckListPage> {
   List<JpjCheckListJson> checklistSkimArr = [];
   List<JpjCheckListJson> checklistLitarArr = [];
   List<JpjCheckListJson> checklistSystemArr = [];
+  bool skimCheck = false;
+  bool litarCheck = false;
+  bool sistemCheck = false;
 
   final _formKey = GlobalKey<FormBuilderState>();
   final customDialog = CustomDialog();
@@ -124,7 +127,8 @@ class _CheckListPageState extends State<CheckListPage> {
         ));
       }
 
-      EasyLoading.show(status: 'Updating...');
+      EasyLoading.show(
+          status: AppLocalizations.of(context)!.translate('updating'));
 
       JpjCheckListRequest requestSkim = JpjCheckListRequest(
         jpjCheckList: checklistSkimArr,
@@ -174,6 +178,194 @@ class _CheckListPageState extends State<CheckListPage> {
     }
   }
 
+  void updateJpjCheckListSkimA() async {
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      checklistSkimArr = [];
+
+      for (var element in checklist[0].data) {
+        if (element.mandatory == 'true' &&
+            (element.isCheck == null || element.isCheck == false)) {
+          customDialog.show(
+            context: context,
+            content: AppLocalizations.of(context)!
+                .translate('select_all_mandatory_field'),
+            type: DialogType.INFO,
+          );
+          return;
+        }
+        checklistSkimArr.add(JpjCheckListJson(
+          checkCode: element.checkCode,
+          status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+          remark: '',
+        ));
+      }
+
+      EasyLoading.show(
+          status: AppLocalizations.of(context)!.translate('updating'));
+
+      JpjCheckListRequest requestSkim = JpjCheckListRequest(
+        jpjCheckList: checklistSkimArr,
+      );
+
+      var updateFuture = await checklistRepo.updateJpjCheckListSkim(
+          checkListJson: jsonEncode(requestSkim.toJson()),
+          plateNo: _formKey.currentState?.fields['plateNo']!.value);
+
+      try {
+        if (!updateFuture.isSuccess) {
+          await EasyLoading.dismiss();
+          const snackBar = SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text('Something went wrong'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          return;
+        }
+
+        await EasyLoading.dismiss();
+        if (mounted) {
+          setState(() {
+            skimCheck = true;
+          });
+        }
+        customDialog.show(
+            context: context,
+            content: AppLocalizations.of(context)!
+                .translate('checklist_updated_successfully'),
+            type: DialogType.SUCCESS,
+            barrierDismissable: false,
+            onPressed: () async {
+              await context.router.pop();
+              // context.router
+              //     .popUntil((route) => route.settings.name == 'HomeSelect');
+            });
+      } catch (e) {
+        await EasyLoading.dismiss();
+      }
+    }
+  }
+
+  void updateJpjCheckListLitarA() async {
+    checklistLitarArr = [];
+
+    for (var element in checklist[1].data) {
+      if (element.mandatory == 'true' &&
+          (element.isCheck == null || element.isCheck == false)) {
+        customDialog.show(
+          context: context,
+          content: 'Please select all mandatory fields',
+          type: DialogType.INFO,
+        );
+        return;
+      }
+      checklistLitarArr.add(JpjCheckListJson(
+        checkCode: element.checkCode,
+        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+        remark: '',
+      ));
+    }
+
+    EasyLoading.show(
+        status: AppLocalizations.of(context)!.translate('updating'));
+
+    JpjCheckListRequest requestLitar = JpjCheckListRequest(
+      jpjCheckList: checklistLitarArr,
+    );
+
+    try {
+      var updateResult = await checklistRepo.updateJpjCheckListLitar(
+        checkListJson: jsonEncode(requestLitar.toJson()),
+      );
+      if (!updateResult.isSuccess) {
+        await EasyLoading.dismiss();
+        const snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text('Something went wrong'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+      }
+      await EasyLoading.dismiss();
+      if (mounted) {
+        setState(() {
+          litarCheck = true;
+        });
+      }
+      customDialog.show(
+          context: context,
+          content: AppLocalizations.of(context)!
+              .translate('checklist_updated_successfully'),
+          type: DialogType.SUCCESS,
+          barrierDismissable: false,
+          onPressed: () async {
+            await context.router.pop();
+          });
+    } catch (e) {
+      await EasyLoading.dismiss();
+    }
+  }
+
+  void updateJpjCheckListSistemA() async {
+    checklistSystemArr = [];
+
+    for (var element in checklist[2].data) {
+      if (element.mandatory == 'true' &&
+          (element.isCheck == null || element.isCheck == false)) {
+        customDialog.show(
+          context: context,
+          content: 'Please select all mandatory fields',
+          type: DialogType.INFO,
+        );
+        return;
+      }
+      checklistSystemArr.add(JpjCheckListJson(
+        checkCode: element.checkCode,
+        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+        remark: '',
+      ));
+    }
+
+    EasyLoading.show(
+        status: AppLocalizations.of(context)!.translate('updating'));
+
+    JpjCheckListRequest requestSystem = JpjCheckListRequest(
+      jpjCheckList: checklistSystemArr,
+    );
+
+    try {
+      var updateResult = await checklistRepo.updateJpjCheckListSistem(
+        checkListJson: jsonEncode(requestSystem.toJson()),
+      );
+
+      if (!updateResult.isSuccess) {
+        await EasyLoading.dismiss();
+        const snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text('Something went wrong'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+      }
+      await EasyLoading.dismiss();
+      if (mounted) {
+        setState(() {
+          sistemCheck = true;
+        });
+      }
+      customDialog.show(
+          context: context,
+          content: AppLocalizations.of(context)!
+              .translate('checklist_updated_successfully'),
+          type: DialogType.SUCCESS,
+          barrierDismissable: false,
+          onPressed: () async {
+            await context.router.pop();
+          });
+    } catch (e) {
+      await EasyLoading.dismiss();
+    }
+  }
+
   Future<void> storeChecklist() async {
     checklist = await _checklistFuture;
   }
@@ -204,249 +396,434 @@ class _CheckListPageState extends State<CheckListPage> {
               Icons.history,
             ),
           ),
-          IconButton(
-            onPressed: () {
-              updateJpjCheckList();
-            },
-            icon: Icon(
-              Icons.save,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     updateJpjCheckList();
+          //   },
+          //   icon: Icon(
+          //     Icons.save,
+          //   ),
+          // ),
         ],
       ),
       body: FutureBuilder(
         future: _checklistFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: FormBuilder(
-                      key: _formKey,
-                      child: FormBuilderTextField(
-                        name: 'plateNo',
-                        inputFormatters: [UpperCaseTextFormatter()],
-                        decoration:
-                            const InputDecoration(labelText: 'Plate No.'),
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                        ]),
-                      ),
+            return ExpandableTheme(
+              data: const ExpandableThemeData(
+                iconColor: Colors.blue,
+                useInkWell: true,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 16.0,
                     ),
-                  ),
-                  ExpandableNotifier(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                      ),
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          children: <Widget>[
-                            ScrollOnExpand(
-                              scrollOnExpand: true,
-                              scrollOnCollapse: false,
-                              child: ExpandablePanel(
-                                theme: const ExpandableThemeData(
-                                  headerAlignment:
-                                      ExpandablePanelHeaderAlignment.center,
-                                  tapBodyToCollapse: true,
-                                ),
-                                header: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    "SKIM",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                    ExpandableNotifier(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            children: <Widget>[
+                              ScrollOnExpand(
+                                scrollOnExpand: true,
+                                scrollOnCollapse: false,
+                                child: ExpandablePanel(
+                                  theme: const ExpandableThemeData(
+                                    headerAlignment:
+                                        ExpandablePanelHeaderAlignment.center,
+                                    tapBodyToCollapse: false,
                                   ),
-                                ),
-                                collapsed: SizedBox(),
-                                expanded: ListView(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  children: [
-                                    for (var item in checklist[0].data)
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.grey.shade400,
-                                              width: 1,
-                                            ),
+                                  header: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "SKIM",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        child: CheckboxListTile(
-                                          title: Text(item.checkDesc),
-                                          value: item.isCheck ?? false,
-                                          onChanged: (bool? value) {
-                                            setState(() {
-                                              item.isCheck = value;
-                                            });
+                                        Spacer(),
+                                        Builder(
+                                          builder: (context) {
+                                            var controller =
+                                                ExpandableController.of(context,
+                                                    required: true)!;
+                                            return skimCheck
+                                                ? ElevatedButton.icon(
+                                                    onPressed: () {
+                                                      if (!controller
+                                                          .expanded) {
+                                                        controller.toggle();
+                                                      }
+                                                      updateJpjCheckListSkimA();
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.check_circle,
+                                                    ),
+                                                    label: Text(AppLocalizations
+                                                            .of(context)!
+                                                        .translate('update')),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: Colors.green,
+                                                    ),
+                                                  )
+                                                : ElevatedButton(
+                                                    onPressed: () {
+                                                      if (!controller
+                                                          .expanded) {
+                                                        controller.toggle();
+                                                      }
+                                                      updateJpjCheckListSkimA();
+                                                    },
+                                                    child: Text(AppLocalizations
+                                                            .of(context)!
+                                                        .translate('update')),
+                                                  );
                                           },
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                  collapsed: SizedBox(),
+                                  expanded: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: FormBuilder(
+                                          key: _formKey,
+                                          child: FormBuilderTextField(
+                                            name: 'plateNo',
+                                            inputFormatters: [
+                                              UpperCaseTextFormatter()
+                                            ],
+                                            decoration: const InputDecoration(
+                                              labelText: 'Plate No.',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator:
+                                                FormBuilderValidators.compose([
+                                              FormBuilderValidators.required(),
+                                            ]),
+                                          ),
+                                        ),
                                       ),
-                                  ],
+                                      Divider(
+                                        height: 1,
+                                      ),
+                                      ListView.separated(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: checklist[0].data.length,
+                                        separatorBuilder:
+                                            (BuildContext context, int index) {
+                                          return Divider(
+                                            height: 1,
+                                          );
+                                        },
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return CheckboxListTile(
+                                            title: Text(checklist[0]
+                                                .data[index]
+                                                .checkDesc),
+                                            value: checklist[0]
+                                                    .data[index]
+                                                    .isCheck ??
+                                                false,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                checklist[0]
+                                                    .data[index]
+                                                    .isCheck = value;
+                                              });
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  builder: (_, collapsed, expanded) {
+                                    return Expandable(
+                                      collapsed: collapsed,
+                                      expanded: expanded,
+                                      theme: const ExpandableThemeData(
+                                          crossFadePoint: 0),
+                                    );
+                                  },
                                 ),
-                                builder: (_, collapsed, expanded) {
-                                  return Expandable(
-                                    collapsed: collapsed,
-                                    expanded: expanded,
-                                    theme: const ExpandableThemeData(
-                                        crossFadePoint: 0),
-                                  );
-                                },
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  ExpandableNotifier(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                      ),
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          children: <Widget>[
-                            ScrollOnExpand(
-                              scrollOnExpand: true,
-                              scrollOnCollapse: false,
-                              child: ExpandablePanel(
-                                theme: const ExpandableThemeData(
-                                  headerAlignment:
-                                      ExpandablePanelHeaderAlignment.center,
-                                  tapBodyToCollapse: true,
-                                ),
-                                header: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    "LITAR",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                    ExpandableNotifier(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            children: <Widget>[
+                              ScrollOnExpand(
+                                scrollOnExpand: true,
+                                scrollOnCollapse: false,
+                                child: ExpandablePanel(
+                                  theme: const ExpandableThemeData(
+                                    headerAlignment:
+                                        ExpandablePanelHeaderAlignment.center,
+                                    tapBodyToCollapse: false,
                                   ),
-                                ),
-                                collapsed: SizedBox(),
-                                expanded: ListView(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  children: [
-                                    for (var item in checklist[1].data)
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.grey.shade400,
-                                              width: 1,
-                                            ),
+                                  header: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "LITAR",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        child: CheckboxListTile(
-                                          title: Text(item.checkDesc),
-                                          value: item.isCheck ?? false,
-                                          onChanged: (bool? value) {
-                                            setState(() {
-                                              item.isCheck = value;
-                                            });
+                                        Spacer(),
+                                        Builder(
+                                          builder: (context) {
+                                            var controller =
+                                                ExpandableController.of(context,
+                                                    required: true)!;
+                                            return litarCheck
+                                                ? ElevatedButton.icon(
+                                                    onPressed: () {
+                                                      if (!controller
+                                                          .expanded) {
+                                                        controller.toggle();
+                                                      }
+                                                      updateJpjCheckListLitarA();
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.check_circle,
+                                                    ),
+                                                    label: Text(AppLocalizations
+                                                            .of(context)!
+                                                        .translate('update')),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: Colors.green,
+                                                    ),
+                                                  )
+                                                : ElevatedButton(
+                                                    onPressed: () {
+                                                      if (!controller
+                                                          .expanded) {
+                                                        controller.toggle();
+                                                      }
+                                                      updateJpjCheckListLitarA();
+                                                    },
+                                                    child: Text(AppLocalizations
+                                                            .of(context)!
+                                                        .translate('update')),
+                                                  );
                                           },
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                  collapsed: SizedBox(),
+                                  expanded: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      ListView.separated(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: checklist[1].data.length,
+                                        separatorBuilder:
+                                            (BuildContext context, int index) {
+                                          return Divider(
+                                            height: 1,
+                                          );
+                                        },
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return CheckboxListTile(
+                                            title: Text(checklist[1]
+                                                .data[index]
+                                                .checkDesc),
+                                            value: checklist[1]
+                                                    .data[index]
+                                                    .isCheck ??
+                                                false,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                checklist[1]
+                                                    .data[index]
+                                                    .isCheck = value;
+                                              });
+                                            },
+                                          );
+                                        },
                                       ),
-                                  ],
+                                    ],
+                                  ),
+                                  builder: (_, collapsed, expanded) {
+                                    return Expandable(
+                                      collapsed: collapsed,
+                                      expanded: expanded,
+                                      theme: const ExpandableThemeData(
+                                          crossFadePoint: 0),
+                                    );
+                                  },
                                 ),
-                                builder: (_, collapsed, expanded) {
-                                  return Expandable(
-                                    collapsed: collapsed,
-                                    expanded: expanded,
-                                    theme: const ExpandableThemeData(
-                                        crossFadePoint: 0),
-                                  );
-                                },
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  ExpandableNotifier(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                      ),
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          children: <Widget>[
-                            ScrollOnExpand(
-                              scrollOnExpand: true,
-                              scrollOnCollapse: false,
-                              child: ExpandablePanel(
-                                theme: const ExpandableThemeData(
-                                  headerAlignment:
-                                      ExpandablePanelHeaderAlignment.center,
-                                  tapBodyToCollapse: true,
-                                ),
-                                header: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    "SISTEM",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                    ExpandableNotifier(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            children: <Widget>[
+                              ScrollOnExpand(
+                                scrollOnExpand: true,
+                                scrollOnCollapse: false,
+                                child: ExpandablePanel(
+                                  theme: const ExpandableThemeData(
+                                    headerAlignment:
+                                        ExpandablePanelHeaderAlignment.center,
+                                    tapBodyToCollapse: false,
                                   ),
-                                ),
-                                collapsed: SizedBox(),
-                                expanded: ListView(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  children: [
-                                    for (var item in checklist[2].data)
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.grey.shade400,
-                                              width: 1,
-                                            ),
+                                  header: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "SISTEM",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        child: CheckboxListTile(
-                                          title: Text(item.checkDesc),
-                                          value: item.isCheck ?? false,
-                                          onChanged: (bool? value) {
-                                            setState(() {
-                                              item.isCheck = value;
-                                            });
+                                        Spacer(),
+                                        Builder(
+                                          builder: (context) {
+                                            var controller =
+                                                ExpandableController.of(context,
+                                                    required: true)!;
+                                            return sistemCheck
+                                                ? ElevatedButton.icon(
+                                                    onPressed: () {
+                                                      if (!controller
+                                                          .expanded) {
+                                                        controller.toggle();
+                                                      }
+                                                      updateJpjCheckListSistemA();
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.check_circle,
+                                                    ),
+                                                    label: Text(AppLocalizations
+                                                            .of(context)!
+                                                        .translate('update')),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: Colors.green,
+                                                    ),
+                                                  )
+                                                : ElevatedButton(
+                                                    onPressed: () {
+                                                      if (!controller
+                                                          .expanded) {
+                                                        controller.toggle();
+                                                      }
+                                                      updateJpjCheckListSistemA();
+                                                    },
+                                                    child: Text(AppLocalizations
+                                                            .of(context)!
+                                                        .translate('update')),
+                                                  );
                                           },
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                  collapsed: SizedBox(),
+                                  expanded: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      ListView.separated(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: checklist[2].data.length,
+                                        separatorBuilder:
+                                            (BuildContext context, int index) {
+                                          return Divider(
+                                            height: 1,
+                                          );
+                                        },
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return CheckboxListTile(
+                                            title: Text(checklist[2]
+                                                .data[index]
+                                                .checkDesc),
+                                            value: checklist[2]
+                                                    .data[index]
+                                                    .isCheck ??
+                                                false,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                checklist[2]
+                                                    .data[index]
+                                                    .isCheck = value;
+                                              });
+                                            },
+                                          );
+                                        },
                                       ),
-                                  ],
+                                    ],
+                                  ),
+                                  builder: (_, collapsed, expanded) {
+                                    return Expandable(
+                                      collapsed: collapsed,
+                                      expanded: expanded,
+                                      theme: const ExpandableThemeData(
+                                          crossFadePoint: 0),
+                                    );
+                                  },
                                 ),
-                                builder: (_, collapsed, expanded) {
-                                  return Expandable(
-                                    collapsed: collapsed,
-                                    expanded: expanded,
-                                    theme: const ExpandableThemeData(
-                                        crossFadePoint: 0),
-                                  );
-                                },
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 16.0,
+                    ),
+                  ],
+                ),
               ),
             );
           } else if (snapshot.hasError) {

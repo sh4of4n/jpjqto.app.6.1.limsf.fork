@@ -1,3 +1,8 @@
+13/09/2022 V.0.0.29
+ePandu ws 6.1.138.0
+- Checklist - Update single category, instead of update all
+            - Fixed typo
+
 10/09/2022 V.0.0.28
 ePandu ws 6.1.136.0
 - Enable keyin plate number in SKIM checklist

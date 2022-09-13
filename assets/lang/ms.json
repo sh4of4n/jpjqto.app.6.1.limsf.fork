@@ -642,8 +642,10 @@
   "call_tooltip": "Tekan panggilan untuk memanggil calon pelajar seterusnya.",
   "cancel_tooltip": "Tekan batal sekiranya pelajar belum sampai.",
   "qr_candidate_not_found": "Maklumat calon tidak dalam barisan.",
-  "checklist": "Senari Semak",
+  "checklist": "Senarai Semak",
   "checklist_result": "Hasil senarai semak",
   "select_all_mandatory_field": "Sila pilih semua medan wajib",
-  "checklist_updated_successfully": "Senarai semak berjaya dikemas kini"
+  "checklist_updated_successfully": "Senarai semak berjaya dikemas kini",
+  "updating": "Mengemaskini",
+  "update": "Kemas Kini" 
 }

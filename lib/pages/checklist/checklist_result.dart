@@ -110,6 +110,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                         child: Column(
                           children: [
                             ExpandableNotifier(
+                              initialExpanded: true,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0,
@@ -182,6 +183,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                               ),
                             ),
                             ExpandableNotifier(
+                              initialExpanded: true,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0,
@@ -254,6 +256,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                               ),
                             ),
                             ExpandableNotifier(
+                              initialExpanded: true,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0,

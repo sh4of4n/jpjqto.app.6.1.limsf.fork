@@ -644,5 +644,7 @@
   "checklist": "Checklist",
   "checklist_result": "Checklist Result",
   "select_all_mandatory_field": "Please select all mandatory fields",
-  "checklist_updated_successfully": "Checklist updated successfully"
+  "checklist_updated_successfully": "Checklist updated successfully",
+  "updating": "Updating",
+  "update": "Update"
 }
