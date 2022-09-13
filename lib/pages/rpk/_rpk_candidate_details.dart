@@ -283,11 +283,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     );
   }
 
-  void _onQRViewCreated(QRViewController qrController) {
+  Future<void> _onQRViewCreated(QRViewController qrController) async {
     setState(() {
       this.qrController = qrController;
     });
-
+    await qrController.resumeCamera();
     qrController.scannedDataStream.listen((scanData) async {
       await qrController.pauseCamera();
 

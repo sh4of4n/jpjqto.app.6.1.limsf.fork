@@ -1,3 +1,7 @@
+13/09/2022 V.0.0.30
+ePandu ws 6.1.138.0 
+- Fixed camera black screen
+
 13/09/2022 V.0.0.29
 ePandu ws 6.1.138.0 
 - Checklist - Update single category, instead of update all
