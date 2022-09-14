@@ -36,6 +36,8 @@ class _CheckListPageState extends State<CheckListPage> {
   final _formKey = GlobalKey<FormBuilderState>();
   final customDialog = CustomDialog();
 
+  ExpandableController expandableControllerSkim = ExpandableController();
+
   Future getCheclkListSkim() async {
     return await checklistRepo.getCheckList(checkType: 'SKIM');
   }
@@ -227,6 +229,9 @@ class _CheckListPageState extends State<CheckListPage> {
           setState(() {
             skimCheck = true;
           });
+        }
+        if (expandableControllerSkim.expanded) {
+          expandableControllerSkim.toggle();
         }
         customDialog.show(
             context: context,
@@ -422,6 +427,7 @@ class _CheckListPageState extends State<CheckListPage> {
                       height: 16.0,
                     ),
                     ExpandableNotifier(
+                      controller: expandableControllerSkim,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
@@ -471,7 +477,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                                     ),
                                                     label: Text(AppLocalizations
                                                             .of(context)!
-                                                        .translate('update')),
+                                                        .translate('updated')),
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       primary: Colors.green,
@@ -619,7 +625,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                                     ),
                                                     label: Text(AppLocalizations
                                                             .of(context)!
-                                                        .translate('update')),
+                                                        .translate('updated')),
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       primary: Colors.green,
@@ -744,7 +750,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                                     ),
                                                     label: Text(AppLocalizations
                                                             .of(context)!
-                                                        .translate('update')),
+                                                        .translate('updated')),
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       primary: Colors.green,

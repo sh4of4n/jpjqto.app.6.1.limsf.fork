@@ -21,7 +21,7 @@ class EtestingRepo {
     String? userId = await localStorage.getUserId();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&userId=$userId&diCode=$diCode&elementCode=$elementCode';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&userId=$userId&diCode=$diCode&elementCode=$elementCode';
 
     var response = await networking.getData(
       path: 'GetRule?$path',

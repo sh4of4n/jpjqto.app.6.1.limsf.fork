@@ -647,5 +647,9 @@
   "select_all_mandatory_field": "Sila pilih semua medan wajib",
   "checklist_updated_successfully": "Senarai semak berjaya dikemas kini",
   "updating": "Mengemaskini",
-  "update": "Kemas Kini" 
+  "updated": "Dikemas Kini",
+  "update": "Kemas Kini",
+  "logout_from_mysikap_and_app": "Log keluar dari mySikap dan aplikasi",
+  "logout_from_app_only": "Log keluar dari aplikasi sahaja",
+  "cancel": "Batalkan"
 }

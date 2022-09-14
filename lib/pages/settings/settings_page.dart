@@ -178,52 +178,120 @@ class _SettingsState extends State<Settings> {
   }
 
   _logout() {
-    customDialog.show(
-        context: context,
-        title: Text(AppLocalizations.of(context)!.translate('confirm_lbl')),
-        content: AppLocalizations.of(context)!.translate('confirm_log_out'),
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-            onPressed: () async {
-              // if (widget.data != null) widget.data.cancel();
-
-              setState(() {
-                _isLoading = true;
-              });
-
-              await context.router.pop();
-              // await authRepo.logout(context: context, type: 'CLEAR');
-              var result = await etestingRepo.updateMySikapStatusOut();
-              if (!result.isSuccess) {
-                const snackBar = SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  content: Text('Something went wrong'),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.translate('confirm_lbl')),
+          content:
+              Text(AppLocalizations.of(context)!.translate('confirm_log_out')),
+          scrollable: true,
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
                 setState(() {
-                  _isLoading = false;
+                  _isLoading = true;
                 });
-                return;
-              }
-              await context.router
-                  .pushAndPopUntil(Login(), predicate: (r) => false);
 
-              if (mounted) {
+                await context.router.pop();
+                var result = await etestingRepo.updateMySikapStatusOut();
+                if (!result.isSuccess) {
+                  const snackBar = SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    content: Text('Something went wrong'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  setState(() {
+                    _isLoading = false;
+                  });
+                  return;
+                }
+                await context.router
+                    .pushAndPopUntil(Login(), predicate: (r) => false);
+
+                if (mounted) {
+                  setState(() {
+                    _isLoading = false;
+                  });
+                }
+              },
+              child: Text(AppLocalizations.of(context)!
+                  .translate('logout_from_mysikap_and_app')),
+            ),
+            TextButton(
+              onPressed: () async {
                 setState(() {
-                  _isLoading = false;
+                  _isLoading = true;
                 });
-              }
-            },
-          ),
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-            onPressed: () {
-              context.router.pop();
-            },
-          ),
-        ],
-        type: DialogType.GENERAL);
+
+                await context.router.pop();
+                await localStorage.reset();
+                await context.router
+                    .pushAndPopUntil(Login(), predicate: (r) => false);
+
+                if (mounted) {
+                  setState(() {
+                    _isLoading = false;
+                  });
+                }
+              },
+              child: Text(AppLocalizations.of(context)!
+                  .translate('logout_from_app_only')),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: Text(AppLocalizations.of(context)!.translate('cancel')),
+            ),
+          ],
+        );
+      },
+    );
+    // customDialog.show(
+    //     context: context,
+    //     title: Text(AppLocalizations.of(context)!.translate('confirm_lbl')),
+    //     content: AppLocalizations.of(context)!.translate('confirm_log_out'),
+    //     customActions: <Widget>[
+    //       TextButton(
+    //         child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+    //         onPressed: () async {
+    //           // if (widget.data != null) widget.data.cancel();
+
+    //           setState(() {
+    //             _isLoading = true;
+    //           });
+
+    //           await context.router.pop();
+    //           // await authRepo.logout(context: context, type: 'CLEAR');
+    //           var result = await etestingRepo.updateMySikapStatusOut();
+    //           if (!result.isSuccess) {
+    //             const snackBar = SnackBar(
+    //               behavior: SnackBarBehavior.floating,
+    //               content: Text('Something went wrong'),
+    //             );
+    //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    //             setState(() {
+    //               _isLoading = false;
+    //             });
+    //             return;
+    //           }
+    //           await context.router
+    //               .pushAndPopUntil(Login(), predicate: (r) => false);
+
+    //           if (mounted) {
+    //             setState(() {
+    //               _isLoading = false;
+    //             });
+    //           }
+    //         },
+    //       ),
+    //       TextButton(
+    //         child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+    //         onPressed: () {
+    //           context.router.pop();
+    //         },
+    //       ),
+    //     ],
+    //     type: DialogType.GENERAL);
   }
 
   _deleteAccount() async {

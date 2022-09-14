@@ -1,3 +1,7 @@
+13/09/2022 V.0.0.31
+ePandu ws 6.1.139.0 
+- Logout - Can select want logout from mySikap or app only
+
 13/09/2022 V.0.0.30
 ePandu ws 6.1.138.0 
 - Fixed camera black screen

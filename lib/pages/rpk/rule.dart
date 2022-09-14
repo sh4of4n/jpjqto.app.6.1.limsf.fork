@@ -21,7 +21,7 @@ class _RulePageState extends State<RulePage> {
   }
 
   Future<void> getRule() async {
-    ruleFuture = etestingRepo.getRule(elementCode: 'PART3');
+    ruleFuture = etestingRepo.getRule(elementCode: 'RPK');
     ruleList = await ruleFuture;
   }
 

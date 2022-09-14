@@ -646,5 +646,9 @@
   "select_all_mandatory_field": "Please select all mandatory fields",
   "checklist_updated_successfully": "Checklist updated successfully",
   "updating": "Updating",
-  "update": "Update"
+  "updated": "Updated",
+  "update": "Update",
+  "logout_from_mysikap_and_app": "Logout from mySikap and app",
+  "logout_from_app_only": "Logout from app only",
+  "cancel": "Cancel"
 }
