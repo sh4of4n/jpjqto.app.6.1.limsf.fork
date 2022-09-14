@@ -541,9 +541,19 @@ class _CheckListPageState extends State<CheckListPage> {
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return CheckboxListTile(
-                                            title: Text(checklist[0]
-                                                .data[index]
-                                                .checkDesc),
+                                            title: Text(
+                                              checklist[0]
+                                                  .data[index]
+                                                  .checkDesc,
+                                              style: TextStyle(
+                                                fontWeight: checklist[0]
+                                                            .data[index]
+                                                            .mandatory ==
+                                                        'false'
+                                                    ? FontWeight.normal
+                                                    : FontWeight.bold,
+                                              ),
+                                            ),
                                             value: checklist[0]
                                                     .data[index]
                                                     .isCheck ??
@@ -666,9 +676,19 @@ class _CheckListPageState extends State<CheckListPage> {
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return CheckboxListTile(
-                                            title: Text(checklist[1]
-                                                .data[index]
-                                                .checkDesc),
+                                            title: Text(
+                                              checklist[1]
+                                                  .data[index]
+                                                  .checkDesc,
+                                              style: TextStyle(
+                                                fontWeight: checklist[1]
+                                                            .data[index]
+                                                            .mandatory ==
+                                                        'false'
+                                                    ? FontWeight.normal
+                                                    : FontWeight.bold,
+                                              ),
+                                            ),
                                             value: checklist[1]
                                                     .data[index]
                                                     .isCheck ??
@@ -791,9 +811,19 @@ class _CheckListPageState extends State<CheckListPage> {
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return CheckboxListTile(
-                                            title: Text(checklist[2]
-                                                .data[index]
-                                                .checkDesc),
+                                            title: Text(
+                                              checklist[2]
+                                                  .data[index]
+                                                  .checkDesc,
+                                              style: TextStyle(
+                                                fontWeight: checklist[2]
+                                                            .data[index]
+                                                            .mandatory ==
+                                                        'false'
+                                                    ? FontWeight.normal
+                                                    : FontWeight.bold,
+                                              ),
+                                            ),
                                             value: checklist[2]
                                                     .data[index]
                                                     .isCheck ??

@@ -191,14 +191,14 @@ class _Part3MainState extends State<RpkPartIII> {
           title: Text('RPK'),
           automaticallyImplyLeading: false,
           actions: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    isVisible = false;
-                  });
-                  // context.router.push(RuleRoute());
-                },
-                icon: Icon(Icons.abc_outlined))
+            // IconButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         isVisible = false;
+            //       });
+            //       // context.router.push(RuleRoute());
+            //     },
+            //     icon: Icon(Icons.abc_outlined))
           ],
         ),
         /*appBar: AppBar(
@@ -286,95 +286,105 @@ class _Part3MainState extends State<RpkPartIII> {
                                                       .center,
                                               tapBodyToCollapse: true,
                                             ),
-                                            header: Padding(
-                                              padding: EdgeInsets.all(10),
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    "SKIM",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  Spacer(),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 25,
-                                                              top: 5),
-                                                      child: Wrap(
-                                                        children: <Widget>[
-                                                          Transform.scale(
-                                                            scale: 1.3,
-                                                            child: Checkbox(
-                                                              checkColor:
-                                                                  Colors.black,
-                                                              activeColor:
-                                                                  Colors.white,
-                                                              value: checkAll,
-                                                              onChanged: (bool?
-                                                                  value) {
-                                                                if (value!) {
-                                                                  setState(() {
-                                                                    checkAll =
-                                                                        true;
-                                                                    for (var element
-                                                                        in ruleList) {
-                                                                      element.isCheck =
-                                                                          true;
-                                                                    }
-                                                                  });
-                                                                } else {
-                                                                  checkAll =
-                                                                      false;
-                                                                  setState(() {
-                                                                    for (var element
-                                                                        in ruleList) {
-                                                                      element.isCheck =
-                                                                          false;
-                                                                    }
-                                                                  });
-                                                                }
-                                                                var a = ruleList
-                                                                    .where((c) =>
-                                                                        c.isCheck ==
-                                                                        true)
-                                                                    .length;
-                                                                print(a);
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
+                                            header: Container(
+                                              color: ColorConstant.primaryColor,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      "SKIM",
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 30,
-                                                              top: 5),
-                                                      child: Container(
-                                                        child: Text(
-                                                          '${ruleList.where((c) => c.isCheck == true).length}/24',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                    Spacer(),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerRight,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 25,
+                                                                top: 5),
+                                                        child: Wrap(
+                                                          children: <Widget>[
+                                                            Transform.scale(
+                                                              scale: 1.3,
+                                                              child: Checkbox(
+                                                                checkColor:
+                                                                    Colors
+                                                                        .black,
+                                                                activeColor:
+                                                                    Colors
+                                                                        .white,
+                                                                value: checkAll,
+                                                                onChanged:
+                                                                    (bool?
+                                                                        value) {
+                                                                  if (value!) {
+                                                                    setState(
+                                                                        () {
+                                                                      checkAll =
+                                                                          true;
+                                                                      for (var element
+                                                                          in ruleList) {
+                                                                        element.isCheck =
+                                                                            true;
+                                                                      }
+                                                                    });
+                                                                  } else {
+                                                                    checkAll =
+                                                                        false;
+                                                                    setState(
+                                                                        () {
+                                                                      for (var element
+                                                                          in ruleList) {
+                                                                        element.isCheck =
+                                                                            false;
+                                                                      }
+                                                                    });
+                                                                  }
+                                                                  var a = ruleList
+                                                                      .where((c) =>
+                                                                          c.isCheck ==
+                                                                          true)
+                                                                      .length;
+                                                                  print(a);
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     ),
-                                                  )
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerRight,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 30,
+                                                                top: 5),
+                                                        child: Container(
+                                                          child: Text(
+                                                            '${ruleList.where((c) => c.isCheck == true).length}/24',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             collapsed: SizedBox(),
@@ -539,13 +549,7 @@ class _Part3MainState extends State<RpkPartIII> {
                           );
                         } else {
                           return Center(
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    getRule();
-                                  });
-                                },
-                                child: Text('data')),
+                            child: CircularProgressIndicator(),
                           );
                         }
                       },

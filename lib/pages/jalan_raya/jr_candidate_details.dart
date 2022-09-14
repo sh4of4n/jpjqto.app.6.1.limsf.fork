@@ -47,6 +47,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   String? testCode = '';
   String? vehNo = '';
   String? merchantNo = '';
+  String? kewarganegaraan = '';
 
   List<dynamic>? candidateList = [];
   var selectedCandidate;
@@ -81,6 +82,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           candidateList = [];
           nric = '';
           name = '';
+          kewarganegaraan = '';
         });
         customDialog.show(
           context: context,
@@ -105,6 +107,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         setState(() {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
+          kewarganegaraan = candidateList![i].nationality;
         });
 
         break;
@@ -158,6 +161,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     setState(() {
                       this.name = candidateList![i].fullname;
                       this.qNo = candidateList![i].queueNo;
+                      kewarganegaraan = candidateList![i].nationality;
                     });
 
                     if (success > 0)
@@ -605,6 +609,18 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
                               child: Text(name!, style: textStyle),
+                            ),
+                          ]),
+                          TableRow(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text('KEWARGANEGARAAN',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textStyle),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(kewarganegaraan!, style: textStyle),
                             ),
                           ]),
                         ],

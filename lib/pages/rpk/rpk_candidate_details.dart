@@ -580,11 +580,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           TableRow(children: [
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child:
-                                    Text('KEWARGANEGARAAN', style: textStyle),
-                              ),
+                              child: Text('KEWARGANEGARAAN',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textStyle),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),

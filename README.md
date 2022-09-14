@@ -1,6 +1,8 @@
-13/09/2022 V.0.0.31
-ePandu ws 6.1.139.0 
+14/09/2022 V.0.0.31
+ePandu ws 6.1.140.0 
 - Logout - Can select want logout from mySikap or app only
+- Get the element from mySikap
+- Update for part 3 new rules  jpj test result
 
 13/09/2022 V.0.0.30
 ePandu ws 6.1.138.0 
