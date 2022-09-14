@@ -48,12 +48,16 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   String? testCode = '';
   String? vehNo = '';
   String? merchantNo = '';
+  String? icPhoto = '';
 
   List<dynamic>? candidateList = [];
   var selectedCandidate;
 
   bool isLoading = false;
   int success = 0;
+
+  final RegExp removeBracket =
+      RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
   @override
   void initState() {
@@ -101,6 +105,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
           kewarganegaraan = candidateList![i].nationality;
+          icPhoto = candidateList![i].icPhotoFilename != null &&
+                  candidateList![i].icPhotoFilename.isNotEmpty
+              ? candidateList![i]
+                  .icPhotoFilename
+                  .replaceAll(removeBracket, '')
+                  .split('\r\n')[0]
+              : '';
         });
 
         break;
@@ -154,6 +165,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                       name = candidateList![i].fullname;
                       qNo = candidateList![i].queueNo;
                       kewarganegaraan = candidateList![i].nationality;
+                      icPhoto = candidateList![i].icPhotoFilename != null &&
+                              candidateList![i].icPhotoFilename.isNotEmpty
+                          ? candidateList![i]
+                              .icPhotoFilename
+                              .replaceAll(removeBracket, '')
+                              .split('\r\n')[0]
+                          : '';
                     });
 
                     if (success > 0)
@@ -518,6 +536,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                     //       fontWeight: FontWeight.bold, fontSize: 250.sp),
                     // ),
                     SizedBox(height: 50.h),
+                    // Image.network(icPhoto!),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 150.w),
                       child: Table(
@@ -537,6 +556,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           ),
                         ],
                       ), */
+
                           TableRow(children: [
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -557,20 +577,20 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                               child: Text(name!, style: textStyle),
                             ),
                           ]),
-                          // TableRow(children: [
-                          //   Padding(
-                          //     padding: EdgeInsets.symmetric(vertical: 10.h),
-                          //     child: FittedBox(
-                          //       fit: BoxFit.fitWidth,
-                          //       child:
-                          //           Text('KEWARGANEGARAAN', style: textStyle),
-                          //     ),
-                          //   ),
-                          //   Padding(
-                          //     padding: EdgeInsets.symmetric(vertical: 10.h),
-                          //     child: Text(kewarganegaraan!, style: textStyle),
-                          //   ),
-                          // ]),
+                          TableRow(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child:
+                                    Text('KEWARGANEGARAAN', style: textStyle),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(kewarganegaraan!, style: textStyle),
+                            ),
+                          ]),
                         ],
                       ),
                     ),

@@ -2716,8 +2716,7 @@ class GetRpkAvailableToCallJpjTestListResponse {
 
   GetRpkAvailableToCallJpjTestListResponse({this.jpjTestTrn});
 
-  GetRpkAvailableToCallJpjTestListResponse.fromJson(
-      Map<String, dynamic> json) {
+  GetRpkAvailableToCallJpjTestListResponse.fromJson(Map<String, dynamic> json) {
     if (json['JpjTestTrn'] != null) {
       jpjTestTrn =
           new List<GetPart3AvailableToCallJpjTestTrn>.empty(growable: true);
@@ -2773,6 +2772,7 @@ class GetPart3AvailableToCallJpjTestTrn {
   String? compCode;
   String? branchCode;
   String? deleted;
+  String? icPhotoFilename;
 
   GetPart3AvailableToCallJpjTestTrn(
       {this.iD,
@@ -2810,7 +2810,8 @@ class GetPart3AvailableToCallJpjTestTrn {
       this.lastupload,
       this.compCode,
       this.branchCode,
-      this.deleted});
+      this.deleted,
+      this.icPhotoFilename});
 
   GetPart3AvailableToCallJpjTestTrn.fromJson(Map<String, dynamic> json) {
     iD = json['ID'];
@@ -2849,6 +2850,7 @@ class GetPart3AvailableToCallJpjTestTrn {
     compCode = json['comp_code'];
     branchCode = json['branch_code'];
     deleted = json['deleted'];
+    icPhotoFilename = json['ic_photo_filename'];
   }
 
   Map<String, dynamic> toJson() {
@@ -2889,6 +2891,7 @@ class GetPart3AvailableToCallJpjTestTrn {
     data['comp_code'] = this.compCode;
     data['branch_code'] = this.branchCode;
     data['deleted'] = this.deleted;
+    data['ic_photo_filename'] = this.icPhotoFilename;
     return data;
   }
 }
@@ -2945,7 +2948,6 @@ class CallPart3JpjTestRequest {
     return data;
   }
 }
-
 
 class CallRpkJpjTestRequest {
   String? wsCodeCrypt;
@@ -3202,7 +3204,6 @@ class CallPart3JpjTestTrn {
     return data;
   }
 }
-
 
 class CallRpkJpjTestTrn {
   String? iD;
@@ -3662,7 +3663,6 @@ class CancelCallPart3JpjTestTrn {
   }
 }
 
-
 class CancelCallRpkJpjTestTrn {
   String? iD;
   String? testDate;
@@ -3876,7 +3876,6 @@ class UpdatePart3JpjTestResultRequest {
     return data;
   }
 }
-
 
 class UpdateRpkJpjTestResultRequest {
   String? wsCodeCrypt;
