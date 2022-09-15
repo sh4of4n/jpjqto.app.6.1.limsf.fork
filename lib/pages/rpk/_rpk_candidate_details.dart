@@ -125,6 +125,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             groupId: this.groupId,
             testDate: testDate,
             testCode: this.testCode,
+            icPhoto: '',
           ),
         )
             .then((value) {
@@ -193,6 +194,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           groupId: groupId,
           testDate: testDate,
           testCode: testCode,
+          icPhoto: '',
         ),
       );
     } else {

@@ -19,6 +19,7 @@ class ConfirmCandidateInfo extends StatefulWidget {
   final String? groupId;
   final String? testDate;
   final String? testCode;
+  final String icPhoto;
 
   ConfirmCandidateInfo({
     required this.part3Type,
@@ -28,6 +29,7 @@ class ConfirmCandidateInfo extends StatefulWidget {
     required this.groupId,
     required this.testDate,
     required this.testCode,
+    required this.icPhoto,
   });
 
   @override
@@ -246,6 +248,11 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                 children: [
                   SizedBox(height: 30.h),
                   Text('Q-NO', style: TextStyle(fontSize: 100.sp)),
+                  widget.icPhoto == ''
+                      ? SizedBox()
+                      : Image.network(
+                          widget.icPhoto,
+                        ),
                   Text(
                     widget.qNo!,
                     style: TextStyle(fontSize: 200.sp),

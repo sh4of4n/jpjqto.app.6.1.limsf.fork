@@ -48,9 +48,13 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   String? vehNo = '';
   String? merchantNo = '';
   String? kewarganegaraan = '';
+  String icPhoto = '';
 
   List<dynamic>? candidateList = [];
   var selectedCandidate;
+
+  final RegExp removeBracket =
+      RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
   bool isLoading = false;
   int success = 0;
@@ -83,6 +87,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           nric = '';
           name = '';
           kewarganegaraan = '';
+          icPhoto = '';
         });
         customDialog.show(
           context: context,
@@ -108,6 +113,14 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
           kewarganegaraan = candidateList![i].nationality;
+          icPhoto = candidateList![i].icPhotoFilename != null &&
+                  candidateList![i].icPhotoFilename.isNotEmpty
+              ? candidateList![i]
+                  .icPhotoFilename
+                  .replaceAll(removeBracket, '')
+                  .split('\r\n')[0]
+              : '';
+          groupId = candidateList![i].groupId;
         });
 
         break;
@@ -137,6 +150,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
             groupId: this.groupId,
             testDate: testDate,
             testCode: this.testCode,
+            icPhoto: icPhoto,
           ),
         )
             .then((value) {
@@ -182,6 +196,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                         groupId: this.groupId,
                         testDate: testDate,
                         testCode: this.testCode,
+                        icPhoto: icPhoto,
                       ),
                     )
                         .then((value) {
@@ -572,60 +587,120 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     //       fontWeight: FontWeight.bold, fontSize: 250.sp),
                     // ),
                     SizedBox(height: 50.h),
+
+                    icPhoto == '' ? SizedBox() : Image.network(icPhoto!),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 150.w),
-                      child: Table(
-                        // border: TableBorder.all(),
-                        columnWidths: {0: FractionColumnWidth(.30)},
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 150.w,
+                        vertical: 8.0,
+                      ),
+                      child: Row(
                         children: [
-                          /* TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.h),
-                            child: Text('Q-NO',
-                                textAlign: TextAlign.center, style: textStyle),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'NRIC',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  nric!,
+                                  style: textStyle,
+                                ),
+                                Text(
+                                  'NAMA',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  name!,
+                                  style: textStyle,
+                                ),
+                                Text(
+                                  'KEWARGANEGARAAN',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  kewarganegaraan!,
+                                  style: textStyle,
+                                ),
+                                Text(
+                                  'GROUP ID',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  groupId!,
+                                  style: textStyle,
+                                ),
+                              ],
+                            ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.h),
-                            child: Text(qNo, style: textStyle),
-                          ),
-                        ],
-                      ), */
-                          TableRow(children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text('NRIC', style: textStyle),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(nric!, style: textStyle),
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text('NAMA', style: textStyle),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(name!, style: textStyle),
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text('KEWARGANEGARAAN',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: textStyle),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Text(kewarganegaraan!, style: textStyle),
-                            ),
-                          ]),
                         ],
                       ),
                     ),
+
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 150.w),
+                    //   child: Table(
+                    //     // border: TableBorder.all(),
+                    //     columnWidths: {0: FractionColumnWidth(.30)},
+                    //     children: [
+                    //       /* TableRow(
+                    //     children: [
+                    //       Padding(
+                    //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //         child: Text('Q-NO',
+                    //             textAlign: TextAlign.center, style: textStyle),
+                    //       ),
+                    //       Padding(
+                    //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //         child: Text(qNo, style: textStyle),
+                    //       ),
+                    //     ],
+                    //   ), */
+                    //       TableRow(children: [
+                    //         Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //           child: Text('NRIC', style: textStyle),
+                    //         ),
+                    //         Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //           child: Text(nric!, style: textStyle),
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //           child: Text('NAMA', style: textStyle),
+                    //         ),
+                    //         Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //           child: Text(name!, style: textStyle),
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //           child: Text('KEWARGANEGARAAN',
+                    //               overflow: TextOverflow.ellipsis,
+                    //               style: textStyle),
+                    //         ),
+                    //         Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                    //           child: Text(kewarganegaraan!, style: textStyle),
+                    //         ),
+                    //       ]),
+                    //     ],
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [

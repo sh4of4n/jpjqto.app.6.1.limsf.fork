@@ -1,3 +1,7 @@
+15/09/2022 V.0.0.32
+ePandu ws 6.1.141.0 
+- Show calon IC photo
+
 14/09/2022 V.0.0.31
 ePandu ws 6.1.140.0 
 - Logout - Can select want logout from mySikap or app only

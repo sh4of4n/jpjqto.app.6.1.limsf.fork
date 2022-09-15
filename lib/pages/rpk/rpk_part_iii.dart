@@ -268,245 +268,240 @@ class _Part3MainState extends State<RpkPartIII> {
                           if (snapshot.data.isSuccess) {
                             return SingleChildScrollView(
                               child: ExpandableNotifier(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0,
-                                  ),
-                                  child: Card(
-                                    clipBehavior: Clip.antiAlias,
-                                    child: Column(
-                                      children: <Widget>[
-                                        ScrollOnExpand(
-                                          scrollOnExpand: true,
-                                          scrollOnCollapse: false,
-                                          child: ExpandablePanel(
-                                            theme: const ExpandableThemeData(
-                                              headerAlignment:
-                                                  ExpandablePanelHeaderAlignment
-                                                      .center,
-                                              tapBodyToCollapse: true,
-                                            ),
-                                            header: Container(
-                                              color: ColorConstant.primaryColor,
-                                              child: Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      "SKIM",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                child: Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: Column(
+                                    children: <Widget>[
+                                      ScrollOnExpand(
+                                        scrollOnExpand: true,
+                                        scrollOnCollapse: false,
+                                        child: ExpandablePanel(
+                                          theme: const ExpandableThemeData(
+                                            headerAlignment:
+                                                ExpandablePanelHeaderAlignment
+                                                    .center,
+                                            tapBodyToCollapse: true,
+                                          ),
+                                          header: Container(
+                                            color: ColorConstant.primaryColor,
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "SKIM",
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
-                                                    Spacer(),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 25,
-                                                                top: 5),
-                                                        child: Wrap(
-                                                          children: <Widget>[
-                                                            Transform.scale(
-                                                              scale: 1.3,
-                                                              child: Checkbox(
-                                                                checkColor:
-                                                                    Colors
-                                                                        .black,
-                                                                activeColor:
-                                                                    Colors
-                                                                        .white,
-                                                                value: checkAll,
-                                                                onChanged:
-                                                                    (bool?
-                                                                        value) {
-                                                                  if (value!) {
-                                                                    setState(
-                                                                        () {
-                                                                      checkAll =
-                                                                          true;
-                                                                      for (var element
-                                                                          in ruleList) {
-                                                                        element.isCheck =
-                                                                            true;
-                                                                      }
-                                                                    });
-                                                                  } else {
+                                                  ),
+                                                  Spacer(),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                                  .only(
+                                                              right: 25,
+                                                              top: 5),
+                                                      child: Wrap(
+                                                        children: <Widget>[
+                                                          Transform.scale(
+                                                            scale: 1.3,
+                                                            child: Checkbox(
+                                                              checkColor:
+                                                                  Colors
+                                                                      .black,
+                                                              activeColor:
+                                                                  Colors
+                                                                      .white,
+                                                              value: checkAll,
+                                                              onChanged:
+                                                                  (bool?
+                                                                      value) {
+                                                                if (value!) {
+                                                                  setState(
+                                                                      () {
                                                                     checkAll =
-                                                                        false;
-                                                                    setState(
-                                                                        () {
-                                                                      for (var element
-                                                                          in ruleList) {
-                                                                        element.isCheck =
-                                                                            false;
-                                                                      }
-                                                                    });
-                                                                  }
-                                                                  var a = ruleList
-                                                                      .where((c) =>
-                                                                          c.isCheck ==
-                                                                          true)
-                                                                      .length;
-                                                                  print(a);
-                                                                },
-                                                              ),
+                                                                        true;
+                                                                    for (var element
+                                                                        in ruleList) {
+                                                                      element.isCheck =
+                                                                          true;
+                                                                    }
+                                                                  });
+                                                                } else {
+                                                                  checkAll =
+                                                                      false;
+                                                                  setState(
+                                                                      () {
+                                                                    for (var element
+                                                                        in ruleList) {
+                                                                      element.isCheck =
+                                                                          false;
+                                                                    }
+                                                                  });
+                                                                }
+                                                                var a = ruleList
+                                                                    .where((c) =>
+                                                                        c.isCheck ==
+                                                                        true)
+                                                                    .length;
+                                                                print(a);
+                                                              },
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 30,
-                                                                top: 5),
-                                                        child: Container(
-                                                          child: Text(
-                                                            '${ruleList.where((c) => c.isCheck == true).length}/24',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
                                                           ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            collapsed: SizedBox(),
-                                            expanded: ListView(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  NeverScrollableScrollPhysics(),
-                                              children: [
-                                                for (int i = 0;
-                                                    i < ruleList.length;
-                                                    i++)
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      border: Border(
-                                                        bottom: BorderSide(
-                                                          color: Colors
-                                                              .grey.shade400,
-                                                          width: 1,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          if (snapshot
-                                                                      .data
-                                                                      .data[i]
-                                                                      .isCheck ==
-                                                                  null ||
-                                                              snapshot
-                                                                      .data
-                                                                      .data[i]
-                                                                      .isCheck ==
-                                                                  false) {
-                                                            snapshot
-                                                                .data
-                                                                .data[i]
-                                                                .isCheck = true;
-                                                          } else {
-                                                            snapshot
-                                                                    .data
-                                                                    .data[i]
-                                                                    .isCheck =
-                                                                false;
-                                                          }
-                                                        });
-                                                      },
-                                                      child: Table(
-                                                        columnWidths: {
-                                                          0: FlexColumnWidth(
-                                                              10.0),
-                                                          1: FlexColumnWidth(
-                                                              1.5),
-                                                        },
-                                                        children: [
-                                                          TableRow(children: [
-                                                            Container(
-                                                              child: Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerLeft,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            10,
-                                                                        bottom:
-                                                                            10,
-                                                                        top:
-                                                                            10),
-                                                                    child: Text(
-                                                                        '${i + 1}. ${snapshot.data.data[i].ruleDesc}'),
-                                                                  )),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right: 12,
-                                                                      top: 8),
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .black)),
-                                                                child: Center(
-                                                                    child:
-                                                                        Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          2.0),
-                                                                  child: Text(snapshot.data.data[i].isCheck ==
-                                                                              null ||
-                                                                          snapshot.data.data[i].isCheck ==
-                                                                              false
-                                                                      ? '0'
-                                                                      : '1'),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ]),
                                                         ],
                                                       ),
                                                     ),
                                                   ),
-                                              ],
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                                  .only(
+                                                              right: 30,
+                                                              top: 5),
+                                                      child: Container(
+                                                        child: Text(
+                                                          '${ruleList.where((c) => c.isCheck == true).length}/24',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                            builder: (_, collapsed, expanded) {
-                                              return Expandable(
-                                                collapsed: collapsed,
-                                                expanded: expanded,
-                                                theme:
-                                                    const ExpandableThemeData(
-                                                        crossFadePoint: 0),
-                                              );
-                                            },
                                           ),
+                                          collapsed: SizedBox(),
+                                          expanded: ListView(
+                                            shrinkWrap: true,
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            children: [
+                                              for (int i = 0;
+                                                  i < ruleList.length;
+                                                  i++)
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border(
+                                                      bottom: BorderSide(
+                                                        color: Colors
+                                                            .grey.shade400,
+                                                        width: 1,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        if (snapshot
+                                                                    .data
+                                                                    .data[i]
+                                                                    .isCheck ==
+                                                                null ||
+                                                            snapshot
+                                                                    .data
+                                                                    .data[i]
+                                                                    .isCheck ==
+                                                                false) {
+                                                          snapshot
+                                                              .data
+                                                              .data[i]
+                                                              .isCheck = true;
+                                                        } else {
+                                                          snapshot
+                                                                  .data
+                                                                  .data[i]
+                                                                  .isCheck =
+                                                              false;
+                                                        }
+                                                      });
+                                                    },
+                                                    child: Table(
+                                                      columnWidths: {
+                                                        0: FlexColumnWidth(
+                                                            10.0),
+                                                        1: FlexColumnWidth(
+                                                            1.5),
+                                                      },
+                                                      children: [
+                                                        TableRow(children: [
+                                                          Container(
+                                                            child: Align(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .centerLeft,
+                                                                child:
+                                                                    Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left:
+                                                                          10,
+                                                                      bottom:
+                                                                          10,
+                                                                      top:
+                                                                          10),
+                                                                  child: Text(
+                                                                      '${i + 1}. ${snapshot.data.data[i].ruleDesc}'),
+                                                                )),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 12,
+                                                                    top: 8),
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .black)),
+                                                              child: Center(
+                                                                  child:
+                                                                      Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        2.0),
+                                                                child: Text(snapshot.data.data[i].isCheck ==
+                                                                            null ||
+                                                                        snapshot.data.data[i].isCheck ==
+                                                                            false
+                                                                    ? '0'
+                                                                    : '1'),
+                                                              )),
+                                                            ),
+                                                          ),
+                                                        ]),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                          builder: (_, collapsed, expanded) {
+                                            return Expandable(
+                                              collapsed: collapsed,
+                                              expanded: expanded,
+                                              theme:
+                                                  const ExpandableThemeData(
+                                                      crossFadePoint: 0),
+                                            );
+                                          },
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),

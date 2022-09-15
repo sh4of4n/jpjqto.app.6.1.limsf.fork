@@ -192,7 +192,8 @@ class AppRouter extends _i21.RootStackRouter {
               qNo: args.qNo,
               groupId: args.groupId,
               testDate: args.testDate,
-              testCode: args.testCode));
+              testCode: args.testCode,
+              icPhoto: args.icPhoto));
     },
     HomeSelect.name: (routeData) {
       final args = routeData.argsAs<HomeSelectArgs>(
@@ -787,7 +788,8 @@ class ConfirmCandidateInfo
       required String? qNo,
       required String? groupId,
       required String? testDate,
-      required String? testCode})
+      required String? testCode,
+      required String icPhoto})
       : super(ConfirmCandidateInfo.name,
             path: '/confirm-candidate-info',
             args: ConfirmCandidateInfoArgs(
@@ -797,7 +799,8 @@ class ConfirmCandidateInfo
                 qNo: qNo,
                 groupId: groupId,
                 testDate: testDate,
-                testCode: testCode));
+                testCode: testCode,
+                icPhoto: icPhoto));
 
   static const String name = 'ConfirmCandidateInfo';
 }
@@ -810,7 +813,8 @@ class ConfirmCandidateInfoArgs {
       required this.qNo,
       required this.groupId,
       required this.testDate,
-      required this.testCode});
+      required this.testCode,
+      required this.icPhoto});
 
   final String? part3Type;
 
@@ -826,9 +830,11 @@ class ConfirmCandidateInfoArgs {
 
   final String? testCode;
 
+  final String icPhoto;
+
   @override
   String toString() {
-    return 'ConfirmCandidateInfoArgs{part3Type: $part3Type, nric: $nric, candidateName: $candidateName, qNo: $qNo, groupId: $groupId, testDate: $testDate, testCode: $testCode}';
+    return 'ConfirmCandidateInfoArgs{part3Type: $part3Type, nric: $nric, candidateName: $candidateName, qNo: $qNo, groupId: $groupId, testDate: $testDate, testCode: $testCode, icPhoto: $icPhoto}';
   }
 }
 
