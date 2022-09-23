@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'ePandu SPIM',
+      title: 'JPJ QTO',
       // debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: ColorConstant.primaryColor,

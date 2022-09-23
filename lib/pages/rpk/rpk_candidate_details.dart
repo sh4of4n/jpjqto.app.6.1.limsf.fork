@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
+import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
@@ -28,6 +29,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   final myImage = ImagesConstant();
   final authRepo = AuthRepo();
   final epanduRepo = EpanduRepo();
+  final etestingRepo = EtestingRepo();
   final customDialog = CustomDialog();
   final textStyle = TextStyle(
     fontSize: 80.sp,
@@ -49,7 +51,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   String? vehNo = '';
   String? merchantNo = '';
   String icPhoto = '';
-
+  var owners;
   List<dynamic>? candidateList = [];
   var selectedCandidate;
 
@@ -75,6 +77,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
 
     var result =
         await epanduRepo.getRpkAvailableToCallJpjTestList(vehNo: vehNo);
+
+    var result2 = await etestingRepo.getOwnerIdCategoryList();
+    if (result2.isSuccess) {
+      owners = result2.data;
+    }
 
     if (result.isSuccess) {
       setState(() {
@@ -104,7 +111,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         setState(() {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
-          kewarganegaraan = candidateList![i].nationality;
+          for (var owner in owners) {
+            if (owner.ownerCat == candidateList![i].ownerCat) {
+              kewarganegaraan = owner.ownerCatDesc;
+            }
+          }
           icPhoto = candidateList![i].icPhotoFilename != null &&
                   candidateList![i].icPhotoFilename.isNotEmpty
               ? candidateList![i]
@@ -166,7 +177,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                     setState(() {
                       name = candidateList![i].fullname;
                       qNo = candidateList![i].queueNo;
-                      kewarganegaraan = candidateList![i].nationality;
+                      for (var owner in owners) {
+                        if (owner.ownerCat == candidateList![i].ownerCat) {
+                          kewarganegaraan = owner.ownerCatDesc;
+                        }
+                      }
                       icPhoto = candidateList![i].icPhotoFilename != null &&
                               candidateList![i].icPhotoFilename.isNotEmpty
                           ? candidateList![i]
@@ -552,7 +567,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'NRIC',
+                                  'No. ID',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -562,7 +577,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                   style: textStyle,
                                 ),
                                 Text(
-                                  'NAMA',
+                                  'Nama',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -572,17 +587,17 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                   style: textStyle,
                                 ),
                                 Text(
-                                  'KEWARGANEGARAAN',
+                                  'Kategori ID',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
-                                  kewarganegaraan!,
+                                  kewarganegaraan ?? '',
                                   style: textStyle,
                                 ),
                                 Text(
-                                  'GROUP ID',
+                                  'Kelas',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),

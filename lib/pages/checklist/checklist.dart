@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
+import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/router.gr.dart';
 
 import '../../common_library/services/model/checklist_model.dart';
@@ -24,6 +27,7 @@ class CheckListPage extends StatefulWidget {
 
 class _CheckListPageState extends State<CheckListPage> {
   final checklistRepo = ChecklistRepo();
+  final etestingRepo = EtestingRepo();
   Future? _checklistFuture;
   var checklist = [];
   List<JpjCheckListJson> checklistSkimArr = [];
@@ -32,9 +36,12 @@ class _CheckListPageState extends State<CheckListPage> {
   bool skimCheck = false;
   bool litarCheck = false;
   bool sistemCheck = false;
+  String _plateNo = '';
 
   final _formKey = GlobalKey<FormBuilderState>();
   final customDialog = CustomDialog();
+
+  List<MysikapVehicle> vehicleArr = [];
 
   ExpandableController expandableControllerSkim = ExpandableController();
 
@@ -49,6 +56,27 @@ class _CheckListPageState extends State<CheckListPage> {
   Future getCheclkListSystem() async {
     return await checklistRepo.getCheckList(checkType: 'SISTEM');
   }
+
+  Future getMySikapVehicleListByStatus() async {
+    var result = await etestingRepo.getMySikapVehicleListByStatus(status: '');
+    setState(() {
+      vehicleArr = result.data;
+    });
+
+    return result;
+  }
+
+  // Future<List<MysikapVehicle>> getMySikapVehicleListByStatus() async {
+  //   var result = await etestingRepo.getMySikapVehicleListByStatus(status: '');
+  //   if (result.isSuccess) {
+  //     List<MysikapVehicle> a = result.data
+  //         .map((item) => MySikapVehicleListResponse.fromJson(result.data))
+  //         .toList();
+
+  //     return a;
+  //   }
+  //   return [];
+  // }
 
   Future updateJpjCheckListSkim(requestSkim) async {
     var a = checklistRepo.updateJpjCheckListSkim(
@@ -100,7 +128,8 @@ class _CheckListPageState extends State<CheckListPage> {
             (element.isCheck == null || element.isCheck == false)) {
           customDialog.show(
             context: context,
-            content: 'Please select all mandatory fields',
+            content: AppLocalizations.of(context)!
+                .translate('select_all_mandatory_field'),
             type: DialogType.INFO,
           );
           return;
@@ -117,7 +146,8 @@ class _CheckListPageState extends State<CheckListPage> {
             (element.isCheck == null || element.isCheck == false)) {
           customDialog.show(
             context: context,
-            content: 'Please select all mandatory fields',
+            content: AppLocalizations.of(context)!
+                .translate('select_all_mandatory_field'),
             type: DialogType.INFO,
           );
           return;
@@ -258,7 +288,7 @@ class _CheckListPageState extends State<CheckListPage> {
           (element.isCheck == null || element.isCheck == false)) {
         customDialog.show(
           context: context,
-          content: 'Please select all mandatory fields',
+          content: AppLocalizations.of(context)!.translate('fail_litar'),
           type: DialogType.INFO,
         );
         return;
@@ -318,7 +348,7 @@ class _CheckListPageState extends State<CheckListPage> {
           (element.isCheck == null || element.isCheck == false)) {
         customDialog.show(
           context: context,
-          content: 'Please select all mandatory fields',
+          content: AppLocalizations.of(context)!.translate('fail_sistem'),
           type: DialogType.INFO,
         );
         return;
@@ -382,6 +412,7 @@ class _CheckListPageState extends State<CheckListPage> {
       getCheclkListSkim(),
       getCheclkListLitar(),
       getCheclkListSystem(),
+      getMySikapVehicleListByStatus(),
     ]);
     storeChecklist();
   }
@@ -509,15 +540,84 @@ class _CheckListPageState extends State<CheckListPage> {
                                         padding: const EdgeInsets.all(16.0),
                                         child: FormBuilder(
                                           key: _formKey,
-                                          child: FormBuilderTextField(
+                                          child: FormBuilderField(
                                             name: 'plateNo',
-                                            inputFormatters: [
-                                              UpperCaseTextFormatter()
-                                            ],
-                                            decoration: const InputDecoration(
-                                              labelText: 'Plate No.',
-                                              border: OutlineInputBorder(),
-                                            ),
+                                            builder: (field) {
+                                              return DropdownSearch<
+                                                  MysikapVehicle>(
+                                                // asyncItems: (filter) =>
+                                                //     getMySikapVehicleListByStatus(),
+                                                items: vehicleArr,
+                                                dropdownDecoratorProps:
+                                                    DropDownDecoratorProps(
+                                                  dropdownSearchDecoration:
+                                                      InputDecoration(
+                                                    labelText: AppLocalizations
+                                                            .of(context)!
+                                                        .translate('plate_no'),
+                                                    filled: true,
+                                                  ),
+                                                ),
+                                                validator: (MysikapVehicle? i) {
+                                                  if (i == null)
+                                                    return field.errorText;
+                                                  return null;
+                                                },
+
+                                                itemAsString:
+                                                    (MysikapVehicle u) =>
+                                                        u.plateNo!,
+                                                compareFn: (i, s) =>
+                                                    i.plateNo == s.plateNo,
+                                                onChanged: ((value) {
+                                                  field
+                                                      .didChange(value!.plateNo);
+                                                }),
+                                                popupProps:
+                                                    PopupPropsMultiSelection
+                                                        .modalBottomSheet(
+                                                  isFilterOnline: true,
+                                                  showSelectedItems: true,
+                                                  showSearchBox: true,
+                                                  itemBuilder: (context, item,
+                                                      isSelected) {
+                                                    return Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 8),
+                                                      decoration: !isSelected
+                                                          ? null
+                                                          : BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                      child: ListTile(
+                                                        selected: isSelected,
+                                                        title: Text(
+                                                            item.plateNo ?? ''),
+                                                        subtitle: Text(item
+                                                                .groupId
+                                                                ?.toString() ??
+                                                            ''),
+                                                        trailing: item
+                                                                    .checked ==
+                                                                'true'
+                                                            ? Icon(Icons.check)
+                                                            : SizedBox(),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
                                             validator:
                                                 FormBuilderValidators.compose([
                                               FormBuilderValidators.required(),
@@ -525,6 +625,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                           ),
                                         ),
                                       ),
+                                      
                                       Divider(
                                         height: 1,
                                       ),
@@ -615,6 +716,17 @@ class _CheckListPageState extends State<CheckListPage> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
+                                        // SizedBox(
+                                        //   width: 8,
+                                        // ),
+                                        // Text(
+                                        //   AppLocalizations.of(context)!
+                                        //       .translate(
+                                        //           'select_all_mandatory_field'),
+                                        //   style: TextStyle(
+                                        //     color: Colors.red,
+                                        //   ),
+                                        // ),
                                         Spacer(),
                                         Builder(
                                           builder: (context) {
@@ -744,7 +856,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "SISTEM",
+                                          "Bilik kawalan",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,

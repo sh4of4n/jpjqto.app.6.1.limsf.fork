@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
+import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
@@ -28,6 +29,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   final myImage = ImagesConstant();
   final authRepo = AuthRepo();
   final epanduRepo = EpanduRepo();
+  final etestingRepo = EtestingRepo();
   final customDialog = CustomDialog();
   final textStyle = TextStyle(
     fontSize: 80.sp,
@@ -49,6 +51,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   String? merchantNo = '';
   String? kewarganegaraan = '';
   String icPhoto = '';
+  var owners;
 
   List<dynamic>? candidateList = [];
   var selectedCandidate;
@@ -75,6 +78,12 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
 
     var result = await epanduRepo.getPart3AvailableToCallJpjTestList(
         part3Type: 'JALAN RAYA', vehNo: vehNo);
+
+    var result2 = await etestingRepo.getOwnerIdCategoryList();
+
+    if (result2.isSuccess) {
+      owners = result2.data;
+    }
 
     if (result.isSuccess) {
       setState(() {
@@ -112,7 +121,12 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         setState(() {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
-          kewarganegaraan = candidateList![i].nationality;
+
+          for (var owner in owners) {
+            if (owner.ownerCat == candidateList![i].ownerCat) {
+              kewarganegaraan = owner.ownerCatDesc;
+            }
+          }
           icPhoto = candidateList![i].icPhotoFilename != null &&
                   candidateList![i].icPhotoFilename.isNotEmpty
               ? candidateList![i]
@@ -175,7 +189,11 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     setState(() {
                       this.name = candidateList![i].fullname;
                       this.qNo = candidateList![i].queueNo;
-                      kewarganegaraan = candidateList![i].nationality;
+                      for (var owner in owners) {
+                        if (owner.ownerCat == candidateList![i].ownerCat) {
+                          kewarganegaraan = owner.ownerCatDesc;
+                        }
+                      }
                     });
 
                     if (success > 0)
@@ -601,7 +619,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'NRIC',
+                                  'No. ID',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -611,7 +629,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                   style: textStyle,
                                 ),
                                 Text(
-                                  'NAMA',
+                                  'Nama',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -621,17 +639,17 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                   style: textStyle,
                                 ),
                                 Text(
-                                  'KEWARGANEGARAAN',
+                                  'Kategori ID',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
-                                  kewarganegaraan!,
+                                  kewarganegaraan ?? '',
                                   style: textStyle,
                                 ),
                                 Text(
-                                  'GROUP ID',
+                                  'Kelas',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),

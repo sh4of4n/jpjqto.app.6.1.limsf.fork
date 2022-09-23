@@ -329,8 +329,36 @@ class _NewLoginTabletFormState extends State<NewLoginTabletForm>
       );
 
       if (result.isSuccess) {
+        await showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(AppLocalizations.of(context)!.translate('login')),
+            content: Text(
+                AppLocalizations.of(context)!.translate('login_successful')),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
         context.router.replace(HomeSelect());
       } else {
+        await showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(AppLocalizations.of(context)!.translate('login')),
+            content:
+                Text(AppLocalizations.of(context)!.translate('login_failed')),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
         setState(() {
           _isLoading = false;
           _loginMessage = result.message;

@@ -650,5 +650,13 @@
   "update": "Update",
   "logout_from_mysikap_and_app": "Logout from mySikap and app",
   "logout_from_app_only": "Logout from app only",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+
+  "login": "Login",
+  "login_failed": "Login failed",
+  "login_successful": "Login Successful",
+  "fail_litar": "Failed, Litar is not available for testing",
+  "fail_sistem": "Failed, the control room is not available for the test to run",
+  "vehicle_download_success": "Vehicle Data Downloaded Successfully",
+  "plate_no": "Plate No."
 }

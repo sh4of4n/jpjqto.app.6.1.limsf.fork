@@ -134,3 +134,134 @@ class ResultRequest {
     return data;
   }
 }
+class OwnerIdCategoryResponse {
+  List<OwnerIdCategoryList>? ownerIdCategoryList;
+
+  OwnerIdCategoryResponse({this.ownerIdCategoryList});
+
+  OwnerIdCategoryResponse.fromJson(Map<String, dynamic> json) {
+    if (json['OwnerIdCategoryList'] != null) {
+      ownerIdCategoryList = <OwnerIdCategoryList>[];
+      json['OwnerIdCategoryList'].forEach((v) {
+        ownerIdCategoryList!.add(new OwnerIdCategoryList.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.ownerIdCategoryList != null) {
+      data['OwnerIdCategoryList'] =
+          this.ownerIdCategoryList!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class OwnerIdCategoryList {
+  String? ownerCat;
+  String? ownerCatDesc;
+
+  OwnerIdCategoryList({this.ownerCat, this.ownerCatDesc});
+
+  OwnerIdCategoryList.fromJson(Map<String, dynamic> json) {
+    ownerCat = json['owner_cat'];
+    ownerCatDesc = json['owner_cat_desc'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['owner_cat'] = this.ownerCat;
+    data['owner_cat_desc'] = this.ownerCatDesc;
+    return data;
+  }
+}
+
+class MySikapVehicleListResponse {
+  List<MysikapVehicle>? mysikapVehicle;
+
+  MySikapVehicleListResponse({this.mysikapVehicle});
+
+  MySikapVehicleListResponse.fromJson(Map<String, dynamic> json) {
+    if (json['MysikapVehicle'] != null) {
+      mysikapVehicle = <MysikapVehicle>[];
+      json['MysikapVehicle'].forEach((v) {
+        mysikapVehicle!.add(new MysikapVehicle.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.mysikapVehicle != null) {
+      data['MysikapVehicle'] =
+          this.mysikapVehicle!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class MysikapVehicle {
+  String? iD;
+  String? plateNo;
+  String? groupId;
+  String? createUser;
+  String? createDate;
+  String? editUser;
+  String? editDate;
+  String? transtamp;
+  String? lastupload;
+  String? compCode;
+  String? branchCode;
+  String? deleted;
+  String? checked;
+
+  MysikapVehicle(
+      {this.iD,
+      this.plateNo,
+      this.groupId,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.transtamp,
+      this.lastupload,
+      this.compCode,
+      this.branchCode,
+      this.deleted,
+      this.checked});
+
+  MysikapVehicle.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    plateNo = json['plate_no'];
+    groupId = json['group_id'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    transtamp = json['transtamp'];
+    lastupload = json['lastupload'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    deleted = json['deleted'];
+    checked = json['checked'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID'] = this.iD;
+    data['plate_no'] = this.plateNo;
+    data['group_id'] = this.groupId;
+    data['create_user'] = this.createUser;
+    data['create_date'] = this.createDate;
+    data['edit_user'] = this.editUser;
+    data['edit_date'] = this.editDate;
+    data['transtamp'] = this.transtamp;
+    data['lastupload'] = this.lastupload;
+    data['comp_code'] = this.compCode;
+    data['branch_code'] = this.branchCode;
+    data['deleted'] = this.deleted;
+    data['checked'] = this.checked;
+    return data;
+  }
+}

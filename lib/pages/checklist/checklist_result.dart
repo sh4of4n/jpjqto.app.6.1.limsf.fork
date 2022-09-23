@@ -1,7 +1,10 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
+import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
 import '../../common_library/services/repository/checklist_repository.dart';
@@ -20,6 +23,8 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
   final checklistRepo = ChecklistRepo();
   var checklist = [];
   final _formKey = GlobalKey<FormBuilderState>();
+  List<MysikapVehicle> vehicleArr = [];
+  final etestingRepo = EtestingRepo();
 
   Future getCheckListSkim() async {
     return await checklistRepo.getJpjCheckListSkim(
@@ -36,6 +41,15 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
         plateNo: _formKey.currentState?.fields['plateNo']!.value);
   }
 
+  Future getMySikapVehicleListByStatus() async {
+    var result = await etestingRepo.getMySikapVehicleListByStatus(status: 'CHECKED');
+    setState(() {
+      vehicleArr = result.data;
+    });
+
+    return result;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +57,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
       getCheckListSkim(),
       getCheckListLitar(),
       getCheckListSystem(),
+      getMySikapVehicleListByStatus(),
     ]);
     storeChecklist();
   }
@@ -67,10 +82,68 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    FormBuilderTextField(
+                    // FormBuilderTextField(
+                    //   name: 'plateNo',
+                    //   inputFormatters: [UpperCaseTextFormatter()],
+                    //   decoration: const InputDecoration(labelText: 'Plate No.'),
+                    //   validator: FormBuilderValidators.compose([
+                    //     FormBuilderValidators.required(),
+                    //   ]),
+                    // ),
+                    FormBuilderField(
                       name: 'plateNo',
-                      inputFormatters: [UpperCaseTextFormatter()],
-                      decoration: const InputDecoration(labelText: 'Plate No.'),
+                      builder: (field) {
+                        return DropdownSearch<MysikapVehicle>(
+                          // asyncItems: (filter) =>
+                          //     getMySikapVehicleListByStatus(),
+                          items: vehicleArr,
+                          dropdownDecoratorProps: DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!
+                                  .translate('plate_no'),
+                              filled: true,
+                            ),
+                          ),
+                          validator: (MysikapVehicle? i) {
+                            if (i == null) return field.errorText;
+                            return null;
+                          },
+
+                          itemAsString: (MysikapVehicle u) => u.plateNo!,
+                          compareFn: (i, s) => i.plateNo == s.plateNo,
+                          onChanged: ((value) {
+                            field.didChange(value!.plateNo);
+                          }),
+                          popupProps: PopupPropsMultiSelection.modalBottomSheet(
+                            isFilterOnline: true,
+                            showSelectedItems: true,
+                            showSearchBox: true,
+                            itemBuilder: (context, item, isSelected) {
+                              return Container(
+                                margin: EdgeInsets.symmetric(horizontal: 8),
+                                decoration: !isSelected
+                                    ? null
+                                    : BoxDecoration(
+                                        border: Border.all(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white,
+                                      ),
+                                child: ListTile(
+                                  selected: isSelected,
+                                  title: Text(item.plateNo ?? ''),
+                                  subtitle:
+                                      Text(item.groupId?.toString() ?? ''),
+                                  trailing: item.checked == 'true'
+                                      ? Icon(Icons.check)
+                                      : SizedBox(),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
@@ -278,7 +351,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                           header: Padding(
                                             padding: EdgeInsets.all(10),
                                             child: Text(
-                                              "SISTEM",
+                                              "Bilik kawalan",
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,

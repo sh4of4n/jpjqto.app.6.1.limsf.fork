@@ -11,6 +11,7 @@ import 'package:jpj_qto/pages/profile/profile.dart';
 import 'package:jpj_qto/pages/register/register.dart';
 import 'package:jpj_qto/pages/rpk/rpk.dart';
 import 'package:jpj_qto/pages/rpk/rule.dart';
+import 'package:jpj_qto/pages/test.dart';
 import 'pages/candidate_info/confirm_candidate_info.dart';
 import 'pages/eTestingSolution/etesting_solution.dart';
 import 'pages/home/home.dart';
@@ -60,6 +61,7 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     AutoRoute(page: ChecklistHome),
     AutoRoute(page: ChecklistResultPage),
     AutoRoute(page: RulePage),
+    AutoRoute(page: TestPage),
   ],
 )
 class $AppRouter {}

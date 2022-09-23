@@ -1,3 +1,7 @@
+20/09/2022 V.0.0.33
+ePandu ws 6.1.141.0 
+- Show Kategori ID
+
 15/09/2022 V.0.0.32
 ePandu ws 6.1.141.0 
 - Show calon IC photo
