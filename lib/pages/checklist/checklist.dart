@@ -36,8 +36,6 @@ class _CheckListPageState extends State<CheckListPage> {
   bool skimCheck = false;
   bool litarCheck = false;
   bool sistemCheck = false;
-  String _plateNo = '';
-
   final _formKey = GlobalKey<FormBuilderState>();
   final customDialog = CustomDialog();
 

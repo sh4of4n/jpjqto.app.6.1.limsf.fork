@@ -20,6 +20,7 @@ class ChecklistResultPage extends StatefulWidget {
 
 class _ChecklistResultPageState extends State<ChecklistResultPage> {
   Future? _checklistFuture;
+  Future? _skimFuture;
   final checklistRepo = ChecklistRepo();
   var checklist = [];
   final _formKey = GlobalKey<FormBuilderState>();
@@ -42,7 +43,8 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
   }
 
   Future getMySikapVehicleListByStatus() async {
-    var result = await etestingRepo.getMySikapVehicleListByStatus(status: 'CHECKED');
+    var result =
+        await etestingRepo.getMySikapVehicleListByStatus(status: 'CHECKED');
     setState(() {
       vehicleArr = result.data;
     });
@@ -54,7 +56,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
   void initState() {
     super.initState();
     _checklistFuture = Future.wait([
-      getCheckListSkim(),
+      // getCheckListSkim(),
       getCheckListLitar(),
       getCheckListSystem(),
       getMySikapVehicleListByStatus(),
@@ -73,364 +75,447 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
         backgroundColor: ColorConstant.primaryColor,
         title: Text(AppLocalizations.of(context)!.translate('checklist')),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FormBuilder(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    // FormBuilderTextField(
-                    //   name: 'plateNo',
-                    //   inputFormatters: [UpperCaseTextFormatter()],
-                    //   decoration: const InputDecoration(labelText: 'Plate No.'),
-                    //   validator: FormBuilderValidators.compose([
-                    //     FormBuilderValidators.required(),
-                    //   ]),
-                    // ),
-                    FormBuilderField(
-                      name: 'plateNo',
-                      builder: (field) {
-                        return DropdownSearch<MysikapVehicle>(
-                          // asyncItems: (filter) =>
-                          //     getMySikapVehicleListByStatus(),
-                          items: vehicleArr,
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!
-                                  .translate('plate_no'),
-                              filled: true,
-                            ),
-                          ),
-                          validator: (MysikapVehicle? i) {
-                            if (i == null) return field.errorText;
-                            return null;
-                          },
-
-                          itemAsString: (MysikapVehicle u) => u.plateNo!,
-                          compareFn: (i, s) => i.plateNo == s.plateNo,
-                          onChanged: ((value) {
-                            field.didChange(value!.plateNo);
-                          }),
-                          popupProps: PopupPropsMultiSelection.modalBottomSheet(
-                            isFilterOnline: true,
-                            showSelectedItems: true,
-                            showSearchBox: true,
-                            itemBuilder: (context, item, isSelected) {
-                              return Container(
-                                margin: EdgeInsets.symmetric(horizontal: 8),
-                                decoration: !isSelected
-                                    ? null
-                                    : BoxDecoration(
-                                        border: Border.all(
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Colors.white,
-                                      ),
-                                child: ListTile(
-                                  selected: isSelected,
-                                  title: Text(item.plateNo ?? ''),
-                                  subtitle:
-                                      Text(item.groupId?.toString() ?? ''),
-                                  trailing: item.checked == 'true'
-                                      ? Icon(Icons.check)
-                                      : SizedBox(),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                      ]),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState?.saveAndValidate() ??
-                              false) {
-                            setState(() {
-                              _checklistFuture = Future.wait([
-                                getCheckListSkim(),
-                                getCheckListLitar(),
-                                getCheckListSystem(),
-                              ]);
-                              storeChecklist();
-                            });
-                          }
-                        },
-                        child: Text('Search'),
+      body: FutureBuilder(
+        future: _checklistFuture,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+            default:
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 16.0,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            FutureBuilder(
-              future: _checklistFuture,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return CircularProgressIndicator();
-                  default:
-                    if (snapshot.hasData) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ExpandableNotifier(
-                              initialExpanded: true,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0,
-                                ),
-                                child: Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Column(
-                                    children: <Widget>[
-                                      ScrollOnExpand(
-                                        scrollOnExpand: true,
-                                        scrollOnCollapse: false,
-                                        child: ExpandablePanel(
-                                          theme: const ExpandableThemeData(
-                                            headerAlignment:
-                                                ExpandablePanelHeaderAlignment
-                                                    .center,
-                                            tapBodyToCollapse: true,
-                                          ),
-                                          header: Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Text(
-                                              "SKIM",
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          collapsed: SizedBox(),
-                                          expanded: ListView(
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            children: [
-                                              for (var item
-                                                  in checklist[0].data)
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border(
-                                                      bottom: BorderSide(
-                                                        color: Colors
-                                                            .grey.shade400,
-                                                        width: 1,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  child: CheckboxListTile(
-                                                    title: Text(item.checkDesc),
-                                                    value: item.status == 'true'
-                                                        ? true
-                                                        : false,
-                                                    onChanged: (bool? value) {},
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                          builder: (_, collapsed, expanded) {
-                                            return Expandable(
-                                              collapsed: collapsed,
-                                              expanded: expanded,
-                                              theme: const ExpandableThemeData(
-                                                  crossFadePoint: 0),
-                                            );
-                                          },
+                      ExpandableNotifier(
+                        initialExpanded: true,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                          ),
+                          child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              children: <Widget>[
+                                ScrollOnExpand(
+                                  scrollOnExpand: true,
+                                  scrollOnCollapse: false,
+                                  child: ExpandablePanel(
+                                    theme: const ExpandableThemeData(
+                                      headerAlignment:
+                                          ExpandablePanelHeaderAlignment.center,
+                                      tapBodyToCollapse: true,
+                                    ),
+                                    header: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "SKIM",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ExpandableNotifier(
-                              initialExpanded: true,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0,
-                                ),
-                                child: Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Column(
-                                    children: <Widget>[
-                                      ScrollOnExpand(
-                                        scrollOnExpand: true,
-                                        scrollOnCollapse: false,
-                                        child: ExpandablePanel(
-                                          theme: const ExpandableThemeData(
-                                            headerAlignment:
-                                                ExpandablePanelHeaderAlignment
-                                                    .center,
-                                            tapBodyToCollapse: true,
-                                          ),
-                                          header: Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Text(
-                                              "LITAR",
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                    ),
+                                    collapsed: SizedBox(),
+                                    expanded: ListView(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: FormBuilder(
+                                            key: _formKey,
+                                            child: Column(
+                                              children: [
+                                                FormBuilderField(
+                                                  name: 'plateNo',
+                                                  builder: (field) {
+                                                    return DropdownSearch<
+                                                        MysikapVehicle>(
+                                                      // asyncItems: (filter) =>
+                                                      //     getMySikapVehicleListByStatus(),
+                                                      items: vehicleArr,
+                                                      dropdownDecoratorProps:
+                                                          DropDownDecoratorProps(
+                                                        dropdownSearchDecoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              AppLocalizations.of(
+                                                                      context)!
+                                                                  .translate(
+                                                                      'plate_no'),
+                                                          filled: true,
+                                                        ),
+                                                      ),
+                                                      validator:
+                                                          (MysikapVehicle? i) {
+                                                        if (i == null)
+                                                          return field
+                                                              .errorText;
+                                                        return null;
+                                                      },
+
+                                                      itemAsString:
+                                                          (MysikapVehicle u) =>
+                                                              u.plateNo!,
+                                                      compareFn: (i, s) =>
+                                                          i.plateNo ==
+                                                          s.plateNo,
+                                                      onChanged: ((value) {
+                                                        field.didChange(
+                                                            value!.plateNo);
+
+                                                        setState(() {
+                                                          _skimFuture =
+                                                              getCheckListSkim();
+                                                        });
+                                                      }),
+                                                      popupProps:
+                                                          PopupPropsMultiSelection
+                                                              .modalBottomSheet(
+                                                        isFilterOnline: true,
+                                                        showSelectedItems: true,
+                                                        showSearchBox: true,
+                                                        itemBuilder: (context,
+                                                            item, isSelected) {
+                                                          return Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        8),
+                                                            decoration: !isSelected
+                                                                ? null
+                                                                : BoxDecoration(
+                                                                    border: Border.all(
+                                                                        color: Theme.of(context)
+                                                                            .primaryColor),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(5),
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                            child: ListTile(
+                                                              selected:
+                                                                  isSelected,
+                                                              title: Text(
+                                                                  item.plateNo ??
+                                                                      ''),
+                                                              subtitle: Text(item
+                                                                      .groupId
+                                                                      ?.toString() ??
+                                                                  ''),
+                                                              trailing: item
+                                                                          .checked ==
+                                                                      'true'
+                                                                  ? Icon(Icons
+                                                                      .check)
+                                                                  : SizedBox(),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                  validator:
+                                                      FormBuilderValidators
+                                                          .compose([
+                                                    FormBuilderValidators
+                                                        .required(),
+                                                  ]),
+                                                ),
+                                                // SizedBox(
+                                                //   width: double.infinity,
+                                                //   child: ElevatedButton(
+                                                //     onPressed: () {
+                                                //       if (_formKey
+                                                //               .currentState
+                                                //               ?.saveAndValidate() ??
+                                                //           false) {
+                                                //         setState(() {
+                                                //           _checklistFuture =
+                                                //               Future
+                                                //                   .wait([
+                                                //             getCheckListSkim(),
+                                                //             getCheckListLitar(),
+                                                //             getCheckListSystem(),
+                                                //           ]);
+                                                //           storeChecklist();
+                                                //         });
+                                                //       }
+                                                //     },
+                                                //     child: Text('Search'),
+                                                //   ),
+                                                // ),
+                                              ],
                                             ),
                                           ),
-                                          collapsed: SizedBox(),
-                                          expanded: ListView(
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            children: [
-                                              for (var item
-                                                  in checklist[1].data)
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border(
-                                                      bottom: BorderSide(
-                                                        color: Colors
-                                                            .grey.shade400,
-                                                        width: 1,
-                                                      ),
+                                        ),
+                                        FutureBuilder(
+                                          future: _skimFuture,
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot snapshot2) {
+                                            switch (snapshot2.connectionState) {
+                                              case ConnectionState.waiting:
+                                                return Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  ),
+                                                );
+                                              default:
+                                                if (snapshot2.hasData) {
+                                                  return Column(
+                                                    children: [
+                                                      for (var item in snapshot2
+                                                          .data.data)
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border(
+                                                              bottom:
+                                                                  BorderSide(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade400,
+                                                                width: 1,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          child:
+                                                              CheckboxListTile(
+                                                            title: Text(
+                                                                item.checkDesc),
+                                                            value:
+                                                                item.status ==
+                                                                        'true'
+                                                                    ? true
+                                                                    : false,
+                                                            onChanged: (bool?
+                                                                value) {},
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  );
+                                                } else if (snapshot.hasError) {
+                                                  return Center(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.error_outline,
+                                                          color: Colors.red,
+                                                          size: 60,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 16),
+                                                          child: Text(
+                                                              'Error: ${snapshot.error}'),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  child: CheckboxListTile(
-                                                    title: Text(item.checkDesc),
-                                                    value: item.status == 'true'
-                                                        ? true
-                                                        : false,
-                                                    onChanged: (bool? value) {},
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                          builder: (_, collapsed, expanded) {
-                                            return Expandable(
-                                              collapsed: collapsed,
-                                              expanded: expanded,
-                                              theme: const ExpandableThemeData(
-                                                  crossFadePoint: 0),
-                                            );
+                                                  );
+                                                } else {
+                                                  return SizedBox();
+                                                }
+                                            }
                                           },
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                    builder: (_, collapsed, expanded) {
+                                      return Expandable(
+                                        collapsed: collapsed,
+                                        expanded: expanded,
+                                        theme: const ExpandableThemeData(
+                                            crossFadePoint: 0),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                            ExpandableNotifier(
-                              initialExpanded: true,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0,
-                                ),
-                                child: Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Column(
-                                    children: <Widget>[
-                                      ScrollOnExpand(
-                                        scrollOnExpand: true,
-                                        scrollOnCollapse: false,
-                                        child: ExpandablePanel(
-                                          theme: const ExpandableThemeData(
-                                            headerAlignment:
-                                                ExpandablePanelHeaderAlignment
-                                                    .center,
-                                            tapBodyToCollapse: true,
-                                          ),
-                                          header: Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Text(
-                                              "Bilik kawalan",
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          collapsed: SizedBox(),
-                                          expanded: ListView(
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            children: [
-                                              for (var item
-                                                  in checklist[2].data)
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border(
-                                                      bottom: BorderSide(
-                                                        color: Colors
-                                                            .grey.shade400,
-                                                        width: 1,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  child: CheckboxListTile(
-                                                    title: Text(item.checkDesc),
-                                                    value: item.status == 'true'
-                                                        ? true
-                                                        : false,
-                                                    onChanged: (bool? value) {},
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                          builder: (_, collapsed, expanded) {
-                                            return Expandable(
-                                              collapsed: collapsed,
-                                              expanded: expanded,
-                                              theme: const ExpandableThemeData(
-                                                  crossFadePoint: 0),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.error_outline,
-                              color: Colors.red,
-                              size: 60,
+                      ),
+                      ExpandableNotifier(
+                        initialExpanded: true,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                          ),
+                          child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              children: <Widget>[
+                                ScrollOnExpand(
+                                  scrollOnExpand: true,
+                                  scrollOnCollapse: false,
+                                  child: ExpandablePanel(
+                                    theme: const ExpandableThemeData(
+                                      headerAlignment:
+                                          ExpandablePanelHeaderAlignment.center,
+                                      tapBodyToCollapse: true,
+                                    ),
+                                    header: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "LITAR",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    collapsed: SizedBox(),
+                                    expanded: ListView(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      children: [
+                                        for (var item in checklist[0].data)
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Colors.grey.shade400,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                            ),
+                                            child: CheckboxListTile(
+                                              title: Text(item.checkDesc),
+                                              value: item.status == 'true'
+                                                  ? true
+                                                  : false,
+                                              onChanged: (bool? value) {},
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    builder: (_, collapsed, expanded) {
+                                      return Expandable(
+                                        collapsed: collapsed,
+                                        expanded: expanded,
+                                        theme: const ExpandableThemeData(
+                                            crossFadePoint: 0),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Text('Error: ${snapshot.error}'),
-                            )
-                          ],
+                          ),
                         ),
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                }
-              },
-            ),
-          ],
-        ),
+                      ),
+                      ExpandableNotifier(
+                        initialExpanded: true,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                          ),
+                          child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              children: <Widget>[
+                                ScrollOnExpand(
+                                  scrollOnExpand: true,
+                                  scrollOnCollapse: false,
+                                  child: ExpandablePanel(
+                                    theme: const ExpandableThemeData(
+                                      headerAlignment:
+                                          ExpandablePanelHeaderAlignment.center,
+                                      tapBodyToCollapse: true,
+                                    ),
+                                    header: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "Bilik kawalan",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    collapsed: SizedBox(),
+                                    expanded: ListView(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      children: [
+                                        for (var item in checklist[1].data)
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Colors.grey.shade400,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                            ),
+                                            child: CheckboxListTile(
+                                              title: Text(item.checkDesc),
+                                              value: item.status == 'true'
+                                                  ? true
+                                                  : false,
+                                              onChanged: (bool? value) {},
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    builder: (_, collapsed, expanded) {
+                                      return Expandable(
+                                        collapsed: collapsed,
+                                        expanded: expanded,
+                                        theme: const ExpandableThemeData(
+                                            crossFadePoint: 0),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 60,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text('Error: ${snapshot.error}'),
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+          }
+        },
       ),
     );
   }

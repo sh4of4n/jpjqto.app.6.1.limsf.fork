@@ -1,6 +1,8 @@
-20/09/2022 V.0.0.33
+26/09/2022 V.0.0.33
 ePandu ws 6.1.141.0 
 - Show Kategori ID
+- Can select plate no. from dropdown list to do checklist
+- Popup message after user login success/fail, vehicle download complete, checklist mandatory field
 
 15/09/2022 V.0.0.32
 ePandu ws 6.1.141.0 
