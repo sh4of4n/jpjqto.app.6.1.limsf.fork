@@ -8,7 +8,6 @@ import 'package:jpj_qto/common_library/services/repository/etesting_repository.d
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
 import '../../common_library/services/repository/checklist_repository.dart';
-import '../../common_library/utils/uppercase_formatter.dart';
 import '../../utils/constants.dart';
 
 class ChecklistResultPage extends StatefulWidget {

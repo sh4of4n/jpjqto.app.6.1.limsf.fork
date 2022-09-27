@@ -1,3 +1,10 @@
+27/09/2022 V.0.0.34
+ePandu ws 6.1.141.0 
+- Check vehicle available
+- Checklist - Add a checkbox to select/unselect all item
+- Warning user if no tick mandatory or below 80% score in bahagian 3
+
+
 26/09/2022 V.0.0.33
 ePandu ws 6.1.141.0 
 - Show Kategori ID

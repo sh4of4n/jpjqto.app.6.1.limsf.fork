@@ -658,5 +658,7 @@
   "fail_litar": "Failed, Litar is not available for testing",
   "fail_sistem": "Failed, the control room is not available for the test to run",
   "vehicle_download_success": "Vehicle Data Downloaded Successfully",
-  "plate_no": "Plate No."
+  "plate_no": "Plate No.",
+  "select_all": "Select All"
+
 }
