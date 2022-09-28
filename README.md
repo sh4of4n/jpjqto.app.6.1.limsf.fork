@@ -1,3 +1,8 @@
+28/09/2022 V.0.0.35
+ePandu ws 6.1.141.0 
+- Checklist - No block user submit checklist if no tick mandatory field
+
+
 27/09/2022 V.0.0.34
 ePandu ws 6.1.141.0 
 - Check vehicle available

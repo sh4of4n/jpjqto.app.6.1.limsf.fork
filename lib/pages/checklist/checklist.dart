@@ -214,17 +214,12 @@ class _CheckListPageState extends State<CheckListPage> {
   void updateJpjCheckListSkimA() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       checklistSkimArr = [];
+      bool isUntickMandatory = false;
 
       for (var element in checklist[0].data) {
         if (element.mandatory == 'true' &&
             (element.isCheck == null || element.isCheck == false)) {
-          customDialog.show(
-            context: context,
-            content: AppLocalizations.of(context)!
-                .translate('select_all_mandatory_field'),
-            type: DialogType.INFO,
-          );
-          return;
+          isUntickMandatory = true;
         }
         checklistSkimArr.add(JpjCheckListJson(
           checkCode: element.checkCode,
@@ -255,12 +250,43 @@ class _CheckListPageState extends State<CheckListPage> {
           return;
         }
 
-        await EasyLoading.dismiss();
+        EasyLoading.dismiss();
         if (mounted) {
           setState(() {
             skimCheck = true;
           });
         }
+
+        if (isUntickMandatory) {
+          await showDialog(
+            context: context,
+            barrierDismissible: true, // user must tap button!
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('JPJ QTO APP'),
+                content: SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      Text(
+                          AppLocalizations.of(context)!.translate('fail_skim')),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      AppLocalizations.of(context)!.translate('ok_btn'),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+
         if (expandableControllerSkim.expanded) {
           expandableControllerSkim.toggle();
         }
@@ -283,16 +309,12 @@ class _CheckListPageState extends State<CheckListPage> {
 
   void updateJpjCheckListLitarA() async {
     checklistLitarArr = [];
+    bool isUntickMandatory = false;
 
     for (var element in checklist[1].data) {
       if (element.mandatory == 'true' &&
           (element.isCheck == null || element.isCheck == false)) {
-        customDialog.show(
-          context: context,
-          content: AppLocalizations.of(context)!.translate('fail_litar'),
-          type: DialogType.INFO,
-        );
-        return;
+        isUntickMandatory = true;
       }
       checklistLitarArr.add(JpjCheckListJson(
         checkCode: element.checkCode,
@@ -312,8 +334,8 @@ class _CheckListPageState extends State<CheckListPage> {
       var updateResult = await checklistRepo.updateJpjCheckListLitar(
         checkListJson: jsonEncode(requestLitar.toJson()),
       );
+      EasyLoading.dismiss();
       if (!updateResult.isSuccess) {
-        await EasyLoading.dismiss();
         const snackBar = SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text('Something went wrong'),
@@ -321,12 +343,41 @@ class _CheckListPageState extends State<CheckListPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         return;
       }
-      await EasyLoading.dismiss();
       if (mounted) {
         setState(() {
           litarCheck = true;
         });
       }
+
+      if (isUntickMandatory) {
+        await showDialog(
+          context: context,
+          barrierDismissible: true, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('JPJ QTO APP'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context)!.translate('fail_litar')),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    AppLocalizations.of(context)!.translate('ok_btn'),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+
       customDialog.show(
           context: context,
           content: AppLocalizations.of(context)!
@@ -343,16 +394,12 @@ class _CheckListPageState extends State<CheckListPage> {
 
   void updateJpjCheckListSistemA() async {
     checklistSystemArr = [];
+    bool isUntickMandatory = false;
 
     for (var element in checklist[2].data) {
       if (element.mandatory == 'true' &&
           (element.isCheck == null || element.isCheck == false)) {
-        customDialog.show(
-          context: context,
-          content: AppLocalizations.of(context)!.translate('fail_sistem'),
-          type: DialogType.INFO,
-        );
-        return;
+        isUntickMandatory = true;
       }
       checklistSystemArr.add(JpjCheckListJson(
         checkCode: element.checkCode,
@@ -382,12 +429,43 @@ class _CheckListPageState extends State<CheckListPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         return;
       }
-      await EasyLoading.dismiss();
+      EasyLoading.dismiss();
       if (mounted) {
         setState(() {
           sistemCheck = true;
         });
       }
+
+      if (isUntickMandatory) {
+        await showDialog(
+          context: context,
+          barrierDismissible: true, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('JPJ QTO APP'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(
+                        AppLocalizations.of(context)!.translate('fail_sistem')),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    AppLocalizations.of(context)!.translate('ok_btn'),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+
       customDialog.show(
           context: context,
           content: AppLocalizations.of(context)!
