@@ -1,3 +1,7 @@
+28/09/2022 V.0.0.36
+ePandu ws 6.1.147.0 
+- Enhance IC photo size
+
 28/09/2022 V.0.0.35
 ePandu ws 6.1.141.0 
 - Checklist - No block user submit checklist if no tick mandatory field
