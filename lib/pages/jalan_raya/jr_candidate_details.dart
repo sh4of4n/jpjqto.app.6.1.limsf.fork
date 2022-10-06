@@ -182,11 +182,14 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     }
   }
 
-  compareCandidateInfo() async {
-    // var merchantNo = selectedCandidate.merchantNo;
-    var testCode = selectedCandidate.testCode;
-    var groupId = selectedCandidate.groupId;
-    var testDate = selectedCandidate.testDate;
+  compareCandidateInfo({
+    required String testCode,
+    required String groupId,
+    required String testDate,
+  }) async {
+    // var testCode = selectedCandidate.testCode;
+    // var groupId = selectedCandidate.groupId;
+    // var testDate = selectedCandidate.testDate;
 
     if (this.groupId == groupId) {
       if (this.testCode == testCode) {
@@ -461,7 +464,11 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           isVisible = false;
 
           if (qNo!.isNotEmpty) {
-            compareCandidateInfo();
+            compareCandidateInfo(
+              groupId: selectedCandidate.groupId,
+              testCode: selectedCandidate.testCode,
+              testDate: selectedCandidate.testDate,
+            );
           } else {
             nric = '';
 
@@ -503,6 +510,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   }
 
   Future<bool> _onWillPop() async {
+    EasyLoading.dismiss();
     if (success > 0) {
       // return CustomDialog().show(
       //   context: context,
@@ -568,6 +576,19 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         appBar: AppBar(
           title: const Text('Calling'),
           actions: [
+            TextButton(
+              onPressed: () async {
+                context.router.push(QrScannerRoute());
+                String? vehNo = await localStorage.getPlateNo();
+                // etestingRepo.isCurrentCallingCalon(plateNo: vehNo ?? '', partType: 'PART3', nricNo: nricNo)
+              },
+              child: Text(
+                'Calon Semasa',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
             IconButton(
               onPressed: () {
                 customDialog.show(
