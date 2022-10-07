@@ -67,6 +67,41 @@ class EtestingRepo {
     return Response(false, message: response.message, data: []);
   }
 
+  Future<Response> qtoUjianLogout() async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String? appVersion = await localStorage.getAppVersion();
+    String? mySikapId = await localStorage.getMySikapId();
+
+    QtoUjianLogoutRequest params = QtoUjianLogoutRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      appId: appConfig.appId,
+      appVersion: appVersion,
+      mySikapId: mySikapId,
+      permitCode: diCode,
+    );
+
+    String body = jsonEncode(params);
+    String api = 'QtoUjianLogout';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    // Success
+    if (response.isSuccess) {
+      await localStorage.reset();
+      // QtoUjianLogoutResponse ruleResponse =
+      //     QtoUjianLogoutResponse.fromJson(response.data);
+
+      return Response(true, data: response.data);
+    }
+    return Response(false, message: response.message, data: []);
+  }
+
   Future<Response> getOwnerIdCategoryList() async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
@@ -191,6 +226,28 @@ class EtestingRepo {
 
     if (response.isSuccess && response.data != null) {
       return Response(true, data: response.data);
+    }
+
+    return Response(false, message: response.message, data: []);
+  }
+
+  Future<Response> qtoUjianLogin() async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String? appVersion = await localStorage.getAppVersion();
+    String? mySikapId = await localStorage.getMySikapId();
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appId=${appConfig.appId}&appVersion=$appVersion&mySikapId=$mySikapId&permitCode=$diCode';
+
+    var response = await networking.getData(
+      path: 'QtoUjianLogin?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      QtoUjianLoginResponse ruleResponse =
+          QtoUjianLoginResponse.fromJson(response.data);
+      return Response(true, data: ruleResponse.result);
     }
 
     return Response(false, message: response.message, data: []);

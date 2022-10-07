@@ -1,3 +1,9 @@
+07/10/2022  V.0.0.38
+ePandu ws 6.1.157.0 
+- Login ujian
+- Logout ujian
+
+
 30/09/2022  V.0.0.37
 ePandu ws 6.1.148.0 
 - Fixed cannot scroll down page to mula ujian

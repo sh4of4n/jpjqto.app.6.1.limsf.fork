@@ -41,7 +41,7 @@ class _HomeSelectState extends State<HomeSelect> {
         await showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: const Text('eDriving QTI App'),
+            title: Text('JPJ QTO APP'),
             content: Text(AppLocalizations.of(context)!
                 .translate('vehicle_download_success')),
             actions: <Widget>[

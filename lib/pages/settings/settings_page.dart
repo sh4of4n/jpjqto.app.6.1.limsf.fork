@@ -194,7 +194,7 @@ class _SettingsState extends State<Settings> {
                 });
 
                 await context.router.pop();
-                var result = await etestingRepo.updateMySikapStatusOut();
+                var result = await etestingRepo.qtoUjianLogout();
                 if (!result.isSuccess) {
                   const snackBar = SnackBar(
                     behavior: SnackBarBehavior.floating,

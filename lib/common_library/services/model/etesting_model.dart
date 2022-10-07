@@ -110,11 +110,7 @@ class ResultRequest {
   String? permitCode;
 
   ResultRequest(
-      {this.wsCodeCrypt,
-      this.caUid,
-      this.caPwd,
-      this.userId,
-      this.permitCode});
+      {this.wsCodeCrypt, this.caUid, this.caPwd, this.userId, this.permitCode});
 
   ResultRequest.fromJson(Map<String, dynamic> json) {
     wsCodeCrypt = json['wsCodeCrypt'];
@@ -134,6 +130,7 @@ class ResultRequest {
     return data;
   }
 }
+
 class OwnerIdCategoryResponse {
   List<OwnerIdCategoryList>? ownerIdCategoryList;
 
@@ -262,6 +259,128 @@ class MysikapVehicle {
     data['branch_code'] = this.branchCode;
     data['deleted'] = this.deleted;
     data['checked'] = this.checked;
+    return data;
+  }
+}
+
+class QtoUjianLogoutRequest {
+  String? wsCodeCrypt;
+  String? caUid;
+  String? caPwd;
+  String? appId;
+  String? appVersion;
+  String? mySikapId;
+  String? permitCode;
+
+  QtoUjianLogoutRequest(
+      {this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.appId,
+      this.appVersion,
+      this.mySikapId,
+      this.permitCode});
+
+  QtoUjianLogoutRequest.fromJson(Map<String, dynamic> json) {
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    appId = json['appId'];
+    appVersion = json['appVersion'];
+    mySikapId = json['mySikapId'];
+    permitCode = json['permitCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wsCodeCrypt'] = this.wsCodeCrypt;
+    data['caUid'] = this.caUid;
+    data['caPwd'] = this.caPwd;
+    data['appId'] = this.appId;
+    data['appVersion'] = this.appVersion;
+    data['mySikapId'] = this.mySikapId;
+    data['permitCode'] = this.permitCode;
+    return data;
+  }
+}
+
+class QtoUjianLogoutResponse {
+  List<Result>? result;
+
+  QtoUjianLogoutResponse({this.result});
+
+  QtoUjianLogoutResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Result'] != null) {
+      result = <Result>[];
+      json['Result'].forEach((v) {
+        result!.add(new Result.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['Result'] = this.result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Result {
+  String? result;
+
+  Result({this.result});
+
+  Result.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    return data;
+  }
+}
+
+class QtoUjianLoginResponse {
+  List<QtoUjianLoginResult>? result;
+
+  QtoUjianLoginResponse({this.result});
+
+  QtoUjianLoginResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Result'] != null) {
+      result = <QtoUjianLoginResult>[];
+      json['Result'].forEach((v) {
+        result!.add(new QtoUjianLoginResult.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['Result'] = this.result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class QtoUjianLoginResult {
+  String? result;
+  String? userId;
+
+  QtoUjianLoginResult({this.result, this.userId});
+
+  QtoUjianLoginResult.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+    userId = json['user_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    data['user_id'] = this.userId;
     return data;
   }
 }

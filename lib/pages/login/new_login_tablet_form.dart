@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/base/page_base_class.dart';
 import 'package:jpj_qto/common_library/services/location.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
+import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/device_info.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -52,6 +53,7 @@ class _NewLoginTabletFormState extends State<NewLoginTabletForm>
   String? _deviceVersion = '';
   String? _deviceId = '';
   String? _deviceOs = '';
+  final etestingRepo = EtestingRepo();
 
   @override
   void initState() {
@@ -317,32 +319,30 @@ class _NewLoginTabletFormState extends State<NewLoginTabletForm>
         _loginMessage = '';
       });
 
-      /* var result = await authRepo.ePanduJpjQtoLoginResetPwd(
-        context: context,
-        phone: _phone,
-        password: _password,
-      ); */
-
       var result = await authRepo.jpjQtoLoginWithMySikap(
         mySikapId: _phone!,
         permitCode: _password!,
       );
 
       if (result.isSuccess) {
-        await showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.translate('login')),
-            content: Text(
-                AppLocalizations.of(context)!.translate('login_successful')),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+        var result2 = await etestingRepo.qtoUjianLogin();
+        if (result2.isSuccess) {
+          await showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.translate('login')),
+              content: Text(
+                  AppLocalizations.of(context)!.translate('login_successful')),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+
         context.router.replace(HomeSelect());
       } else {
         await showDialog<String>(

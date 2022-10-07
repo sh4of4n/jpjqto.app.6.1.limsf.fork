@@ -141,7 +141,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     merchantNoController.text = await localStorage.getMerchantDbCode() ?? '';
   }
 
-  _submit() async {
+  _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(new FocusNode());
@@ -153,12 +153,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
           .saveMerchantDbCode(merchantNoController.text.replaceAll(' ', ''));
       localStorage.saveType(widget.type);
       if (widget.type == "RPK") {
-        Response result = await etestingRepo.qtiUjianLoginBhg2(
-            licenseClass: groupIdController.text);
-        if (result.isSuccess) {
-          context.router
-              .pushAndPopUntil(HomePageRpk(), predicate: (r) => false);
-        } else {}
+        context.router.pushAndPopUntil(HomePageRpk(), predicate: (r) => false);
       } else if (widget.type == "Jalan Raya") {
         context.router.pushAndPopUntil(Home(), predicate: (r) => false);
       }

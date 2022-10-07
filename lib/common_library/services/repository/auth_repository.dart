@@ -291,6 +291,7 @@ class AuthRepo {
         localStorage.saveUserId(responseData.userId!);
         localStorage.saveDiCode(permitCode);
         localStorage.saveMerchantDbCode(permitCode);
+        localStorage.saveMySikapId(mySikapId);
         return response;
       }
     }

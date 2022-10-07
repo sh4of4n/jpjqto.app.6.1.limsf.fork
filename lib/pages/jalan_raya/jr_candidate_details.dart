@@ -575,19 +575,19 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         appBar: AppBar(
           title: const Text('Calling'),
           actions: [
-            TextButton(
-              onPressed: () async {
-                context.router.push(QrScannerRoute());
-                String? vehNo = await localStorage.getPlateNo();
-                // etestingRepo.isCurrentCallingCalon(plateNo: vehNo ?? '', partType: 'PART3', nricNo: nricNo)
-              },
-              child: Text(
-                'Calon Semasa',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () async {
+            //     context.router.push(QrScannerRoute());
+            //     String? vehNo = await localStorage.getPlateNo();
+            //     // etestingRepo.isCurrentCallingCalon(plateNo: vehNo ?? '', partType: 'PART3', nricNo: nricNo)
+            //   },
+            //   child: Text(
+            //     'Calon Semasa',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
             IconButton(
               onPressed: () {
                 customDialog.show(

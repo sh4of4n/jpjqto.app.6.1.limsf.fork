@@ -20,7 +20,8 @@ class _QrScannerPageState extends State<QrScannerPage> {
       this.controller = controller;
     });
     controller.resumeCamera();
-    controller.scannedDataStream.listen((scanData) {
+    controller.scannedDataStream.listen((scanData) async {
+      await controller.pauseCamera();
       context.router.pop(scanData);
     });
   }
