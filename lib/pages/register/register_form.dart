@@ -190,7 +190,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
           ),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
-              primary: Colors.black87,
+              foregroundColor: Colors.black87,
               minimumSize: Size(88, 36),
               padding: EdgeInsets.symmetric(horizontal: 16),
               shape: const RoundedRectangleBorder(
@@ -744,8 +744,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                       child: ElevatedButton(
                                         onPressed: _submit,
                                         style: ElevatedButton.styleFrom(
-                                          onPrimary: Colors.white,
-                                          primary: Color(0xffdd0e0e),
+                                          foregroundColor: Colors.white,
+                                          backgroundColor: Color(0xffdd0e0e),
                                           minimumSize: Size(88, 36),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 30.0),
@@ -1225,8 +1225,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                       child: ElevatedButton(
                                         onPressed: _submit,
                                         style: ElevatedButton.styleFrom(
-                                          onPrimary: Colors.white,
-                                          primary: Color(0xffdd0e0e),
+                                          foregroundColor: Colors.white,
+                                          backgroundColor: Color(0xffdd0e0e),
                                           minimumSize: Size(88, 36),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 16),

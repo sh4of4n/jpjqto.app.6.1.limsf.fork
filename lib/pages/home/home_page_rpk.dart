@@ -199,7 +199,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.yellow[100],
+                        backgroundColor: Colors.yellow[100],
                       ),
                       onPressed: () {
                         context.router.push(GetVehicleInfo(type: 'RPK'));
@@ -219,7 +219,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.yellow[100],
+                        backgroundColor: Colors.yellow[100],
                       ),
                       onPressed: () {
                         context.router.replace(HomeSelect());
