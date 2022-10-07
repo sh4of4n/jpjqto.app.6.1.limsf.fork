@@ -21,7 +21,6 @@ import 'router.gr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  EasyLoading.instance..userInteractions = false;
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(KppExamDataAdapter());

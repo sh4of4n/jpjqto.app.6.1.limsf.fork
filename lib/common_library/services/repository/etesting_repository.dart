@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:jpj_qto/common_library/services/model/epandu_model.dart';
 import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
 
 import '../../../services/api/networking.dart';
@@ -181,7 +182,11 @@ class EtestingRepo {
     );
 
     if (response.isSuccess && response.data != null) {
-      return Response(true, data: response.data);
+      GetPart3AvailableToCallJpjTestListResponse
+          getPart3AvailableToCallJpjTestListResponse =
+          GetPart3AvailableToCallJpjTestListResponse.fromJson(response.data);
+      return Response(true,
+          data: getPart3AvailableToCallJpjTestListResponse.jpjTestTrn);
     }
 
     return Response(false, message: response.message, data: []);

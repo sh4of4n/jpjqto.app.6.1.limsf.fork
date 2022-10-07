@@ -151,6 +151,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          title: Text('JPJ QTO'),
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.grey,
           elevation: 0,

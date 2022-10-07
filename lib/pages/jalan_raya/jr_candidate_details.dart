@@ -10,6 +10,7 @@ import 'package:jpj_qto/common_library/services/repository/etesting_repository.d
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
+import 'package:jpj_qto/services/response.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +75,9 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     // setState(() {
     //   isLoading = true;
     // });
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     String? vehNo = await localStorage.getPlateNo();
 
@@ -307,7 +310,9 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     // setState(() {
     //   isLoading = true;
     // });
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     vehNo = await localStorage.getPlateNo();
 
@@ -369,7 +374,9 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     // setState(() {
     //   isLoading = true;
     // });
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     var result = await epanduRepo.cancelCallPart3JpjTest(
       part3Type: 'JALAN RAYA',
@@ -452,53 +459,9 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     await qrController.resumeCamera();
     qrController.scannedDataStream.listen((scanData) async {
       await qrController.pauseCamera();
-
-      setState(() {
-        try {
-          merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
-          testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
-          groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
-          nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
-          iconVisible = true;
-          isVisible = false;
-
-          if (qNo!.isNotEmpty) {
-            compareCandidateInfo(
-              groupId: selectedCandidate.groupId,
-              testCode: selectedCandidate.testCode,
-              testDate: selectedCandidate.testDate,
-            );
-          } else {
-            nric = '';
-
-            customDialog.show(
-              barrierDismissable: true,
-              context: context,
-              content: AppLocalizations.of(context)!.translate('scan_again'),
-              type: DialogType.INFO,
-            );
-          }
-        } catch (e) {
-          customDialog.show(
-            barrierDismissable: true,
-            context: context,
-            content: AppLocalizations.of(context)!.translate('invalid_qr'),
-            customActions: [
-              TextButton(
-                onPressed: () {
-                  context.router.pop();
-
-                  qrController.resumeCamera();
-                },
-                child: const Text('Ok'),
-              ),
-            ],
-            type: DialogType.GENERAL,
-          );
-        }
-      });
-
-      // await qrController.resumeCamera();
+      processQrCodeResult(
+          scanData: scanData, selectedCandidate: selectedCandidate, qNo: qNo!);
+      await qrController.resumeCamera();
     });
   }
 
@@ -567,6 +530,54 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
     return true;
   }
 
+  void processQrCodeResult(
+      {required Barcode scanData,
+      required selectedCandidate,
+      required String qNo}) {
+    setState(() {
+      try {
+        merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
+        testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
+        groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
+        nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
+        iconVisible = true;
+        isVisible = false;
+
+        if (qNo.isNotEmpty) {
+          compareCandidateInfo(
+            groupId: selectedCandidate.groupId,
+            testCode: selectedCandidate.testCode,
+            testDate: selectedCandidate.testDate,
+          );
+        } else {
+          nric = '';
+
+          customDialog.show(
+            barrierDismissable: true,
+            context: context,
+            content: AppLocalizations.of(context)!.translate('scan_again'),
+            type: DialogType.INFO,
+          );
+        }
+      } catch (e) {
+        customDialog.show(
+          barrierDismissable: true,
+          context: context,
+          content: AppLocalizations.of(context)!.translate('invalid_qr'),
+          customActions: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+          type: DialogType.GENERAL,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -575,19 +586,61 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         appBar: AppBar(
           title: const Text('Calling'),
           actions: [
-            // TextButton(
-            //   onPressed: () async {
-            //     context.router.push(QrScannerRoute());
-            //     String? vehNo = await localStorage.getPlateNo();
-            //     // etestingRepo.isCurrentCallingCalon(plateNo: vehNo ?? '', partType: 'PART3', nricNo: nricNo)
-            //   },
-            //   child: Text(
-            //     'Calon Semasa',
-            //     style: TextStyle(
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            // ),
+            TextButton(
+              onPressed: () async {
+                var scanData = await context.router.push(QrScannerRoute());
+                if (scanData != null) {
+                  await EasyLoading.show(
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                  String? plateNo = await localStorage.getPlateNo();
+                  Response result = await etestingRepo.isCurrentCallingCalon(
+                    plateNo: plateNo ?? '',
+                    partType: 'PART3',
+                    nricNo: jsonDecode((scanData as Barcode).code!)['Table1'][0]
+                        ['nric_no'],
+                  );
+                  await EasyLoading.dismiss();
+                  if (!result.isSuccess) {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('JPJ QTO'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: const <Widget>[
+                                Text('Calon ini tidak mengambil ujian'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Ok'),
+                              onPressed: () {
+                                context.router.pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    processQrCodeResult(
+                        scanData: (scanData as Barcode),
+                        selectedCandidate: result.data[0],
+                        qNo: 'XXX');
+                  }
+                }
+              },
+              child: Text(
+                'Calon Semasa',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
             IconButton(
               onPressed: () {
                 customDialog.show(

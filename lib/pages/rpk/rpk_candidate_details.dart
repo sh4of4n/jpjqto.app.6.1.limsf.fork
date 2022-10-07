@@ -11,6 +11,7 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/loading_model.dart';
+import 'package:jpj_qto/services/response.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +75,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     // setState(() {
     //   isLoading = true;
     // });
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     String? vehNo = await localStorage.getPlateNo();
 
@@ -170,11 +173,15 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     }
   }
 
-  compareCandidateInfo() async {
+  compareCandidateInfo({
+    required String testCode,
+    required String groupId,
+    required String testDate,
+  }) async {
     // var merchantNo = selectedCandidate.merchantNo;
-    var testCode = selectedCandidate.testCode;
-    var groupId = selectedCandidate.groupId;
-    var testDate = selectedCandidate.testDate;
+    // var testCode = selectedCandidate.testCode;
+    // var groupId = selectedCandidate.groupId;
+    // var testDate = selectedCandidate.testDate;
 
     if (this.groupId == groupId) {
       if (this.testCode == testCode) {
@@ -232,7 +239,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
 
                     if (success > 0)
                       Future.wait([
-                        cancelCallPart3JpjTest(),
+                        cancelCallPart3RpkTest(),
                         callPart3JpjTest(type: 'SKIP'),
                       ]);
                     else
@@ -252,7 +259,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                       ),
                     )
                         .then((value) {
-                      cancelCallPart3JpjTest(type: 'SKIP');
+                      cancelCallPart3RpkTest(type: 'SKIP');
                     });
 
                     // cancelCallPart3JpjTest();
@@ -299,7 +306,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     // setState(() {
     //   isLoading = true;
     // });
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     vehNo = await localStorage.getPlateNo();
 
@@ -341,14 +350,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     EasyLoading.dismiss();
   }
 
-  Future<void> cancelCallPart3JpjTest({type}) async {
+  Future<void> cancelCallPart3RpkTest({type}) async {
     var testCode = selectedCandidate.testCode;
     var groupId = selectedCandidate.groupId;
 
-    // setState(() {
-    //   isLoading = true;
-    // });
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     var result = await epanduRepo.cancelCallRpkJpjTest(
       part3Type: 'JALAN RAYA',
@@ -356,14 +364,34 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       testCode: type == 'SKIP' ? this.testCode : testCode,
       icNo: nric,
     );
-
+    await EasyLoading.dismiss();
     if (result.isSuccess) {
       // context.router.pop();
       if (type == 'MANUAL') {
-        customDialog.show(
+        await showDialog<void>(
           context: context,
-          content: AppLocalizations.of(context)!.translate('call_cancelled'),
-          type: DialogType.SUCCESS,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('JPJ QTO'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context)!
+                        .translate('call_cancelled')),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Ok'),
+                  onPressed: () {
+                    context.router.pop();
+                  },
+                ),
+              ],
+            );
+          },
         );
       }
 
@@ -388,7 +416,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     //     isLoading = false;
     //   });
     // }
-    EasyLoading.dismiss();
   }
 
   @override
@@ -429,49 +456,12 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     await qrController.resumeCamera();
     qrController.scannedDataStream.listen((scanData) async {
       await qrController.pauseCamera();
-
-      setState(() {
-        try {
-          merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
-          testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
-          groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
-          nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
-          iconVisible = true;
-          isVisible = false;
-
-          if (qNo!.isNotEmpty) {
-            compareCandidateInfo();
-          } else {
-            nric = '';
-
-            customDialog.show(
-              barrierDismissable: true,
-              context: context,
-              content: AppLocalizations.of(context)!.translate('scan_again'),
-              type: DialogType.INFO,
-            );
-          }
-        } catch (e) {
-          customDialog.show(
-            barrierDismissable: true,
-            context: context,
-            content: AppLocalizations.of(context)!.translate('invalid_qr'),
-            customActions: [
-              TextButton(
-                onPressed: () {
-                  context.router.pop();
-
-                  qrController.resumeCamera();
-                },
-                child: Text('Ok'),
-              ),
-            ],
-            type: DialogType.GENERAL,
-          );
-        }
-      });
-
-      // await qrController.resumeCamera();
+      processQrCodeResult(
+        scanData: scanData,
+        selectedCandidate: selectedCandidate,
+        qNo: qNo!,
+      );
+      await qrController.resumeCamera();
     });
   }
 
@@ -482,6 +472,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   }
 
   Future<bool> _onWillPop() async {
+    EasyLoading.dismiss();
     if (success > 0) {
       CustomDialog().show(
         context: context,
@@ -491,7 +482,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           TextButton(
             child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
             onPressed: () async {
-              await cancelCallPart3JpjTest(type: 'HOME');
+              await cancelCallPart3RpkTest(type: 'HOME');
             },
           ),
           TextButton(
@@ -509,6 +500,54 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     return true;
   }
 
+  void processQrCodeResult(
+      {required Barcode scanData,
+      required selectedCandidate,
+      required String qNo}) {
+    setState(() {
+      try {
+        merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
+        testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
+        groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
+        nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
+        iconVisible = true;
+        isVisible = false;
+
+        if (qNo.isNotEmpty) {
+          compareCandidateInfo(
+            groupId: selectedCandidate.groupId,
+            testCode: selectedCandidate.testCode,
+            testDate: selectedCandidate.testDate,
+          );
+        } else {
+          nric = '';
+
+          customDialog.show(
+            barrierDismissable: true,
+            context: context,
+            content: AppLocalizations.of(context)!.translate('scan_again'),
+            type: DialogType.INFO,
+          );
+        }
+      } catch (e) {
+        customDialog.show(
+          barrierDismissable: true,
+          context: context,
+          content: AppLocalizations.of(context)!.translate('invalid_qr'),
+          customActions: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              child: Text('Ok'),
+            ),
+          ],
+          type: DialogType.GENERAL,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -517,6 +556,61 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         appBar: AppBar(
           title: Text('Calling'),
           actions: [
+            TextButton(
+              onPressed: () async {
+                var scanData = await context.router.push(QrScannerRoute());
+                if (scanData != null) {
+                  await EasyLoading.show(
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                  String? plateNo = await localStorage.getPlateNo();
+                  Response result = await etestingRepo.isCurrentCallingCalon(
+                    plateNo: plateNo ?? '',
+                    partType: 'PART3',
+                    nricNo: jsonDecode((scanData as Barcode).code!)['Table1'][0]
+                        ['nric_no'],
+                  );
+                  await EasyLoading.dismiss();
+                  if (!result.isSuccess) {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('JPJ QTO'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: const <Widget>[
+                                Text('Calon ini tidak mengambil ujian'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Ok'),
+                              onPressed: () {
+                                context.router.pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    processQrCodeResult(
+                        scanData: (scanData as Barcode),
+                        selectedCandidate: result.data[0],
+                        qNo: 'XXX');
+                  }
+                }
+              },
+              child: Text(
+                'Calon Semasa',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
             IconButton(
               onPressed: () {
                 customDialog.show(
@@ -772,9 +866,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                           child: Text(
                                               AppLocalizations.of(context)!
                                                   .translate('yes_lbl')),
-                                          onPressed: () {
-                                            context.router.pop();
-                                            cancelCallPart3JpjTest(
+                                          onPressed: () async {
+                                            await context.router.pop();
+                                            cancelCallPart3RpkTest(
                                                 type: 'MANUAL');
                                           },
                                         ),
