@@ -197,8 +197,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           // await callPart3JpjTest();
         }
 
-        context.router
-            .push(
+        context.router.push(
           ConfirmCandidateInfo(
             part3Type: 'JALAN RAYA',
             nric: this.nric,
@@ -209,11 +208,11 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
             testCode: this.testCode,
             icPhoto: icPhoto,
           ),
-        )
-            .then((value) {
-          // cancelCallPart3JpjTest();
-          getPart3AvailableToCallJpjTestList();
-        });
+        );
+        //   .then((value) {
+        //   // cancelCallPart3JpjTest();
+        //   getPart3AvailableToCallJpjTestList();
+        // },);
       } else {
         for (int i = 0; i < candidateList!.length; i += 1) {
           if (candidateList![i].testCode == this.testCode) {

@@ -298,6 +298,38 @@ class AuthRepo {
     return Response(false, message: response.message);
   }
 
+  Future<Response> jpjQtiLoginWithMySikap({
+    required String mySikapId,
+    required String permitCode,
+  }) async {
+    final String? caUid = await localStorage.getCaUid();
+    final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
+    String appId = appConfig.appId;
+    String? appVersion = await localStorage.getAppVersion();
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&appId=$appId&permitCode=$permitCode&mySikapId=$mySikapId&appVersion=$appVersion';
+
+    var response = await networking.getData(
+      path: 'JpjQtiLoginWithMySikap?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      ResultResponse loginResponse = ResultResponse.fromJson(response.data);
+      var responseData = loginResponse.result![0];
+
+      if (responseData.result == 'True') {
+        localStorage.saveUserId(responseData.userId!);
+        localStorage.saveDiCode(permitCode);
+        localStorage.saveMerchantDbCode(permitCode);
+        localStorage.saveMySikapId(mySikapId);
+        return response;
+      }
+    }
+
+    return Response(false, message: response.message);
+  }
+
   Future<Response> getUserRegisteredDI({required type}) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwdEncode();

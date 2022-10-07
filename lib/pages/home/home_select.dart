@@ -5,6 +5,7 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 import '../rpk/list_part_iii.dart';
@@ -41,7 +42,7 @@ class _HomeSelectState extends State<HomeSelect> {
         await showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text('JPJ QTO APP'),
+            title: const Text('eDriving QTI App'),
             content: Text(AppLocalizations.of(context)!
                 .translate('vehicle_download_success')),
             actions: <Widget>[
@@ -67,7 +68,7 @@ class _HomeSelectState extends State<HomeSelect> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -88,69 +89,109 @@ class _HomeSelectState extends State<HomeSelect> {
             // ),
             IconButton(
               onPressed: () => context.router.push(
-                ProfileTab(),
+                const ProfileTab(),
                 // RuleRoute(),
               ),
-              icon: Icon(Icons.settings),
+              icon: const Icon(Icons.settings),
             ),
           ],
         ),
         body: SingleChildScrollView(
-          child: Container(
-            // height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 20),
-                Column(
-                  children: [
-                    HomeIcon(
-                      component: CheckListRoute(),
-                      image: imageConstant.checkList,
-                      name:
-                          AppLocalizations.of(context)!.translate('checklist'),
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                HomeIcon(
-                                  component: GetVehicleInfo(type: 'RPK'),
-                                  image: imageConstant.kppIcon,
-                                  name: 'RPK',
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 20),
+              Column(
+                children: [
+                  HomeIcon(
+                    component: CheckListRoute(),
+                    image: imageConstant.checkList,
+                    name: AppLocalizations.of(context)!.translate('checklist'),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Ink(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      offset: Offset(1.0, 2.0),
+                                      blurRadius: 5.0,
+                                      spreadRadius: 2.0,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                HomeIcon(
-                                  component: GetVehicleInfo(type: 'Jalan Raya'),
-                                  image: imageConstant.kppIcon,
-                                  name: 'Bahagian III',
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  onTap: () {
+                                    // context.router
+                                    //     .push(GetVehicleInfo(type: 'RPK'));
+                                  },
+                                  child: SizedBox(
+                                    // padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
+                                    width: ScreenUtil().setWidth(650),
+                                    height: ScreenUtil().setHeight(650),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Image.asset(
+                                            imageConstant.kppIcon,
+                                            width: ScreenUtil().setWidth(450),
+                                            height: ScreenUtil().setHeight(450),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        Text(
+                                          'RPK',
+                                          style: TextStyle(
+                                            fontSize: ScreenUtil().setSp(60),
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              HomeIcon(
+                                component: GetVehicleInfo(type: 'Jalan Raya'),
+                                image: imageConstant.kppIcon,
+                                name: 'Bahagian III',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),
