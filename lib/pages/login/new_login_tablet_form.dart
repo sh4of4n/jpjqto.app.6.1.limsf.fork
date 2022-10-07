@@ -349,8 +349,7 @@ class _NewLoginTabletFormState extends State<NewLoginTabletForm>
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: Text(AppLocalizations.of(context)!.translate('login')),
-            content:
-                Text(AppLocalizations.of(context)!.translate('login_failed')),
+            content: Text(result.message!),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),
