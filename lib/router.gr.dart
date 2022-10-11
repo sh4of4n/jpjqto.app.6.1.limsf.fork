@@ -169,8 +169,15 @@ class AppRouter extends _i23.RootStackRouter {
       final args = routeData.argsAs<RpkPartIIIArgs>();
       return _i23.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i12.RpkPartIII(args.qNo, args.nric, args.rpkName,
-              args.testDate, args.groupId, args.testCode, args.vehNo));
+          child: _i12.RpkPartIII(
+              args.qNo,
+              args.nric,
+              args.rpkName,
+              args.testDate,
+              args.groupId,
+              args.testCode,
+              args.vehNo,
+              args.skipUpdateRpkJpjTestStart));
     },
     JrCandidateDetails.name: (routeData) {
       return _i23.MaterialPageX<dynamic>(
@@ -180,8 +187,15 @@ class AppRouter extends _i23.RootStackRouter {
       final args = routeData.argsAs<JrPartIIIArgs>();
       return _i23.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i13.JrPartIII(args.qNo, args.nric, args.jrName, args.testDate,
-              args.groupId, args.testCode, args.vehNo));
+          child: _i13.JrPartIII(
+              args.qNo,
+              args.nric,
+              args.jrName,
+              args.testDate,
+              args.groupId,
+              args.testCode,
+              args.vehNo,
+              args.skipUpdateJrJpjTestStart));
     },
     ConfirmCandidateInfo.name: (routeData) {
       final args = routeData.argsAs<ConfirmCandidateInfoArgs>();
@@ -684,7 +698,8 @@ class RpkPartIII extends _i23.PageRouteInfo<RpkPartIIIArgs> {
       required String? testDate,
       required String? groupId,
       required String? testCode,
-      required String? vehNo})
+      required String? vehNo,
+      required bool skipUpdateRpkJpjTestStart})
       : super(RpkPartIII.name,
             path: '/rpk-part-ii-i',
             args: RpkPartIIIArgs(
@@ -694,7 +709,8 @@ class RpkPartIII extends _i23.PageRouteInfo<RpkPartIIIArgs> {
                 testDate: testDate,
                 groupId: groupId,
                 testCode: testCode,
-                vehNo: vehNo));
+                vehNo: vehNo,
+                skipUpdateRpkJpjTestStart: skipUpdateRpkJpjTestStart));
 
   static const String name = 'RpkPartIII';
 }
@@ -707,7 +723,8 @@ class RpkPartIIIArgs {
       required this.testDate,
       required this.groupId,
       required this.testCode,
-      required this.vehNo});
+      required this.vehNo,
+      required this.skipUpdateRpkJpjTestStart});
 
   final String? qNo;
 
@@ -723,9 +740,11 @@ class RpkPartIIIArgs {
 
   final String? vehNo;
 
+  final bool skipUpdateRpkJpjTestStart;
+
   @override
   String toString() {
-    return 'RpkPartIIIArgs{qNo: $qNo, nric: $nric, rpkName: $rpkName, testDate: $testDate, groupId: $groupId, testCode: $testCode, vehNo: $vehNo}';
+    return 'RpkPartIIIArgs{qNo: $qNo, nric: $nric, rpkName: $rpkName, testDate: $testDate, groupId: $groupId, testCode: $testCode, vehNo: $vehNo, skipUpdateRpkJpjTestStart: $skipUpdateRpkJpjTestStart}';
   }
 }
 
@@ -748,7 +767,8 @@ class JrPartIII extends _i23.PageRouteInfo<JrPartIIIArgs> {
       required String? testDate,
       required String? groupId,
       required String? testCode,
-      required String? vehNo})
+      required String? vehNo,
+      required bool skipUpdateJrJpjTestStart})
       : super(JrPartIII.name,
             path: '/jr-part-ii-i',
             args: JrPartIIIArgs(
@@ -758,7 +778,8 @@ class JrPartIII extends _i23.PageRouteInfo<JrPartIIIArgs> {
                 testDate: testDate,
                 groupId: groupId,
                 testCode: testCode,
-                vehNo: vehNo));
+                vehNo: vehNo,
+                skipUpdateJrJpjTestStart: skipUpdateJrJpjTestStart));
 
   static const String name = 'JrPartIII';
 }
@@ -771,7 +792,8 @@ class JrPartIIIArgs {
       required this.testDate,
       required this.groupId,
       required this.testCode,
-      required this.vehNo});
+      required this.vehNo,
+      required this.skipUpdateJrJpjTestStart});
 
   final String? qNo;
 
@@ -787,9 +809,11 @@ class JrPartIIIArgs {
 
   final String? vehNo;
 
+  final bool skipUpdateJrJpjTestStart;
+
   @override
   String toString() {
-    return 'JrPartIIIArgs{qNo: $qNo, nric: $nric, jrName: $jrName, testDate: $testDate, groupId: $groupId, testCode: $testCode, vehNo: $vehNo}';
+    return 'JrPartIIIArgs{qNo: $qNo, nric: $nric, jrName: $jrName, testDate: $testDate, groupId: $groupId, testCode: $testCode, vehNo: $vehNo, skipUpdateJrJpjTestStart: $skipUpdateJrJpjTestStart}';
   }
 }
 

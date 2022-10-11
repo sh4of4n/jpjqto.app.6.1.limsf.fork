@@ -80,15 +80,15 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
               ),
-              Divider(),
-              ListTile(
-                leading: Icon(Icons.lock, size: _defIconSize),
-                title: Text(AppLocalizations.of(context)!
-                    .translate('change_password_lbl')),
-                onTap: () {
-                  context.router.push(ChangePassword());
-                },
-              ),
+              // Divider(),
+              // ListTile(
+              //   leading: Icon(Icons.lock, size: _defIconSize),
+              //   title: Text(AppLocalizations.of(context)!
+              //       .translate('change_password_lbl')),
+              //   onTap: () {
+              //     context.router.push(ChangePassword());
+              //   },
+              // ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.exit_to_app, size: _defIconSize),

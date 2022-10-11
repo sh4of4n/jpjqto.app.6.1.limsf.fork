@@ -79,42 +79,42 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       maskType: EasyLoadingMaskType.black,
     );
 
-    String? vehNo = await localStorage.getPlateNo();
+    vehNo = await localStorage.getPlateNo();
 
-    var vehicleResult =
-        await etestingRepo.isVehicleAvailable(plateNo: vehNo ?? '');
-    if (vehicleResult.data != 'True') {
-      EasyLoading.dismiss();
-      await showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('JPJ QTP APP'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(vehicleResult.message ?? ''),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-      // setState(() {
-      //   isLoading = false;
-      // });
-      EasyLoading.dismiss();
-      return;
-    }
+    // var vehicleResult =
+    //     await etestingRepo.isVehicleAvailable(plateNo: vehNo ?? '');
+    // if (vehicleResult.data != 'True') {
+    //   EasyLoading.dismiss();
+    //   await showDialog<void>(
+    //     context: context,
+    //     barrierDismissible: false, // user must tap button!
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: const Text('JPJ QTP APP'),
+    //         content: SingleChildScrollView(
+    //           child: ListBody(
+    //             children: <Widget>[
+    //               Text(vehicleResult.message ?? ''),
+    //             ],
+    //           ),
+    //         ),
+    //         actions: <Widget>[
+    //           TextButton(
+    //             child: const Text('OK'),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    //   // setState(() {
+    //   //   isLoading = false;
+    //   // });
+    //   EasyLoading.dismiss();
+    //   return;
+    // }
 
     var result =
         await epanduRepo.getRpkAvailableToCallJpjTestList(vehNo: vehNo);
@@ -128,6 +128,46 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       setState(() {
         candidateList = result.data;
       });
+      for (var element in result.data) {
+        if (element.rpkStartDate != null) {
+          EasyLoading.dismiss();
+          await context.router.replace(
+            RpkPartIII(
+              qNo: element.queueNo,
+              nric: element.nricNo,
+              rpkName: element.fullname,
+              testDate: element.testDate,
+              groupId: element.groupId,
+              testCode: element.testCode,
+              vehNo: vehNo,
+              skipUpdateRpkJpjTestStart: true,
+            ),
+          );
+          return;
+        }
+
+        if (element.rpkCalling == 'true') {
+          EasyLoading.dismiss();
+          await context.router.push(
+            ConfirmCandidateInfo(
+              part3Type: 'RPK',
+              nric: element.nricNo,
+              candidateName: element.fullname,
+              qNo: element.queueNo,
+              groupId: element.groupId,
+              testDate: element.testDate,
+              testCode: element.testCode,
+              icPhoto: element.icPhotoFilename != null &&
+                      element.icPhotoFilename.isNotEmpty
+                  ? element.icPhotoFilename
+                      .replaceAll(removeBracket, '')
+                      .split('\r\n')[0]
+                  : '',
+            ),
+          );
+          return;
+        }
+      }
     } else {
       if (mounted) {
         customDialog.show(
@@ -310,11 +350,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       maskType: EasyLoadingMaskType.black,
     );
 
-    vehNo = await localStorage.getPlateNo();
-
     var result = await epanduRepo.callRpkJpjTest(
       vehNo: vehNo,
-      part3Type: 'JALAN RAYA',
       groupId: type == 'SKIP' ? this.groupId : groupId,
       testCode: type == 'SKIP' ? this.testCode : testCode,
       icNo: nric,
@@ -556,61 +593,61 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         appBar: AppBar(
           title: Text('Calling'),
           actions: [
-            TextButton(
-              onPressed: () async {
-                var scanData = await context.router.push(QrScannerRoute());
-                if (scanData != null) {
-                  await EasyLoading.show(
-                    maskType: EasyLoadingMaskType.black,
-                  );
-                  String? plateNo = await localStorage.getPlateNo();
-                  Response result = await etestingRepo.isCurrentCallingCalon(
-                    plateNo: plateNo ?? '',
-                    partType: 'PART3',
-                    nricNo: jsonDecode((scanData as Barcode).code!)['Table1'][0]
-                        ['nric_no'],
-                  );
-                  await EasyLoading.dismiss();
-                  if (!result.isSuccess) {
-                    showDialog<void>(
-                      context: context,
-                      barrierDismissible: false, // user must tap button!
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('JPJ QTO'),
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: const <Widget>[
-                                Text('Calon ini tidak mengambil ujian'),
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: const Text('Ok'),
-                              onPressed: () {
-                                context.router.pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    processQrCodeResult(
-                        scanData: (scanData as Barcode),
-                        selectedCandidate: result.data[0],
-                        qNo: 'XXX');
-                  }
-                }
-              },
-              child: Text(
-                'Calon Semasa',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () async {
+            //     var scanData = await context.router.push(QrScannerRoute());
+            //     if (scanData != null) {
+            //       await EasyLoading.show(
+            //         maskType: EasyLoadingMaskType.black,
+            //       );
+            //       String? plateNo = await localStorage.getPlateNo();
+            //       Response result = await etestingRepo.isCurrentCallingCalon(
+            //         plateNo: plateNo ?? '',
+            //         partType: 'PART3',
+            //         nricNo: jsonDecode((scanData as Barcode).code!)['Table1'][0]
+            //             ['nric_no'],
+            //       );
+            //       await EasyLoading.dismiss();
+            //       if (!result.isSuccess) {
+            //         showDialog<void>(
+            //           context: context,
+            //           barrierDismissible: false, // user must tap button!
+            //           builder: (BuildContext context) {
+            //             return AlertDialog(
+            //               title: const Text('JPJ QTO'),
+            //               content: SingleChildScrollView(
+            //                 child: ListBody(
+            //                   children: const <Widget>[
+            //                     Text('Calon ini tidak mengambil ujian'),
+            //                   ],
+            //                 ),
+            //               ),
+            //               actions: <Widget>[
+            //                 TextButton(
+            //                   child: const Text('Ok'),
+            //                   onPressed: () {
+            //                     context.router.pop();
+            //                   },
+            //                 ),
+            //               ],
+            //             );
+            //           },
+            //         );
+            //       } else {
+            //         processQrCodeResult(
+            //             scanData: (scanData as Barcode),
+            //             selectedCandidate: result.data[0],
+            //             qNo: 'XXX');
+            //       }
+            //     }
+            //   },
+            //   child: Text(
+            //     'Calon Semasa',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
             IconButton(
               onPressed: () {
                 customDialog.show(

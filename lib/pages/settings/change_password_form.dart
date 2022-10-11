@@ -249,8 +249,8 @@ class _ChangePasswordFormState extends State<ChangePasswordForm>
           : ElevatedButton(
               onPressed: _submit,
               style: ElevatedButton.styleFrom(
-                onPrimary: Colors.white,
-                primary: primaryColor,
+                foregroundColor: Colors.white,
+                backgroundColor: primaryColor,
                 minimumSize: Size(88, 36),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 11.0),
                 shape: const RoundedRectangleBorder(

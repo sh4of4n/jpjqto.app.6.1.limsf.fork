@@ -192,6 +192,32 @@ class EtestingRepo {
     return Response(false, message: response.message, data: []);
   }
 
+  Future<Response> isCurrentInProgressCalon({
+    required String plateNo,
+    required String partType,
+    required String nricNo,
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&plateNo=$plateNo&partType=$partType&nricNo=$nricNo';
+
+    var response = await networking.getData(
+      path: 'IsCurrentInProgressCalon?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      GetPart3AvailableToCallJpjTestListResponse
+          getPart3AvailableToCallJpjTestListResponse =
+          GetPart3AvailableToCallJpjTestListResponse.fromJson(response.data);
+      return Response(true,
+          data: getPart3AvailableToCallJpjTestListResponse.jpjTestTrn);
+    }
+
+    return Response(false, message: response.message, data: []);
+  }
+
   Future<Response> qtiUjianLoginBhg2({
     required String licenseClass,
   }) async {

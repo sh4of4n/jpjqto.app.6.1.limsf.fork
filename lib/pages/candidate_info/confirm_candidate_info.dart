@@ -243,6 +243,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
           groupId: widget.groupId,
           testCode: widget.testCode,
           vehNo: vehNo,
+          skipUpdateRpkJpjTestStart: false,
         ),
       );
     else
@@ -255,6 +256,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
           groupId: widget.groupId,
           testCode: widget.testCode,
           vehNo: vehNo,
+          skipUpdateJrJpjTestStart: false,
         ),
       );
   }
