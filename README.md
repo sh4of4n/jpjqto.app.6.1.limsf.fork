@@ -1,8 +1,17 @@
+11/10/2022  V.0.0.39
+ePandu ws 6.1.159.0 
+- Vehicle info
+  - group id text field change to dropdown list, can select D, DA
+  - plate no. text field change to dropdown list, can select available plate no..
+  - permit no. text field auto fill in current login permit no..
+- Login page
+  - Permit number text field will auto fill in the last login information
+- Can continue ujian if restart the app
+
 07/10/2022  V.0.0.38
 ePandu ws 6.1.157.0 
 - Login ujian
 - Logout ujian
-
 
 30/09/2022  V.0.0.37
 ePandu ws 6.1.148.0 
