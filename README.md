@@ -1,3 +1,7 @@
+11/10/2022  V.0.0.40
+ePandu ws 6.1.160.0 
+- Fix qr code scanner error
+
 11/10/2022  V.0.0.39
 ePandu ws 6.1.159.0 
 - Vehicle info

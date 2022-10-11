@@ -290,8 +290,6 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                                   child: ListTile(
                                     selected: isSelected,
                                     title: Text(item.plateNo ?? ''),
-                                    subtitle:
-                                        Text(item.groupId?.toString() ?? ''),
                                   ),
                                 );
                               },

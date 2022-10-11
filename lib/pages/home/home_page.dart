@@ -253,11 +253,33 @@ class _HomeState extends State<Home> {
                               await etestingRepo.isCurrentCallingCalon(
                             plateNo: plateNo ?? '',
                             partType: 'RPK',
-                            nricNo: jsonDecode((scanData as Barcode).code!)[
-                                'Table1'][0]['nric_no'],
+                            nricNo: jsonDecode(scanData.toString())['Table1'][0]
+                                ['nric_no'],
                           );
                           await EasyLoading.dismiss();
                           if (!result.isSuccess) {
+                            try {
+                              jsonDecode(scanData.toString())['Table1'][0]
+                                  ['nric_no'];
+                            } catch (e) {
+                              customDialog.show(
+                                barrierDismissable: true,
+                                context: context,
+                                content: AppLocalizations.of(context)!
+                                    .translate('invalid_qr'),
+                                customActions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      context.router.pop();
+                                    },
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                                type: DialogType.GENERAL,
+                              );
+
+                              return;
+                            }
                             EasyLoading.show(
                               maskType: EasyLoadingMaskType.black,
                             );
@@ -265,8 +287,8 @@ class _HomeState extends State<Home> {
                                 await etestingRepo.isCurrentInProgressCalon(
                               plateNo: plateNo ?? '',
                               partType: 'RPK',
-                              nricNo: jsonDecode((scanData as Barcode).code!)[
-                                  'Table1'][0]['nric_no'],
+                              nricNo: jsonDecode(scanData.toString())['Table1']
+                                  [0]['nric_no'],
                             );
                             await EasyLoading.dismiss();
                             if (!result2.isSuccess) {
