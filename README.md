@@ -1,3 +1,9 @@
+11/10/2022  V.0.0.41
+ePandu ws 6.1.160.0 
+- Fix bahagian 3 direct go to ujian error
+- Check vehicle available before panggilan
+
+
 11/10/2022  V.0.0.40
 ePandu ws 6.1.160.0 
 - Fix qr code scanner error

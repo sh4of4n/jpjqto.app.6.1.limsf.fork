@@ -133,7 +133,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       });
 
       for (var element in result.data) {
-        if (element.rpkStartDate != null) {
+        if (element.roadStartDate != null) {
           EasyLoading.dismiss();
           await context.router.replace(
             JrPartIII(
@@ -150,7 +150,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           return;
         }
 
-        if (element.rpkCalling == 'true') {
+        if (element.roadCalling == 'true') {
           EasyLoading.dismiss();
           await context.router.push(
             ConfirmCandidateInfo(
@@ -891,16 +891,56 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                           Row(
                             children: [
                               CustomButton(
-                                onPressed: () {
-                                  if (selectedCandidate != null)
+                                onPressed: () async {
+                                  if (selectedCandidate != null) {
+                                    EasyLoading.show(
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+                                    vehNo = await localStorage.getPlateNo();
+                                    var vehicleResult =
+                                        await etestingRepo.isVehicleAvailable(
+                                            plateNo: vehNo ?? '');
+
+                                    await EasyLoading.dismiss();
+
+                                    if (vehicleResult.data != 'True') {
+                                      EasyLoading.dismiss();
+                                      await showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('JPJ QTP APP'),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Text(vehicleResult.message ??
+                                                      ''),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text('OK'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                      return;
+                                    }
                                     callPart3JpjTest(type: 'MANUAL');
-                                  else
+                                  } else {
                                     customDialog.show(
                                       context: context,
                                       content: AppLocalizations.of(context)!
                                           .translate('select_queue_no'),
                                       type: DialogType.INFO,
                                     );
+                                  }
                                 },
                                 buttonColor: const Color(0xffdd0e0e),
                                 title: AppLocalizations.of(context)!
