@@ -831,8 +831,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                     var vehicleResult =
                                         await etestingRepo.isVehicleAvailable(
                                             plateNo: vehNo ?? '');
+                                    await EasyLoading.dismiss();
                                     if (vehicleResult.data != 'True') {
-                                      EasyLoading.dismiss();
                                       await showDialog<void>(
                                         context: context,
                                         barrierDismissible:

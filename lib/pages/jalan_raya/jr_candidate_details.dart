@@ -904,7 +904,6 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                     await EasyLoading.dismiss();
 
                                     if (vehicleResult.data != 'True') {
-                                      EasyLoading.dismiss();
                                       await showDialog(
                                         context: context,
                                         barrierDismissible: false,

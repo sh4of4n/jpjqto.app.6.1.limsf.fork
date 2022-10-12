@@ -344,6 +344,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                               );
                             }
                           } catch (e) {
+                            await EasyLoading.dismiss();
                             customDialog.show(
                               barrierDismissable: true,
                               context: context,
