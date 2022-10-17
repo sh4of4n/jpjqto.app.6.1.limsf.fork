@@ -109,11 +109,14 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                     ),
                                     header: Padding(
                                       padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        "SKIM",
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
+                                      child: Expanded(
+                                        child: Text(
+                                          "Pemeriksaan Kenderaan Ujian",
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),

@@ -113,8 +113,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       return;
     }
 
-    var result =
-        await epanduRepo.getRpkAvailableToCallJpjTestList(vehNo: vehNo);
+    var result = await epanduRepo.getRpkAvailableToCallJpjTestListByCourseCode(
+        vehNo: vehNo);
 
     var result2 = await etestingRepo.getOwnerIdCategoryList();
     if (result2.isSuccess) {
@@ -303,7 +303,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
 
     vehNo = await localStorage.getPlateNo();
 
-    var result = await epanduRepo.callRpkJpjTest(
+    var result = await epanduRepo.callRpkJpjTestByCourseCode(
       vehNo: vehNo,
       part3Type: 'JALAN RAYA',
       groupId: type == 'SKIP' ? this.groupId : groupId,

@@ -251,11 +251,6 @@ class _CheckListPageState extends State<CheckListPage> {
         }
 
         EasyLoading.dismiss();
-        if (mounted) {
-          setState(() {
-            skimCheck = true;
-          });
-        }
 
         if (isUntickMandatory) {
           await showDialog(
@@ -290,6 +285,14 @@ class _CheckListPageState extends State<CheckListPage> {
         if (expandableControllerSkim.expanded) {
           expandableControllerSkim.toggle();
         }
+
+        setState(() {
+          for (var element in checklist[0].data) {
+            element.isCheck = false;
+          }
+          skimCheckSelectAll = false;
+        });
+
         customDialog.show(
             context: context,
             content: AppLocalizations.of(context)!
@@ -298,8 +301,6 @@ class _CheckListPageState extends State<CheckListPage> {
             barrierDismissable: false,
             onPressed: () async {
               await context.router.pop();
-              // context.router
-              //     .popUntil((route) => route.settings.name == 'HomeSelect');
             });
       } catch (e) {
         await EasyLoading.dismiss();
@@ -561,8 +562,9 @@ class _CheckListPageState extends State<CheckListPage> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "SKIM",
+                                          "Pemeriksaan Kenderaan Ujian",
                                           style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -573,39 +575,17 @@ class _CheckListPageState extends State<CheckListPage> {
                                             var controller =
                                                 ExpandableController.of(context,
                                                     required: true)!;
-                                            return skimCheck
-                                                ? ElevatedButton.icon(
-                                                    onPressed: () {
-                                                      if (!controller
-                                                          .expanded) {
-                                                        controller.toggle();
-                                                      }
-                                                      updateJpjCheckListSkimA();
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.check_circle,
-                                                    ),
-                                                    label: Text(AppLocalizations
-                                                            .of(context)!
-                                                        .translate('updated')),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.green,
-                                                    ),
-                                                  )
-                                                : ElevatedButton(
-                                                    onPressed: () {
-                                                      if (!controller
-                                                          .expanded) {
-                                                        controller.toggle();
-                                                      }
-                                                      updateJpjCheckListSkimA();
-                                                    },
-                                                    child: Text(AppLocalizations
-                                                            .of(context)!
-                                                        .translate('update')),
-                                                  );
+                                            return ElevatedButton(
+                                              onPressed: () {
+                                                if (!controller.expanded) {
+                                                  controller.toggle();
+                                                }
+                                                updateJpjCheckListSkimA();
+                                              },
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .translate('update')),
+                                            );
                                           },
                                         ),
                                       ],
@@ -625,8 +605,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                             builder: (field) {
                                               return DropdownSearch<
                                                   MysikapVehicle>(
-                                                // asyncItems: (filter) =>
-                                                //     getMySikapVehicleListByStatus(),
                                                 items: vehicleArr,
                                                 dropdownDecoratorProps:
                                                     DropDownDecoratorProps(
@@ -643,7 +621,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                                     return field.errorText;
                                                   return null;
                                                 },
-
                                                 itemAsString:
                                                     (MysikapVehicle u) =>
                                                         u.plateNo!,

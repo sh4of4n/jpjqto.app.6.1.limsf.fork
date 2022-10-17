@@ -1,75 +1,86 @@
-07/10/2022  V.0.0.38
-ePandu ws 6.1.157.0 
+17/10/2022 V.0.0.42
+ePandu ws 6.1.163.0
+
+- Q-No RPK and Bhg 3, filter by Pra Ujian and Ujian JPJ
+
+07/10/2022 V.0.0.38
+ePandu ws 6.1.157.0
+
 - Login ujian
 - Logout ujian
 
+30/09/2022 V.0.0.37
+ePandu ws 6.1.148.0
 
-30/09/2022  V.0.0.37
-ePandu ws 6.1.148.0 
 - Fixed cannot scroll down page to mula ujian
 
-
 28/09/2022 V.0.0.36
-ePandu ws 6.1.147.0 
+ePandu ws 6.1.147.0
+
 - Enhance IC photo size
 
 28/09/2022 V.0.0.35
-ePandu ws 6.1.141.0 
+ePandu ws 6.1.141.0
+
 - Checklist - No block user submit checklist if no tick mandatory field
 
-
 27/09/2022 V.0.0.34
-ePandu ws 6.1.141.0 
+ePandu ws 6.1.141.0
+
 - Check vehicle available
 - Checklist - Add a checkbox to select/unselect all item
 - Warning user if no tick mandatory or below 80% score in bahagian 3
 
-
 26/09/2022 V.0.0.33
-ePandu ws 6.1.141.0 
+ePandu ws 6.1.141.0
+
 - Show Kategori ID
 - Can select plate no. from dropdown list to do checklist
 - Popup message after user login success/fail, vehicle download complete, checklist mandatory field
 
 15/09/2022 V.0.0.32
-ePandu ws 6.1.141.0 
+ePandu ws 6.1.141.0
+
 - Show calon IC photo
 
 14/09/2022 V.0.0.31
-ePandu ws 6.1.140.0 
+ePandu ws 6.1.140.0
+
 - Logout - Can select want logout from mySikap or app only
 - Get the element from mySikap
-- Update for part 3 new rules  jpj test result
+- Update for part 3 new rules jpj test result
 
 13/09/2022 V.0.0.30
-ePandu ws 6.1.138.0 
+ePandu ws 6.1.138.0
+
 - Fixed camera black screen
 
 13/09/2022 V.0.0.29
-ePandu ws 6.1.138.0 
-- Checklist - Update single category, instead of update all
-            - Fixed typo
+ePandu ws 6.1.138.0
+
+- Checklist - Update single category, instead of update all - Fixed typo
 
 10/09/2022 V.0.0.28
 ePandu ws 6.1.136.0
+
 - Enable keyin plate number in SKIM checklist
 - Login to MySikap
 
-
 25/08/2022 V.0.0.27
 ePandu ws 6.1.127.0
-- Fixed RPK button missing
 
+- Fixed RPK button missing
 
 20/08/2022 V.0.0.26
 ePandu ws 6.1.127.0
+
 - Add RSM button (no function)
 - Adjust Checklist button positoon
 
 19/08/2022 V.0.0.25
 ePandu ws 6.1.127.0
-- Add Checklist
 
+- Add Checklist
 
 V.0.0.24
 
