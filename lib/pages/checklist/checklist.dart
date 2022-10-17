@@ -32,12 +32,8 @@ class _CheckListPageState extends State<CheckListPage> {
   List<JpjCheckListJson> checklistSkimArr = [];
   List<JpjCheckListJson> checklistLitarArr = [];
   List<JpjCheckListJson> checklistSystemArr = [];
-  bool skimCheck = false;
   bool litarCheck = false;
   bool sistemCheck = false;
-  bool skimCheckSelectAll = false;
-  bool litarCheckSelectAll = false;
-  bool sistemCheckSelectAll = false;
 
   final _formKey = GlobalKey<FormBuilderState>();
   final customDialog = CustomDialog();
@@ -217,13 +213,12 @@ class _CheckListPageState extends State<CheckListPage> {
       bool isUntickMandatory = false;
 
       for (var element in checklist[0].data) {
-        if (element.mandatory == 'true' &&
-            (element.isCheck == null || element.isCheck == false)) {
+        if (element.mandatory == 'true' && element.isCheck == true) {
           isUntickMandatory = true;
         }
         checklistSkimArr.add(JpjCheckListJson(
           checkCode: element.checkCode,
-          status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+          status: (element.isCheck != null && element.isCheck) ? '0' : '1',
           remark: '',
         ));
       }
@@ -290,7 +285,6 @@ class _CheckListPageState extends State<CheckListPage> {
           for (var element in checklist[0].data) {
             element.isCheck = false;
           }
-          skimCheckSelectAll = false;
         });
 
         customDialog.show(
@@ -313,13 +307,12 @@ class _CheckListPageState extends State<CheckListPage> {
     bool isUntickMandatory = false;
 
     for (var element in checklist[1].data) {
-      if (element.mandatory == 'true' &&
-          (element.isCheck == null || element.isCheck == false)) {
+      if (element.mandatory == 'true' && element.isCheck == true) {
         isUntickMandatory = true;
       }
       checklistLitarArr.add(JpjCheckListJson(
         checkCode: element.checkCode,
-        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+        status: (element.isCheck != null && element.isCheck) ? '0' : '1',
         remark: '',
       ));
     }
@@ -398,13 +391,12 @@ class _CheckListPageState extends State<CheckListPage> {
     bool isUntickMandatory = false;
 
     for (var element in checklist[2].data) {
-      if (element.mandatory == 'true' &&
-          (element.isCheck == null || element.isCheck == false)) {
+      if (element.mandatory == 'true' && element.isCheck == true) {
         isUntickMandatory = true;
       }
       checklistSystemArr.add(JpjCheckListJson(
         checkCode: element.checkCode,
-        status: (element.isCheck != null && element.isCheck) ? '1' : '0',
+        status: (element.isCheck != null && element.isCheck) ? '0' : '1',
         remark: '',
       ));
     }
@@ -682,29 +674,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                           ),
                                         ),
                                       ),
-                                      CheckboxListTile(
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(AppLocalizations.of(context)!
-                                                .translate('select_all')),
-                                          ],
-                                        ),
-                                        value: skimCheckSelectAll,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            skimCheckSelectAll = value ?? false;
-                                            for (var element
-                                                in checklist[0].data) {
-                                              element.isCheck = value;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                      Divider(
-                                        height: 1,
-                                      ),
                                       ListView.separated(
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
@@ -740,18 +709,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                                 checklist[0]
                                                     .data[index]
                                                     .isCheck = value;
-                                                int checkCount = checklist[0]
-                                                    .data
-                                                    .where((i) =>
-                                                        i.isCheck != null &&
-                                                        i.isCheck)
-                                                    .toList()
-                                                    .length;
-                                                skimCheckSelectAll =
-                                                    checkCount ==
-                                                        checklist[0]
-                                                            .data
-                                                            .length;
                                               });
                                             },
                                           );
@@ -864,27 +821,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      CheckboxListTile(
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(AppLocalizations.of(context)!
-                                                .translate('select_all')),
-                                          ],
-                                        ),
-                                        value: litarCheckSelectAll,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            litarCheckSelectAll =
-                                                value ?? false;
-                                            for (var element
-                                                in checklist[1].data) {
-                                              element.isCheck = value;
-                                            }
-                                          });
-                                        },
-                                      ),
                                       ListView.separated(
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
@@ -920,19 +856,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                                 checklist[1]
                                                     .data[index]
                                                     .isCheck = value;
-
-                                                int checkCount = checklist[1]
-                                                    .data
-                                                    .where((i) =>
-                                                        i.isCheck != null &&
-                                                        i.isCheck)
-                                                    .toList()
-                                                    .length;
-                                                litarCheckSelectAll =
-                                                    checkCount ==
-                                                        checklist[1]
-                                                            .data
-                                                            .length;
                                               });
                                             },
                                           );
@@ -1034,27 +957,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      CheckboxListTile(
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(AppLocalizations.of(context)!
-                                                .translate('select_all')),
-                                          ],
-                                        ),
-                                        value: sistemCheckSelectAll,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            sistemCheckSelectAll =
-                                                value ?? false;
-                                            for (var element
-                                                in checklist[2].data) {
-                                              element.isCheck = value;
-                                            }
-                                          });
-                                        },
-                                      ),
                                       ListView.separated(
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
@@ -1090,19 +992,6 @@ class _CheckListPageState extends State<CheckListPage> {
                                                 checklist[2]
                                                     .data[index]
                                                     .isCheck = value;
-
-                                                int checkCount = checklist[2]
-                                                    .data
-                                                    .where((i) =>
-                                                        i.isCheck != null &&
-                                                        i.isCheck)
-                                                    .toList()
-                                                    .length;
-                                                sistemCheckSelectAll =
-                                                    checkCount ==
-                                                        checklist[2]
-                                                            .data
-                                                            .length;
                                               });
                                             },
                                           );
