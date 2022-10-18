@@ -229,7 +229,7 @@ class _JrPartIIIState extends State<JrPartIII> {
         }
       }
 
-    if (score < 64 || isUntickMandatory) {
+      if (score < 64 || isUntickMandatory) {
         await showDialog(
           context: context,
           barrierDismissible: true, // user must tap button!
@@ -239,7 +239,7 @@ class _JrPartIIIState extends State<JrPartIII> {
               content: SingleChildScrollView(
                 child: ListBody(
                   children: const <Widget>[
-                    Text('Calon ini telah gagal, ujian akan ditamatkan'),
+                    Text('Calon Gagal Kerana Markah Kurang Dari 80%'),
                   ],
                 ),
               ),

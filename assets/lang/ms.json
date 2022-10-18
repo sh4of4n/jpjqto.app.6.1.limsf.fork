@@ -625,7 +625,7 @@
   "select_queue_no": "Sila pilih no barisan yang ditentukan dahulu.",
   "invalid_qr": "Kod QR tidak sah.",
   "record_not_matched": "Maklumat Calon Tidak Sepadan. Adakah Anda Ingin Meneruskan Ujian Dengan Calon Ini?",
-  "record_not_matched_reject": "Rekod pelajar tidak sepadan.",
+  "record_not_matched_reject": "Maklumat Calon Tidak Sepadan.",
   "calling": "Memanggil",
   "start_test": "Mulakan Ujian",
   "test_submitted": "Hasil ujian berjaya dihantar.",
