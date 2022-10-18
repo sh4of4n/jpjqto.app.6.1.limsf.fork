@@ -23,6 +23,7 @@ class RpkPartIII extends StatefulWidget {
   final String? groupId;
   final String? testCode;
   final String? vehNo;
+  final bool skipUpdateRpkJpjTestStart;
 
   RpkPartIII(
     this.qNo,
@@ -32,6 +33,7 @@ class RpkPartIII extends StatefulWidget {
     this.groupId,
     this.testCode,
     this.vehNo,
+    this.skipUpdateRpkJpjTestStart,
   );
 
   @override
@@ -58,7 +60,9 @@ class _Part3MainState extends State<RpkPartIII> {
   void initState() {
     super.initState();
     getRule();
-    updateRpkJpjTestStart();
+    if (!widget.skipUpdateRpkJpjTestStart) {
+      updateRpkJpjTestStart();
+    }
   }
 
   Future<void> getRule() async {
@@ -565,8 +569,8 @@ class _Part3MainState extends State<RpkPartIII> {
                     child: ElevatedButton(
                       onPressed: updateRpkJpjTestResult,
                       style: ElevatedButton.styleFrom(
-                        onPrimary: ColorConstant.primaryColor,
-                        primary: Color(0xffdd0e0e),
+                        foregroundColor: ColorConstant.primaryColor,
+                        backgroundColor: Color(0xffdd0e0e),
                         minimumSize: Size(88, 36),
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         shape: const RoundedRectangleBorder(

@@ -216,7 +216,7 @@ class _ProfileTabState extends State<ProfileTab>
         // ),
         // shape: StadiumBorder(),
         style: OutlinedButton.styleFrom(
-          primary: Colors.black87,
+          foregroundColor: Colors.black87,
           minimumSize: Size(88, 36),
           padding: EdgeInsets.symmetric(horizontal: 16),
           shape: StadiumBorder(),
@@ -254,7 +254,7 @@ class _ProfileTabState extends State<ProfileTab>
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: _getTitle(),
-            actions: _getActions(),
+            // actions: _getActions(),
           ),
           backgroundColor: Colors.transparent,
           body: TabBarView(controller: _tabController, children: [

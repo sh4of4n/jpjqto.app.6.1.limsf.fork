@@ -1,3 +1,25 @@
+11/10/2022 V.0.0.41
+ePandu ws 6.1.160.0
+
+- Fix bahagian 3 direct go to ujian error
+- Check vehicle available before panggilan
+
+11/10/2022 V.0.0.40
+ePandu ws 6.1.160.0
+
+- Fix qr code scanner error
+
+11/10/2022 V.0.0.39
+ePandu ws 6.1.159.0
+
+- Vehicle info
+  - group id text field change to dropdown list, can select D, DA
+  - plate no. text field change to dropdown list, can select available plate no..
+  - permit no. text field auto fill in current login permit no..
+- Login page
+  - Permit number text field will auto fill in the last login information
+- Can continue ujian if restart the app
+
 17/10/2022 V.0.0.42
 ePandu ws 6.1.163.0
 

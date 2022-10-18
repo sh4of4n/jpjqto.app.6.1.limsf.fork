@@ -157,7 +157,9 @@ class _CheckListPageState extends State<CheckListPage> {
       }
 
       EasyLoading.show(
-          status: AppLocalizations.of(context)!.translate('updating'));
+        status: AppLocalizations.of(context)!.translate('updating'),
+        maskType: EasyLoadingMaskType.black,
+      );
 
       JpjCheckListRequest requestSkim = JpjCheckListRequest(
         jpjCheckList: checklistSkimArr,
@@ -224,7 +226,9 @@ class _CheckListPageState extends State<CheckListPage> {
       }
 
       EasyLoading.show(
-          status: AppLocalizations.of(context)!.translate('updating'));
+        status: AppLocalizations.of(context)!.translate('updating'),
+        maskType: EasyLoadingMaskType.black,
+      );
 
       JpjCheckListRequest requestSkim = JpjCheckListRequest(
         jpjCheckList: checklistSkimArr,
@@ -318,7 +322,9 @@ class _CheckListPageState extends State<CheckListPage> {
     }
 
     EasyLoading.show(
-        status: AppLocalizations.of(context)!.translate('updating'));
+      status: AppLocalizations.of(context)!.translate('updating'),
+      maskType: EasyLoadingMaskType.black,
+    );
 
     JpjCheckListRequest requestLitar = JpjCheckListRequest(
       jpjCheckList: checklistLitarArr,
@@ -402,7 +408,9 @@ class _CheckListPageState extends State<CheckListPage> {
     }
 
     EasyLoading.show(
-        status: AppLocalizations.of(context)!.translate('updating'));
+      status: AppLocalizations.of(context)!.translate('updating'),
+      maskType: EasyLoadingMaskType.black,
+    );
 
     JpjCheckListRequest requestSystem = JpjCheckListRequest(
       jpjCheckList: checklistSystemArr,

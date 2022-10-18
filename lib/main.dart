@@ -21,7 +21,6 @@ import 'router.gr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  EasyLoading.instance..userInteractions = false;
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(KppExamDataAdapter());
@@ -108,6 +107,9 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'Myriad',
         textTheme: FontTheme().primaryFont,
         primaryTextTheme: FontTheme().primaryFont,
+        appBarTheme: AppBarTheme(
+          backgroundColor: ColorConstant.primaryColor,
+        ),
       ),
       // List all of the app's supported locales here
       supportedLocales: [

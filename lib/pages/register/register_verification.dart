@@ -227,8 +227,8 @@ class _RegisterVerificationState extends State<RegisterVerification> {
                                     child: ElevatedButton(
                                       onPressed: _next,
                                       style: ElevatedButton.styleFrom(
-                                        onPrimary: Colors.white,
-                                        primary: Color(0xffdd0e0e),
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Color(0xffdd0e0e),
                                         minimumSize: Size(88, 36),
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 30),
@@ -366,8 +366,8 @@ class _RegisterVerificationState extends State<RegisterVerification> {
                                     child: ElevatedButton(
                                       onPressed: _next,
                                       style: ElevatedButton.styleFrom(
-                                        onPrimary: Colors.white,
-                                        primary: Color(0xffdd0e0e),
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Color(0xffdd0e0e),
                                         minimumSize: Size(88, 36),
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 16),

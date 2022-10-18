@@ -64,6 +64,7 @@ dependencies:
   form_builder_validators:
   dropdown_search:
   cached_network_image:
+  dropdown_button2:
 
 dev_dependencies:
   flutter_test:

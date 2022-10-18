@@ -31,7 +31,9 @@ class _HomeSelectState extends State<HomeSelect> {
   }
 
   Future<void> checkMySikapVehicle() async {
-    EasyLoading.show();
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
     bool isCheck = await localStorage.getMySikapVehicle();
     if (!isCheck) {
       var result = await etestingRepo.getMySikapVehicleListByStatus(status: '');
@@ -79,6 +81,7 @@ class _HomeSelectState extends State<HomeSelect> {
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.grey,
           elevation: 0,
+          title: Text('JPJ QTO'),
           actions: <Widget>[
             // IconButton(
             //   onPressed: () => context.router.push(
