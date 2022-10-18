@@ -1,3 +1,31 @@
+18/10/2022 V.0.0.43
+ePandu ws 6.1.165.0
+
+- Vehicle info
+  - group id text field change to dropdown list, can select D, DA
+  - plate no. text field change to dropdown list, can select available plate no..
+  - permit no. text field auto fill in current login permit no..
+- Login page
+  - Permit number text field will auto fill in the last login information
+- Can continue ujian if restart the app
+- Checklist
+  - Refresh the page after submit
+  - Change Label SKIM to Pemeriksaan Kenderaan Ujian
+  - Only tick for demerit
+- Bahagian 3
+  - Prompt mesej “Calon Gagal Kerana Markah Kurang Dari 80%”
+  - Change label ‘Markah biasa didapati’ to 'Markah'
+  - Only tick for demerit
+- RPK
+  - Only tick for demerit
+- QR Code Scanner
+  - Prompt message "Maklumat Calon Tidak Sepadan. Adakah Anda Ingin Meneruskan Ujian Dengan Calon Ini?"
+
+17/10/2022 V.0.0.42
+ePandu ws 6.1.163.0
+
+- Q-No RPK and Bhg 3, filter by Pra Ujian and Ujian JPJ
+
 11/10/2022 V.0.0.41
 ePandu ws 6.1.160.0
 
@@ -19,11 +47,6 @@ ePandu ws 6.1.159.0
 - Login page
   - Permit number text field will auto fill in the last login information
 - Can continue ujian if restart the app
-
-17/10/2022 V.0.0.42
-ePandu ws 6.1.163.0
-
-- Q-No RPK and Bhg 3, filter by Pra Ujian and Ujian JPJ
 
 07/10/2022 V.0.0.38
 ePandu ws 6.1.157.0

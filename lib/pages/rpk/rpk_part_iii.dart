@@ -69,6 +69,9 @@ class _Part3MainState extends State<RpkPartIII> {
     ruleFuture = etestingRepo.getRule(elementCode: 'RPK');
     var result = await ruleFuture;
     ruleList = result.data;
+    for (var element in ruleList) {
+      element.isCheck = true;
+    }
   }
 
   Future<void> updateRpkJpjTestStart() async {
@@ -111,7 +114,7 @@ class _Part3MainState extends State<RpkPartIII> {
     };
     for (var element in ruleList) {
       a['Result']![0][element.ruleCode] =
-          element.isCheck == null || element.isCheck == false ? '1' : 0;
+          element.isCheck == null || element.isCheck == false ? '0' : 1;
     }
 
     print(jsonEncode(a));
@@ -307,7 +310,7 @@ class _Part3MainState extends State<RpkPartIII> {
                                                               top: 5),
                                                       child: Container(
                                                         child: Text(
-                                                          '${ruleList.where((c) => c.isCheck == false).length}/24',
+                                                          '${ruleList.where((c) => c.isCheck == true).length}/24',
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -407,8 +410,8 @@ class _Part3MainState extends State<RpkPartIII> {
                                                                             null ||
                                                                         snapshot.data.data[i].isCheck ==
                                                                             false
-                                                                    ? '1'
-                                                                    : '0'),
+                                                                    ? '0'
+                                                                    : '1'),
                                                               )),
                                                             ),
                                                           ),
@@ -547,7 +550,7 @@ class _Part3MainState extends State<RpkPartIII> {
                             child: RichText(
                                 text: TextSpan(
                                     text: ruleList
-                                        .where((c) => c.isCheck == false)
+                                        .where((c) => c.isCheck)
                                         .length
                                         .toString(),
                                     style: TextStyle(color: Colors.black),

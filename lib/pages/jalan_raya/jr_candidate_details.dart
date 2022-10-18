@@ -72,51 +72,11 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
   }
 
   getPart3AvailableToCallJpjTestList() async {
-    // setState(() {
-    //   isLoading = true;
-    // });
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
 
     vehNo = await localStorage.getPlateNo();
-
-    // var vehicleResult =
-    //     await etestingRepo.isVehicleAvailable(plateNo: vehNo ?? '');
-
-    // if (vehicleResult.data != 'True') {
-    //   EasyLoading.dismiss();
-    //   await showDialog(
-    //     context: context,
-    //     barrierDismissible: false, // user must tap button!
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         title: const Text('JPJ QTP APP'),
-    //         content: SingleChildScrollView(
-    //           child: ListBody(
-    //             children: <Widget>[
-    //               Text(vehicleResult.message ?? ''),
-    //             ],
-    //           ),
-    //         ),
-    //         actions: <Widget>[
-    //           TextButton(
-    //             child: const Text('OK'),
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-
-    //   // setState(() {
-    //   //   isLoading = false;
-    //   // });
-
-    //   return;
-    // }
 
     var result =
         await epanduRepo.getPart3AvailableToCallJpjTestListByCourseCode(
@@ -155,7 +115,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
           EasyLoading.dismiss();
           await context.router.push(
             ConfirmCandidateInfo(
-              part3Type: 'RPK',
+              part3Type: 'JALAN RAYA',
               nric: element.nricNo,
               candidateName: element.fullname,
               qNo: element.queueNo,

@@ -1024,6 +1024,7 @@ class EpanduRepo {
       groupId: groupId,
       nricNo: icNo,
       testCode: testCode,
+      courseCode: 'JPJ',
     );
 
     String body = jsonEncode(verifyScanCodeRequest);

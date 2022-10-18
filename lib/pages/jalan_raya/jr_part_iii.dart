@@ -66,17 +66,6 @@ class _JrPartIIIState extends State<JrPartIII> {
     'h': [],
     'i': [],
   };
-  Map<String, bool> checkAllJson = {
-    'a': false,
-    'b': false,
-    'c': false,
-    'd': false,
-    'e': false,
-    'f': false,
-    'g': false,
-    'h': false,
-    'i': false
-  };
 
   @override
   void initState() {
@@ -88,20 +77,12 @@ class _JrPartIIIState extends State<JrPartIII> {
   }
 
   void getRule() async {
-    checkAllJson = {
-      'a': false,
-      'b': false,
-      'c': false,
-      'd': false,
-      'e': false,
-      'f': false,
-      'g': false,
-      'h': false,
-      'i': false
-    };
     ruleFuture = etestingRepo.getRule(elementCode: 'PART3');
     var result = await ruleFuture;
     ruleList = result.data;
+    for (var element in ruleList) {
+      element.isCheck = true;
+    }
     ruleJson = {};
 
     for (var i = 0; i < ruleList.length; i++) {
@@ -163,9 +144,9 @@ class _JrPartIIIState extends State<JrPartIII> {
       a['Result']![0][element.ruleCode] =
           element.isCheck == null || element.isCheck == false ? 0 : '1';
     }
-
+    bool canContinue = false;
     if (isUntickMandatory) {
-      bool canContinue = await showDialog(
+      canContinue = await showDialog(
         context: context,
         barrierDismissible: true, // user must tap button!
         builder: (BuildContext context) {
@@ -211,7 +192,59 @@ class _JrPartIIIState extends State<JrPartIII> {
       isVisible = true;
     });
 
-    // print(resultJson);
+    int score = 0;
+    for (var element in ruleList) {
+      if (element.mandatory == 'false' && element.isCheck) {
+        score += 1;
+      }
+    }
+
+    if (score < 64) {
+      canContinue = await showDialog(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('JPJ QTO APP'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text(
+                      'Calon Gagal Kerana Markah Kurang Dari 80%. Ujian Akan Ditamatkan.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(
+                  AppLocalizations.of(context)!.translate('go_back_lbl'),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              TextButton(
+                child: Text(
+                  AppLocalizations.of(context)!.translate('ok_btn'),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      canContinue = true;
+    }
+
+    if (!canContinue) {
+      setState(() {
+        isVisible = false;
+      });
+      return;
+    }
 
     var result = await epanduRepo.updatePart3JpjTestResult(
       vehNo: widget.vehNo,
@@ -223,45 +256,6 @@ class _JrPartIIIState extends State<JrPartIII> {
     );
 
     if (result.isSuccess) {
-      // success += 1;
-
-      // if (success == 2) {
-      int score = 0;
-      for (var element in ruleList) {
-        if (element.mandatory == 'false' && element.isCheck) {
-          score += 1;
-        }
-      }
-
-      if (score < 64 || isUntickMandatory) {
-        await showDialog(
-          context: context,
-          barrierDismissible: true, // user must tap button!
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('JPJ QTO APP'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: const <Widget>[
-                    Text('Calon Gagal Kerana Markah Kurang Dari 80%'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    AppLocalizations.of(context)!.translate('ok_btn'),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }
-
       customDialog.show(
         context: context,
         barrierDismissable: false,
@@ -273,7 +267,6 @@ class _JrPartIIIState extends State<JrPartIII> {
         content: AppLocalizations.of(context)!.translate('test_submitted'),
         type: DialogType.SUCCESS,
       );
-      // }
     } else {
       customDialog.show(
         context: context,
@@ -810,43 +803,6 @@ class _JrPartIIIState extends State<JrPartIII> {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Wrap(
-                                children: <Widget>[
-                                  Transform.scale(
-                                    scale: 1.3,
-                                    child: Checkbox(
-                                      checkColor: Colors.black,
-                                      activeColor: Colors.white,
-                                      value: checkAllJson[code],
-                                      onChanged: (bool? value) {
-                                        if (value!) {
-                                          setState(() {
-                                            checkAllJson[code] = true;
-                                            for (var element
-                                                in ruleJson[code]!) {
-                                              element.isCheck = true;
-                                            }
-                                          });
-                                        } else {
-                                          checkAllJson[code] = false;
-                                          setState(() {
-                                            for (var element
-                                                in ruleJson[code]!) {
-                                              element.isCheck = false;
-                                            }
-                                          });
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
                               padding: const EdgeInsets.only(right: 30, top: 5),
                               child: Container(
                                 child: Text(
@@ -886,13 +842,6 @@ class _JrPartIIIState extends State<JrPartIII> {
                                 } else {
                                   ruleJson[code]![i].isCheck = false;
                                 }
-
-                                int checkCount = ruleJson[code]!
-                                    .where((i) => i.isCheck)
-                                    .toList()
-                                    .length;
-                                checkAllJson[code] =
-                                    checkCount == ruleJson[code]!.length;
                               });
                             },
                             child: Table(
