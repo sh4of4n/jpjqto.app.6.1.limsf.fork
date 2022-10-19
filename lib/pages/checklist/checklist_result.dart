@@ -109,12 +109,11 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                     theme: const ExpandableThemeData(
                                       headerAlignment:
                                           ExpandablePanelHeaderAlignment.center,
-                                      tapBodyToCollapse: true,
                                     ),
                                     header: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        "Pemeriksaan Kenderaan Ujian",
+                                        "1. Pemeriksaan Kenderaan Ujian",
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -297,7 +296,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                                                     context,
                                                                 int index) {
                                                           return customCheckbox(
-                                                              index + 1,
+                                                              '1.${index + 1}',
                                                               snapshot2.data
                                                                   .data[index]);
                                                         },
@@ -374,12 +373,11 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                     theme: const ExpandableThemeData(
                                       headerAlignment:
                                           ExpandablePanelHeaderAlignment.center,
-                                      tapBodyToCollapse: true,
                                     ),
                                     header: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        "LITAR",
+                                        "2. LITAR",
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -405,7 +403,8 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                           },
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return customCheckbox(index + 1,
+                                            return customCheckbox(
+                                                '2.${index + 1}',
                                                 checklist[0].data[index]);
                                           },
                                         ),
@@ -443,12 +442,11 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                     theme: const ExpandableThemeData(
                                       headerAlignment:
                                           ExpandablePanelHeaderAlignment.center,
-                                      tapBodyToCollapse: true,
                                     ),
                                     header: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        "Bilik kawalan",
+                                        "3. Bilik kawalan",
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -474,7 +472,8 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                           },
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return customCheckbox(index + 1,
+                                            return customCheckbox(
+                                                '3.${index + 1}',
                                                 checklist[1].data[index]);
                                           },
                                         ),
@@ -529,7 +528,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
     );
   }
 
-  Widget customCheckbox(int index, var item) {
+  Widget customCheckbox(String index, var item) {
     return ListTile(
       title: Text(
         '$index. ${item.checkDesc}',
