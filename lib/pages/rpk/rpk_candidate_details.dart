@@ -875,7 +875,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                     );
                                   }
                                 },
-                                buttonColor: Color(0xffdd0e0e),
+                                buttonColor: Colors.blue,
                                 title: AppLocalizations.of(context)!
                                     .translate('call_btn'),
                               ),
@@ -935,7 +935,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                       type: DialogType.INFO,
                                     );
                                 },
-                                buttonColor: Color(0xffdd0e0e),
+                                buttonColor: Colors.blue,
                                 title: AppLocalizations.of(context)!
                                     .translate('cancel_btn'),
                               ),

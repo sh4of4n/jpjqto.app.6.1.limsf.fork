@@ -902,7 +902,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                     );
                                   }
                                 },
-                                buttonColor: const Color(0xffdd0e0e),
+                                buttonColor: Colors.blue,
                                 title: AppLocalizations.of(context)!
                                     .translate('call_btn'),
                               ),
@@ -962,7 +962,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                       type: DialogType.INFO,
                                     );
                                 },
-                                buttonColor: const Color(0xffdd0e0e),
+                                buttonColor: Colors.blue,
                                 title: AppLocalizations.of(context)!
                                     .translate('cancel_btn'),
                               ),

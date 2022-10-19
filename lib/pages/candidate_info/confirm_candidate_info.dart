@@ -332,13 +332,13 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                           onPressed: () {
                             context.router.pop();
                           },
-                          buttonColor: Color(0xffdd0e0e),
+                          buttonColor: Colors.blue,
                           title: AppLocalizations.of(context)!
                               .translate('cancel_btn'),
                         ),
                         CustomButton(
                           onPressed: startTest,
-                          buttonColor: Color(0xffdd0e0e),
+                          buttonColor: Colors.blue,
                           title: AppLocalizations.of(context)!
                               .translate('start_test'),
                         ),

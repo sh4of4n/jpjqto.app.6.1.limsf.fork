@@ -745,7 +745,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                         onPressed: _submit,
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Colors.white,
-                                          backgroundColor: Color(0xffdd0e0e),
+                                          backgroundColor: Colors.blue,
                                           minimumSize: Size(88, 36),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 30.0),
@@ -1226,7 +1226,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                         onPressed: _submit,
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Colors.white,
-                                          backgroundColor: Color(0xffdd0e0e),
+                                          backgroundColor: Colors.blue,
                                           minimumSize: Size(88, 36),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 16),

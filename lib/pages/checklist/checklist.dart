@@ -483,6 +483,17 @@ class _CheckListPageState extends State<CheckListPage> {
 
   Future<void> storeChecklist() async {
     checklist = await _checklistFuture;
+    for (var element in checklist[0].data) {
+      element.isCheck = false;
+    }
+
+    for (var element in checklist[1].data) {
+      element.isCheck = false;
+    }
+
+    for (var element in checklist[2].data) {
+      element.isCheck = false;
+    }
   }
 
   @override
@@ -562,7 +573,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Pemeriksaan Kenderaan Ujian",
+                                          "1. Pemeriksaan Kenderaan Ujian",
                                           style: TextStyle(
                                             overflow: TextOverflow.ellipsis,
                                             fontSize: 20,
@@ -694,6 +705,9 @@ class _CheckListPageState extends State<CheckListPage> {
                                         },
                                         itemBuilder:
                                             (BuildContext context, int index) {
+                                          return customCheckbox(
+                                              '1.${index + 1}',
+                                              checklist[0].data[index]);
                                           return CheckboxListTile(
                                             title: Text(
                                               checklist[0]
@@ -763,7 +777,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "LITAR",
+                                          "2. LITAR",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -841,32 +855,9 @@ class _CheckListPageState extends State<CheckListPage> {
                                         },
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return CheckboxListTile(
-                                            title: Text(
-                                              checklist[1]
-                                                  .data[index]
-                                                  .checkDesc,
-                                              style: TextStyle(
-                                                fontWeight: checklist[1]
-                                                            .data[index]
-                                                            .mandatory ==
-                                                        'false'
-                                                    ? FontWeight.normal
-                                                    : FontWeight.bold,
-                                              ),
-                                            ),
-                                            value: checklist[1]
-                                                    .data[index]
-                                                    .isCheck ??
-                                                false,
-                                            onChanged: (bool? value) {
-                                              setState(() {
-                                                checklist[1]
-                                                    .data[index]
-                                                    .isCheck = value;
-                                              });
-                                            },
-                                          );
+                                          return customCheckbox(
+                                              '2.${index + 1}',
+                                              checklist[1].data[index]);
                                         },
                                       ),
                                     ],
@@ -910,7 +901,7 @@ class _CheckListPageState extends State<CheckListPage> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Bilik kawalan",
+                                          "3. Bilik kawalan",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -977,6 +968,9 @@ class _CheckListPageState extends State<CheckListPage> {
                                         },
                                         itemBuilder:
                                             (BuildContext context, int index) {
+                                          return customCheckbox(
+                                              '3.${index + 1}',
+                                              checklist[2].data[index]);
                                           return CheckboxListTile(
                                             title: Text(
                                               checklist[2]
@@ -1052,6 +1046,42 @@ class _CheckListPageState extends State<CheckListPage> {
             );
           }
         },
+      ),
+    );
+  }
+
+  Widget customCheckbox(String index, var item) {
+    return ListTile(
+      onTap: () {
+        setState(() {
+          item.isCheck = !item.isCheck;
+        });
+      },
+      title: Text(
+        '$index. ${item.checkDesc}',
+        style: TextStyle(
+          fontWeight:
+              item.mandatory == 'false' ? FontWeight.normal : FontWeight.bold,
+        ),
+      ),
+      trailing: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: item.isCheck ? Colors.blue : Colors.grey.shade700,
+          ),
+          color: item.isCheck ? Colors.blue : Colors.white,
+        ),
+        child: item.isCheck
+            ? Icon(
+                Icons.close,
+                size: 18,
+                color: Colors.white,
+              )
+            : SizedBox(
+                height: 18,
+                width: 18,
+              ),
       ),
     );
   }

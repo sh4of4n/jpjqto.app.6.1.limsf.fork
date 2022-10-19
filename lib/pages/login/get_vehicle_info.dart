@@ -366,10 +366,11 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       margin: EdgeInsets.symmetric(vertical: 30.h),
                       child: CustomButton(
                         onPressed: _submit,
-                        buttonColor: Color(0xffdd0e0e),
+                        buttonColor: Colors.blue,
                         title: 'Save',
                       ),
                     ),
+                    // ElevatedButton(onPressed: () {}, child: Text('Submit')),
                   ],
                 ),
               ),

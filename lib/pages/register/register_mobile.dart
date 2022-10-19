@@ -184,7 +184,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                     onPressed: _next,
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: Colors.white,
-                                      backgroundColor: Color(0xffdd0e0e),
+                                      backgroundColor: Colors.blue,
                                       minimumSize: Size(88, 36),
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
@@ -366,7 +366,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                       onPressed: _next,
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.white,
-                                        backgroundColor: Color(0xffdd0e0e),
+                                        backgroundColor: Colors.blue,
                                         minimumSize: Size(88, 36),
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 16),
