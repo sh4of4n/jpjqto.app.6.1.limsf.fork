@@ -545,8 +545,15 @@ class _CheckListPageState extends State<CheckListPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
-                      height: 16.0,
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Tandakan ✖️ Untuk Demerit',
+                        style: TextStyle(
+                          fontSize: 20,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
                     ExpandableNotifier(
                       controller: expandableControllerSkim,
