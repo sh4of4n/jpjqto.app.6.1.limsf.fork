@@ -52,11 +52,17 @@ class _Part3MainState extends State<RpkPartIII> {
   final epanduRepo = EpanduRepo();
   final customDialog = CustomDialog();
   bool isVisible = false;
-  late CountdownTimerController controller;
+  late CountdownController controller;
 
   Future? ruleFuture;
   final etestingRepo = EtestingRepo();
   var ruleList = [];
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -65,12 +71,43 @@ class _Part3MainState extends State<RpkPartIII> {
     if (!widget.skipUpdateRpkJpjTestStart) {
       updateRpkJpjTestStart();
     }
-    controller = CountdownTimerController(
-      endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 420,
-      onEnd: () {
+    controller = CountdownController(
+      duration: Duration(
+        minutes: 7,
+      ),
+      onEnd: () async {
+        await showDialog(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('JPJ QTO'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(
+                        'Masa Ujian Calon Telah Melebihi 7 Minit. Markah Ujian Calon Akan Dihantar'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Ok'),
+                  onPressed: () {
+                    context.router.pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+        setState(() {
+          ruleList[ruleList.length - 1].isCheck = false;
+        });
         updateRpkJpjTestResult();
       },
     );
+    controller.stop();
   }
 
   String format(int? num) {
@@ -92,6 +129,7 @@ class _Part3MainState extends State<RpkPartIII> {
         element.isCheck = true;
       }
     });
+    controller.start();
   }
 
   Future<void> updateRpkJpjTestStart() async {
@@ -129,6 +167,7 @@ class _Part3MainState extends State<RpkPartIII> {
   }
 
   updateRpkJpjTestResult() async {
+    controller.stop();
     var a = {
       'Result': [{}]
     };
@@ -311,27 +350,23 @@ class _Part3MainState extends State<RpkPartIII> {
                                                     TextDecoration.underline,
                                               ),
                                             ),
-                                            // CountdownTimer(
-                                            //   controller: controller,
-                                            //   widgetBuilder: (_,
-                                            //       CurrentRemainingTime? time) {
-                                            //     if (time == null) {
-                                            //       return Text('Tamat');
-                                            //     }
-                                            //     return Row(
-                                            //       children: [
-                                            //         Icon(Icons.timer),
-                                            //         Text(
-                                            //           '${format(time.min)}:${format(time.sec)}',
-                                            //           style: TextStyle(
-                                            //             fontWeight:
-                                            //                 FontWeight.bold,
-                                            //           ),
-                                            //         ),
-                                            //       ],
-                                            //     );
-                                            //   },
-                                            // ),
+                                            Countdown(
+                                              countdownController: controller,
+                                              builder: (_, Duration time) {
+                                                return Row(
+                                                  children: [
+                                                    Icon(Icons.timer),
+                                                    Text(
+                                                      '${format(time.inMinutes)}:${format(time.inSeconds % 60)}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
                                           ],
                                         ),
                                       ),
