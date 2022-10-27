@@ -88,6 +88,20 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
       owners = result2.data;
     }
 
+    // EasyLoading.dismiss();
+    // await context.router.replace(
+    //   JrPartIII(
+    //     qNo: 'dwdw',
+    //     nric: 'dwdw',
+    //     jrName: 'dwdw',
+    //     testDate: 'dwdw',
+    //     groupId: 'dwdw',
+    //     testCode: 'dwdw',
+    //     vehNo: vehNo,
+    //     skipUpdateJrJpjTestStart: true,
+    //   ),
+    // );
+
     if (result.isSuccess) {
       setState(() {
         candidateList = result.data;

@@ -89,6 +89,20 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       owners = result2.data;
     }
 
+    // EasyLoading.dismiss();
+    // await context.router.replace(
+    //   RpkPartIII(
+    //     qNo: 'dwdweq',
+    //     nric: 'dwdweq',
+    //     rpkName: 'dwdweq',
+    //     testDate: '1111111111',
+    //     groupId: 'dwdweq',
+    //     testCode: 'dwdweq',
+    //     vehNo: 'dwdweq',
+    //     skipUpdateRpkJpjTestStart: true,
+    //   ),
+    // );
+
     if (result.isSuccess) {
       setState(() {
         candidateList = result.data;

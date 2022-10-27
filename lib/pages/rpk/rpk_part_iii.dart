@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter_countdown_timer/index.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
@@ -51,6 +52,7 @@ class _Part3MainState extends State<RpkPartIII> {
   final epanduRepo = EpanduRepo();
   final customDialog = CustomDialog();
   bool isVisible = false;
+  late CountdownTimerController controller;
 
   Future? ruleFuture;
   final etestingRepo = EtestingRepo();
@@ -63,6 +65,22 @@ class _Part3MainState extends State<RpkPartIII> {
     if (!widget.skipUpdateRpkJpjTestStart) {
       updateRpkJpjTestStart();
     }
+    controller = CountdownTimerController(
+      endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 420,
+      onEnd: () {
+        updateRpkJpjTestResult();
+      },
+    );
+  }
+
+  String format(int? num) {
+    if (num == null) {
+      return '00';
+    }
+    if (num < 10) {
+      return '0$num';
+    }
+    return num.toString();
   }
 
   Future<void> getRule() async {
@@ -281,13 +299,40 @@ class _Part3MainState extends State<RpkPartIII> {
                                     children: <Widget>[
                                       Padding(
                                         padding: EdgeInsets.all(16.0),
-                                        child: Text(
-                                          'Tandakan ✖️ Untuk Demerit',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Tandakan ✖️ Untuk Demerit',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                            ),
+                                            // CountdownTimer(
+                                            //   controller: controller,
+                                            //   widgetBuilder: (_,
+                                            //       CurrentRemainingTime? time) {
+                                            //     if (time == null) {
+                                            //       return Text('Tamat');
+                                            //     }
+                                            //     return Row(
+                                            //       children: [
+                                            //         Icon(Icons.timer),
+                                            //         Text(
+                                            //           '${format(time.min)}:${format(time.sec)}',
+                                            //           style: TextStyle(
+                                            //             fontWeight:
+                                            //                 FontWeight.bold,
+                                            //           ),
+                                            //         ),
+                                            //       ],
+                                            //     );
+                                            //   },
+                                            // ),
+                                          ],
                                         ),
                                       ),
                                       ScrollOnExpand(
@@ -532,13 +577,22 @@ class _Part3MainState extends State<RpkPartIII> {
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil().setHeight(100),
+                    height: 16.0,
+                  ),
+                  Text(
+                    'Jumlah Markah: ${ruleList.where((c) => c.isCheck).length.toString()}/24',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16.0,
                   ),
                   Container(
                     child: ElevatedButton(
                       onPressed: updateRpkJpjTestResult,
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: ColorConstant.primaryColor,
                         backgroundColor: Colors.blue,
                         minimumSize: Size(88, 36),
                         padding: EdgeInsets.symmetric(horizontal: 16),
