@@ -7,6 +7,7 @@ import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/loading_model.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -283,6 +284,7 @@ class _Part3MainState extends State<RpkPartIII> {
                 children: <Widget>[
                   // _header(),
                   //RpkSessionA(),
+                  ProfileWidget(),
                   Container(
                     color: primaryColor,
                     padding:

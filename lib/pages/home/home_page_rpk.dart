@@ -10,6 +10,7 @@ import 'package:jpj_qto/common_library/services/repository/etesting_repository.d
 import 'package:jpj_qto/common_library/services/repository/kpp_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/services/response.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -221,7 +222,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 20),
+                ProfileWidget(),
                 Text(
                   'Ujian Memandu Bahagian II',
                   style: TextStyle(

@@ -8,6 +8,7 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/loading_model.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 
@@ -291,7 +292,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                 margin: EdgeInsets.symmetric(horizontal: 50.w),
                 child: Column(
                   children: [
-                    SizedBox(height: 30.h),
+                    ProfileWidget(),
                     Text('Q-NO', style: TextStyle(fontSize: 100.sp)),
                     widget.icPhoto == ''
                         ? const SizedBox()

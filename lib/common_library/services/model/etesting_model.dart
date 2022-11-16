@@ -384,3 +384,63 @@ class QtoUjianLoginResult {
     return data;
   }
 }
+
+class GetUserIdByMySikapIdResult {
+  List<Result2>? result;
+
+  GetUserIdByMySikapIdResult({this.result});
+
+  GetUserIdByMySikapIdResult.fromJson(Map<String, dynamic> json) {
+    if (json['Result'] != null) {
+      result = <Result2>[];
+      json['Result'].forEach((v) {
+        result!.add(new Result2.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['Result'] = this.result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Result2 {
+  String? userId;
+  String? mysikapId;
+  String? firstName;
+  String? lastName;
+  String? roleCode;
+  String? roleDesc;
+
+  Result2(
+      {this.userId,
+      this.mysikapId,
+      this.firstName,
+      this.lastName,
+      this.roleCode,
+      this.roleDesc});
+
+  Result2.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    mysikapId = json['mysikap_id'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    roleCode = json['role_code'];
+    roleDesc = json['role_desc'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['user_id'] = this.userId;
+    data['mysikap_id'] = this.mysikapId;
+    data['first_name'] = this.firstName;
+    data['last_name'] = this.lastName;
+    data['role_code'] = this.roleCode;
+    data['role_desc'] = this.roleDesc;
+    return data;
+  }
+}

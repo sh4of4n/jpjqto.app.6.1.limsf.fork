@@ -6,6 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
+import 'package:jpj_qto/component/profile.dart';
 
 import '../../common_library/services/repository/checklist_repository.dart';
 import '../../utils/constants.dart';
@@ -89,9 +90,7 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 16.0,
-                      ),
+                      ProfileWidget(),
                       ExpandableNotifier(
                         initialExpanded: true,
                         child: Padding(

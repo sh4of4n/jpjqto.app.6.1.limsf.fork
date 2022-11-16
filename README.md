@@ -1,3 +1,9 @@
+16/11/2022 V.6.1.3
+ePandu ws 6.1.171.0
+Enhanced
+
+- Show QTO name and IC
+
 28/10/2022 V.6.1.2
 ePandu ws 6.1.168.0
 Enhanced

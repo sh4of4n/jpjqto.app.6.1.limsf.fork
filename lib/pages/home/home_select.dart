@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -23,6 +24,8 @@ class _HomeSelectState extends State<HomeSelect> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final localStorage = LocalStorage();
   final etestingRepo = EtestingRepo();
+  String firstName = '';
+  String icNo = '';
 
   @override
   void initState() {
@@ -34,6 +37,9 @@ class _HomeSelectState extends State<HomeSelect> {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
+    firstName = (await localStorage.getName())!;
+    icNo = (await localStorage.getMySikapId())!;
+    setState(() {});
     bool isCheck = await localStorage.getMySikapVehicle();
     if (!isCheck) {
       var result = await etestingRepo.getMySikapVehicleListByStatus(status: '');
@@ -103,7 +109,11 @@ class _HomeSelectState extends State<HomeSelect> {
             // height: MediaQuery.of(context).size.height,
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 20),
+                // const SizedBox(height: 20),
+                ProfileWidget(),
+                // SizedBox(
+                //   height: 16,
+                // ),
                 Column(
                   children: [
                     HomeIcon(

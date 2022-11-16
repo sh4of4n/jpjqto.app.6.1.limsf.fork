@@ -297,6 +297,11 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
       await localStorage
           .savePermitCode(_formKey.currentState?.fields['permitCode']?.value!);
 
+      var result3 = await etestingRepo.getUserIdByMySikapId();
+      if (result3.isSuccess) {
+        await localStorage.saveName(result3.data[0].firstName);
+      }
+
       if (result.isSuccess) {
         var result2 = await etestingRepo.qtoUjianLogin();
         if (result2.isSuccess) {

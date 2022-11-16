@@ -8,6 +8,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/services/response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -205,6 +206,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    ProfileWidget(),
                     Container(
                       width: 1300.w,
                       margin: EdgeInsets.symmetric(vertical: 30.h),

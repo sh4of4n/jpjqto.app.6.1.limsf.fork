@@ -8,6 +8,7 @@ import 'package:jpj_qto/common_library/services/repository/epandu_repository.dar
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/loading_model.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -372,6 +373,7 @@ class _JrPartIIIState extends State<JrPartIII> {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  ProfileWidget(),
                                   Padding(
                                     padding: EdgeInsets.all(16.0),
                                     child: Text(

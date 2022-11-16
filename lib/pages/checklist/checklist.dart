@@ -9,6 +9,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
+import 'package:jpj_qto/component/profile.dart';
 import 'package:jpj_qto/router.gr.dart';
 
 import '../../common_library/services/model/checklist_model.dart';
@@ -415,6 +416,7 @@ class _CheckListPageState extends State<CheckListPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      ProfileWidget(),
                       const Padding(
                         padding: EdgeInsets.all(16.0),
                         child: Text(
