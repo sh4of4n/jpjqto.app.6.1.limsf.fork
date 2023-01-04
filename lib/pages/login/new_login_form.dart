@@ -279,12 +279,34 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     );
   }
 
+  loginFail(String message) async {
+    await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.translate('login')),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _isLoading = false;
+                _loginMessage = message;
+              });
+              Navigator.pop(context, 'OK');
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   _submitLogin() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       FocusScope.of(context).requestFocus(new FocusNode());
 
       setState(() {
-        // _height = ScreenUtil().setHeight(1300);
         _isLoading = true;
         _loginMessage = '';
       });
@@ -293,54 +315,30 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         mySikapId: _formKey.currentState?.fields['ic']?.value!,
         permitCode: _formKey.currentState?.fields['permitCode']?.value!,
       );
-
+      if (!result.isSuccess) {
+        loginFail(result.message!);
+        return;
+      }
       await localStorage
           .savePermitCode(_formKey.currentState?.fields['permitCode']?.value!);
 
       var result3 = await etestingRepo.getUserIdByMySikapId();
-      if (result3.isSuccess) {
-        await localStorage.saveName(result3.data[0].firstName);
+      if (!result3.isSuccess) {
+        loginFail(result3.message!);
+        return;
+      }
+      await localStorage.saveName(result3.data[0].firstName);
+
+      var result2 = await etestingRepo.qtoUjianLogin();
+      if (!result2.isSuccess) {
+        loginFail(result2.message!);
+        await localStorage.reset();
+        return;
       }
 
-      if (result.isSuccess) {
-        var result2 = await etestingRepo.qtoUjianLogin();
-        if (result2.isSuccess) {
-          await showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(AppLocalizations.of(context)!.translate('login')),
-              content: Text(
-                  AppLocalizations.of(context)!.translate('login_successful')),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        }
+      await localStorage.saveLoginTime(DateTime.now().toString());
 
-        context.router.replace(HomeSelect());
-      } else {
-        await showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.translate('login')),
-            content: Text(result.message!),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-        setState(() {
-          _isLoading = false;
-          _loginMessage = result.message;
-        });
-      }
-    } else {}
+      context.router.replace(HomeSelect());
+    }
   }
 }

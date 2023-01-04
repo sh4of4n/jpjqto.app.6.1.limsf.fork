@@ -1,3 +1,15 @@
+03/01/2023 V.6.1.4
+ePandu ws 6.1.174.0
+Enhanced
+
+- Show QTO name and login time
+- Senarai Semak SKIM
+  - Show plat number and car no.
+  - After 1 car done SKIM, show tick (/) \*green at the Plate Number.
+- user just select plat no kenderaan only, app will auto insert kelas kenderaan & no kenderaan
+- Make UI responsive to mobile layout
+- Use all malay word for bahasa melayu
+
 16/11/2022 V.6.1.3
 ePandu ws 6.1.171.0
 Enhanced

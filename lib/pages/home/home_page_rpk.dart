@@ -62,13 +62,6 @@ class _HomePageRpkState extends State<HomePageRpk> {
   @override
   void initState() {
     super.initState();
-
-    //_openHiveBoxes();
-    // getStudentInfo();
-    //_getCurrentLocation();
-    //_getDiProfile();
-    //_getActiveFeed();
-
     _openHiveBoxes();
     _setLocale();
     _getVehInfo();

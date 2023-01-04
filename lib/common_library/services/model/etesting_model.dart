@@ -212,6 +212,7 @@ class MysikapVehicle {
   String? branchCode;
   String? deleted;
   String? checked;
+  String? carNo;
 
   MysikapVehicle(
       {this.iD,
@@ -226,7 +227,8 @@ class MysikapVehicle {
       this.compCode,
       this.branchCode,
       this.deleted,
-      this.checked});
+      this.checked,
+      this.carNo});
 
   MysikapVehicle.fromJson(Map<String, dynamic> json) {
     iD = json['ID'];
@@ -242,6 +244,7 @@ class MysikapVehicle {
     branchCode = json['branch_code'];
     deleted = json['deleted'];
     checked = json['checked'];
+    carNo = json['car_no'];
   }
 
   Map<String, dynamic> toJson() {
@@ -259,6 +262,7 @@ class MysikapVehicle {
     data['branch_code'] = this.branchCode;
     data['deleted'] = this.deleted;
     data['checked'] = this.checked;
+    data['car_no'] = this.carNo;
     return data;
   }
 }
@@ -441,6 +445,48 @@ class Result2 {
     data['last_name'] = this.lastName;
     data['role_code'] = this.roleCode;
     data['role_desc'] = this.roleDesc;
+    return data;
+  }
+}
+
+class CheckUserLoginStatusResponse {
+  List<ResultCheckUserLoginStatus>? result;
+
+  CheckUserLoginStatusResponse({this.result});
+
+  CheckUserLoginStatusResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Result'] != null) {
+      result = <ResultCheckUserLoginStatus>[];
+      json['Result'].forEach((v) {
+        result!.add(new ResultCheckUserLoginStatus.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['Result'] = this.result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class ResultCheckUserLoginStatus {
+  String? result;
+  String? userId;
+
+  ResultCheckUserLoginStatus({this.result, this.userId});
+
+  ResultCheckUserLoginStatus.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+    userId = json['user_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    data['user_id'] = this.userId;
     return data;
   }
 }

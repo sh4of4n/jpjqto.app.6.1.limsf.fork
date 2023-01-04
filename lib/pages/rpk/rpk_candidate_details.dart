@@ -653,6 +653,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                       ProfileWidget(),
                       Container(
                         width: 1300.h,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(

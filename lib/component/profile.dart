@@ -12,6 +12,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   final localStorage = LocalStorage();
   String firstName = '';
   String icNo = '';
+  String loginTime = '';
   @override
   void initState() {
     super.initState();
@@ -21,43 +22,44 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   Future<void> loadInfo() async {
     firstName = (await localStorage.getName())!;
     icNo = (await localStorage.getMySikapId())!;
+    loginTime = ((await localStorage.getLoginTime())!).substring(0, 19);
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16,
-          ),
-          child: Card(
-            color: Colors.yellow.shade50,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Card(
+        color: Colors.yellow.shade50,
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(Icons.account_circle_outlined),
+              Text(
+                firstName,
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.account_circle_outlined),
-                  Text(
-                    firstName,
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
+                  Icon(
+                    Icons.login,
+                    size: 16,
+                    color: Colors.grey.shade700,
                   ),
-                  Text(
-                    icNo,
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
+                  SizedBox(width: 8),
+                  Text(loginTime),
                 ],
               ),
-            ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
