@@ -39,10 +39,9 @@ class _HomeSelectState extends State<HomeSelect> {
   checkUserLoginStatus() async {
     Response result = await etestingRepo.checkUserLoginStatus();
     if (result.isSuccess) {
-      if (result.data[0].result == 'False') {
-        // await context.router.pop();
-        // await localStorage.reset();
-        // await context.router.pushAndPopUntil(Login(), predicate: (r) => false);
+      if (result.data[0].result == 'false') {
+        await localStorage.reset();
+        await context.router.pushAndPopUntil(Login(), predicate: (r) => false);
       }
     }
   }

@@ -62,6 +62,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
   @override
   void initState() {
     super.initState();
+    checkUserLoginStatus();
     _openHiveBoxes();
     _setLocale();
     _getVehInfo();
@@ -71,6 +72,16 @@ class _HomePageRpkState extends State<HomePageRpk> {
   void dispose() {
     // positionStream.cancel();
     super.dispose();
+  }
+
+  checkUserLoginStatus() async {
+    Response result = await etestingRepo.checkUserLoginStatus();
+    if (result.isSuccess) {
+      if (result.data[0].result == 'false') {
+        await localStorage.reset();
+        await context.router.pushAndPopUntil(Login(), predicate: (r) => false);
+      }
+    }
   }
 
   _setLocale() async {

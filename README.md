@@ -1,3 +1,9 @@
+04/01/2023 V.6.1.5
+ePandu ws 6.1.174.0
+Enhanced
+
+- When logout from MySikap, trigger Apps to logout
+
 03/01/2023 V.6.1.4
 ePandu ws 6.1.174.0
 Enhanced
