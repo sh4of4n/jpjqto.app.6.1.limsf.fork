@@ -204,10 +204,8 @@ class _ChecklistResultPageState extends State<ChecklistResultPage> {
                                                               title: Text(
                                                                   item.plateNo ??
                                                                       ''),
-                                                              subtitle: Text(item
-                                                                      .groupId
-                                                                      ?.toString() ??
-                                                                  ''),
+                                                              subtitle: Text(
+                                                                  '${item.groupId?.toString() ?? ''}, ${item.carNo?.toString() ?? ''}'),
                                                               trailing: item
                                                                           .checked ==
                                                                       'true'

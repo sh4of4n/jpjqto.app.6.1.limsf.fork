@@ -472,6 +472,8 @@ class _CheckListPageState extends State<CheckListPage> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Flexible(
                                               child: Text(
@@ -601,10 +603,8 @@ class _CheckListPageState extends State<CheckListPage> {
                                                           title: Text(
                                                               item.plateNo ??
                                                                   ''),
-                                                          subtitle: Text(item
-                                                                  .groupId
-                                                                  ?.toString() ??
-                                                              ''),
+                                                          subtitle: Text(
+                                                              '${item.groupId?.toString() ?? ''}, ${item.carNo?.toString() ?? ''}'),
                                                           trailing:
                                                               item.checked ==
                                                                       'true'

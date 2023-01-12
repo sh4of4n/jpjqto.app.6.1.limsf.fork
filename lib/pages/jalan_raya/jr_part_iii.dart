@@ -834,17 +834,19 @@ class _JrPartIIIState extends State<JrPartIII> {
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            AppLocalizations.of(context)!
-                                .translate('jr_session_$code'),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 14,
+                          Flexible(
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .translate('jr_session_$code'),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                          Spacer(),
                           Align(
                             alignment: Alignment.centerRight,
                             child: Padding(

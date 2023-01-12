@@ -36,7 +36,7 @@ class _LoginBottomCardState extends State<LoginBottomCard> {
       appVersion = packageInfo.version;
     });
 
-    localStorage.saveAppVersion(appVersion);
+    await localStorage.saveAppVersion(appVersion);
   }
 
   @override

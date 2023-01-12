@@ -31,19 +31,7 @@ class _HomeSelectState extends State<HomeSelect> {
   @override
   void initState() {
     super.initState();
-    checkUserLoginStatus();
-
     checkMySikapVehicle();
-  }
-
-  checkUserLoginStatus() async {
-    Response result = await etestingRepo.checkUserLoginStatus();
-    if (result.isSuccess) {
-      if (result.data[0].result == 'false') {
-        await localStorage.reset();
-        await context.router.pushAndPopUntil(Login(), predicate: (r) => false);
-      }
-    }
   }
 
   Future<void> checkMySikapVehicle() async {

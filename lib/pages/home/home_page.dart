@@ -60,7 +60,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    checkUserLoginStatus();
     //_openHiveBoxes();
     // getStudentInfo();
     //_getCurrentLocation();
@@ -76,16 +75,6 @@ class _HomeState extends State<Home> {
   void dispose() {
     // positionStream.cancel();
     super.dispose();
-  }
-
-  checkUserLoginStatus() async {
-    Response result = await etestingRepo.checkUserLoginStatus();
-    if (result.isSuccess) {
-      if (result.data[0].result == 'false') {
-        await localStorage.reset();
-        await context.router.pushAndPopUntil(Login(), predicate: (r) => false);
-      }
-    }
   }
 
   Future<void> processQrCodeResult(

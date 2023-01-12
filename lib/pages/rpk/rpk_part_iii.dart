@@ -390,16 +390,20 @@ class _Part3MainState extends State<RpkPartIII> {
                                             child: Padding(
                                               padding: EdgeInsets.all(10),
                                               child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    "1. Pemeriksaan Kenderaan Ujian",
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                  Flexible(
+                                                    child: Text(
+                                                      "1. Pemeriksaan Kenderaan Ujian",
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
-                                                  Spacer(),
                                                   Align(
                                                     alignment:
                                                         Alignment.centerRight,
