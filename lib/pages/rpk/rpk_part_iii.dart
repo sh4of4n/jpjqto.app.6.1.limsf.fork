@@ -152,6 +152,7 @@ class _Part3MainState extends State<RpkPartIII> {
     } else {
       customDialog.show(
           context: context,
+          barrierDismissable: false,
           title: Icon(Icons.error_outline),
           content: result.message,
           customActions: [

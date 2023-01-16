@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/base/page_base_class.dart';
@@ -59,7 +60,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
   @override
   void initState() {
     super.initState();
-
+    EasyLoading.dismiss();
     // _getCurrentLocation();
     _getDeviceInfo();
 

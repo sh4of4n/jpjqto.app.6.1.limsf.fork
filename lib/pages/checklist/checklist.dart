@@ -102,9 +102,9 @@ class _CheckListPageState extends State<CheckListPage> {
       try {
         if (!updateFuture.isSuccess) {
           await EasyLoading.dismiss();
-          const snackBar = SnackBar(
+          SnackBar snackBar = SnackBar(
             behavior: SnackBarBehavior.floating,
-            content: Text('Something went wrong'),
+            content: Text(updateFuture.message!),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           return;
@@ -217,9 +217,9 @@ class _CheckListPageState extends State<CheckListPage> {
       );
       EasyLoading.dismiss();
       if (!updateResult.isSuccess) {
-        const snackBar = SnackBar(
+        SnackBar snackBar = SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text('Something went wrong'),
+          content: Text(updateResult.message!),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         return;
@@ -307,9 +307,9 @@ class _CheckListPageState extends State<CheckListPage> {
 
       if (!updateResult.isSuccess) {
         await EasyLoading.dismiss();
-        const snackBar = SnackBar(
+        SnackBar snackBar = SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text('Something went wrong'),
+          content: Text(updateResult.message!),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         return;

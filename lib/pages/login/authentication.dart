@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
@@ -10,7 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../common_library/services/repository/etesting_repository.dart';
+import '../../main.dart';
 import '../../router.gr.dart';
+import '../../services/response.dart';
 
 class Authentication extends StatefulWidget {
   @override
@@ -27,12 +32,36 @@ class _AuthenticationState extends State<Authentication> {
   String deviceVersion = '';
   String deviceId = '';
 
+  Timer? timer;
+  final etestingRepo = EtestingRepo();
+
   @override
   void initState() {
     super.initState();
-
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) {
+      checkUserLoginStatus();
+    });
     _getWsUrl();
     _setLocale();
+  }
+
+  checkUserLoginStatus() async {
+    String? userId = await localStorage.getUserId();
+    if (userId != null && userId.isNotEmpty) {
+      Response result = await etestingRepo.checkUserLoginStatus();
+      if (result.isSuccess) {
+        if (result.data[0].result == 'false') {
+          const snackBar = SnackBar(
+            content: Text('Your session has expired. Please login again.'),
+            behavior: SnackBarBehavior.floating,
+          );
+          navigatorKey.currentState!.showSnackBar(snackBar);
+          await localStorage.reset();
+          await getIt<AppRouter>()
+              .pushAndPopUntil(const Login(), predicate: (r) => false);
+        }
+      }
+    }
   }
 
   _getWsUrl() async {

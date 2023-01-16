@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get_it/get_it.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -18,6 +19,10 @@ import 'common_library/services/model/bill_model.dart';
 import 'common_library/services/model/kpp_model.dart';
 import 'common_library/utils/custom_dialog.dart';
 import 'router.gr.dart';
+
+final getIt = GetIt.instance;
+GlobalKey<ScaffoldMessengerState> navigatorKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +43,9 @@ void main() async {
             : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
       },
     );
+
+    getIt.registerSingleton<AppRouter>(AppRouter());
+    getIt.registerSingleton<NavigatorState>(NavigatorState());
 
     runApp(
       MultiProvider(
@@ -73,6 +81,7 @@ class _MyAppState extends State<MyApp> {
   // String _homeScreenText = "Waiting for token...";
   final customDialog = CustomDialog();
   final _appRouter = AppRouter();
+  final router = getIt<AppRouter>();
 
   @override
   void initState() {
@@ -129,8 +138,8 @@ class _MyAppState extends State<MyApp> {
 
         FormBuilderLocalizations.delegate,
       ],
-      routerDelegate: _appRouter.delegate(initialRoutes: [Authentication()]),
-      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: router.delegate(initialRoutes: [const Authentication()]),
+      routeInformationParser: router.defaultRouteParser(),
       // initialRoute: AUTH,
       // onGenerateRoute: RouteGenerator.generateRoute,
       builder: EasyLoading.init(),
