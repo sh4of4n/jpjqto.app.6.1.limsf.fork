@@ -1,7 +1,8 @@
-13/01/2023 V.6.1.6
-ePandu ws 6.1.177.0
+17/02/2023 V.6.1.6
+ePandu ws 6.1.186.0
 Enhanced
 
+- Skip call WS QtoUjianLogin when login
 - Every 5 second check login status
 
 04/01/2023 V.6.1.5
