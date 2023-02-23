@@ -50,7 +50,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     localStorage.getPermitCode().then((value) {
       _formKey.currentState!.fields['permitNo']!.didChange(value);
     });
-    getMySikapVehicleListByStatus();
+    // getMySikapVehicleListByStatusPart();
     //getSavedInfo();
   }
 
@@ -64,16 +64,18 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     }
   }
 
-  Future getMySikapVehicleListByStatus() async {
+  Future getMySikapVehicleListByStatusPart() async {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
-    var result =
-        await etestingRepo.getMySikapVehicleListByStatus(status: 'CHECKED');
+    var result = await etestingRepo.getMySikapVehicleListByStatusPart(
+        status: 'CHECKED', part: widget.type == 'RPK' ? 'RPK' : '3');
     if (result.isSuccess) {
-      setState(() {
-        vehicleArr = result.data;
-      });
+      if (mounted) {
+        setState(() {
+          vehicleArr = result.data;
+        });
+      }
     }
     EasyLoading.dismiss();
     return result;
@@ -122,7 +124,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
         });
       } catch (e) {
         customDialog.show(
-          barrierDismissable: true,
+          barrierDismissable: false,
           context: context,
           content: AppLocalizations.of(context)!.translate('invalid_qr'),
           customActions: [
@@ -148,15 +150,6 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     carNoFocus.dispose();
     qrController?.dispose();
     super.dispose();
-  }
-
-  getSavedInfo() async {
-    _formKey.currentState!.patchValue({
-      'groupId': await localStorage.getEnrolledGroupId() ?? '',
-      'permitNo': await localStorage.getMerchantDbCode() ?? '',
-      'carNo': await localStorage.getCarNo() ?? '',
-      'plateNo': await localStorage.getPlateNo() ?? '',
-    });
   }
 
   _submit() {
@@ -199,6 +192,50 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
           appBar: AppBar(
             title: Text('Maklumat Kenderaan'),
           ),
+          floatingActionButton: FloatingActionButton.extended(
+            label: const Text('Scan QR Code'),
+            onPressed: () async {
+              var scanData = await context.router.push(QrScannerRoute());
+              if (scanData != null) {
+                try {
+                  setState(() {
+                    _formKey.currentState!.patchValue({
+                      'groupId': jsonDecode(scanData.toString())['Table1'][0]
+                          ['group_id'],
+                      'permitNo': jsonDecode(scanData.toString())['Table1'][0]
+                          ['merchant_no'],
+                      'carNo': jsonDecode(scanData.toString())['Table1'][0]
+                          ['car_no'],
+                      'plateNo': jsonDecode(scanData.toString())['Table1'][0]
+                          ['plate_no'],
+                    });
+                    showCameraIcon = true;
+                    showQR = false;
+                  });
+                } catch (e) {
+                  if (mounted) {
+                    customDialog.show(
+                      barrierDismissable: false,
+                      context: context,
+                      content:
+                          AppLocalizations.of(context)!.translate('invalid_qr'),
+                      customActions: [
+                        TextButton(
+                          onPressed: () {
+                            context.router.pop();
+                            qrController!.resumeCamera();
+                          },
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                      type: DialogType.GENERAL,
+                    );
+                  }
+                }
+              }
+            },
+            icon: const Icon(Icons.qr_code_scanner),
+          ),
           body: SingleChildScrollView(
             child: Container(
               width: double.infinity,
@@ -207,67 +244,83 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                 child: Column(
                   children: [
                     ProfileWidget(),
+                    // Container(
+                    //   width: 1300.w,
+                    //   margin: EdgeInsets.symmetric(vertical: 30.h),
+                    //   child: FormBuilderField(
+                    //     name: 'plateNo',
+                    //     builder: (field) {
+                    //       return DropdownSearch<MysikapVehicle>(
+                    //         items: vehicleArr,
+                    //         selectedItem: field.value != null
+                    //             ? MysikapVehicle(
+                    //                 plateNo: field.value.toString(),
+                    //               )
+                    //             : MysikapVehicle(
+                    //                 plateNo: '',
+                    //               ),
+                    //         dropdownDecoratorProps: DropDownDecoratorProps(
+                    //           dropdownSearchDecoration: InputDecoration(
+                    //             labelText: AppLocalizations.of(context)!
+                    //                 .translate('plate_no'),
+                    //           ),
+                    //         ),
+                    //         validator: (MysikapVehicle? i) {
+                    //           if (i == null) return field.errorText;
+                    //           return null;
+                    //         },
+                    //         itemAsString: (MysikapVehicle u) => u.plateNo!,
+                    //         compareFn: (i, s) => i.plateNo == s.plateNo,
+                    //         onChanged: ((value) {
+                    //           field.didChange(value!.plateNo);
+                    //           _formKey.currentState!.fields['groupId']!
+                    //               .didChange(value.groupId);
+                    //           _formKey.currentState!.fields['carNo']!
+                    //               .didChange(value.carNo);
+                    //         }),
+                    //         popupProps:
+                    //             PopupPropsMultiSelection.modalBottomSheet(
+                    //           isFilterOnline: true,
+                    //           showSelectedItems: true,
+                    //           showSearchBox: true,
+                    //           itemBuilder: (context, item, isSelected) {
+                    //             return Container(
+                    //               margin: EdgeInsets.symmetric(horizontal: 8),
+                    //               decoration: !isSelected
+                    //                   ? null
+                    //                   : BoxDecoration(
+                    //                       border: Border.all(
+                    //                           color: Theme.of(context)
+                    //                               .primaryColor),
+                    //                       borderRadius:
+                    //                           BorderRadius.circular(5),
+                    //                       color: Colors.white,
+                    //                     ),
+                    //               child: ListTile(
+                    //                 selected: isSelected,
+                    //                 title: Text(item.plateNo ?? ''),
+                    //               ),
+                    //             );
+                    //           },
+                    //         ),
+                    //       );
+                    //     },
+                    //     validator: FormBuilderValidators.compose([
+                    //       FormBuilderValidators.required(),
+                    //     ]),
+                    //   ),
+                    // ),
                     Container(
                       width: 1300.w,
                       margin: EdgeInsets.symmetric(vertical: 30.h),
-                      child: FormBuilderField(
+                      child: FormBuilderTextField(
                         name: 'plateNo',
-                        builder: (field) {
-                          return DropdownSearch<MysikapVehicle>(
-                            items: vehicleArr,
-                            selectedItem: field.value != null
-                                ? MysikapVehicle(
-                                    plateNo: field.value.toString(),
-                                  )
-                                : MysikapVehicle(
-                                    plateNo: '',
-                                  ),
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!
-                                    .translate('plate_no'),
-                              ),
-                            ),
-                            validator: (MysikapVehicle? i) {
-                              if (i == null) return field.errorText;
-                              return null;
-                            },
-                            itemAsString: (MysikapVehicle u) => u.plateNo!,
-                            compareFn: (i, s) => i.plateNo == s.plateNo,
-                            onChanged: ((value) {
-                              field.didChange(value!.plateNo);
-                              _formKey.currentState!.fields['groupId']!
-                                  .didChange(value.groupId);
-                              _formKey.currentState!.fields['carNo']!
-                                  .didChange(value.carNo);
-                            }),
-                            popupProps:
-                                PopupPropsMultiSelection.modalBottomSheet(
-                              isFilterOnline: true,
-                              showSelectedItems: true,
-                              showSearchBox: true,
-                              itemBuilder: (context, item, isSelected) {
-                                return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 8),
-                                  decoration: !isSelected
-                                      ? null
-                                      : BoxDecoration(
-                                          border: Border.all(
-                                              color: Theme.of(context)
-                                                  .primaryColor),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: Colors.white,
-                                        ),
-                                  child: ListTile(
-                                    selected: isSelected,
-                                    title: Text(item.plateNo ?? ''),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                        readOnly: true,
+                        inputFormatters: [UpperCaseTextFormatter()],
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!
+                              .translate('plate_no'),
+                        ),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
@@ -278,12 +331,15 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       margin: EdgeInsets.symmetric(vertical: 30.h),
                       child: FormBuilderTextField(
                         name: 'groupId',
-                        enabled: false,
+                        readOnly: true,
                         inputFormatters: [UpperCaseTextFormatter()],
-                        focusNode: merchantNoFocus,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!
                               .translate('group_id'),
+
                           // suffixIcon: IconButton(
                           //   icon: Icon(Icons.close),
                           //   onPressed: () {
@@ -305,9 +361,11 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       margin: EdgeInsets.symmetric(vertical: 30.h),
                       child: FormBuilderTextField(
                         name: 'carNo',
-                        enabled: false,
+                        readOnly: true,
                         inputFormatters: [UpperCaseTextFormatter()],
-                        focusNode: carNoFocus,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
                         decoration: InputDecoration(
                           labelText:
                               AppLocalizations.of(context)!.translate('car_no'),
@@ -329,24 +387,22 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                       margin: EdgeInsets.symmetric(vertical: 30.h),
                       child: FormBuilderTextField(
                         name: 'permitNo',
+                        readOnly: true,
                         inputFormatters: [UpperCaseTextFormatter()],
-                        focusNode: merchantNoFocus,
                         decoration: InputDecoration(
                           labelText: 'Permit No',
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              _formKey.currentState!.fields['permitNo']
-                                  ?.reset();
-                            },
-                          ),
+                          // suffixIcon: IconButton(
+                          //   icon: Icon(Icons.close),
+                          //   onPressed: () {
+                          //     _formKey.currentState!.fields['permitNo']
+                          //         ?.reset();
+                          //   },
+                          // ),
                         ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Permit No is required.';
-                          }
-                          return null;
-                        },
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                              errorText: 'Permit No is required'),
+                        ]),
                       ),
                     ),
                     Visibility(
@@ -357,22 +413,22 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         child: _buildQrView(context),
                       ),
                     ),
-                    Visibility(
-                      visible: showCameraIcon,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 100.h),
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              showQR = true;
-                              showCameraIcon = false;
-                            });
-                          },
-                          iconSize: 250,
-                          icon: Icon(Icons.camera_alt),
-                        ),
-                      ),
-                    ),
+                    // Visibility(
+                    //   visible: showCameraIcon,
+                    //   child: Container(
+                    //     margin: EdgeInsets.symmetric(vertical: 100.h),
+                    //     child: IconButton(
+                    //       onPressed: () {
+                    //         setState(() {
+                    //           showQR = true;
+                    //           showCameraIcon = false;
+                    //         });
+                    //       },
+                    //       iconSize: 250,
+                    //       icon: Icon(Icons.camera_alt),
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 30.h),
                       child: CustomButton(

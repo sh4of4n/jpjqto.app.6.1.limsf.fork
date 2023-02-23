@@ -1,3 +1,13 @@
+23/02/2023 V.6.1.7
+ePandu ws 6.1.186.0
+Enhanced
+
+- Maklumat Kenderaan
+  - Disable select plat no kenderaan
+  - Move the scan button to right corner
+    Fixed
+- Cannot auto logout
+
 17/02/2023 V.6.1.6
 ePandu ws 6.1.186.0
 Enhanced

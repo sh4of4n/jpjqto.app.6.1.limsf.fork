@@ -227,7 +227,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         for (int i = 0; i < candidateList!.length; i += 1) {
           if (candidateList![i].testCode == this.testCode) {
             customDialog.show(
-              barrierDismissable: true,
+              barrierDismissable: false,
               context: context,
               content:
                   AppLocalizations.of(context)!.translate('record_not_matched'),
@@ -307,7 +307,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       }
     } else {
       customDialog.show(
-        barrierDismissable: true,
+        barrierDismissable: false,
         context: context,
         content: AppLocalizations.of(context)!
             .translate('record_not_matched_reject'),
@@ -471,11 +471,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     await qrController.resumeCamera();
     qrController.scannedDataStream.listen((scanData) async {
       await qrController.pauseCamera();
-      processQrCodeResult(
-        scanData: scanData,
-        selectedCandidate: selectedCandidate,
-        qNo: qNo!,
-      );
+      // processQrCodeResult(
+      //   scanData: scanData,
+      //   selectedCandidate: selectedCandidate,
+      //   qNo: qNo!,
+      // );
       await qrController.resumeCamera();
     });
   }
@@ -516,15 +516,15 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   }
 
   void processQrCodeResult(
-      {required Barcode scanData,
+      {required String scanData,
       required selectedCandidate,
       required String qNo}) {
     setState(() {
       try {
-        merchantNo = jsonDecode(scanData.code!)['Table1'][0]['merchant_no'];
-        testCode = jsonDecode(scanData.code!)['Table1'][0]['test_code'];
-        groupId = jsonDecode(scanData.code!)['Table1'][0]['group_id'];
-        nric = jsonDecode(scanData.code!)['Table1'][0]['nric_no'];
+        merchantNo = jsonDecode(scanData)['Table1'][0]['merchant_no'];
+        testCode = jsonDecode(scanData)['Table1'][0]['test_code'];
+        groupId = jsonDecode(scanData)['Table1'][0]['group_id'];
+        nric = jsonDecode(scanData)['Table1'][0]['nric_no'];
         iconVisible = true;
         isVisible = false;
 
@@ -538,7 +538,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           nric = '';
 
           customDialog.show(
-            barrierDismissable: true,
+            barrierDismissable: false,
             context: context,
             content: AppLocalizations.of(context)!.translate('scan_again'),
             type: DialogType.INFO,
@@ -546,7 +546,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         }
       } catch (e) {
         customDialog.show(
-          barrierDismissable: true,
+          barrierDismissable: false,
           context: context,
           content: AppLocalizations.of(context)!.translate('invalid_qr'),
           customActions: [
@@ -641,374 +641,376 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             ),
           ],
         ),
-        body: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+        floatingActionButton: FloatingActionButton.extended(
+          label: const Text('Scan QR Code'),
+          onPressed: () async {
+            var scanData = await context.router.push(QrScannerRoute());
+            if (scanData != null) {
+              processQrCodeResult(
+                scanData: scanData.toString(),
+                selectedCandidate: selectedCandidate,
+                qNo: qNo!,
+              );
+            }
+          },
+          icon: const Icon(Icons.qr_code_scanner),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.only(
+            bottom: 70,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      ProfileWidget(),
-                      Container(
-                        width: 1300.h,
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 50.w),
-                            labelText: 'Q-NO',
-                            labelStyle: TextStyle(
-                                // fontSize: 80.sp,
+                  ProfileWidget(),
+                  Container(
+                    width: 1300.h,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 50.w),
+                        labelText: 'Q-NO',
+                        labelStyle: TextStyle(
+                            // fontSize: 80.sp,
+                            ),
+                        // fillColor: Colors.grey.withOpacity(.25),
+                        // filled: true,
+                        // prefixIcon: Icon(Icons.edit),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      items: candidateList != null
+                          ? candidateList!
+                              .map<DropdownMenuItem<String>>((dynamic value) {
+                              return DropdownMenuItem<String>(
+                                value: value.queueNo,
+                                child: Center(
+                                    child: Text(
+                                  value.queueNo,
+                                  style: TextStyle(
+                                      // fontSize: 80.sp,
+                                      ),
+                                )),
+                              );
+                            }).toList()
+                          : null,
+                      onTap: () {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+
+                        if (!currentFocus.hasPrimaryFocus) {
+                          currentFocus.unfocus();
+                        }
+                      },
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          qNo = newValue;
+                        });
+
+                        getSelectedCandidateInfo(newValue);
+                      },
+                    ),
+                  ),
+                  // Text(
+                  //   qNo.isNotEmpty ? qNo : 'Q-NO',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.bold, fontSize: 250.sp),
+                  // ),
+                  SizedBox(height: 50.h),
+                  icPhoto == ''
+                      ? const SizedBox()
+                      : CachedNetworkImage(
+                          imageUrl: icPhoto,
+                          height: 200,
+                        ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 150.w,
+                      vertical: 8.0,
+                    ),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'No. ID',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                 ),
-                            // fillColor: Colors.grey.withOpacity(.25),
-                            // filled: true,
-                            // prefixIcon: Icon(Icons.edit),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: primaryColor),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          items: candidateList != null
-                              ? candidateList!.map<DropdownMenuItem<String>>(
-                                  (dynamic value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.queueNo,
-                                    child: Center(
-                                        child: Text(
-                                      value.queueNo,
-                                      style: TextStyle(
-                                          // fontSize: 80.sp,
-                                          ),
-                                    )),
-                                  );
-                                }).toList()
-                              : null,
-                          onTap: () {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-                          },
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              qNo = newValue;
-                            });
-
-                            getSelectedCandidateInfo(newValue);
-                          },
-                        ),
-                      ),
-                      // Text(
-                      //   qNo.isNotEmpty ? qNo : 'Q-NO',
-                      //   style: TextStyle(
-                      //       fontWeight: FontWeight.bold, fontSize: 250.sp),
-                      // ),
-                      SizedBox(height: 50.h),
-                      icPhoto == ''
-                          ? const SizedBox()
-                          : CachedNetworkImage(
-                              imageUrl: icPhoto,
-                              height: 200,
-                            ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 150.w,
-                          vertical: 8.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'No. ID',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    nric!,
-                                    style: textStyle,
-                                  ),
-                                  Text(
-                                    'Nama',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    name!,
-                                    style: textStyle,
-                                  ),
-                                  Text(
-                                    'Kategori ID',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    kewarganegaraan ?? '',
-                                    style: textStyle,
-                                  ),
-                                  Text(
-                                    'Kelas',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    groupId!,
-                                    style: textStyle,
-                                  ),
-                                ],
                               ),
-                            ),
-                          ],
+                              Text(
+                                nric!,
+                                style: textStyle,
+                              ),
+                              Text(
+                                'Nama',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                name!,
+                                style: textStyle,
+                              ),
+                              Text(
+                                'Kategori ID',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                kewarganegaraan ?? '',
+                                style: textStyle,
+                              ),
+                              Text(
+                                'Kelas',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                groupId!,
+                                style: textStyle,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
+                  ),
 
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(horizontal: 150.w),
-                      //   child: Table(
-                      //     // border: TableBorder.all(),
-                      //     columnWidths: {0: FractionColumnWidth(.30)},
-                      //     children: [
-                      //       /* TableRow(
-                      //     children: [
-                      //       Padding(
-                      //         padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //         child: Text('Q-NO',
-                      //             textAlign: TextAlign.center, style: textStyle),
-                      //       ),
-                      //       Padding(
-                      //         padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //         child: Text(qNo, style: textStyle),
-                      //       ),
-                      //     ],
-                      //   ), */
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 150.w),
+                  //   child: Table(
+                  //     // border: TableBorder.all(),
+                  //     columnWidths: {0: FractionColumnWidth(.30)},
+                  //     children: [
+                  //       /* TableRow(
+                  //     children: [
+                  //       Padding(
+                  //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //         child: Text('Q-NO',
+                  //             textAlign: TextAlign.center, style: textStyle),
+                  //       ),
+                  //       Padding(
+                  //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //         child: Text(qNo, style: textStyle),
+                  //       ),
+                  //     ],
+                  //   ), */
 
-                      //       TableRow(children: [
-                      //         Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //           child: Text('NRIC', style: textStyle),
-                      //         ),
-                      //         Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //           child: Text(nric!, style: textStyle),
-                      //         ),
-                      //       ]),
-                      //       TableRow(children: [
-                      //         Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //           child: Text('NAMA', style: textStyle),
-                      //         ),
-                      //         Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //           child: Text(name!, style: textStyle),
-                      //         ),
-                      //       ]),
-                      //       TableRow(children: [
-                      //         Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //           child: Text('KEWARGANEGARAAN',
-                      //               overflow: TextOverflow.ellipsis,
-                      //               style: textStyle),
-                      //         ),
-                      //         Padding(
-                      //           padding: EdgeInsets.symmetric(vertical: 10.h),
-                      //           child: Text(kewarganegaraan!, style: textStyle),
-                      //         ),
-                      //       ]),
-                      //     ],
-                      //   ),
-                      // ),
+                  //       TableRow(children: [
+                  //         Padding(
+                  //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //           child: Text('NRIC', style: textStyle),
+                  //         ),
+                  //         Padding(
+                  //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //           child: Text(nric!, style: textStyle),
+                  //         ),
+                  //       ]),
+                  //       TableRow(children: [
+                  //         Padding(
+                  //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //           child: Text('NAMA', style: textStyle),
+                  //         ),
+                  //         Padding(
+                  //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //           child: Text(name!, style: textStyle),
+                  //         ),
+                  //       ]),
+                  //       TableRow(children: [
+                  //         Padding(
+                  //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //           child: Text('KEWARGANEGARAAN',
+                  //               overflow: TextOverflow.ellipsis,
+                  //               style: textStyle),
+                  //         ),
+                  //         Padding(
+                  //           padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //           child: Text(kewarganegaraan!, style: textStyle),
+                  //         ),
+                  //       ]),
+                  //     ],
+                  //   ),
+                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                            children: [
-                              CustomButton(
-                                onPressed: () async {
-                                  if (selectedCandidate != null) {
-                                    EasyLoading.show(
-                                      maskType: EasyLoadingMaskType.black,
-                                    );
-                                    vehNo = await localStorage.getPlateNo();
-                                    var vehicleResult =
-                                        await etestingRepo.isVehicleAvailable(
-                                            plateNo: vehNo ?? '');
-                                    await EasyLoading.dismiss();
-                                    if (vehicleResult.data != 'True') {
-                                      await showDialog<void>(
-                                        context: context,
-                                        barrierDismissible:
-                                            false, // user must tap button!
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text('JPJ QTP APP'),
-                                            content: SingleChildScrollView(
-                                              child: ListBody(
-                                                children: <Widget>[
-                                                  Text(vehicleResult.message ??
-                                                      ''),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text('OK'),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                      // setState(() {
-                                      //   isLoading = false;
-                                      // });
-                                      EasyLoading.dismiss();
-                                      return;
-                                    }
-                                    callPart3JpjTest(type: 'MANUAL');
-                                  } else {
-                                    customDialog.show(
-                                      context: context,
-                                      content: AppLocalizations.of(context)!
-                                          .translate('select_queue_no'),
-                                      type: DialogType.INFO,
-                                    );
-                                  }
-                                },
-                                buttonColor: Colors.blue,
-                                title: AppLocalizations.of(context)!
-                                    .translate('call_btn'),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  customDialog.show(
-                                    context: context,
-                                    content: AppLocalizations.of(context)!
-                                        .translate('call_tooltip'),
-                                    type: DialogType.INFO,
-                                  );
-                                },
-                                icon: Icon(Icons.info_outline),
-                              ),
-                            ],
+                          CustomButton(
+                            // onPressed: () =>
+                            //     cancelCallPart3JpjTest(type: 'MANUAL'),
+                            onPressed: () {
+                              if (selectedCandidate != null) {
+                                CustomDialog().show(
+                                  context: context,
+                                  title: Text(AppLocalizations.of(context)!
+                                      .translate('warning_title')),
+                                  content: AppLocalizations.of(context)!
+                                      .translate('confirm_cancel_desc'),
+                                  customActions: <Widget>[
+                                    TextButton(
+                                      child: Text(AppLocalizations.of(context)!
+                                          .translate('yes_lbl')),
+                                      onPressed: () async {
+                                        await context.router.pop();
+                                        cancelCallPart3RpkTest(type: 'MANUAL');
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text(AppLocalizations.of(context)!
+                                          .translate('no_lbl')),
+                                      onPressed: () {
+                                        context.router.pop();
+                                      },
+                                    ),
+                                  ],
+                                  type: DialogType.GENERAL,
+                                );
+                              } else
+                                customDialog.show(
+                                  context: context,
+                                  content: AppLocalizations.of(context)!
+                                      .translate('select_queue_no'),
+                                  type: DialogType.INFO,
+                                );
+                            },
+                            buttonColor: Colors.blue,
+                            title: AppLocalizations.of(context)!
+                                .translate('cancel_btn'),
                           ),
-                          Row(
-                            children: [
-                              CustomButton(
-                                // onPressed: () =>
-                                //     cancelCallPart3JpjTest(type: 'MANUAL'),
-                                onPressed: () {
-                                  if (selectedCandidate != null) {
-                                    CustomDialog().show(
-                                      context: context,
-                                      title: Text(AppLocalizations.of(context)!
-                                          .translate('warning_title')),
-                                      content: AppLocalizations.of(context)!
-                                          .translate('confirm_cancel_desc'),
-                                      customActions: <Widget>[
-                                        TextButton(
-                                          child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .translate('yes_lbl')),
-                                          onPressed: () async {
-                                            await context.router.pop();
-                                            cancelCallPart3RpkTest(
-                                                type: 'MANUAL');
-                                          },
-                                        ),
-                                        TextButton(
-                                          child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .translate('no_lbl')),
-                                          onPressed: () {
-                                            context.router.pop();
-                                          },
-                                        ),
-                                      ],
-                                      type: DialogType.GENERAL,
-                                    );
-                                  } else
-                                    customDialog.show(
-                                      context: context,
-                                      content: AppLocalizations.of(context)!
-                                          .translate('select_queue_no'),
-                                      type: DialogType.INFO,
-                                    );
-                                },
-                                buttonColor: Colors.blue,
-                                title: AppLocalizations.of(context)!
-                                    .translate('cancel_btn'),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  customDialog.show(
+                          IconButton(
+                            onPressed: () {
+                              customDialog.show(
+                                context: context,
+                                content: AppLocalizations.of(context)!
+                                    .translate('cancel_tooltip'),
+                                type: DialogType.INFO,
+                              );
+                            },
+                            icon: Icon(Icons.info_outline),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CustomButton(
+                            onPressed: () async {
+                              if (selectedCandidate != null) {
+                                EasyLoading.show(
+                                  maskType: EasyLoadingMaskType.black,
+                                );
+                                vehNo = await localStorage.getPlateNo();
+                                var vehicleResult = await etestingRepo
+                                    .isVehicleAvailable(plateNo: vehNo ?? '');
+                                await EasyLoading.dismiss();
+                                if (vehicleResult.data != 'True') {
+                                  await showDialog<void>(
                                     context: context,
-                                    content: AppLocalizations.of(context)!
-                                        .translate('cancel_tooltip'),
-                                    type: DialogType.INFO,
+                                    barrierDismissible:
+                                        false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('JPJ QTP APP'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Text(vehicleResult.message ?? ''),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text('OK'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   );
-                                },
-                                icon: Icon(Icons.info_outline),
-                              ),
-                            ],
+                                  // setState(() {
+                                  //   isLoading = false;
+                                  // });
+                                  EasyLoading.dismiss();
+                                  return;
+                                }
+                                callPart3JpjTest(type: 'MANUAL');
+                              } else {
+                                customDialog.show(
+                                  context: context,
+                                  content: AppLocalizations.of(context)!
+                                      .translate('select_queue_no'),
+                                  type: DialogType.INFO,
+                                );
+                              }
+                            },
+                            buttonColor: Colors.blue,
+                            title: AppLocalizations.of(context)!
+                                .translate('call_btn'),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              customDialog.show(
+                                context: context,
+                                content: AppLocalizations.of(context)!
+                                    .translate('call_tooltip'),
+                                type: DialogType.INFO,
+                              );
+                            },
+                            icon: Icon(Icons.info_outline),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  Visibility(
-                    visible: isVisible,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: SizedBox(
-                        height: 500,
-                        child: _buildQrView(context),
-                      ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: iconVisible,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Container(
-                        color: Colors.grey.shade200,
-                        width: double.infinity,
-                        height: 500,
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isVisible = true;
-                              iconVisible = false;
-                            });
-                          },
-                          iconSize: 150,
-                          icon: const Icon(Icons.camera_alt),
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
-            ),
-            // LoadingModel(
-            //   isVisible: isLoading,
-            //   color: ColorConstant.primaryColor,
-            // ),
-          ],
+              Visibility(
+                visible: isVisible,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 500,
+                    child: _buildQrView(context),
+                  ),
+                ),
+              ),
+              // Visibility(
+              //   visible: iconVisible,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(16.0),
+              //     child: Container(
+              //       color: Colors.grey.shade200,
+              //       width: double.infinity,
+              //       height: 500,
+              //       child: IconButton(
+              //         onPressed: () {
+              //           setState(() {
+              //             isVisible = true;
+              //             iconVisible = false;
+              //           });
+              //         },
+              //         iconSize: 150,
+              //         icon: const Icon(Icons.camera_alt),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );
