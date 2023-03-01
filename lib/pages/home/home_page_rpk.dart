@@ -11,7 +11,6 @@ import 'package:jpj_qto/common_library/services/repository/kpp_repository.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/component/profile.dart';
-import 'package:jpj_qto/services/response.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../common_library/services/response.dart';
 import '../../router.gr.dart';
 import 'home_icon.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:hive/hive.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
@@ -13,9 +14,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../common_library/services/repository/etesting_repository.dart';
+import '../../common_library/services/response.dart';
 import '../../main.dart';
 import '../../router.gr.dart';
-import '../../services/response.dart';
+import '../../utils/check_url.dart';
 
 class Authentication extends StatefulWidget {
   @override
@@ -34,6 +36,10 @@ class _AuthenticationState extends State<Authentication> {
 
   Timer? timer;
   final etestingRepo = EtestingRepo();
+  final globalKey = GlobalKey<ScaffoldState>();
+  Box wsUrlBox = Hive.box('ws_url');
+  late SnackBar snackBar;
+  CheckUrl checkUrl = CheckUrl();
 
   @override
   void initState() {
@@ -43,7 +49,67 @@ class _AuthenticationState extends State<Authentication> {
     });
     _getWsUrl();
     _setLocale();
+    checkUrl.pingme().then((value) {
+      snackBar = SnackBar(
+        content: Text(value),
+      );
+      navigatorKey.currentState?.showSnackBar(snackBar);
+    });
   }
+
+  // Future<String> pingme() async {
+  //   if (await wsUrlBox.get('urlStatus') == 1 &&
+  //       (await wsUrlBox.get('userDefinedUrl') != null &&
+  //           await wsUrlBox.get('userDefinedUrl') != '')) {
+  //     snackBar = SnackBar(
+  //       content: const Text('Connecting to Custom URL...'),
+  //       duration: const Duration(seconds: 30),
+  //     );
+  //     WidgetsBinding.instance.addPostFrameCallback(
+  //       (_) => navigatorKey.currentState?.showSnackBar(snackBar),
+  //     );
+
+  //     var result = await authRepo.pingme(
+  //         wsUrl: await wsUrlBox.get('userDefinedUrl'), milliseconds: 3000);
+  //     navigatorKey.currentState?.hideCurrentSnackBar();
+  //     if (result.isSuccess) {
+  //       return 'Connection to Custom URL is successful.';
+  //     }
+  //   }
+  //   await wsUrlBox.put('urlStatus', 2);
+  //   if (await wsUrlBox.get('urlStatus') == 2) {
+  //     snackBar = SnackBar(
+  //       content: const Text('Connecting to Default URL...'),
+  //       duration: const Duration(seconds: 30),
+  //     );
+  //     WidgetsBinding.instance.addPostFrameCallback(
+  //       (_) => navigatorKey.currentState?.showSnackBar(snackBar),
+  //     );
+
+  //     var result = await authRepo.pingme(
+  //         wsUrl: await wsUrlBox.get('defaultUrl'), milliseconds: 3000);
+  //     navigatorKey.currentState?.hideCurrentSnackBar();
+  //     if (result.isSuccess) {
+  //       return 'Connection to Default URL is successful.';
+  //     }
+  //   }
+  //   await wsUrlBox.put('urlStatus', 3);
+  //   if (await wsUrlBox.get('urlStatus') == 3) {
+  //     snackBar = SnackBar(
+  //       content: const Text('Connecting to CA URL...'),
+  //     );
+  //     navigatorKey.currentState?.showSnackBar(snackBar);
+  //     var result = await authRepo.pingme();
+
+  //     navigatorKey.currentState?.hideCurrentSnackBar();
+  //     if (result.isSuccess) {
+  //       return 'Connection to CA URL is successful.';
+  //     }
+  //   }
+
+  //   navigatorKey.currentState?.hideCurrentSnackBar();
+  //   return 'Connection to all URL is failed.';
+  // }
 
   checkUserLoginStatus() async {
     String? userId = await localStorage.getUserId();
@@ -116,7 +182,6 @@ class _AuthenticationState extends State<Authentication> {
             context.router.replace(Home());
           }
         } else {
-          // context.router.replace(GetVehicleInfo());
           context.router.replace(HomeSelect());
         }
       } else {
@@ -133,6 +198,7 @@ class _AuthenticationState extends State<Authentication> {
     );
 
     return Scaffold(
+      key: globalKey,
       body: Container(),
     );
   }

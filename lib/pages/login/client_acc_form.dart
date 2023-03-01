@@ -345,9 +345,9 @@ class _ClientAccountFormState extends State<ClientAccountForm>
         '0',
       );
 
-      localStorage.saveCaUid(caUidController.text.replaceAll(' ', ''));
-      localStorage.saveCaPwd(caPwdController.text.replaceAll(' ', ''));
-      localStorage.saveCaPwdEncode(
+      await localStorage.saveCaUid(caUidController.text.replaceAll(' ', ''));
+      await localStorage.saveCaPwd(caPwdController.text.replaceAll(' ', ''));
+      await localStorage.saveCaPwdEncode(
           Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
 
       if (widget.data == 'SETTINGS')

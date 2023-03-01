@@ -35,57 +35,40 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
 
-  // runZonedGuarded(() async {
-  //   await SentryFlutter.init(
-  //     (options) {
-  //       options.dsn = kDebugMode
-  //           ? ''
-  //           : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
-  //     },
-  //   );
+  await Hive.box('ws_url').put('defaultUrl',
+      'http://192.168.168.2:88/etesting.mainservice/_wsver_/mainservice.svc');
 
-  //   getIt.registerSingleton<AppRouter>(AppRouter());
-  //   getIt.registerSingleton<NavigatorState>(NavigatorState());
+  runZonedGuarded(() async {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = kDebugMode
+            ? ''
+            : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
+      },
+    );
 
-  //   runApp(
-  //     MultiProvider(
-  //       providers: [
-  //         ChangeNotifierProvider(
-  //           create: (context) => LanguageModel(),
-  //         ),
-  //         ChangeNotifierProvider(
-  //           create: (context) => JrSessionModel(),
-  //         ),
-  //         ChangeNotifierProvider(
-  //           create: (context) => RpkSessionModel(),
-  //         ),
-  //       ],
-  //       child: MyApp(),
-  //     ),
-  //   );
-  // }, (exception, stackTrace) async {
-  //   await Sentry.captureException(exception, stackTrace: stackTrace);
-  // });
+    getIt.registerSingleton<AppRouter>(AppRouter());
+    getIt.registerSingleton<NavigatorState>(NavigatorState());
 
-  getIt.registerSingleton<AppRouter>(AppRouter());
-  getIt.registerSingleton<NavigatorState>(NavigatorState());
-
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LanguageModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => JrSessionModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => RpkSessionModel(),
-        ),
-      ],
-      child: MyApp(),
-    ),
-  );
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => LanguageModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => JrSessionModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => RpkSessionModel(),
+          ),
+        ],
+        child: MyApp(),
+      ),
+    );
+  }, (exception, stackTrace) async {
+    await Sentry.captureException(exception, stackTrace: stackTrace);
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -130,7 +113,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: navigatorKey,
       title: 'JPJ QTO',
       // debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -164,6 +146,7 @@ class _MyAppState extends State<MyApp> {
       // initialRoute: AUTH,
       // onGenerateRoute: RouteGenerator.generateRoute,
       builder: EasyLoading.init(),
+      scaffoldMessengerKey: navigatorKey,
     );
   }
 

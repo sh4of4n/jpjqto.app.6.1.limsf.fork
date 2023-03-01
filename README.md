@@ -1,3 +1,10 @@
+01/03/2023 V.6.1.8
+ePandu ws 6.1.186.0
+Enhanced
+
+- Execute WS URL based on Custom URL, Default URL, CA URL
+- Default URL is http://192.168.168.2:88/etesting.mainservice/_wsver_/mainservice.svc
+
 23/02/2023 V.6.1.7
 ePandu ws 6.1.186.0
 Enhanced

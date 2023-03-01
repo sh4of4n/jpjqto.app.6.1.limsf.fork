@@ -32,12 +32,23 @@ class Networking extends BaseRepo {
     if (customUrl != null) {
       url = customUrl;
     } else {
-      if (await Hive.box('ws_url').get('userDefinedUrl') != null &&
-          await Hive.box('ws_url').get('userDefinedUrl') != '') {
-        url = await Hive.box('ws_url').get('userDefinedUrl');
-      } else {
-        url = await wsUrlBox.get('wsUrl');
-      }
+      // if (await Hive.box('ws_url').get('userDefinedUrl') != null &&
+      //     await Hive.box('ws_url').get('userDefinedUrl') != '') {
+      //   url = await Hive.box('ws_url').get('userDefinedUrl');
+      // } else {
+      //   url = await wsUrlBox.get('wsUrl');
+      // }
+
+      // if (await wsUrlBox.get('urlStatus') == 1 &&
+      //     (await wsUrlBox.get('userDefinedUrl') != null &&
+      //         await wsUrlBox.get('userDefinedUrl') != '')) {
+      //   url = await wsUrlBox.get('userDefinedUrl');
+      // } else if (await wsUrlBox.get('urlStatus') == 2) {
+      //   url = await wsUrlBox.get('defaultUrl');
+      // } else {
+      //   url = await wsUrlBox.get('wsUrl');
+      // }
+      url = await wsUrlBox.get('wsUrl');
     }
 
     try {
@@ -65,6 +76,7 @@ class Networking extends BaseRepo {
         if (response.body == 'Valid user.' ||
             response.body == 'True' ||
             response.body == 'False' ||
+            response.body.substring(0, 2) == 'OK' ||
             url == customUrl) return Response(true, data: response.body);
 
         return Response(true, data: jsonDecode(response.body));
@@ -90,17 +102,19 @@ class Networking extends BaseRepo {
     }
   }
 
-  Future<Response> postData({String? api, String? path, required body, headers}) async {
+  Future<Response> postData(
+      {String? api, String? path, required body, headers}) async {
     try {
       if (customUrl != null) {
         url = customUrl;
       } else {
-        if (await Hive.box('ws_url').get('userDefinedUrl') != null &&
-            await Hive.box('ws_url').get('userDefinedUrl') != '') {
-          url = await Hive.box('ws_url').get('userDefinedUrl');
-        } else {
-          url = await wsUrlBox.get('wsUrl');
-        }
+        // if (await Hive.box('ws_url').get('userDefinedUrl') != null &&
+        //     await Hive.box('ws_url').get('userDefinedUrl') != '') {
+        //   url = await Hive.box('ws_url').get('userDefinedUrl');
+        // } else {
+        //   url = await wsUrlBox.get('wsUrl');
+        // }
+        url = await wsUrlBox.get('wsUrl');
       }
 
       print('$url/webapi/$api${path ?? ""}');

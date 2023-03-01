@@ -1767,4 +1767,19 @@ class AuthRepo {
 
     return Response(false, message: 'Update failed, please try again later.');
   }
+
+  Future<Response> pingme({
+    String? wsUrl,
+    int? milliseconds,
+  }) async {
+    var response =
+        await Networking(customUrl: wsUrl, milliseconds: milliseconds)
+            .getData(path: 'pingme');
+
+    if (response.isSuccess && response.data != null) {
+      return Response(true, data: response.data);
+    }
+
+    return Response(false, message: response.message, data: '');
+  }
 }

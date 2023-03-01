@@ -9,7 +9,9 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
+import '../../main.dart';
 import '../../router.gr.dart';
+import '../../utils/check_url.dart';
 
 class LoginBottomCard extends StatefulWidget {
   @override
@@ -80,9 +82,16 @@ class _LoginBottomCardState extends State<LoginBottomCard> {
                     barrierDismissable: false,
                     onPressed: () async {
                       count = 0;
-                      context.router.popAndPush(
+                      await context.router.popAndPush(
                         ClientAccount(data: ''),
                       );
+                      CheckUrl checkUrl = CheckUrl();
+                      checkUrl.pingme().then((value) {
+                        SnackBar snackBar = SnackBar(
+                          content: Text(value),
+                        );
+                        navigatorKey.currentState?.showSnackBar(snackBar);
+                      });
                     },
                   );
                 }
