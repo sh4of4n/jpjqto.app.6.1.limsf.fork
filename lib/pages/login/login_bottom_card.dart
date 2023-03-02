@@ -72,7 +72,7 @@ class _LoginBottomCardState extends State<LoginBottomCard> {
                 count += 1;
 
                 if (count == 4) {
-                  customDialog.show(
+                  await customDialog.show(
                     context: context,
                     title: AppLocalizations.of(context)!
                         .translate('client_acc_title'),
@@ -81,19 +81,19 @@ class _LoginBottomCardState extends State<LoginBottomCard> {
                     type: DialogType.SUCCESS,
                     barrierDismissable: false,
                     onPressed: () async {
-                      count = 0;
                       await context.router.popAndPush(
                         ClientAccount(data: ''),
                       );
-                      CheckUrl checkUrl = CheckUrl();
-                      checkUrl.pingme().then((value) {
-                        SnackBar snackBar = SnackBar(
-                          content: Text(value),
-                        );
-                        navigatorKey.currentState?.showSnackBar(snackBar);
-                      });
+                      // CheckUrl checkUrl = CheckUrl();
+                      // checkUrl.pingme().then((value) {
+                      //   SnackBar snackBar = SnackBar(
+                      //     content: Text(value),
+                      //   );
+                      //   navigatorKey.currentState?.showSnackBar(snackBar);
+                      // });
                     },
                   );
+                  count = 0;
                 }
               },
               child: Row(

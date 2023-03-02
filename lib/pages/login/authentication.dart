@@ -18,6 +18,7 @@ import '../../common_library/services/response.dart';
 import '../../main.dart';
 import '../../router.gr.dart';
 import '../../utils/check_url.dart';
+import '../../utils/constants.dart';
 
 class Authentication extends StatefulWidget {
   @override
@@ -47,14 +48,15 @@ class _AuthenticationState extends State<Authentication> {
     timer = Timer.periodic(const Duration(seconds: 5), (Timer t) {
       checkUserLoginStatus();
     });
-    _getWsUrl();
+    // _getWsUrl();
     _setLocale();
-    checkUrl.pingme().then((value) {
-      snackBar = SnackBar(
-        content: Text(value),
-      );
-      navigatorKey.currentState?.showSnackBar(snackBar);
-    });
+    checkUrl.checkUrl('', '').then((value) => _checkExistingLogin());
+    // checkUrl.pingme().then((value) {
+    //   snackBar = SnackBar(
+    //     content: Text(value),
+    //   );
+    //   navigatorKey.currentState?.showSnackBar(snackBar);
+    // });
   }
 
   // Future<String> pingme() async {
@@ -140,7 +142,6 @@ class _AuthenticationState extends State<Authentication> {
 
     // if (wsUrl == null) {
     await authRepo.getWsUrl(
-      context: context,
       acctUid: caUid,
       acctPwd: caPwd,
       loginType: appConfig.wsCodeCrypt,
@@ -197,9 +198,40 @@ class _AuthenticationState extends State<Authentication> {
       designSize: Size(1440, 2960),
     );
 
-    return Scaffold(
-      key: globalKey,
-      body: Container(),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          colors: [
+            Colors.amber.shade50,
+            Colors.amber.shade100,
+            Colors.amber.shade200,
+            Colors.amber.shade300,
+            ColorConstant.primaryColor,
+          ],
+          stops: [0.2, 0.4, 0.6, 0.7, 1],
+          radius: 0.7,
+        ),
+      ),
+      child: Scaffold(
+        key: globalKey,
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                ImagesConstant().logo,
+                width: 1000.w,
+                height: 600.h,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              const CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

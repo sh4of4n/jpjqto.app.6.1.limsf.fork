@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
+import 'package:jpj_qto/utils/app_config.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,10 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
 
-  await Hive.box('ws_url').put('defaultUrl',
-      'http://192.168.168.2:88/etesting.mainservice/_wsver_/mainservice.svc');
+  await Hive.box('ws_url').put(
+      'defaultUrl',
+      'http://192.168.168.2:88/etesting.mainservice/_wsver_/mainservice.svc'
+          .replaceAll('_wsver_', AppConfig().wsVer));
 
   runZonedGuarded(() async {
     await SentryFlutter.init(

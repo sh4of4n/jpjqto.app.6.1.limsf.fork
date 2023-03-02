@@ -1,71 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:jpj_qto/pages/eTestingSolution/list_part_2.dart';
 
 import '../common_library/services/repository/auth_repository.dart';
 import '../main.dart';
+import 'app_config.dart';
 
 class CheckUrl {
   Box wsUrlBox = Hive.box('ws_url');
   late SnackBar snackBar;
   final AuthRepo authRepo = AuthRepo();
+  final AppConfig appConfig = AppConfig();
 
-  Future<String> pingme() async {
-    await Hive.box('ws_url').put('urlStatus', 1);
-
-    if (await wsUrlBox.get('urlStatus') == 1 &&
-        (await wsUrlBox.get('userDefinedUrl') != null &&
-            await wsUrlBox.get('userDefinedUrl') != '')) {
-      // snackBar = SnackBar(
-      //   content: const Text('Connecting to Custom URL...'),
-      //   duration: const Duration(seconds: 30),
-      // );
-      // WidgetsBinding.instance.addPostFrameCallback(
-      //   (_) => navigatorKey.currentState?.showSnackBar(snackBar),
-      // );
-
-      var result = await authRepo.pingme(
-          wsUrl: '${await wsUrlBox.get('userDefinedUrl')}/webapi',
-          milliseconds: 3000);
-      // navigatorKey.currentState?.hideCurrentSnackBar();
+  Future<String> pingme(String caUid, String caPwd) async {
+    if ((await wsUrlBox.get('userDefinedUrl') != null &&
+        await wsUrlBox.get('userDefinedUrl') != '')) {
+      print('Connecting to Custom URL...');
+      String url = (await wsUrlBox.get('userDefinedUrl'))
+          .toString()
+          .replaceAll('_wsver_', appConfig.wsVer);
+      var result =
+          await authRepo.pingme(wsUrl: '$url/webapi', milliseconds: 3000);
       if (result.isSuccess) {
-        await wsUrlBox.put('wsUrl', await wsUrlBox.get('userDefinedUrl'));
+        await wsUrlBox.put('wsUrl', url);
         return 'Connection to Custom URL is successful.';
       }
     }
-    await wsUrlBox.put('urlStatus', 2);
-    if (await wsUrlBox.get('urlStatus') == 2) {
-      // snackBar = SnackBar(
-      //   content: const Text('Connecting to Default URL...'),
-      //   duration: const Duration(seconds: 30),
-      // );
-      // WidgetsBinding.instance.addPostFrameCallback(
-      //   (_) => navigatorKey.currentState?.showSnackBar(snackBar),
-      // );
 
-      var result = await authRepo.pingme(
-          wsUrl: '${await wsUrlBox.get('defaultUrl')}/webapi',
-          milliseconds: 3000);
-      // navigatorKey.currentState?.hideCurrentSnackBar();
-      if (result.isSuccess) {
-        await wsUrlBox.put('wsUrl', await wsUrlBox.get('defaultUrl'));
-        return 'Connection to Default URL is successful.';
-      }
-    }
-    await wsUrlBox.put('urlStatus', 3);
-    if (await wsUrlBox.get('urlStatus') == 3) {
-      // snackBar = SnackBar(
-      //   content: const Text('Connecting to CA URL...'),
-      // );
-      // navigatorKey.currentState?.showSnackBar(snackBar);
-      var result = await authRepo.pingme();
-
-      // navigatorKey.currentState?.hideCurrentSnackBar();
-      if (result.isSuccess) {
-        return 'Connection to CA URL is successful.';
-      }
+    print('Connecting to Default URL...');
+    var defaultUrlResult = await authRepo.pingme(
+        wsUrl: '${await wsUrlBox.get('defaultUrl')}/webapi',
+        milliseconds: 3000);
+    if (defaultUrlResult.isSuccess) {
+      await wsUrlBox.put('wsUrl', await wsUrlBox.get('defaultUrl'));
+      return 'Connection to Default URL is successful.';
     }
 
-    // navigatorKey.currentState?.hideCurrentSnackBar();
+    print('Connecting to CA URL...');
+    var getWsUrlResult = await authRepo.getWsUrl(
+      acctUid: caUid,
+      acctPwd: caPwd,
+      loginType: appConfig.wsCodeCrypt,
+    );
+
+    if (!getWsUrlResult.isSuccess) {
+      return getWsUrlResult.message ?? 'Connection to CA URL is failed.';
+    }
+
+    var result = await authRepo.pingme();
+    if (result.isSuccess) {
+      return 'Connection to CA URL is successful.';
+    }
+
     return 'Connection to all URL is failed.';
+  }
+
+  Future checkUrl(String caUid, String caPwd) async {
+    if (caUid == '') {
+      caUid = await localStorage.getCaUid() ?? '';
+    }
+    if (caPwd == '') {
+      caPwd = await localStorage.getCaPwdEncode() ?? '';
+    }
+    String result = await pingme(caUid, caPwd);
+    SnackBar snackBar = SnackBar(
+      content: Text(result),
+    );
+    navigatorKey.currentState?.showSnackBar(snackBar);
   }
 }
