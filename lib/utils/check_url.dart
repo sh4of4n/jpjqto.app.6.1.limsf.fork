@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:jpj_qto/pages/eTestingSolution/list_part_2.dart';
 
 import '../common_library/services/repository/auth_repository.dart';
 import '../main.dart';
 import 'app_config.dart';
+import 'local_storage.dart';
 
 class CheckUrl {
   Box wsUrlBox = Hive.box('ws_url');
   late SnackBar snackBar;
   final AuthRepo authRepo = AuthRepo();
   final AppConfig appConfig = AppConfig();
+  LocalStorage localStorage = LocalStorage();
 
   Future<String> pingme(String caUid, String caPwd) async {
     if ((await wsUrlBox.get('userDefinedUrl') != null &&

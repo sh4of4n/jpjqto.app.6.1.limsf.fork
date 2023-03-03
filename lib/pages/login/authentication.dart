@@ -37,7 +37,6 @@ class _AuthenticationState extends State<Authentication> {
 
   Timer? timer;
   final etestingRepo = EtestingRepo();
-  final globalKey = GlobalKey<ScaffoldState>();
   Box wsUrlBox = Hive.box('ws_url');
   late SnackBar snackBar;
   CheckUrl checkUrl = CheckUrl();
@@ -213,7 +212,6 @@ class _AuthenticationState extends State<Authentication> {
         ),
       ),
       child: Scaffold(
-        key: globalKey,
         backgroundColor: Colors.transparent,
         body: Center(
           child: Column(
