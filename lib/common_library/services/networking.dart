@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:flutter_logs/flutter_logs.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../utils/app_config.dart';
+import '../../utils/local_storage.dart';
 import '../utils/custom_snackbar.dart';
 import 'repository/base_repository.dart';
 import 'response.dart';
@@ -25,6 +27,7 @@ class Networking extends BaseRepo {
   }
 
   late Uri uri;
+  final localStorage = LocalStorage();
 
   Networking({this.customUrl, this.milliseconds});
 
@@ -57,13 +60,30 @@ class Networking extends BaseRepo {
       if (url == customUrl) {
         uri = Uri.parse('$url/${path ?? ""}');
         print('$url/${path ?? ""}');
-
+        localStorage.getExportLogFile().then((value) {
+          if (value == true) {
+            FlutterLogs.logInfo(
+              'Networking',
+              'getData',
+              '$url/${path ?? ""}',
+            );
+          }
+        });
         response = await http
             .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 10000));
       } else {
         uri = Uri.parse('$url/webapi/${path ?? ""}');
         print('$url/webapi/${path ?? ""}');
+        localStorage.getExportLogFile().then((value) {
+          if (value == true) {
+            FlutterLogs.logInfo(
+              'Networking',
+              'getData',
+              '$url/webapi/${path ?? ""}',
+            );
+          }
+        });
 
         response = await http
             .get(uri)
@@ -72,6 +92,15 @@ class Networking extends BaseRepo {
 
       if (response.statusCode == 200) {
         print(response.body);
+        localStorage.getExportLogFile().then((value) {
+          if (value == true) {
+            FlutterLogs.logInfo(
+              'Networking',
+              'getData',
+              response.body,
+            );
+          }
+        });
 
         if (response.body == 'Valid user.' ||
             response.body == 'True' ||
@@ -91,6 +120,22 @@ class Networking extends BaseRepo {
 
         print(response.statusCode);
         print(message);
+
+        localStorage.getExportLogFile().then((value) {
+          if (value == true) {
+            FlutterLogs.logInfo(
+              'Networking',
+              'getData',
+              response.statusCode.toString(),
+            );
+
+            FlutterLogs.logInfo(
+              'Networking',
+              'getData',
+              message,
+            );
+          }
+        });
 
         return Response(
           false,
@@ -118,8 +163,26 @@ class Networking extends BaseRepo {
       }
 
       print('$url/webapi/$api${path ?? ""}');
+      localStorage.getExportLogFile().then((value) {
+        if (value == true) {
+          FlutterLogs.logInfo(
+            'Networking',
+            'postDate',
+            '$url/webapi/$api${path ?? ""}',
+          );
+        }
+      });
 
       print('body: ' + body);
+      localStorage.getExportLogFile().then((value) {
+        if (value == true) {
+          FlutterLogs.logInfo(
+            'Networking',
+            'postDate',
+            'body: ' + body,
+          );
+        }
+      });
 
       uri = Uri.parse('$url/webapi/$api${path ?? ""}');
 
@@ -129,6 +192,15 @@ class Networking extends BaseRepo {
 
       if (response.statusCode == 200) {
         print(response.body);
+        localStorage.getExportLogFile().then((value) {
+          if (value == true) {
+            FlutterLogs.logInfo(
+              'Networking',
+              'postDate',
+              response.body,
+            );
+          }
+        });
 
         if (response.body == 'True' || response.body == 'False')
           return Response(true, data: response.body);
@@ -145,6 +217,21 @@ class Networking extends BaseRepo {
 
         print(response.statusCode);
         print(message);
+
+        localStorage.getExportLogFile().then((value) {
+          if (value == true) {
+            FlutterLogs.logInfo(
+              'Networking',
+              'postDate',
+              response.statusCode.toString(),
+            );
+            FlutterLogs.logInfo(
+              'Networking',
+              'postDate',
+              message,
+            );
+          }
+        });
 
         return Response(
           false,

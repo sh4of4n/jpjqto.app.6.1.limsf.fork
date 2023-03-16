@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_logs/flutter_logs.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
@@ -27,6 +28,24 @@ GlobalKey<ScaffoldMessengerState> navigatorKey =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await FlutterLogs.initLogs(
+    logLevelsEnabled: [
+      LogLevel.INFO,
+      LogLevel.WARNING,
+      LogLevel.ERROR,
+      LogLevel.SEVERE
+    ],
+    timeStampFormat: TimeStampFormat.TIME_FORMAT_READABLE,
+    directoryStructure: DirectoryStructure.FOR_DATE,
+    logTypesEnabled: ['MyLogFile'],
+    logFileExtension: LogFileExtension.LOG,
+    logsWriteDirectoryName: "MyLogs",
+    logsExportDirectoryName: "MyLogs/Exported",
+    debugFileOperations: true,
+    isDebuggable: true,
+  );
+
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(KppExamDataAdapter());
@@ -96,6 +115,7 @@ class _MyAppState extends State<MyApp> {
     _newLocaleDelegate = AppLocalizationsDelegate(newLocale: null);
     application.onLocaleChanged = onLocaleChange;
     _loadSavedLocale();
+    localStorage.saveExportLogFile(false);
   }
 
   void _loadSavedLocale() async {

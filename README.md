@@ -1,3 +1,8 @@
+16/03/2023 V.6.1.10
+ePandu ws 6.1.189.0
+Enhanced
+-CA Setting - Can enable export log file function
+
 02/03/2023 V.6.1.9
 ePandu ws 6.1.186.0
 Enhanced

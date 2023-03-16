@@ -65,6 +65,7 @@ class LocalStorage {
   static const String DeductMarkH = 'DeductMarkH';
 
   static const String kLoginTime = 'LOGIN_TIME';
+  static const String kExportLogFile = 'EXPORT_LOG_FILE';
 
   Future<bool> setPart2MarkB(int deductMarkB) {
     return Preference.setInt(DeductMarkB, deductMarkB);
@@ -821,6 +822,14 @@ class LocalStorage {
 
   Future<String?> getLoginTime() async {
     return Preference.getString(kLoginTime, def: '');
+  }
+
+  Future<bool> saveExportLogFile(bool exportLogFile) async {
+    return Preference.setBool(kExportLogFile, exportLogFile);
+  }
+
+  Future<bool> getExportLogFile() async {
+    return Preference.getBool(kExportLogFile, def: false);
   }
 
   Future<void> reset() async {

@@ -52,12 +52,18 @@ class _ClientAccountFormState extends State<ClientAccountForm>
 
   // var _height = ScreenUtil.screenHeight / 4.5;
 
+  bool isExportLogFile = false;
+
   @override
   void initState() {
     super.initState();
-
     _getConnectedUrl();
     _getConnectedCa();
+    localStorage.getExportLogFile().then((value) {
+      setState(() {
+        isExportLogFile = value;
+      });
+    });
   }
 
   @override
@@ -234,6 +240,30 @@ class _ClientAccountFormState extends State<ClientAccountForm>
                     fieldFocusChange(context, _urlFocus, _caUidFocus);
                   },
                 ),
+                Row(
+                  children: [
+                    Text('Record Log & Export Log File'),
+                    Switch(
+                      // This bool value toggles the switch.
+                      value: isExportLogFile,
+                      activeColor: Colors.red,
+                      onChanged: (bool value) async {
+                        setState(() {
+                          isExportLogFile = value;
+                        });
+                        await localStorage.saveExportLogFile(value);
+                        if (!mounted) return;
+                        SnackBar snackBar = SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(value
+                              ? 'You have enabled export log file'
+                              : 'You have disabled export log file'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 70.h,
                 ),
@@ -370,6 +400,8 @@ class _ClientAccountFormState extends State<ClientAccountForm>
           caPwdController.text.replaceAll(' ', ''));
 
       await EasyLoading.dismiss();
+
+      context.router.pop();
     }
 
     // if (urlController.text.isNotEmpty) {

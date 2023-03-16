@@ -318,7 +318,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
 
             // context.router.replace(GetVehicleInfo());
-             context.router.replace(HomeSelect());
+            context.router.replace(HomeSelect());
           } else {
             setState(() {
               _isLoading = false;
@@ -337,7 +337,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
           localStorage.saveDiCode(result.data[0].merchantNo);
 
           // context.router.replace(GetVehicleInfo());
-           context.router.replace(HomeSelect());
+          context.router.replace(HomeSelect());
         }
       } else {
         setState(() {
