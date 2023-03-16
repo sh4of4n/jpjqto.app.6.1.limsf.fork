@@ -1,8 +1,16 @@
+16/03/2023 V.6.1.12
+ePandu ws 6.1.191.0
+Enhanced
+
+- Bahagian III Calling Page - Auto assign calon
+- Show nama calon at top of page Penilaian RPK & Penilaian Bhg 3
+
 16/03/2023 V.6.1.11
 ePandu ws 6.1.191.0
 Enhanced
 
 - RPK Calling Page - Auto assign calon
+- Remove default local ip url
 
 16/03/2023 V.6.1.10
 ePandu ws 6.1.189.0

@@ -286,6 +286,17 @@ class _Part3MainState extends State<RpkPartIII> {
                   // _header(),
                   //RpkSessionA(),
                   ProfileWidget(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Nama: ${widget.rpkName ?? ''}',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
                   Container(
                     color: primaryColor,
                     padding:

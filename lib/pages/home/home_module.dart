@@ -68,7 +68,7 @@ class HomeModule extends StatelessWidget {
           //       ],
           //     ),
           //   ],
-          // ), 
+          // ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -76,7 +76,7 @@ class HomeModule extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   HomeIcon(
-                    component: JrCandidateDetails(),
+                    component: NewJrCandidateDetails(),
                     image: imageConstant.kppIcon,
                     name: 'Bahagian III',
                   ),

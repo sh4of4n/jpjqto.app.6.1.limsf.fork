@@ -252,7 +252,7 @@ class Networking extends BaseRepo {
         if (value == true) {
           FlutterLogs.logInfo(
             'Networking',
-            'getData',
+            'postDate',
             error.toString(),
           );
         }

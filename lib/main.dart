@@ -28,6 +28,7 @@ GlobalKey<ScaffoldMessengerState> navigatorKey =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final localStorage = LocalStorage();
 
   await FlutterLogs.initLogs(
     logLevelsEnabled: [
@@ -89,6 +90,15 @@ void main() async {
       ),
     );
   }, (exception, stackTrace) async {
+    localStorage.getExportLogFile().then((value) {
+      if (value == true) {
+        FlutterLogs.logInfo(
+          'Exception',
+          'Global Exception',
+          exception.toString(),
+        );
+      }
+    });
     await Sentry.captureException(exception, stackTrace: stackTrace);
   });
 }

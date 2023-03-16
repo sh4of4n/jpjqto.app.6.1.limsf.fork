@@ -816,7 +816,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                 customDialog.show(
                                   context: context,
                                   content:
-                                      'Please press the Panggil Calon button first',
+                                      'Please press the Panggil Calon button to call the candidate.',
                                   type: DialogType.INFO,
                                 );
                             },
