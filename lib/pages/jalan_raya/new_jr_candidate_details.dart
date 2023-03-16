@@ -19,12 +19,12 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../router.gr.dart';
 
-class RpkCandidateDetails extends StatefulWidget {
+class NewJrCandidateDetails extends StatefulWidget {
   @override
-  _RpkCandidateDetailsState createState() => _RpkCandidateDetailsState();
+  _NewJrCandidateDetailsState createState() => _NewJrCandidateDetailsState();
 }
 
-class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
+class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
   final localStorage = LocalStorage();
   String barcode = "";
   final primaryColor = ColorConstant.primaryColor;
@@ -46,22 +46,23 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   String? qNo = '';
   String? nric = '';
   String? name = '';
-  String? kewarganegaraan = '';
   String testDate = '';
   String? groupId = '';
   String? testCode = '';
   String? vehNo = '';
   String? merchantNo = '';
+  String? kewarganegaraan = '';
   String icPhoto = '';
   var owners;
+
   List<dynamic>? candidateList = [];
   var selectedCandidate;
 
-  bool isLoading = false;
-  int success = 0;
-
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
+
+  bool isLoading = false;
+  int success = 0;
 
   @override
   void initState() {
@@ -71,34 +72,33 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   }
 
   getPart3AvailableToCallJpjTestList() async {
-    // setState(() {
-    //   isLoading = true;
-    // });
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
 
     vehNo = await localStorage.getPlateNo();
 
-    var result = await epanduRepo.getRpkAvailableToCallJpjTestListByCourseCode(
-        vehNo: vehNo);
+    var result =
+        await epanduRepo.getPart3AvailableToCallJpjTestListByCourseCode(
+            part3Type: 'JALAN RAYA', vehNo: vehNo);
 
     var result2 = await etestingRepo.getOwnerIdCategoryList();
+
     if (result2.isSuccess) {
       owners = result2.data;
     }
 
     // EasyLoading.dismiss();
     // await context.router.replace(
-    //   RpkPartIII(
-    //     qNo: 'dwdweq',
-    //     nric: 'dwdweq',
-    //     rpkName: 'dwdweq',
-    //     testDate: '1111111111',
-    //     groupId: 'dwdweq',
-    //     testCode: 'dwdweq',
-    //     vehNo: 'dwdweq',
-    //     skipUpdateRpkJpjTestStart: true,
+    //   JrPartIII(
+    //     qNo: 'dwdw',
+    //     nric: 'dwdw',
+    //     jrName: 'dwdw',
+    //     testDate: 'dwdw',
+    //     groupId: 'dwdw',
+    //     testCode: 'dwdw',
+    //     vehNo: vehNo,
+    //     skipUpdateJrJpjTestStart: true,
     //   ),
     // );
 
@@ -106,29 +106,30 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       setState(() {
         candidateList = result.data;
       });
+
       for (var element in result.data) {
-        if (element.rpkStartDate != null) {
+        if (element.roadStartDate != null) {
           EasyLoading.dismiss();
           await context.router.replace(
-            RpkPartIII(
+            JrPartIII(
               qNo: element.queueNo,
               nric: element.nricNo,
-              rpkName: element.fullname,
+              jrName: element.fullname,
               testDate: element.testDate,
               groupId: element.groupId,
               testCode: element.testCode,
               vehNo: vehNo,
-              skipUpdateRpkJpjTestStart: true,
+              skipUpdateJrJpjTestStart: true,
             ),
           );
           return;
         }
 
-        if (element.rpkCalling == 'true') {
+        if (element.roadCalling == 'true') {
           EasyLoading.dismiss();
           await context.router.push(
             ConfirmCandidateInfo(
-              part3Type: 'RPK',
+              part3Type: 'JALAN RAYA',
               nric: element.nricNo,
               candidateName: element.fullname,
               qNo: element.queueNo,
@@ -148,6 +149,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       }
     } else {
       if (mounted) {
+        setState(() {
+          candidateList = [];
+          nric = '';
+          name = '';
+          kewarganegaraan = '';
+          icPhoto = '';
+        });
         customDialog.show(
           context: context,
           // content: AppLocalizations.of(context).translate('no_candidate'),
@@ -156,11 +164,12 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         );
       }
     }
-
-    // setState(() {
-    //   isLoading = false;
-    // });
-    EasyLoading.dismiss();
+    if (mounted) {
+      // setState(() {
+      //   isLoading = false;
+      // });
+      EasyLoading.dismiss();
+    }
   }
 
   getSelectedCandidateInfo(queueNo) {
@@ -171,6 +180,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         setState(() {
           nric = candidateList![i].nricNo;
           name = candidateList![i].fullname;
+
           for (var owner in owners) {
             if (owner.ownerCat == candidateList![i].ownerCat) {
               kewarganegaraan = owner.ownerCatDesc;
@@ -196,7 +206,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     required String groupId,
     required String testDate,
   }) async {
-    // var merchantNo = selectedCandidate.merchantNo;
     // var testCode = selectedCandidate.testCode;
     // var groupId = selectedCandidate.groupId;
     // var testDate = selectedCandidate.testDate;
@@ -207,10 +216,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           // await callPart3JpjTest();
         }
 
-        context.router
-            .push(
+        context.router.push(
           ConfirmCandidateInfo(
-            part3Type: 'RPK',
+            part3Type: 'JALAN RAYA',
             nric: this.nric,
             candidateName: this.name,
             qNo: this.qNo,
@@ -219,10 +227,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             testCode: this.testCode,
             icPhoto: icPhoto,
           ),
-        )
-            .then((value) {
-          // cancelCallPart3JpjTest();
-        });
+        );
+        //   .then((value) {
+        //   // cancelCallPart3JpjTest();
+        //   getPart3AvailableToCallJpjTestList();
+        // },);
       } else {
         for (int i = 0; i < candidateList!.length; i += 1) {
           if (candidateList![i].testCode == this.testCode) {
@@ -239,25 +248,18 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                     context.router.pop();
 
                     setState(() {
-                      name = candidateList![i].fullname;
-                      qNo = candidateList![i].queueNo;
+                      this.name = candidateList![i].fullname;
+                      this.qNo = candidateList![i].queueNo;
                       for (var owner in owners) {
                         if (owner.ownerCat == candidateList![i].ownerCat) {
                           kewarganegaraan = owner.ownerCatDesc;
                         }
                       }
-                      icPhoto = candidateList![i].icPhotoFilename != null &&
-                              candidateList![i].icPhotoFilename.isNotEmpty
-                          ? candidateList![i]
-                              .icPhotoFilename
-                              .replaceAll(removeBracket, '')
-                              .split('\r\n')[0]
-                          : '';
                     });
 
                     if (success > 0)
                       Future.wait([
-                        cancelCallPart3RpkTest(),
+                        cancelCallPart3JpjTest(),
                         callPart3JpjTest(type: 'SKIP'),
                       ]);
                     else
@@ -266,7 +268,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                     context.router
                         .push(
                       ConfirmCandidateInfo(
-                        part3Type: 'RPK',
+                        part3Type: 'JALAN RAYA',
                         nric: this.nric,
                         candidateName: this.name,
                         qNo: this.qNo,
@@ -277,7 +279,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                       ),
                     )
                         .then((value) {
-                      cancelCallPart3RpkTest(type: 'SKIP');
+                      cancelCallPart3JpjTest(type: 'SKIP');
                     });
 
                     // cancelCallPart3JpjTest();
@@ -328,8 +330,11 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       maskType: EasyLoadingMaskType.black,
     );
 
-    var result = await epanduRepo.callRpkJpjTestByCourseCode(
+    vehNo = await localStorage.getPlateNo();
+
+    var result = await epanduRepo.callPart3JpjTestByCourseCode(
       vehNo: vehNo,
+      part3Type: 'JALAN RAYA',
       groupId: type == 'SKIP' ? this.groupId : groupId,
       testCode: type == 'SKIP' ? this.testCode : testCode,
       icNo: nric,
@@ -345,15 +350,28 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
           type: DialogType.SUCCESS,
         );
       }
+
+      /* context.router.push(
+        Routes.confirmCandidateInfo,
+        arguments: ConfirmCandidateInfoArguments(
+          part3Type: 'JALAN RAYA',
+          nric: nric,
+          name: name,
+          qNo: qNo,
+          groupId: groupId,
+          testDate: testDate,
+          testCode: testCode,
+        ),
+      ); */
     } else {
       customDialog.show(
         context: context,
         barrierDismissable: false,
         content: result.message,
         onPressed: () {
-          context.router
-              .pop()
-              .then((value) => getPart3AvailableToCallJpjTestList());
+          context.router.pop();
+
+          getPart3AvailableToCallJpjTestList();
         },
         type: DialogType.INFO,
       );
@@ -365,58 +383,42 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     EasyLoading.dismiss();
   }
 
-  Future<void> cancelCallPart3RpkTest({type}) async {
+  Future<void> cancelCallPart3JpjTest({type}) async {
     var testCode = selectedCandidate.testCode;
     var groupId = selectedCandidate.groupId;
 
+    // setState(() {
+    //   isLoading = true;
+    // });
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
 
-    var result = await epanduRepo.cancelCallRpkJpjTest(
+    var result = await epanduRepo.cancelCallPart3JpjTest(
       part3Type: 'JALAN RAYA',
       groupId: type == 'SKIP' ? this.groupId : groupId,
       testCode: type == 'SKIP' ? this.testCode : testCode,
       icNo: nric,
     );
-    await EasyLoading.dismiss();
+
     if (result.isSuccess) {
       // context.router.pop();
       if (type == 'MANUAL') {
-        await showDialog<void>(
+        customDialog.show(
           context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('JPJ QTO'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text(AppLocalizations.of(context)!
-                        .translate('call_cancelled')),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Ok'),
-                  onPressed: () {
-                    context.router.pop();
-                  },
-                ),
-              ],
-            );
-          },
+          content: AppLocalizations.of(context)!.translate('call_cancelled'),
+          type: DialogType.SUCCESS,
         );
       }
+      if (mounted) {
+        setState(() {
+          success = 0;
+          candidateList!.clear();
+          selectedCandidate = null;
 
-      setState(() {
-        success = 0;
-        candidateList!.clear();
-        selectedCandidate = null;
-
-        if (type != 'HOME') getPart3AvailableToCallJpjTestList();
-      });
+          if (type != 'HOME') getPart3AvailableToCallJpjTestList();
+        });
+      }
     } else {
       if (mounted) {
         customDialog.show(
@@ -426,11 +428,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         );
       }
     }
+
     // if (mounted) {
     //   setState(() {
     //     isLoading = false;
     //   });
     // }
+    EasyLoading.dismiss();
   }
 
   @override
@@ -472,10 +476,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     qrController.scannedDataStream.listen((scanData) async {
       await qrController.pauseCamera();
       // processQrCodeResult(
-      //   scanData: scanData,
-      //   selectedCandidate: selectedCandidate,
-      //   qNo: qNo!,
-      // );
+      //     scanData: scanData, selectedCandidate: selectedCandidate, qNo: qNo!);
       await qrController.resumeCamera();
     });
   }
@@ -489,29 +490,59 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
   Future<bool> _onWillPop() async {
     EasyLoading.dismiss();
     if (success > 0) {
-      CustomDialog().show(
-        context: context,
-        title: Text(AppLocalizations.of(context)!.translate('warning_title')),
-        content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-            onPressed: () async {
-              await cancelCallPart3RpkTest(type: 'HOME');
+      // return CustomDialog().show(
+      //   context: context,
+      //   title: Text(AppLocalizations.of(context)!.translate('warning_title')),
+      //   content: AppLocalizations.of(context)!.translate('confirm_exit_desc'),
+      //   customActions: <Widget>[
+      //     TextButton(
+      //       child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+      //       onPressed: () async {
+      //         await cancelCallPart3JpjTest(type: 'HOME');
+      //       },
+      //     ),
+      //     TextButton(
+      //       child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+      //       onPressed: () {
+      //         context.router.pop();
+      //       },
+      //     ),
+      //   ],
+      //   type: DialogType.GENERAL,
+      // );
+      return (await showDialog(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(
+                    AppLocalizations.of(context)!.translate('warning_title')),
+                content: SingleChildScrollView(
+                    child: Text(AppLocalizations.of(context)!
+                        .translate('confirm_exit_desc'))),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                        AppLocalizations.of(context)!.translate('yes_lbl')),
+                    onPressed: () async {
+                      await context.router.pop(true);
+                      await cancelCallPart3JpjTest();
+                    },
+                  ),
+                  TextButton(
+                    child:
+                        Text(AppLocalizations.of(context)!.translate('no_lbl')),
+                    onPressed: () {
+                      context.router.pop(false);
+                    },
+                  ),
+                ],
+              );
             },
-          ),
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-            onPressed: () {
-              context.router.pop();
-            },
-          ),
-        ],
-        type: DialogType.GENERAL,
-      );
-      return false;
+          )) ??
+          false;
     }
-    // context.router.pop();
+    // return context.router.pop(true);
     return true;
   }
 
@@ -554,7 +585,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
               onPressed: () {
                 context.router.pop();
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
           type: DialogType.GENERAL,
@@ -569,7 +600,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Calling'),
+          title: const Text('Calling'),
           actions: [
             // TextButton(
             //   onPressed: () async {
@@ -635,7 +666,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                   type: DialogType.INFO,
                 );
               },
-              icon: Icon(Icons.info_outline),
+              icon: const Icon(Icons.info_outline),
               tooltip: AppLocalizations.of(context)!
                   .translate('select_queue_tooltip'),
             ),
@@ -660,9 +691,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             bottom: 70,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   ProfileWidget(),
                   Container(
@@ -673,7 +704,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 0, horizontal: 50.w),
                         labelText: 'Q-NO',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             // fontSize: 80.sp,
                             ),
                         // fillColor: Colors.grey.withOpacity(.25),
@@ -695,7 +726,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 child: Center(
                                     child: Text(
                                   value.queueNo,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       // fontSize: 80.sp,
                                       ),
                                 )),
@@ -718,7 +749,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                       },
                     ),
                   ),
+                  // Text(
+                  //   qNo.isNotEmpty ? qNo : 'Q-NO',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.bold, fontSize: 250.sp),
+                  // ),
                   SizedBox(height: 50.h),
+
                   icPhoto == ''
                       ? const SizedBox()
                       : CachedNetworkImage(
@@ -736,7 +773,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'No. ID',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -746,7 +783,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 nric!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Nama',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -756,7 +793,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 name!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Kategori ID',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -766,7 +803,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 kewarganegaraan ?? '',
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Kelas',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -802,7 +839,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                   //       ),
                   //     ],
                   //   ), */
-
                   //       TableRow(children: [
                   //         Padding(
                   //           padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -858,9 +894,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                     TextButton(
                                       child: Text(AppLocalizations.of(context)!
                                           .translate('yes_lbl')),
-                                      onPressed: () async {
-                                        await context.router.pop();
-                                        cancelCallPart3RpkTest(type: 'MANUAL');
+                                      onPressed: () {
+                                        context.router.pop();
+                                        cancelCallPart3JpjTest(type: 'MANUAL');
                                       },
                                     ),
                                     TextButton(
@@ -894,7 +930,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 type: DialogType.INFO,
                               );
                             },
-                            icon: Icon(Icons.info_outline),
+                            icon: const Icon(Icons.info_outline),
                           ),
                         ],
                       ),
@@ -909,12 +945,13 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 vehNo = await localStorage.getPlateNo();
                                 var vehicleResult = await etestingRepo
                                     .isVehicleAvailable(plateNo: vehNo ?? '');
+
                                 await EasyLoading.dismiss();
+
                                 if (vehicleResult.data != 'True') {
-                                  await showDialog<void>(
+                                  await showDialog(
                                     context: context,
-                                    barrierDismissible:
-                                        false, // user must tap button!
+                                    barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: const Text('JPJ QTP APP'),
@@ -936,10 +973,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                       );
                                     },
                                   );
-                                  // setState(() {
-                                  //   isLoading = false;
-                                  // });
-                                  EasyLoading.dismiss();
                                   return;
                                 }
                                 callPart3JpjTest(type: 'MANUAL');
@@ -965,7 +998,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 type: DialogType.INFO,
                               );
                             },
-                            icon: Icon(Icons.info_outline),
+                            icon: const Icon(Icons.info_outline),
                           ),
                         ],
                       ),

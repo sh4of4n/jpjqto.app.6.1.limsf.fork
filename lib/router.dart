@@ -17,8 +17,10 @@ import 'pages/candidate_info/confirm_candidate_info.dart';
 import 'pages/eTestingSolution/etesting_solution.dart';
 import 'pages/home/home.dart';
 import 'pages/jalan_raya/jalan_raya.dart';
+import 'pages/jalan_raya/new_jr_candidate_details.dart';
 import 'pages/login/login.dart';
 import 'pages/profile/take_profile_picture.dart';
+import 'pages/rpk/new_rpk_candidate_details.dart';
 import 'pages/settings/settings.dart';
 import 'package:jpj_qto/common_library/utils/image_viewer.dart';
 
@@ -64,6 +66,8 @@ import 'package:jpj_qto/common_library/utils/image_viewer.dart';
     AutoRoute(page: RulePage),
     AutoRoute(page: TestPage),
     AutoRoute(page: QrScannerPage),
+    AutoRoute(page: NewRpkCandidateDetails),
+    AutoRoute(page: NewJrCandidateDetails),
   ],
 )
 class $AppRouter {}

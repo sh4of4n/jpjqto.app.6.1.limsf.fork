@@ -77,7 +77,6 @@ class _ClientAccountFormState extends State<ClientAccountForm>
 
   _getConnectedUrl() async {
     String? savedUrl = await Hive.box('ws_url').get('userDefinedUrl');
-    String defaultUrl = await Hive.box('ws_url').get('defaultUrl');
     setState(() {
       urlController.text = savedUrl ?? '';
       // _connectedUrl = savedUrl;

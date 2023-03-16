@@ -1,3 +1,9 @@
+16/03/2023 V.6.1.11
+ePandu ws 6.1.191.0
+Enhanced
+
+- RPK Calling Page - Auto assign calon
+
 16/03/2023 V.6.1.10
 ePandu ws 6.1.189.0
 Enhanced

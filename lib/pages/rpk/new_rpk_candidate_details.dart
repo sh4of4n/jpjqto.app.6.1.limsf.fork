@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
+import 'package:jpj_qto/common_library/services/response.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
@@ -19,12 +20,12 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../router.gr.dart';
 
-class RpkCandidateDetails extends StatefulWidget {
+class NewRpkCandidateDetails extends StatefulWidget {
   @override
-  _RpkCandidateDetailsState createState() => _RpkCandidateDetailsState();
+  _NewRpkCandidateDetailsState createState() => _NewRpkCandidateDetailsState();
 }
 
-class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
+class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
   final localStorage = LocalStorage();
   String barcode = "";
   final primaryColor = ColorConstant.primaryColor;
@@ -70,10 +71,27 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     getPart3AvailableToCallJpjTestList();
   }
 
+  autoCallRpkJpjTestByCourseCode() async {
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
+    Response result = await epanduRepo.autoCallRpkJpjTestByCourseCode(
+      vehNo: (await localStorage.getPlateNo() ?? ''),
+    );
+
+    EasyLoading.dismiss();
+    if (result.isSuccess) {
+      getSelectedCandidateInfo(result.data[0]);
+    } else {
+      customDialog.show(
+        context: context,
+        content: result.message,
+        type: DialogType.INFO,
+      );
+    }
+  }
+
   getPart3AvailableToCallJpjTestList() async {
-    // setState(() {
-    //   isLoading = true;
-    // });
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
@@ -87,20 +105,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     if (result2.isSuccess) {
       owners = result2.data;
     }
-
-    // EasyLoading.dismiss();
-    // await context.router.replace(
-    //   RpkPartIII(
-    //     qNo: 'dwdweq',
-    //     nric: 'dwdweq',
-    //     rpkName: 'dwdweq',
-    //     testDate: '1111111111',
-    //     groupId: 'dwdweq',
-    //     testCode: 'dwdweq',
-    //     vehNo: 'dwdweq',
-    //     skipUpdateRpkJpjTestStart: true,
-    //   ),
-    // );
 
     if (result.isSuccess) {
       setState(() {
@@ -163,32 +167,25 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
     EasyLoading.dismiss();
   }
 
-  getSelectedCandidateInfo(queueNo) {
-    for (int i = 0; i < candidateList!.length; i += 1) {
-      if (candidateList![i].queueNo == queueNo) {
-        selectedCandidate = candidateList![i];
-
-        setState(() {
-          nric = candidateList![i].nricNo;
-          name = candidateList![i].fullname;
-          for (var owner in owners) {
-            if (owner.ownerCat == candidateList![i].ownerCat) {
-              kewarganegaraan = owner.ownerCatDesc;
-            }
-          }
-          icPhoto = candidateList![i].icPhotoFilename != null &&
-                  candidateList![i].icPhotoFilename.isNotEmpty
-              ? candidateList![i]
-                  .icPhotoFilename
-                  .replaceAll(removeBracket, '')
-                  .split('\r\n')[0]
-              : '';
-          groupId = candidateList![i].groupId;
-        });
-
-        break;
+  getSelectedCandidateInfo(candidate) {
+    setState(() {
+      selectedCandidate = candidate;
+      nric = candidate.nricNo;
+      name = candidate.fullname;
+      for (var owner in owners) {
+        if (owner.ownerCat == candidate.ownerCat) {
+          kewarganegaraan = owner.ownerCatDesc;
+        }
       }
-    }
+      icPhoto = candidate.icPhotoFilename != null &&
+              candidate.icPhotoFilename.isNotEmpty
+          ? candidate.icPhotoFilename
+              .replaceAll(removeBracket, '')
+              .split('\r\n')[0]
+          : '';
+      groupId = candidate.groupId;
+      qNo = candidate.queueNo;
+    });
   }
 
   compareCandidateInfo({
@@ -222,6 +219,20 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         )
             .then((value) {
           // cancelCallPart3JpjTest();
+          print(value);
+          if (value.toString() == 'refresh') {
+            setState(() {
+              success = 0;
+              candidateList!.clear();
+              selectedCandidate = null;
+              name = '';
+              kewarganegaraan = '';
+              icPhoto = '';
+              nric = '';
+              this.groupId = '';
+              qNo = '';
+            });
+          }
         });
       } else {
         for (int i = 0; i < candidateList!.length; i += 1) {
@@ -277,6 +288,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                       ),
                     )
                         .then((value) {
+                      print(value);
                       cancelCallPart3RpkTest(type: 'SKIP');
                     });
 
@@ -414,6 +426,12 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         success = 0;
         candidateList!.clear();
         selectedCandidate = null;
+        name = '';
+        kewarganegaraan = '';
+        icPhoto = '';
+        nric = '';
+        this.groupId = '';
+        qNo = '';
 
         if (type != 'HOME') getPart3AvailableToCallJpjTestList();
       });
@@ -488,7 +506,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
 
   Future<bool> _onWillPop() async {
     EasyLoading.dismiss();
-    if (success > 0) {
+    if (qNo != '') {
       CustomDialog().show(
         context: context,
         title: Text(AppLocalizations.of(context)!.translate('warning_title')),
@@ -571,61 +589,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
         appBar: AppBar(
           title: Text('Calling'),
           actions: [
-            // TextButton(
-            //   onPressed: () async {
-            //     var scanData = await context.router.push(QrScannerRoute());
-            //     if (scanData != null) {
-            //       await EasyLoading.show(
-            //         maskType: EasyLoadingMaskType.black,
-            //       );
-            //       String? plateNo = await localStorage.getPlateNo();
-            //       Response result = await etestingRepo.isCurrentCallingCalon(
-            //         plateNo: plateNo ?? '',
-            //         partType: 'PART3',
-            //         nricNo: jsonDecode((scanData as Barcode).code!)['Table1'][0]
-            //             ['nric_no'],
-            //       );
-            //       await EasyLoading.dismiss();
-            //       if (!result.isSuccess) {
-            //         showDialog<void>(
-            //           context: context,
-            //           barrierDismissible: false, // user must tap button!
-            //           builder: (BuildContext context) {
-            //             return AlertDialog(
-            //               title: const Text('JPJ QTO'),
-            //               content: SingleChildScrollView(
-            //                 child: ListBody(
-            //                   children: const <Widget>[
-            //                     Text('Calon ini tidak mengambil ujian'),
-            //                   ],
-            //                 ),
-            //               ),
-            //               actions: <Widget>[
-            //                 TextButton(
-            //                   child: const Text('Ok'),
-            //                   onPressed: () {
-            //                     context.router.pop();
-            //                   },
-            //                 ),
-            //               ],
-            //             );
-            //           },
-            //         );
-            //       } else {
-            //         processQrCodeResult(
-            //             scanData: (scanData as Barcode),
-            //             selectedCandidate: result.data[0],
-            //             qNo: 'XXX');
-            //       }
-            //     }
-            //   },
-            //   child: Text(
-            //     'Calon Semasa',
-            //     style: TextStyle(
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            // ),
             IconButton(
               onPressed: () {
                 customDialog.show(
@@ -665,59 +628,25 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
               Column(
                 children: [
                   ProfileWidget(),
-                  Container(
-                    width: 1300.h,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 50.w),
-                        labelText: 'Q-NO',
-                        labelStyle: TextStyle(
-                            // fontSize: 80.sp,
+                  selectedCandidate == null
+                      ? ElevatedButton(
+                          onPressed: () {
+                            autoCallRpkJpjTestByCourseCode();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(150, 150),
+                            backgroundColor: Colors.green,
+                            shape: const CircleBorder(),
+                          ),
+                          child: const Text(
+                            'Panggil Calon',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                        // fillColor: Colors.grey.withOpacity(.25),
-                        // filled: true,
-                        // prefixIcon: Icon(Icons.edit),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      items: candidateList != null
-                          ? candidateList!
-                              .map<DropdownMenuItem<String>>((dynamic value) {
-                              return DropdownMenuItem<String>(
-                                value: value.queueNo,
-                                child: Center(
-                                    child: Text(
-                                  value.queueNo,
-                                  style: TextStyle(
-                                      // fontSize: 80.sp,
-                                      ),
-                                )),
-                              );
-                            }).toList()
-                          : null,
-                      onTap: () {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                      },
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          qNo = newValue;
-                        });
-
-                        getSelectedCandidateInfo(newValue);
-                      },
-                    ),
-                  ),
+                          ),
+                        )
+                      : SizedBox(),
                   SizedBox(height: 50.h),
                   icPhoto == ''
                       ? const SizedBox()
@@ -736,6 +665,16 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(
+                                'Queue No',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                qNo!,
+                                style: textStyle,
+                              ),
                               Text(
                                 'No. ID',
                                 style: TextStyle(
@@ -876,8 +815,8 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                               } else
                                 customDialog.show(
                                   context: context,
-                                  content: AppLocalizations.of(context)!
-                                      .translate('select_queue_no'),
+                                  content:
+                                      'Please press the Panggil Calon button first',
                                   type: DialogType.INFO,
                                 );
                             },
@@ -891,77 +830,6 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 context: context,
                                 content: AppLocalizations.of(context)!
                                     .translate('cancel_tooltip'),
-                                type: DialogType.INFO,
-                              );
-                            },
-                            icon: Icon(Icons.info_outline),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CustomButton(
-                            onPressed: () async {
-                              if (selectedCandidate != null) {
-                                EasyLoading.show(
-                                  maskType: EasyLoadingMaskType.black,
-                                );
-                                vehNo = await localStorage.getPlateNo();
-                                var vehicleResult = await etestingRepo
-                                    .isVehicleAvailable(plateNo: vehNo ?? '');
-                                await EasyLoading.dismiss();
-                                if (vehicleResult.data != 'True') {
-                                  await showDialog<void>(
-                                    context: context,
-                                    barrierDismissible:
-                                        false, // user must tap button!
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('JPJ QTP APP'),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(
-                                            children: <Widget>[
-                                              Text(vehicleResult.message ?? ''),
-                                            ],
-                                          ),
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text('OK'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                  // setState(() {
-                                  //   isLoading = false;
-                                  // });
-                                  EasyLoading.dismiss();
-                                  return;
-                                }
-                                callPart3JpjTest(type: 'MANUAL');
-                              } else {
-                                customDialog.show(
-                                  context: context,
-                                  content: AppLocalizations.of(context)!
-                                      .translate('select_queue_no'),
-                                  type: DialogType.INFO,
-                                );
-                              }
-                            },
-                            buttonColor: Colors.blue,
-                            title: AppLocalizations.of(context)!
-                                .translate('call_btn'),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              customDialog.show(
-                                context: context,
-                                content: AppLocalizations.of(context)!
-                                    .translate('call_tooltip'),
                                 type: DialogType.INFO,
                               );
                             },

@@ -143,6 +143,15 @@ class Networking extends BaseRepo {
         );
       }
     } catch (error, stackTrace) {
+      localStorage.getExportLogFile().then((value) {
+        if (value == true) {
+          FlutterLogs.logInfo(
+            'Networking',
+            'getData',
+            error.toString(),
+          );
+        }
+      });
       return handleError(error, stackTrace);
     }
   }
@@ -239,6 +248,15 @@ class Networking extends BaseRepo {
         );
       }
     } catch (error, stackTrace) {
+      localStorage.getExportLogFile().then((value) {
+        if (value == true) {
+          FlutterLogs.logInfo(
+            'Networking',
+            'getData',
+            error.toString(),
+          );
+        }
+      });
       return handleError(error, stackTrace);
     }
   }

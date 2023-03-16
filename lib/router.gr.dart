@@ -11,9 +11,9 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i23;
-import 'package:camera/camera.dart' as _i25;
-import 'package:flutter/material.dart' as _i24;
+import 'package:auto_route/auto_route.dart' as _i25;
+import 'package:camera/camera.dart' as _i27;
+import 'package:flutter/material.dart' as _i26;
 
 import 'coming_soon/coming_soon.dart' as _i8;
 import 'common_library/utils/image_viewer.dart' as _i7;
@@ -28,300 +28,524 @@ import 'pages/home/home.dart' as _i5;
 import 'pages/home/home_page_rpk.dart' as _i16;
 import 'pages/home/home_select.dart' as _i15;
 import 'pages/jalan_raya/jalan_raya.dart' as _i13;
+import 'pages/jalan_raya/new_jr_candidate_details.dart' as _i24;
 import 'pages/login/login.dart' as _i1;
 import 'pages/profile/profile.dart' as _i6;
 import 'pages/profile/take_profile_picture.dart' as _i11;
 import 'pages/qr_scanner.dart' as _i22;
 import 'pages/register/register.dart' as _i4;
+import 'pages/rpk/new_rpk_candidate_details.dart' as _i23;
 import 'pages/rpk/rpk.dart' as _i12;
 import 'pages/rpk/rule.dart' as _i20;
 import 'pages/settings/settings.dart' as _i3;
 import 'pages/test.dart' as _i21;
 
-class AppRouter extends _i23.RootStackRouter {
-  AppRouter([_i24.GlobalKey<_i24.NavigatorState>? navigatorKey])
+class AppRouter extends _i25.RootStackRouter {
+  AppRouter([_i26.GlobalKey<_i26.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i23.PageFactory> pagesMap = {
+  final Map<String, _i25.PageFactory> pagesMap = {
     Authentication.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.Authentication());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i1.Authentication(),
+      );
     },
     ClientAccount.name: (routeData) {
       final args = routeData.argsAs<ClientAccountArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.ClientAccount(args.data));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i1.ClientAccount(args.data),
+      );
     },
     Login.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.Login());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i1.Login(),
+      );
     },
     ForgotPassword.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i2.ForgotPassword());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i2.ForgotPassword(),
+      );
     },
     ChangePassword.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i3.ChangePassword());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i3.ChangePassword(),
+      );
     },
     RegisterMobile.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterMobile());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i4.RegisterMobile(),
+      );
     },
     RegisterVerification.name: (routeData) {
       final args = routeData.argsAs<RegisterVerificationArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterVerification(args.data));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i4.RegisterVerification(args.data),
+      );
     },
     RegisterForm.name: (routeData) {
       final args = routeData.argsAs<RegisterFormArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterForm(args.data));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i4.RegisterForm(args.data),
+      );
     },
     GetVehicleInfo.name: (routeData) {
       final args = routeData.argsAs<GetVehicleInfoArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i1.GetVehicleInfo(key: args.key, type: args.type));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i1.GetVehicleInfo(
+          key: args.key,
+          type: args.type,
+        ),
+      );
     },
     Home.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i5.Home());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i5.Home(),
+      );
     },
     Settings.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i3.Settings());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i3.Settings(),
+      );
     },
     Profile.name: (routeData) {
       final args = routeData.argsAs<ProfileArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i6.Profile(
-              userProfile: args.userProfile, isLoading: args.isLoading));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i6.Profile(
+          userProfile: args.userProfile,
+          isLoading: args.isLoading,
+        ),
+      );
     },
     ProfileTab.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i6.ProfileTab());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i6.ProfileTab(),
+      );
     },
     UpdateProfile.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i6.UpdateProfile());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i6.UpdateProfile(),
+      );
     },
     RegisterUserToDi.name: (routeData) {
       final args = routeData.argsAs<RegisterUserToDiArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterUserToDi(args.data));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i4.RegisterUserToDi(args.data),
+      );
     },
     IdentityBarcode.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i6.IdentityBarcode());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i6.IdentityBarcode(),
+      );
     },
     ImageViewer.name: (routeData) {
       final args = routeData.argsAs<ImageViewerArgs>(
           orElse: () => const ImageViewerArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i7.ImageViewer(title: args.title, image: args.image));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i7.ImageViewer(
+          title: args.title,
+          image: args.image,
+        ),
+      );
     },
     ComingSoon.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i8.ComingSoon());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i8.ComingSoon(),
+      );
     },
     StartLearning.name: (routeData) {
       final args = routeData.argsAs<StartLearningArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i9.StartLearning(args.studentIC));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i9.StartLearning(args.studentIC),
+      );
     },
     CriteriaList.name: (routeData) {
       final args = routeData.argsAs<CriteriaListArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i9.CriteriaList(args.studentIc, args.startDateTime,
-              args.group, args.course, args.part));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i9.CriteriaList(
+          args.studentIc,
+          args.startDateTime,
+          args.group,
+          args.course,
+          args.part,
+        ),
+      );
     },
     RsmRpkTabs.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.RsmRpkTabs());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i10.RsmRpkTabs(),
+      );
     },
     RpkDrawer.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.RpkDrawer());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i10.RpkDrawer(),
+      );
     },
     TakeProfilePicture.name: (routeData) {
       final args = routeData.argsAs<TakeProfilePictureArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i11.TakeProfilePicture(args.camera));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i11.TakeProfilePicture(args.camera),
+      );
     },
     OperatorScanQR.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.OperatorScanQR());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i10.OperatorScanQR(),
+      );
     },
     LearningEnterStudentIC.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i9.LearningEnterStudentIC());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i9.LearningEnterStudentIC(),
+      );
     },
     RpkCandidateDetails.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i12.RpkCandidateDetails());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i12.RpkCandidateDetails(),
+      );
     },
     RpkPartIII.name: (routeData) {
       final args = routeData.argsAs<RpkPartIIIArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i12.RpkPartIII(
-              args.qNo,
-              args.nric,
-              args.rpkName,
-              args.testDate,
-              args.groupId,
-              args.testCode,
-              args.vehNo,
-              args.skipUpdateRpkJpjTestStart));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i12.RpkPartIII(
+          args.qNo,
+          args.nric,
+          args.rpkName,
+          args.testDate,
+          args.groupId,
+          args.testCode,
+          args.vehNo,
+          args.skipUpdateRpkJpjTestStart,
+        ),
+      );
     },
     JrCandidateDetails.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.JrCandidateDetails());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i13.JrCandidateDetails(),
+      );
     },
     JrPartIII.name: (routeData) {
       final args = routeData.argsAs<JrPartIIIArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i13.JrPartIII(
-              args.qNo,
-              args.nric,
-              args.jrName,
-              args.testDate,
-              args.groupId,
-              args.testCode,
-              args.vehNo,
-              args.skipUpdateJrJpjTestStart));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i13.JrPartIII(
+          args.qNo,
+          args.nric,
+          args.jrName,
+          args.testDate,
+          args.groupId,
+          args.testCode,
+          args.vehNo,
+          args.skipUpdateJrJpjTestStart,
+        ),
+      );
     },
     ConfirmCandidateInfo.name: (routeData) {
       final args = routeData.argsAs<ConfirmCandidateInfoArgs>();
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i14.ConfirmCandidateInfo(
-              part3Type: args.part3Type,
-              nric: args.nric,
-              candidateName: args.candidateName,
-              qNo: args.qNo,
-              groupId: args.groupId,
-              testDate: args.testDate,
-              testCode: args.testCode,
-              icPhoto: args.icPhoto));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i14.ConfirmCandidateInfo(
+          part3Type: args.part3Type,
+          nric: args.nric,
+          candidateName: args.candidateName,
+          qNo: args.qNo,
+          groupId: args.groupId,
+          testDate: args.testDate,
+          testCode: args.testCode,
+          icPhoto: args.icPhoto,
+        ),
+      );
     },
     HomeSelect.name: (routeData) {
       final args = routeData.argsAs<HomeSelectArgs>(
           orElse: () => const HomeSelectArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i15.HomeSelect(key: args.key));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i15.HomeSelect(key: args.key),
+      );
     },
     HomePageRpk.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i16.HomePageRpk());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i16.HomePageRpk(),
+      );
     },
     CheckListRoute.name: (routeData) {
       final args = routeData.argsAs<CheckListRouteArgs>(
           orElse: () => const CheckListRouteArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i17.CheckListPage(key: args.key));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i17.CheckListPage(key: args.key),
+      );
     },
     ChecklistHome.name: (routeData) {
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i18.ChecklistHome());
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i18.ChecklistHome(),
+      );
     },
     ChecklistResultRoute.name: (routeData) {
       final args = routeData.argsAs<ChecklistResultRouteArgs>(
           orElse: () => const ChecklistResultRouteArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i19.ChecklistResultPage(key: args.key));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i19.ChecklistResultPage(key: args.key),
+      );
     },
     RuleRoute.name: (routeData) {
       final args =
           routeData.argsAs<RuleRouteArgs>(orElse: () => const RuleRouteArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i20.RulePage(key: args.key));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i20.RulePage(key: args.key),
+      );
     },
     TestRoute.name: (routeData) {
       final args =
           routeData.argsAs<TestRouteArgs>(orElse: () => const TestRouteArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i21.TestPage(key: args.key));
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i21.TestPage(key: args.key),
+      );
     },
     QrScannerRoute.name: (routeData) {
       final args = routeData.argsAs<QrScannerRouteArgs>(
           orElse: () => const QrScannerRouteArgs());
-      return _i23.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i22.QrScannerPage(key: args.key));
-    }
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i22.QrScannerPage(key: args.key),
+      );
+    },
+    NewRpkCandidateDetails.name: (routeData) {
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i23.NewRpkCandidateDetails(),
+      );
+    },
+    NewJrCandidateDetails.name: (routeData) {
+      return _i25.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i24.NewJrCandidateDetails(),
+      );
+    },
   };
 
   @override
-  List<_i23.RouteConfig> get routes => [
-        _i23.RouteConfig(Authentication.name, path: '/'),
-        _i23.RouteConfig(ClientAccount.name, path: '/client-account'),
-        _i23.RouteConfig(Login.name, path: '/Login'),
-        _i23.RouteConfig(ForgotPassword.name, path: '/forgot-password'),
-        _i23.RouteConfig(ChangePassword.name, path: '/change-password'),
-        _i23.RouteConfig(RegisterMobile.name, path: '/register-mobile'),
-        _i23.RouteConfig(RegisterVerification.name,
-            path: '/register-verification'),
-        _i23.RouteConfig(RegisterForm.name, path: '/register-form'),
-        _i23.RouteConfig(GetVehicleInfo.name, path: '/get-vehicle-info'),
-        _i23.RouteConfig(Home.name, path: '/Home'),
-        _i23.RouteConfig(Settings.name, path: '/Settings'),
-        _i23.RouteConfig(Profile.name, path: '/Profile'),
-        _i23.RouteConfig(ProfileTab.name, path: '/profile-tab'),
-        _i23.RouteConfig(UpdateProfile.name, path: '/update-profile'),
-        _i23.RouteConfig(RegisterUserToDi.name, path: '/register-user-to-di'),
-        _i23.RouteConfig(IdentityBarcode.name, path: '/identity-barcode'),
-        _i23.RouteConfig(ImageViewer.name, path: '/image-viewer'),
-        _i23.RouteConfig(ComingSoon.name, path: '/coming-soon'),
-        _i23.RouteConfig(StartLearning.name, path: '/start-learning'),
-        _i23.RouteConfig(CriteriaList.name, path: '/criteria-list'),
-        _i23.RouteConfig(RsmRpkTabs.name, path: '/rsm-rpk-tabs'),
-        _i23.RouteConfig(RpkDrawer.name, path: '/rpk-drawer'),
-        _i23.RouteConfig(TakeProfilePicture.name,
-            path: '/take-profile-picture'),
-        _i23.RouteConfig(OperatorScanQR.name, path: '/operator-scan-qR'),
-        _i23.RouteConfig(LearningEnterStudentIC.name,
-            path: '/learning-enter-student-iC'),
-        _i23.RouteConfig(RpkCandidateDetails.name,
-            path: '/rpk-candidate-details'),
-        _i23.RouteConfig(RpkPartIII.name, path: '/rpk-part-ii-i'),
-        _i23.RouteConfig(JrCandidateDetails.name,
-            path: '/jr-candidate-details'),
-        _i23.RouteConfig(JrPartIII.name, path: '/jr-part-ii-i'),
-        _i23.RouteConfig(ConfirmCandidateInfo.name,
-            path: '/confirm-candidate-info'),
-        _i23.RouteConfig(HomeSelect.name, path: '/home-select'),
-        _i23.RouteConfig(HomePageRpk.name, path: '/home-page-rpk'),
-        _i23.RouteConfig(HomePageRpk.name, path: '/home-page-rpk'),
-        _i23.RouteConfig(CheckListRoute.name, path: '/check-list-page'),
-        _i23.RouteConfig(ChecklistHome.name, path: '/checklist-home'),
-        _i23.RouteConfig(ChecklistResultRoute.name,
-            path: '/checklist-result-page'),
-        _i23.RouteConfig(RuleRoute.name, path: '/rule-page'),
-        _i23.RouteConfig(TestRoute.name, path: '/test-page'),
-        _i23.RouteConfig(QrScannerRoute.name, path: '/qr-scanner-page')
+  List<_i25.RouteConfig> get routes => [
+        _i25.RouteConfig(
+          Authentication.name,
+          path: '/',
+        ),
+        _i25.RouteConfig(
+          ClientAccount.name,
+          path: '/client-account',
+        ),
+        _i25.RouteConfig(
+          Login.name,
+          path: '/Login',
+        ),
+        _i25.RouteConfig(
+          ForgotPassword.name,
+          path: '/forgot-password',
+        ),
+        _i25.RouteConfig(
+          ChangePassword.name,
+          path: '/change-password',
+        ),
+        _i25.RouteConfig(
+          RegisterMobile.name,
+          path: '/register-mobile',
+        ),
+        _i25.RouteConfig(
+          RegisterVerification.name,
+          path: '/register-verification',
+        ),
+        _i25.RouteConfig(
+          RegisterForm.name,
+          path: '/register-form',
+        ),
+        _i25.RouteConfig(
+          GetVehicleInfo.name,
+          path: '/get-vehicle-info',
+        ),
+        _i25.RouteConfig(
+          Home.name,
+          path: '/Home',
+        ),
+        _i25.RouteConfig(
+          Settings.name,
+          path: '/Settings',
+        ),
+        _i25.RouteConfig(
+          Profile.name,
+          path: '/Profile',
+        ),
+        _i25.RouteConfig(
+          ProfileTab.name,
+          path: '/profile-tab',
+        ),
+        _i25.RouteConfig(
+          UpdateProfile.name,
+          path: '/update-profile',
+        ),
+        _i25.RouteConfig(
+          RegisterUserToDi.name,
+          path: '/register-user-to-di',
+        ),
+        _i25.RouteConfig(
+          IdentityBarcode.name,
+          path: '/identity-barcode',
+        ),
+        _i25.RouteConfig(
+          ImageViewer.name,
+          path: '/image-viewer',
+        ),
+        _i25.RouteConfig(
+          ComingSoon.name,
+          path: '/coming-soon',
+        ),
+        _i25.RouteConfig(
+          StartLearning.name,
+          path: '/start-learning',
+        ),
+        _i25.RouteConfig(
+          CriteriaList.name,
+          path: '/criteria-list',
+        ),
+        _i25.RouteConfig(
+          RsmRpkTabs.name,
+          path: '/rsm-rpk-tabs',
+        ),
+        _i25.RouteConfig(
+          RpkDrawer.name,
+          path: '/rpk-drawer',
+        ),
+        _i25.RouteConfig(
+          TakeProfilePicture.name,
+          path: '/take-profile-picture',
+        ),
+        _i25.RouteConfig(
+          OperatorScanQR.name,
+          path: '/operator-scan-qR',
+        ),
+        _i25.RouteConfig(
+          LearningEnterStudentIC.name,
+          path: '/learning-enter-student-iC',
+        ),
+        _i25.RouteConfig(
+          RpkCandidateDetails.name,
+          path: '/rpk-candidate-details',
+        ),
+        _i25.RouteConfig(
+          RpkPartIII.name,
+          path: '/rpk-part-ii-i',
+        ),
+        _i25.RouteConfig(
+          JrCandidateDetails.name,
+          path: '/jr-candidate-details',
+        ),
+        _i25.RouteConfig(
+          JrPartIII.name,
+          path: '/jr-part-ii-i',
+        ),
+        _i25.RouteConfig(
+          ConfirmCandidateInfo.name,
+          path: '/confirm-candidate-info',
+        ),
+        _i25.RouteConfig(
+          HomeSelect.name,
+          path: '/home-select',
+        ),
+        _i25.RouteConfig(
+          HomePageRpk.name,
+          path: '/home-page-rpk',
+        ),
+        _i25.RouteConfig(
+          HomePageRpk.name,
+          path: '/home-page-rpk',
+        ),
+        _i25.RouteConfig(
+          CheckListRoute.name,
+          path: '/check-list-page',
+        ),
+        _i25.RouteConfig(
+          ChecklistHome.name,
+          path: '/checklist-home',
+        ),
+        _i25.RouteConfig(
+          ChecklistResultRoute.name,
+          path: '/checklist-result-page',
+        ),
+        _i25.RouteConfig(
+          RuleRoute.name,
+          path: '/rule-page',
+        ),
+        _i25.RouteConfig(
+          TestRoute.name,
+          path: '/test-page',
+        ),
+        _i25.RouteConfig(
+          QrScannerRoute.name,
+          path: '/qr-scanner-page',
+        ),
+        _i25.RouteConfig(
+          NewRpkCandidateDetails.name,
+          path: '/new-rpk-candidate-details',
+        ),
+        _i25.RouteConfig(
+          NewJrCandidateDetails.name,
+          path: '/new-jr-candidate-details',
+        ),
       ];
 }
 
 /// generated route for
 /// [_i1.Authentication]
-class Authentication extends _i23.PageRouteInfo<void> {
-  const Authentication() : super(Authentication.name, path: '/');
+class Authentication extends _i25.PageRouteInfo<void> {
+  const Authentication()
+      : super(
+          Authentication.name,
+          path: '/',
+        );
 
   static const String name = 'Authentication';
 }
 
 /// generated route for
 /// [_i1.ClientAccount]
-class ClientAccount extends _i23.PageRouteInfo<ClientAccountArgs> {
+class ClientAccount extends _i25.PageRouteInfo<ClientAccountArgs> {
   ClientAccount({required dynamic data})
-      : super(ClientAccount.name,
-            path: '/client-account', args: ClientAccountArgs(data: data));
+      : super(
+          ClientAccount.name,
+          path: '/client-account',
+          args: ClientAccountArgs(data: data),
+        );
 
   static const String name = 'ClientAccount';
 }
@@ -339,32 +563,48 @@ class ClientAccountArgs {
 
 /// generated route for
 /// [_i1.Login]
-class Login extends _i23.PageRouteInfo<void> {
-  const Login() : super(Login.name, path: '/Login');
+class Login extends _i25.PageRouteInfo<void> {
+  const Login()
+      : super(
+          Login.name,
+          path: '/Login',
+        );
 
   static const String name = 'Login';
 }
 
 /// generated route for
 /// [_i2.ForgotPassword]
-class ForgotPassword extends _i23.PageRouteInfo<void> {
-  const ForgotPassword() : super(ForgotPassword.name, path: '/forgot-password');
+class ForgotPassword extends _i25.PageRouteInfo<void> {
+  const ForgotPassword()
+      : super(
+          ForgotPassword.name,
+          path: '/forgot-password',
+        );
 
   static const String name = 'ForgotPassword';
 }
 
 /// generated route for
 /// [_i3.ChangePassword]
-class ChangePassword extends _i23.PageRouteInfo<void> {
-  const ChangePassword() : super(ChangePassword.name, path: '/change-password');
+class ChangePassword extends _i25.PageRouteInfo<void> {
+  const ChangePassword()
+      : super(
+          ChangePassword.name,
+          path: '/change-password',
+        );
 
   static const String name = 'ChangePassword';
 }
 
 /// generated route for
 /// [_i4.RegisterMobile]
-class RegisterMobile extends _i23.PageRouteInfo<void> {
-  const RegisterMobile() : super(RegisterMobile.name, path: '/register-mobile');
+class RegisterMobile extends _i25.PageRouteInfo<void> {
+  const RegisterMobile()
+      : super(
+          RegisterMobile.name,
+          path: '/register-mobile',
+        );
 
   static const String name = 'RegisterMobile';
 }
@@ -372,11 +612,13 @@ class RegisterMobile extends _i23.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.RegisterVerification]
 class RegisterVerification
-    extends _i23.PageRouteInfo<RegisterVerificationArgs> {
+    extends _i25.PageRouteInfo<RegisterVerificationArgs> {
   RegisterVerification({required dynamic data})
-      : super(RegisterVerification.name,
-            path: '/register-verification',
-            args: RegisterVerificationArgs(data: data));
+      : super(
+          RegisterVerification.name,
+          path: '/register-verification',
+          args: RegisterVerificationArgs(data: data),
+        );
 
   static const String name = 'RegisterVerification';
 }
@@ -394,10 +636,13 @@ class RegisterVerificationArgs {
 
 /// generated route for
 /// [_i4.RegisterForm]
-class RegisterForm extends _i23.PageRouteInfo<RegisterFormArgs> {
+class RegisterForm extends _i25.PageRouteInfo<RegisterFormArgs> {
   RegisterForm({required dynamic data})
-      : super(RegisterForm.name,
-            path: '/register-form', args: RegisterFormArgs(data: data));
+      : super(
+          RegisterForm.name,
+          path: '/register-form',
+          args: RegisterFormArgs(data: data),
+        );
 
   static const String name = 'RegisterForm';
 }
@@ -415,19 +660,29 @@ class RegisterFormArgs {
 
 /// generated route for
 /// [_i1.GetVehicleInfo]
-class GetVehicleInfo extends _i23.PageRouteInfo<GetVehicleInfoArgs> {
-  GetVehicleInfo({_i24.Key? key, required String type})
-      : super(GetVehicleInfo.name,
-            path: '/get-vehicle-info',
-            args: GetVehicleInfoArgs(key: key, type: type));
+class GetVehicleInfo extends _i25.PageRouteInfo<GetVehicleInfoArgs> {
+  GetVehicleInfo({
+    _i26.Key? key,
+    required String type,
+  }) : super(
+          GetVehicleInfo.name,
+          path: '/get-vehicle-info',
+          args: GetVehicleInfoArgs(
+            key: key,
+            type: type,
+          ),
+        );
 
   static const String name = 'GetVehicleInfo';
 }
 
 class GetVehicleInfoArgs {
-  const GetVehicleInfoArgs({this.key, required this.type});
+  const GetVehicleInfoArgs({
+    this.key,
+    required this.type,
+  });
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   final String type;
 
@@ -439,33 +694,51 @@ class GetVehicleInfoArgs {
 
 /// generated route for
 /// [_i5.Home]
-class Home extends _i23.PageRouteInfo<void> {
-  const Home() : super(Home.name, path: '/Home');
+class Home extends _i25.PageRouteInfo<void> {
+  const Home()
+      : super(
+          Home.name,
+          path: '/Home',
+        );
 
   static const String name = 'Home';
 }
 
 /// generated route for
 /// [_i3.Settings]
-class Settings extends _i23.PageRouteInfo<void> {
-  const Settings() : super(Settings.name, path: '/Settings');
+class Settings extends _i25.PageRouteInfo<void> {
+  const Settings()
+      : super(
+          Settings.name,
+          path: '/Settings',
+        );
 
   static const String name = 'Settings';
 }
 
 /// generated route for
 /// [_i6.Profile]
-class Profile extends _i23.PageRouteInfo<ProfileArgs> {
-  Profile({required dynamic userProfile, required dynamic isLoading})
-      : super(Profile.name,
-            path: '/Profile',
-            args: ProfileArgs(userProfile: userProfile, isLoading: isLoading));
+class Profile extends _i25.PageRouteInfo<ProfileArgs> {
+  Profile({
+    required dynamic userProfile,
+    required dynamic isLoading,
+  }) : super(
+          Profile.name,
+          path: '/Profile',
+          args: ProfileArgs(
+            userProfile: userProfile,
+            isLoading: isLoading,
+          ),
+        );
 
   static const String name = 'Profile';
 }
 
 class ProfileArgs {
-  const ProfileArgs({required this.userProfile, required this.isLoading});
+  const ProfileArgs({
+    required this.userProfile,
+    required this.isLoading,
+  });
 
   final dynamic userProfile;
 
@@ -479,27 +752,37 @@ class ProfileArgs {
 
 /// generated route for
 /// [_i6.ProfileTab]
-class ProfileTab extends _i23.PageRouteInfo<void> {
-  const ProfileTab() : super(ProfileTab.name, path: '/profile-tab');
+class ProfileTab extends _i25.PageRouteInfo<void> {
+  const ProfileTab()
+      : super(
+          ProfileTab.name,
+          path: '/profile-tab',
+        );
 
   static const String name = 'ProfileTab';
 }
 
 /// generated route for
 /// [_i6.UpdateProfile]
-class UpdateProfile extends _i23.PageRouteInfo<void> {
-  const UpdateProfile() : super(UpdateProfile.name, path: '/update-profile');
+class UpdateProfile extends _i25.PageRouteInfo<void> {
+  const UpdateProfile()
+      : super(
+          UpdateProfile.name,
+          path: '/update-profile',
+        );
 
   static const String name = 'UpdateProfile';
 }
 
 /// generated route for
 /// [_i4.RegisterUserToDi]
-class RegisterUserToDi extends _i23.PageRouteInfo<RegisterUserToDiArgs> {
+class RegisterUserToDi extends _i25.PageRouteInfo<RegisterUserToDiArgs> {
   RegisterUserToDi({required dynamic data})
-      : super(RegisterUserToDi.name,
-            path: '/register-user-to-di',
-            args: RegisterUserToDiArgs(data: data));
+      : super(
+          RegisterUserToDi.name,
+          path: '/register-user-to-di',
+          args: RegisterUserToDiArgs(data: data),
+        );
 
   static const String name = 'RegisterUserToDi';
 }
@@ -517,30 +800,43 @@ class RegisterUserToDiArgs {
 
 /// generated route for
 /// [_i6.IdentityBarcode]
-class IdentityBarcode extends _i23.PageRouteInfo<void> {
+class IdentityBarcode extends _i25.PageRouteInfo<void> {
   const IdentityBarcode()
-      : super(IdentityBarcode.name, path: '/identity-barcode');
+      : super(
+          IdentityBarcode.name,
+          path: '/identity-barcode',
+        );
 
   static const String name = 'IdentityBarcode';
 }
 
 /// generated route for
 /// [_i7.ImageViewer]
-class ImageViewer extends _i23.PageRouteInfo<ImageViewerArgs> {
-  ImageViewer({String? title, _i24.NetworkImage? image})
-      : super(ImageViewer.name,
-            path: '/image-viewer',
-            args: ImageViewerArgs(title: title, image: image));
+class ImageViewer extends _i25.PageRouteInfo<ImageViewerArgs> {
+  ImageViewer({
+    String? title,
+    _i26.NetworkImage? image,
+  }) : super(
+          ImageViewer.name,
+          path: '/image-viewer',
+          args: ImageViewerArgs(
+            title: title,
+            image: image,
+          ),
+        );
 
   static const String name = 'ImageViewer';
 }
 
 class ImageViewerArgs {
-  const ImageViewerArgs({this.title, this.image});
+  const ImageViewerArgs({
+    this.title,
+    this.image,
+  });
 
   final String? title;
 
-  final _i24.NetworkImage? image;
+  final _i26.NetworkImage? image;
 
   @override
   String toString() {
@@ -550,19 +846,25 @@ class ImageViewerArgs {
 
 /// generated route for
 /// [_i8.ComingSoon]
-class ComingSoon extends _i23.PageRouteInfo<void> {
-  const ComingSoon() : super(ComingSoon.name, path: '/coming-soon');
+class ComingSoon extends _i25.PageRouteInfo<void> {
+  const ComingSoon()
+      : super(
+          ComingSoon.name,
+          path: '/coming-soon',
+        );
 
   static const String name = 'ComingSoon';
 }
 
 /// generated route for
 /// [_i9.StartLearning]
-class StartLearning extends _i23.PageRouteInfo<StartLearningArgs> {
+class StartLearning extends _i25.PageRouteInfo<StartLearningArgs> {
   StartLearning({required dynamic studentIC})
-      : super(StartLearning.name,
-            path: '/start-learning',
-            args: StartLearningArgs(studentIC: studentIC));
+      : super(
+          StartLearning.name,
+          path: '/start-learning',
+          args: StartLearningArgs(studentIC: studentIC),
+        );
 
   static const String name = 'StartLearning';
 }
@@ -580,32 +882,36 @@ class StartLearningArgs {
 
 /// generated route for
 /// [_i9.CriteriaList]
-class CriteriaList extends _i23.PageRouteInfo<CriteriaListArgs> {
-  CriteriaList(
-      {required String studentIc,
-      required String startDateTime,
-      required String group,
-      required String course,
-      required String part})
-      : super(CriteriaList.name,
-            path: '/criteria-list',
-            args: CriteriaListArgs(
-                studentIc: studentIc,
-                startDateTime: startDateTime,
-                group: group,
-                course: course,
-                part: part));
+class CriteriaList extends _i25.PageRouteInfo<CriteriaListArgs> {
+  CriteriaList({
+    required String studentIc,
+    required String startDateTime,
+    required String group,
+    required String course,
+    required String part,
+  }) : super(
+          CriteriaList.name,
+          path: '/criteria-list',
+          args: CriteriaListArgs(
+            studentIc: studentIc,
+            startDateTime: startDateTime,
+            group: group,
+            course: course,
+            part: part,
+          ),
+        );
 
   static const String name = 'CriteriaList';
 }
 
 class CriteriaListArgs {
-  const CriteriaListArgs(
-      {required this.studentIc,
-      required this.startDateTime,
-      required this.group,
-      required this.course,
-      required this.part});
+  const CriteriaListArgs({
+    required this.studentIc,
+    required this.startDateTime,
+    required this.group,
+    required this.course,
+    required this.part,
+  });
 
   final String studentIc;
 
@@ -625,27 +931,37 @@ class CriteriaListArgs {
 
 /// generated route for
 /// [_i10.RsmRpkTabs]
-class RsmRpkTabs extends _i23.PageRouteInfo<void> {
-  const RsmRpkTabs() : super(RsmRpkTabs.name, path: '/rsm-rpk-tabs');
+class RsmRpkTabs extends _i25.PageRouteInfo<void> {
+  const RsmRpkTabs()
+      : super(
+          RsmRpkTabs.name,
+          path: '/rsm-rpk-tabs',
+        );
 
   static const String name = 'RsmRpkTabs';
 }
 
 /// generated route for
 /// [_i10.RpkDrawer]
-class RpkDrawer extends _i23.PageRouteInfo<void> {
-  const RpkDrawer() : super(RpkDrawer.name, path: '/rpk-drawer');
+class RpkDrawer extends _i25.PageRouteInfo<void> {
+  const RpkDrawer()
+      : super(
+          RpkDrawer.name,
+          path: '/rpk-drawer',
+        );
 
   static const String name = 'RpkDrawer';
 }
 
 /// generated route for
 /// [_i11.TakeProfilePicture]
-class TakeProfilePicture extends _i23.PageRouteInfo<TakeProfilePictureArgs> {
-  TakeProfilePicture({required List<_i25.CameraDescription>? camera})
-      : super(TakeProfilePicture.name,
-            path: '/take-profile-picture',
-            args: TakeProfilePictureArgs(camera: camera));
+class TakeProfilePicture extends _i25.PageRouteInfo<TakeProfilePictureArgs> {
+  TakeProfilePicture({required List<_i27.CameraDescription>? camera})
+      : super(
+          TakeProfilePicture.name,
+          path: '/take-profile-picture',
+          args: TakeProfilePictureArgs(camera: camera),
+        );
 
   static const String name = 'TakeProfilePicture';
 }
@@ -653,7 +969,7 @@ class TakeProfilePicture extends _i23.PageRouteInfo<TakeProfilePictureArgs> {
 class TakeProfilePictureArgs {
   const TakeProfilePictureArgs({required this.camera});
 
-  final List<_i25.CameraDescription>? camera;
+  final List<_i27.CameraDescription>? camera;
 
   @override
   String toString() {
@@ -663,68 +979,81 @@ class TakeProfilePictureArgs {
 
 /// generated route for
 /// [_i10.OperatorScanQR]
-class OperatorScanQR extends _i23.PageRouteInfo<void> {
+class OperatorScanQR extends _i25.PageRouteInfo<void> {
   const OperatorScanQR()
-      : super(OperatorScanQR.name, path: '/operator-scan-qR');
+      : super(
+          OperatorScanQR.name,
+          path: '/operator-scan-qR',
+        );
 
   static const String name = 'OperatorScanQR';
 }
 
 /// generated route for
 /// [_i9.LearningEnterStudentIC]
-class LearningEnterStudentIC extends _i23.PageRouteInfo<void> {
+class LearningEnterStudentIC extends _i25.PageRouteInfo<void> {
   const LearningEnterStudentIC()
-      : super(LearningEnterStudentIC.name, path: '/learning-enter-student-iC');
+      : super(
+          LearningEnterStudentIC.name,
+          path: '/learning-enter-student-iC',
+        );
 
   static const String name = 'LearningEnterStudentIC';
 }
 
 /// generated route for
 /// [_i12.RpkCandidateDetails]
-class RpkCandidateDetails extends _i23.PageRouteInfo<void> {
+class RpkCandidateDetails extends _i25.PageRouteInfo<void> {
   const RpkCandidateDetails()
-      : super(RpkCandidateDetails.name, path: '/rpk-candidate-details');
+      : super(
+          RpkCandidateDetails.name,
+          path: '/rpk-candidate-details',
+        );
 
   static const String name = 'RpkCandidateDetails';
 }
 
 /// generated route for
 /// [_i12.RpkPartIII]
-class RpkPartIII extends _i23.PageRouteInfo<RpkPartIIIArgs> {
-  RpkPartIII(
-      {required String? qNo,
-      required String? nric,
-      required String? rpkName,
-      required String? testDate,
-      required String? groupId,
-      required String? testCode,
-      required String? vehNo,
-      required bool skipUpdateRpkJpjTestStart})
-      : super(RpkPartIII.name,
-            path: '/rpk-part-ii-i',
-            args: RpkPartIIIArgs(
-                qNo: qNo,
-                nric: nric,
-                rpkName: rpkName,
-                testDate: testDate,
-                groupId: groupId,
-                testCode: testCode,
-                vehNo: vehNo,
-                skipUpdateRpkJpjTestStart: skipUpdateRpkJpjTestStart));
+class RpkPartIII extends _i25.PageRouteInfo<RpkPartIIIArgs> {
+  RpkPartIII({
+    required String? qNo,
+    required String? nric,
+    required String? rpkName,
+    required String? testDate,
+    required String? groupId,
+    required String? testCode,
+    required String? vehNo,
+    required bool skipUpdateRpkJpjTestStart,
+  }) : super(
+          RpkPartIII.name,
+          path: '/rpk-part-ii-i',
+          args: RpkPartIIIArgs(
+            qNo: qNo,
+            nric: nric,
+            rpkName: rpkName,
+            testDate: testDate,
+            groupId: groupId,
+            testCode: testCode,
+            vehNo: vehNo,
+            skipUpdateRpkJpjTestStart: skipUpdateRpkJpjTestStart,
+          ),
+        );
 
   static const String name = 'RpkPartIII';
 }
 
 class RpkPartIIIArgs {
-  const RpkPartIIIArgs(
-      {required this.qNo,
-      required this.nric,
-      required this.rpkName,
-      required this.testDate,
-      required this.groupId,
-      required this.testCode,
-      required this.vehNo,
-      required this.skipUpdateRpkJpjTestStart});
+  const RpkPartIIIArgs({
+    required this.qNo,
+    required this.nric,
+    required this.rpkName,
+    required this.testDate,
+    required this.groupId,
+    required this.testCode,
+    required this.vehNo,
+    required this.skipUpdateRpkJpjTestStart,
+  });
 
   final String? qNo;
 
@@ -750,50 +1079,57 @@ class RpkPartIIIArgs {
 
 /// generated route for
 /// [_i13.JrCandidateDetails]
-class JrCandidateDetails extends _i23.PageRouteInfo<void> {
+class JrCandidateDetails extends _i25.PageRouteInfo<void> {
   const JrCandidateDetails()
-      : super(JrCandidateDetails.name, path: '/jr-candidate-details');
+      : super(
+          JrCandidateDetails.name,
+          path: '/jr-candidate-details',
+        );
 
   static const String name = 'JrCandidateDetails';
 }
 
 /// generated route for
 /// [_i13.JrPartIII]
-class JrPartIII extends _i23.PageRouteInfo<JrPartIIIArgs> {
-  JrPartIII(
-      {required String? qNo,
-      required String? nric,
-      required String? jrName,
-      required String? testDate,
-      required String? groupId,
-      required String? testCode,
-      required String? vehNo,
-      required bool skipUpdateJrJpjTestStart})
-      : super(JrPartIII.name,
-            path: '/jr-part-ii-i',
-            args: JrPartIIIArgs(
-                qNo: qNo,
-                nric: nric,
-                jrName: jrName,
-                testDate: testDate,
-                groupId: groupId,
-                testCode: testCode,
-                vehNo: vehNo,
-                skipUpdateJrJpjTestStart: skipUpdateJrJpjTestStart));
+class JrPartIII extends _i25.PageRouteInfo<JrPartIIIArgs> {
+  JrPartIII({
+    required String? qNo,
+    required String? nric,
+    required String? jrName,
+    required String? testDate,
+    required String? groupId,
+    required String? testCode,
+    required String? vehNo,
+    required bool skipUpdateJrJpjTestStart,
+  }) : super(
+          JrPartIII.name,
+          path: '/jr-part-ii-i',
+          args: JrPartIIIArgs(
+            qNo: qNo,
+            nric: nric,
+            jrName: jrName,
+            testDate: testDate,
+            groupId: groupId,
+            testCode: testCode,
+            vehNo: vehNo,
+            skipUpdateJrJpjTestStart: skipUpdateJrJpjTestStart,
+          ),
+        );
 
   static const String name = 'JrPartIII';
 }
 
 class JrPartIIIArgs {
-  const JrPartIIIArgs(
-      {required this.qNo,
-      required this.nric,
-      required this.jrName,
-      required this.testDate,
-      required this.groupId,
-      required this.testCode,
-      required this.vehNo,
-      required this.skipUpdateJrJpjTestStart});
+  const JrPartIIIArgs({
+    required this.qNo,
+    required this.nric,
+    required this.jrName,
+    required this.testDate,
+    required this.groupId,
+    required this.testCode,
+    required this.vehNo,
+    required this.skipUpdateJrJpjTestStart,
+  });
 
   final String? qNo;
 
@@ -820,41 +1156,45 @@ class JrPartIIIArgs {
 /// generated route for
 /// [_i14.ConfirmCandidateInfo]
 class ConfirmCandidateInfo
-    extends _i23.PageRouteInfo<ConfirmCandidateInfoArgs> {
-  ConfirmCandidateInfo(
-      {required String? part3Type,
-      required String? nric,
-      required String? candidateName,
-      required String? qNo,
-      required String? groupId,
-      required String? testDate,
-      required String? testCode,
-      required String icPhoto})
-      : super(ConfirmCandidateInfo.name,
-            path: '/confirm-candidate-info',
-            args: ConfirmCandidateInfoArgs(
-                part3Type: part3Type,
-                nric: nric,
-                candidateName: candidateName,
-                qNo: qNo,
-                groupId: groupId,
-                testDate: testDate,
-                testCode: testCode,
-                icPhoto: icPhoto));
+    extends _i25.PageRouteInfo<ConfirmCandidateInfoArgs> {
+  ConfirmCandidateInfo({
+    required String? part3Type,
+    required String? nric,
+    required String? candidateName,
+    required String? qNo,
+    required String? groupId,
+    required String? testDate,
+    required String? testCode,
+    required String icPhoto,
+  }) : super(
+          ConfirmCandidateInfo.name,
+          path: '/confirm-candidate-info',
+          args: ConfirmCandidateInfoArgs(
+            part3Type: part3Type,
+            nric: nric,
+            candidateName: candidateName,
+            qNo: qNo,
+            groupId: groupId,
+            testDate: testDate,
+            testCode: testCode,
+            icPhoto: icPhoto,
+          ),
+        );
 
   static const String name = 'ConfirmCandidateInfo';
 }
 
 class ConfirmCandidateInfoArgs {
-  const ConfirmCandidateInfoArgs(
-      {required this.part3Type,
-      required this.nric,
-      required this.candidateName,
-      required this.qNo,
-      required this.groupId,
-      required this.testDate,
-      required this.testCode,
-      required this.icPhoto});
+  const ConfirmCandidateInfoArgs({
+    required this.part3Type,
+    required this.nric,
+    required this.candidateName,
+    required this.qNo,
+    required this.groupId,
+    required this.testDate,
+    required this.testCode,
+    required this.icPhoto,
+  });
 
   final String? part3Type;
 
@@ -880,10 +1220,13 @@ class ConfirmCandidateInfoArgs {
 
 /// generated route for
 /// [_i15.HomeSelect]
-class HomeSelect extends _i23.PageRouteInfo<HomeSelectArgs> {
-  HomeSelect({_i24.Key? key})
-      : super(HomeSelect.name,
-            path: '/home-select', args: HomeSelectArgs(key: key));
+class HomeSelect extends _i25.PageRouteInfo<HomeSelectArgs> {
+  HomeSelect({_i26.Key? key})
+      : super(
+          HomeSelect.name,
+          path: '/home-select',
+          args: HomeSelectArgs(key: key),
+        );
 
   static const String name = 'HomeSelect';
 }
@@ -891,7 +1234,7 @@ class HomeSelect extends _i23.PageRouteInfo<HomeSelectArgs> {
 class HomeSelectArgs {
   const HomeSelectArgs({this.key});
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   @override
   String toString() {
@@ -901,18 +1244,25 @@ class HomeSelectArgs {
 
 /// generated route for
 /// [_i16.HomePageRpk]
-class HomePageRpk extends _i23.PageRouteInfo<void> {
-  const HomePageRpk() : super(HomePageRpk.name, path: '/home-page-rpk');
+class HomePageRpk extends _i25.PageRouteInfo<void> {
+  const HomePageRpk()
+      : super(
+          HomePageRpk.name,
+          path: '/home-page-rpk',
+        );
 
   static const String name = 'HomePageRpk';
 }
 
 /// generated route for
 /// [_i17.CheckListPage]
-class CheckListRoute extends _i23.PageRouteInfo<CheckListRouteArgs> {
-  CheckListRoute({_i24.Key? key})
-      : super(CheckListRoute.name,
-            path: '/check-list-page', args: CheckListRouteArgs(key: key));
+class CheckListRoute extends _i25.PageRouteInfo<CheckListRouteArgs> {
+  CheckListRoute({_i26.Key? key})
+      : super(
+          CheckListRoute.name,
+          path: '/check-list-page',
+          args: CheckListRouteArgs(key: key),
+        );
 
   static const String name = 'CheckListRoute';
 }
@@ -920,7 +1270,7 @@ class CheckListRoute extends _i23.PageRouteInfo<CheckListRouteArgs> {
 class CheckListRouteArgs {
   const CheckListRouteArgs({this.key});
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   @override
   String toString() {
@@ -930,8 +1280,12 @@ class CheckListRouteArgs {
 
 /// generated route for
 /// [_i18.ChecklistHome]
-class ChecklistHome extends _i23.PageRouteInfo<void> {
-  const ChecklistHome() : super(ChecklistHome.name, path: '/checklist-home');
+class ChecklistHome extends _i25.PageRouteInfo<void> {
+  const ChecklistHome()
+      : super(
+          ChecklistHome.name,
+          path: '/checklist-home',
+        );
 
   static const String name = 'ChecklistHome';
 }
@@ -939,11 +1293,13 @@ class ChecklistHome extends _i23.PageRouteInfo<void> {
 /// generated route for
 /// [_i19.ChecklistResultPage]
 class ChecklistResultRoute
-    extends _i23.PageRouteInfo<ChecklistResultRouteArgs> {
-  ChecklistResultRoute({_i24.Key? key})
-      : super(ChecklistResultRoute.name,
-            path: '/checklist-result-page',
-            args: ChecklistResultRouteArgs(key: key));
+    extends _i25.PageRouteInfo<ChecklistResultRouteArgs> {
+  ChecklistResultRoute({_i26.Key? key})
+      : super(
+          ChecklistResultRoute.name,
+          path: '/checklist-result-page',
+          args: ChecklistResultRouteArgs(key: key),
+        );
 
   static const String name = 'ChecklistResultRoute';
 }
@@ -951,7 +1307,7 @@ class ChecklistResultRoute
 class ChecklistResultRouteArgs {
   const ChecklistResultRouteArgs({this.key});
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   @override
   String toString() {
@@ -961,10 +1317,13 @@ class ChecklistResultRouteArgs {
 
 /// generated route for
 /// [_i20.RulePage]
-class RuleRoute extends _i23.PageRouteInfo<RuleRouteArgs> {
-  RuleRoute({_i24.Key? key})
-      : super(RuleRoute.name,
-            path: '/rule-page', args: RuleRouteArgs(key: key));
+class RuleRoute extends _i25.PageRouteInfo<RuleRouteArgs> {
+  RuleRoute({_i26.Key? key})
+      : super(
+          RuleRoute.name,
+          path: '/rule-page',
+          args: RuleRouteArgs(key: key),
+        );
 
   static const String name = 'RuleRoute';
 }
@@ -972,7 +1331,7 @@ class RuleRoute extends _i23.PageRouteInfo<RuleRouteArgs> {
 class RuleRouteArgs {
   const RuleRouteArgs({this.key});
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   @override
   String toString() {
@@ -982,10 +1341,13 @@ class RuleRouteArgs {
 
 /// generated route for
 /// [_i21.TestPage]
-class TestRoute extends _i23.PageRouteInfo<TestRouteArgs> {
-  TestRoute({_i24.Key? key})
-      : super(TestRoute.name,
-            path: '/test-page', args: TestRouteArgs(key: key));
+class TestRoute extends _i25.PageRouteInfo<TestRouteArgs> {
+  TestRoute({_i26.Key? key})
+      : super(
+          TestRoute.name,
+          path: '/test-page',
+          args: TestRouteArgs(key: key),
+        );
 
   static const String name = 'TestRoute';
 }
@@ -993,7 +1355,7 @@ class TestRoute extends _i23.PageRouteInfo<TestRouteArgs> {
 class TestRouteArgs {
   const TestRouteArgs({this.key});
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   @override
   String toString() {
@@ -1003,10 +1365,13 @@ class TestRouteArgs {
 
 /// generated route for
 /// [_i22.QrScannerPage]
-class QrScannerRoute extends _i23.PageRouteInfo<QrScannerRouteArgs> {
-  QrScannerRoute({_i24.Key? key})
-      : super(QrScannerRoute.name,
-            path: '/qr-scanner-page', args: QrScannerRouteArgs(key: key));
+class QrScannerRoute extends _i25.PageRouteInfo<QrScannerRouteArgs> {
+  QrScannerRoute({_i26.Key? key})
+      : super(
+          QrScannerRoute.name,
+          path: '/qr-scanner-page',
+          args: QrScannerRouteArgs(key: key),
+        );
 
   static const String name = 'QrScannerRoute';
 }
@@ -1014,10 +1379,34 @@ class QrScannerRoute extends _i23.PageRouteInfo<QrScannerRouteArgs> {
 class QrScannerRouteArgs {
   const QrScannerRouteArgs({this.key});
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
   @override
   String toString() {
     return 'QrScannerRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [_i23.NewRpkCandidateDetails]
+class NewRpkCandidateDetails extends _i25.PageRouteInfo<void> {
+  const NewRpkCandidateDetails()
+      : super(
+          NewRpkCandidateDetails.name,
+          path: '/new-rpk-candidate-details',
+        );
+
+  static const String name = 'NewRpkCandidateDetails';
+}
+
+/// generated route for
+/// [_i24.NewJrCandidateDetails]
+class NewJrCandidateDetails extends _i25.PageRouteInfo<void> {
+  const NewJrCandidateDetails()
+      : super(
+          NewJrCandidateDetails.name,
+          path: '/new-jr-candidate-details',
+        );
+
+  static const String name = 'NewJrCandidateDetails';
 }

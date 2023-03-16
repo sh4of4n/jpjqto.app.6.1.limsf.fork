@@ -43,7 +43,6 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
   final localStorage = LocalStorage();
   final epanduRepo = EpanduRepo();
   final customDialog = CustomDialog();
-  bool isLoading = false;
   String? vehNo = '';
 
   /* @override
@@ -170,9 +169,9 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
   }
 
   Future<void> cancelCallPart3JpjTest() async {
-    setState(() {
-      isLoading = true;
-    });
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     var result = await epanduRepo.cancelCallPart3JpjTest(
       part3Type: widget.part3Type,
@@ -193,17 +192,13 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
       }
     }
 
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-    }
+    EasyLoading.dismiss();
   }
 
   Future<void> cancelCallPart3RpkTest() async {
-    setState(() {
-      isLoading = true;
-    });
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
 
     var result = await epanduRepo.cancelCallRpkJpjTest(
       part3Type: widget.part3Type,
@@ -224,11 +219,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
       }
     }
 
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-    }
+    EasyLoading.dismiss();
   }
 
   startTest() async {
@@ -269,6 +260,11 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Maklumat Calon'),
+          leading: BackButton(
+            onPressed: () {
+              context.router.pop('refresh');
+            },
+          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -293,7 +289,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                 child: Column(
                   children: [
                     ProfileWidget(),
-                    Text('Q-NO', style: TextStyle(fontSize: 100.sp)),
+                    // Text('Q-NO', style: TextStyle(fontSize: 100.sp)),
                     widget.icPhoto == ''
                         ? const SizedBox()
                         : CachedNetworkImage(
@@ -331,7 +327,7 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                       children: [
                         CustomButton(
                           onPressed: () {
-                            context.router.pop();
+                            context.router.pop('refresh');
                           },
                           buttonColor: Colors.blue,
                           title: AppLocalizations.of(context)!
@@ -347,10 +343,6 @@ class _ConfirmCandidateInfoState extends State<ConfirmCandidateInfo> {
                     ),
                   ],
                 ),
-              ),
-              LoadingModel(
-                isVisible: isLoading,
-                color: ColorConstant.primaryColor,
               ),
             ],
           ),

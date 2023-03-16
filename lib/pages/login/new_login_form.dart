@@ -331,12 +331,12 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
       }
       await localStorage.saveName(result3.data[0].firstName);
 
-      var result2 = await etestingRepo.qtoUjianLogin();
-      if (!result2.isSuccess) {
-        loginFail(result2.message!);
-        await localStorage.reset();
-        return;
-      }
+      // var result2 = await etestingRepo.qtoUjianLogin();
+      // if (!result2.isSuccess) {
+      //   loginFail(result2.message!);
+      //   await localStorage.reset();
+      //   return;
+      // }
 
       await localStorage.saveLoginTime(DateTime.now().toString());
 
