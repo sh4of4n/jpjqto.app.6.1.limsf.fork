@@ -1,3 +1,15 @@
+23/03/2023 V.6.1.13
+ePandu ws 6.1.193.0
+Enhanced
+
+- Remove \u000d\u000a error message
+- Adjust QTO profile font size
+
+Fixed
+
+- Stuck when cancel call calon
+- Show same calon on different app
+
 16/03/2023 V.6.1.12
 ePandu ws 6.1.191.0
 Enhanced

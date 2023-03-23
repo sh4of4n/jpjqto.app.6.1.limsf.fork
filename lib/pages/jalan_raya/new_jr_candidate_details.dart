@@ -99,9 +99,9 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
 
     vehNo = await localStorage.getPlateNo();
 
-    var result =
-        await epanduRepo.getPart3AvailableToCallJpjTestListByCourseCode(
-            part3Type: 'JALAN RAYA', vehNo: vehNo);
+    // var result =
+    //     await epanduRepo.getPart3AvailableToCallJpjTestListByCourseCode(
+    //         part3Type: 'JALAN RAYA', vehNo: vehNo);
 
     var result2 = await etestingRepo.getOwnerIdCategoryList();
 
@@ -123,68 +123,68 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
     //   ),
     // );
 
-    if (result.isSuccess) {
-      setState(() {
-        candidateList = result.data;
-      });
+    // if (result.isSuccess) {
+    //   setState(() {
+    //     candidateList = result.data;
+    //   });
 
-      for (var element in result.data) {
-        if (element.roadStartDate != null) {
-          EasyLoading.dismiss();
-          await context.router.replace(
-            JrPartIII(
-              qNo: element.queueNo,
-              nric: element.nricNo,
-              jrName: element.fullname,
-              testDate: element.testDate,
-              groupId: element.groupId,
-              testCode: element.testCode,
-              vehNo: vehNo,
-              skipUpdateJrJpjTestStart: true,
-            ),
-          );
-          return;
-        }
+    //   for (var element in result.data) {
+    //     if (element.roadStartDate != null) {
+    //       EasyLoading.dismiss();
+    //       await context.router.replace(
+    //         JrPartIII(
+    //           qNo: element.queueNo,
+    //           nric: element.nricNo,
+    //           jrName: element.fullname,
+    //           testDate: element.testDate,
+    //           groupId: element.groupId,
+    //           testCode: element.testCode,
+    //           vehNo: vehNo,
+    //           skipUpdateJrJpjTestStart: true,
+    //         ),
+    //       );
+    //       return;
+    //     }
 
-        if (element.roadCalling == 'true') {
-          EasyLoading.dismiss();
-          await context.router.push(
-            ConfirmCandidateInfo(
-              part3Type: 'JALAN RAYA',
-              nric: element.nricNo,
-              candidateName: element.fullname,
-              qNo: element.queueNo,
-              groupId: element.groupId,
-              testDate: element.testDate,
-              testCode: element.testCode,
-              icPhoto: element.icPhotoFilename != null &&
-                      element.icPhotoFilename.isNotEmpty
-                  ? element.icPhotoFilename
-                      .replaceAll(removeBracket, '')
-                      .split('\r\n')[0]
-                  : '',
-            ),
-          );
-          return;
-        }
-      }
-    } else {
-      if (mounted) {
-        setState(() {
-          candidateList = [];
-          nric = '';
-          name = '';
-          kewarganegaraan = '';
-          icPhoto = '';
-        });
-        customDialog.show(
-          context: context,
-          // content: AppLocalizations.of(context).translate('no_candidate'),
-          content: result.message,
-          type: DialogType.INFO,
-        );
-      }
-    }
+    //     if (element.roadCalling == 'true') {
+    //       EasyLoading.dismiss();
+    //       await context.router.push(
+    //         ConfirmCandidateInfo(
+    //           part3Type: 'JALAN RAYA',
+    //           nric: element.nricNo,
+    //           candidateName: element.fullname,
+    //           qNo: element.queueNo,
+    //           groupId: element.groupId,
+    //           testDate: element.testDate,
+    //           testCode: element.testCode,
+    //           icPhoto: element.icPhotoFilename != null &&
+    //                   element.icPhotoFilename.isNotEmpty
+    //               ? element.icPhotoFilename
+    //                   .replaceAll(removeBracket, '')
+    //                   .split('\r\n')[0]
+    //               : '',
+    //         ),
+    //       );
+    //       return;
+    //     }
+    //   }
+    // } else {
+    //   if (mounted) {
+    //     setState(() {
+    //       candidateList = [];
+    //       nric = '';
+    //       name = '';
+    //       kewarganegaraan = '';
+    //       icPhoto = '';
+    //     });
+    //     customDialog.show(
+    //       context: context,
+    //       // content: AppLocalizations.of(context).translate('no_candidate'),
+    //       content: result.message,
+    //       type: DialogType.INFO,
+    //     );
+    //   }
+    // }
     if (mounted) {
       // setState(() {
       //   isLoading = false;
@@ -223,119 +223,117 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
     // var groupId = selectedCandidate.groupId;
     // var testDate = selectedCandidate.testDate;
 
-    if (this.groupId == groupId) {
-      if (this.testCode == testCode) {
-        if (success == 0) {
-          // await callPart3JpjTest();
-        }
-
-        context.router
-            .push(
-          ConfirmCandidateInfo(
-            part3Type: 'JALAN RAYA',
-            nric: this.nric,
-            candidateName: this.name,
-            qNo: this.qNo,
-            groupId: this.groupId,
-            testDate: testDate,
-            testCode: this.testCode,
-            icPhoto: icPhoto,
-          ),
-        )
-            .then(
-          (value) {
-            // cancelCallPart3JpjTest();
-            // getPart3AvailableToCallJpjTestList();
-            if (value.toString() == 'refresh') {
-              setState(() {
-                success = 0;
-                candidateList!.clear();
-                selectedCandidate = null;
-                name = '';
-                kewarganegaraan = '';
-                icPhoto = '';
-                nric = '';
-                this.groupId = '';
-                qNo = '';
-              });
-            }
-          },
-        );
-      } else {
-        for (int i = 0; i < candidateList!.length; i += 1) {
-          if (candidateList![i].testCode == this.testCode) {
-            customDialog.show(
-              barrierDismissable: false,
-              context: context,
-              content:
-                  AppLocalizations.of(context)!.translate('record_not_matched'),
-              customActions: <Widget>[
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-                  onPressed: () async {
-                    context.router.pop();
-
-                    setState(() {
-                      this.name = candidateList![i].fullname;
-                      this.qNo = candidateList![i].queueNo;
-                      for (var owner in owners) {
-                        if (owner.ownerCat == candidateList![i].ownerCat) {
-                          kewarganegaraan = owner.ownerCatDesc;
-                        }
-                      }
-                    });
-
-                    if (success > 0)
-                      Future.wait([
-                        cancelCallPart3JpjTest(),
-                        callPart3JpjTest(type: 'SKIP'),
-                      ]);
-                    else
-                      await callPart3JpjTest(type: 'SKIP');
-
-                    context.router
-                        .push(
-                      ConfirmCandidateInfo(
-                        part3Type: 'JALAN RAYA',
-                        nric: this.nric,
-                        candidateName: this.name,
-                        qNo: this.qNo,
-                        groupId: this.groupId,
-                        testDate: testDate,
-                        testCode: this.testCode,
-                        icPhoto: icPhoto,
-                      ),
-                    )
-                        .then((value) {
-                      cancelCallPart3JpjTest(type: 'SKIP');
-                    });
-
-                    // cancelCallPart3JpjTest();
-
-                    // callPart3JpjTest();
-                  },
-                ),
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('no_lbl')),
-                  onPressed: () => context.router.pop(),
-                ),
-              ],
-              type: DialogType.GENERAL,
-            );
-
-            break;
-          } else if (i + 1 == candidateList!.length) {
-            customDialog.show(
-              context: context,
-              content: AppLocalizations.of(context)!
-                  .translate('qr_candidate_not_found'),
-              type: DialogType.INFO,
-            );
-          }
-        }
+    if (this.groupId == groupId && this.testCode == testCode) {
+      if (success == 0) {
+        // await callPart3JpjTest();
       }
+
+      context.router
+          .push(
+        ConfirmCandidateInfo(
+          part3Type: 'JALAN RAYA',
+          nric: this.nric,
+          candidateName: this.name,
+          qNo: this.qNo,
+          groupId: this.groupId,
+          testDate: testDate,
+          testCode: this.testCode,
+          icPhoto: icPhoto,
+        ),
+      )
+          .then(
+        (value) {
+          if (value.toString() == 'refresh') {
+            setState(() {
+              success = 0;
+              candidateList!.clear();
+              selectedCandidate = null;
+              name = '';
+              kewarganegaraan = '';
+              icPhoto = '';
+              nric = '';
+              this.groupId = '';
+              qNo = '';
+            });
+          }
+        },
+      );
+      // if (this.testCode == testCode) {
+      // } else {
+      //   for (int i = 0; i < candidateList!.length; i += 1) {
+      //     if (candidateList![i].testCode == this.testCode) {
+      //       customDialog.show(
+      //         barrierDismissable: false,
+      //         context: context,
+      //         content:
+      //             AppLocalizations.of(context)!.translate('record_not_matched'),
+      //         customActions: <Widget>[
+      //           TextButton(
+      //             child:
+      //                 Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+      //             onPressed: () async {
+      //               context.router.pop();
+
+      //               setState(() {
+      //                 this.name = candidateList![i].fullname;
+      //                 this.qNo = candidateList![i].queueNo;
+      //                 for (var owner in owners) {
+      //                   if (owner.ownerCat == candidateList![i].ownerCat) {
+      //                     kewarganegaraan = owner.ownerCatDesc;
+      //                   }
+      //                 }
+      //               });
+
+      //               if (success > 0)
+      //                 Future.wait([
+      //                   cancelCallPart3JpjTest(),
+      //                   callPart3JpjTest(type: 'SKIP'),
+      //                 ]);
+      //               else
+      //                 await callPart3JpjTest(type: 'SKIP');
+
+      //               context.router
+      //                   .push(
+      //                 ConfirmCandidateInfo(
+      //                   part3Type: 'JALAN RAYA',
+      //                   nric: this.nric,
+      //                   candidateName: this.name,
+      //                   qNo: this.qNo,
+      //                   groupId: this.groupId,
+      //                   testDate: testDate,
+      //                   testCode: this.testCode,
+      //                   icPhoto: icPhoto,
+      //                 ),
+      //               )
+      //                   .then((value) {
+      //                 cancelCallPart3JpjTest(type: 'SKIP');
+      //               });
+
+      //               // cancelCallPart3JpjTest();
+
+      //               // callPart3JpjTest();
+      //             },
+      //           ),
+      //           TextButton(
+      //             child:
+      //                 Text(AppLocalizations.of(context)!.translate('no_lbl')),
+      //             onPressed: () => context.router.pop(),
+      //           ),
+      //         ],
+      //         type: DialogType.GENERAL,
+      //       );
+
+      //       break;
+      //     } else if (i + 1 == candidateList!.length) {
+      //       customDialog.show(
+      //         context: context,
+      //         content: AppLocalizations.of(context)!
+      //             .translate('qr_candidate_not_found'),
+      //         type: DialogType.INFO,
+      //       );
+      //     }
+      //   }
+      // }
     } else {
       customDialog.show(
         barrierDismissable: false,
@@ -399,8 +397,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
         content: result.message,
         onPressed: () {
           context.router.pop();
-
-          getPart3AvailableToCallJpjTestList();
+          // getPart3AvailableToCallJpjTestList();
         },
         type: DialogType.INFO,
       );
@@ -448,19 +445,34 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
           this.groupId = '';
           qNo = '';
 
-          if (type != 'HOME') getPart3AvailableToCallJpjTestList();
+          // if (type != 'HOME') getPart3AvailableToCallJpjTestList();
         });
       }
     } else {
-      if (mounted) {
-        customDialog.show(
-          context: context,
-          content: result.message,
-          type: DialogType.WARNING,
-        );
+      await EasyLoading.dismiss();
+      setState(() {
+        success = 0;
+        candidateList!.clear();
+        selectedCandidate = null;
+        name = '';
+        kewarganegaraan = '';
+        icPhoto = '';
+        nric = '';
+        this.groupId = '';
+        qNo = '';
+      });
+      if (result.message == 'You not yet call this student.') {
+        context.router.pop();
+      } else {
+        if (mounted) {
+          customDialog.show(
+            context: context,
+            content: result.message,
+            type: DialogType.WARNING,
+          );
+        }
       }
     }
-    EasyLoading.dismiss();
   }
 
   @override
@@ -721,7 +733,6 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
                           ),
                         )
                       : SizedBox(),
-                  SizedBox(height: 50.h),
 
                   icPhoto == ''
                       ? const SizedBox()

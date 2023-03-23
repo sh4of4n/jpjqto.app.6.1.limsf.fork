@@ -688,6 +688,10 @@ class EpanduRepo {
     var response =
         await networking.postData(api: api, body: body, headers: headers);
 
+    if (response.isSuccess && response.data == 'null') {
+      return Response(true, data: response.data);
+    }
+
     if (response.isSuccess && response.data != null) {
       CancelCallPart3JpjTestResponse verifyScanCodeResponse =
           CancelCallPart3JpjTestResponse.fromJson(response.data);
@@ -735,6 +739,10 @@ class EpanduRepo {
 
     var response =
         await networking.postData(api: api, body: body, headers: headers);
+
+    if (response.isSuccess && response.data == 'null') {
+      return Response(true, data: response.data);
+    }
 
     if (response.isSuccess && response.data != null) {
       CancelCallRpkJpjTestResponse verifyScanCodeResponse =

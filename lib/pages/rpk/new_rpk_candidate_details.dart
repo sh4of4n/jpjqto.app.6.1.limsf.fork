@@ -98,72 +98,67 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
 
     vehNo = await localStorage.getPlateNo();
 
-    var result = await epanduRepo.getRpkAvailableToCallJpjTestListByCourseCode(
-        vehNo: vehNo);
+    // var result = await epanduRepo.getRpkAvailableToCallJpjTestListByCourseCode(
+    //     vehNo: vehNo);
 
     var result2 = await etestingRepo.getOwnerIdCategoryList();
     if (result2.isSuccess) {
       owners = result2.data;
     }
 
-    if (result.isSuccess) {
-      setState(() {
-        candidateList = result.data;
-      });
-      for (var element in result.data) {
-        if (element.rpkStartDate != null) {
-          EasyLoading.dismiss();
-          await context.router.replace(
-            RpkPartIII(
-              qNo: element.queueNo,
-              nric: element.nricNo,
-              rpkName: element.fullname,
-              testDate: element.testDate,
-              groupId: element.groupId,
-              testCode: element.testCode,
-              vehNo: vehNo,
-              skipUpdateRpkJpjTestStart: true,
-            ),
-          );
-          return;
-        }
+    // if (result.isSuccess) {
+    //   setState(() {
+    //     candidateList = result.data;
+    //   });
+    //   for (var element in result.data) {
+    //     if (element.rpkStartDate != null) {
+    //       EasyLoading.dismiss();
+    //       await context.router.replace(
+    //         RpkPartIII(
+    //           qNo: element.queueNo,
+    //           nric: element.nricNo,
+    //           rpkName: element.fullname,
+    //           testDate: element.testDate,
+    //           groupId: element.groupId,
+    //           testCode: element.testCode,
+    //           vehNo: vehNo,
+    //           skipUpdateRpkJpjTestStart: true,
+    //         ),
+    //       );
+    //       return;
+    //     }
 
-        if (element.rpkCalling == 'true') {
-          EasyLoading.dismiss();
-          await context.router.push(
-            ConfirmCandidateInfo(
-              part3Type: 'RPK',
-              nric: element.nricNo,
-              candidateName: element.fullname,
-              qNo: element.queueNo,
-              groupId: element.groupId,
-              testDate: element.testDate,
-              testCode: element.testCode,
-              icPhoto: element.icPhotoFilename != null &&
-                      element.icPhotoFilename.isNotEmpty
-                  ? element.icPhotoFilename
-                      .replaceAll(removeBracket, '')
-                      .split('\r\n')[0]
-                  : '',
-            ),
-          );
-          return;
-        }
-      }
-    } else {
-      if (mounted) {
-        customDialog.show(
-          context: context,
-          // content: AppLocalizations.of(context).translate('no_candidate'),
-          content: result.message,
-          type: DialogType.INFO,
-        );
-      }
-    }
-
-    // setState(() {
-    //   isLoading = false;
-    // });
+    //     if (element.rpkCalling == 'true') {
+    //       EasyLoading.dismiss();
+    //       await context.router.push(
+    //         ConfirmCandidateInfo(
+    //           part3Type: 'RPK',
+    //           nric: element.nricNo,
+    //           candidateName: element.fullname,
+    //           qNo: element.queueNo,
+    //           groupId: element.groupId,
+    //           testDate: element.testDate,
+    //           testCode: element.testCode,
+    //           icPhoto: element.icPhotoFilename != null &&
+    //                   element.icPhotoFilename.isNotEmpty
+    //               ? element.icPhotoFilename
+    //                   .replaceAll(removeBracket, '')
+    //                   .split('\r\n')[0]
+    //               : '',
+    //         ),
+    //       );
+    //       return;
+    //     }
+    //   }
+    // } else {
+    //   if (mounted) {
+    //     customDialog.show(
+    //       context: context,
+    //       content: result.message,
+    //       type: DialogType.INFO,
+    //     );
+    //   }
+    // }
     EasyLoading.dismiss();
   }
 
@@ -198,125 +193,126 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
     // var groupId = selectedCandidate.groupId;
     // var testDate = selectedCandidate.testDate;
 
-    if (this.groupId == groupId) {
-      if (this.testCode == testCode) {
-        if (success == 0) {
-          // await callPart3JpjTest();
-        }
-
-        context.router
-            .push(
-          ConfirmCandidateInfo(
-            part3Type: 'RPK',
-            nric: this.nric,
-            candidateName: this.name,
-            qNo: this.qNo,
-            groupId: this.groupId,
-            testDate: testDate,
-            testCode: this.testCode,
-            icPhoto: icPhoto,
-          ),
-        )
-            .then((value) {
-          // cancelCallPart3JpjTest();
-          print(value);
-          if (value.toString() == 'refresh') {
-            setState(() {
-              success = 0;
-              candidateList!.clear();
-              selectedCandidate = null;
-              name = '';
-              kewarganegaraan = '';
-              icPhoto = '';
-              nric = '';
-              this.groupId = '';
-              qNo = '';
-            });
-          }
-        });
-      } else {
-        for (int i = 0; i < candidateList!.length; i += 1) {
-          if (candidateList![i].testCode == this.testCode) {
-            customDialog.show(
-              barrierDismissable: false,
-              context: context,
-              content:
-                  AppLocalizations.of(context)!.translate('record_not_matched'),
-              customActions: <Widget>[
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-                  onPressed: () async {
-                    context.router.pop();
-
-                    setState(() {
-                      name = candidateList![i].fullname;
-                      qNo = candidateList![i].queueNo;
-                      for (var owner in owners) {
-                        if (owner.ownerCat == candidateList![i].ownerCat) {
-                          kewarganegaraan = owner.ownerCatDesc;
-                        }
-                      }
-                      icPhoto = candidateList![i].icPhotoFilename != null &&
-                              candidateList![i].icPhotoFilename.isNotEmpty
-                          ? candidateList![i]
-                              .icPhotoFilename
-                              .replaceAll(removeBracket, '')
-                              .split('\r\n')[0]
-                          : '';
-                    });
-
-                    if (success > 0)
-                      Future.wait([
-                        cancelCallPart3RpkTest(),
-                        callPart3JpjTest(type: 'SKIP'),
-                      ]);
-                    else
-                      await callPart3JpjTest(type: 'SKIP');
-
-                    context.router
-                        .push(
-                      ConfirmCandidateInfo(
-                        part3Type: 'RPK',
-                        nric: this.nric,
-                        candidateName: this.name,
-                        qNo: this.qNo,
-                        groupId: this.groupId,
-                        testDate: testDate,
-                        testCode: this.testCode,
-                        icPhoto: icPhoto,
-                      ),
-                    )
-                        .then((value) {
-                      print(value);
-                      cancelCallPart3RpkTest(type: 'SKIP');
-                    });
-
-                    // cancelCallPart3JpjTest();
-
-                    // callPart3JpjTest();
-                  },
-                ),
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('no_lbl')),
-                  onPressed: () => context.router.pop(),
-                ),
-              ],
-              type: DialogType.GENERAL,
-            );
-
-            break;
-          } else if (i + 1 == candidateList!.length) {
-            customDialog.show(
-              context: context,
-              content: AppLocalizations.of(context)!
-                  .translate('qr_candidate_not_found'),
-              type: DialogType.INFO,
-            );
-          }
-        }
+    if (this.groupId == groupId && this.testCode == testCode) {
+      if (success == 0) {
+        // await callPart3JpjTest();
       }
+
+      context.router
+          .push(
+        ConfirmCandidateInfo(
+          part3Type: 'RPK',
+          nric: this.nric,
+          candidateName: this.name,
+          qNo: this.qNo,
+          groupId: this.groupId,
+          testDate: testDate,
+          testCode: this.testCode,
+          icPhoto: icPhoto,
+        ),
+      )
+          .then((value) {
+        // cancelCallPart3JpjTest();
+        print(value);
+        if (value.toString() == 'refresh') {
+          setState(() {
+            success = 0;
+            candidateList!.clear();
+            selectedCandidate = null;
+            name = '';
+            kewarganegaraan = '';
+            icPhoto = '';
+            nric = '';
+            this.groupId = '';
+            qNo = '';
+          });
+        }
+      });
+
+      // if (this.testCode == testCode) {
+      // } else {
+      //   for (int i = 0; i < candidateList!.length; i += 1) {
+      //     if (candidateList![i].testCode == this.testCode) {
+      //       customDialog.show(
+      //         barrierDismissable: false,
+      //         context: context,
+      //         content:
+      //             AppLocalizations.of(context)!.translate('record_not_matched'),
+      //         customActions: <Widget>[
+      //           TextButton(
+      //             child:
+      //                 Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+      //             onPressed: () async {
+      //               context.router.pop();
+
+      //               setState(() {
+      //                 name = candidateList![i].fullname;
+      //                 qNo = candidateList![i].queueNo;
+      //                 for (var owner in owners) {
+      //                   if (owner.ownerCat == candidateList![i].ownerCat) {
+      //                     kewarganegaraan = owner.ownerCatDesc;
+      //                   }
+      //                 }
+      //                 icPhoto = candidateList![i].icPhotoFilename != null &&
+      //                         candidateList![i].icPhotoFilename.isNotEmpty
+      //                     ? candidateList![i]
+      //                         .icPhotoFilename
+      //                         .replaceAll(removeBracket, '')
+      //                         .split('\r\n')[0]
+      //                     : '';
+      //               });
+
+      //               if (success > 0)
+      //                 Future.wait([
+      //                   cancelCallPart3RpkTest(),
+      //                   callPart3JpjTest(type: 'SKIP'),
+      //                 ]);
+      //               else
+      //                 await callPart3JpjTest(type: 'SKIP');
+
+      //               context.router
+      //                   .push(
+      //                 ConfirmCandidateInfo(
+      //                   part3Type: 'RPK',
+      //                   nric: this.nric,
+      //                   candidateName: this.name,
+      //                   qNo: this.qNo,
+      //                   groupId: this.groupId,
+      //                   testDate: testDate,
+      //                   testCode: this.testCode,
+      //                   icPhoto: icPhoto,
+      //                 ),
+      //               )
+      //                   .then((value) {
+      //                 print(value);
+      //                 cancelCallPart3RpkTest(type: 'SKIP');
+      //               });
+
+      //               // cancelCallPart3JpjTest();
+
+      //               // callPart3JpjTest();
+      //             },
+      //           ),
+      //           TextButton(
+      //             child:
+      //                 Text(AppLocalizations.of(context)!.translate('no_lbl')),
+      //             onPressed: () => context.router.pop(),
+      //           ),
+      //         ],
+      //         type: DialogType.GENERAL,
+      //       );
+
+      //       break;
+      //     } else if (i + 1 == candidateList!.length) {
+      //       customDialog.show(
+      //         context: context,
+      //         content: AppLocalizations.of(context)!
+      //             .translate('qr_candidate_not_found'),
+      //         type: DialogType.INFO,
+      //       );
+      //     }
+      //   }
+      // }
     } else {
       customDialog.show(
         barrierDismissable: false,
@@ -363,9 +359,8 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         barrierDismissable: false,
         content: result.message,
         onPressed: () {
-          context.router
-              .pop()
-              .then((value) => getPart3AvailableToCallJpjTestList());
+          context.router.pop();
+          // .then((value) => getPart3AvailableToCallJpjTestList());
         },
         type: DialogType.INFO,
       );
@@ -433,22 +428,33 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         this.groupId = '';
         qNo = '';
 
-        if (type != 'HOME') getPart3AvailableToCallJpjTestList();
+        // if (type != 'HOME') getPart3AvailableToCallJpjTestList();
       });
     } else {
-      if (mounted) {
-        customDialog.show(
-          context: context,
-          content: result.message,
-          type: DialogType.WARNING,
-        );
+      await EasyLoading.dismiss();
+      setState(() {
+        success = 0;
+        candidateList!.clear();
+        selectedCandidate = null;
+        name = '';
+        kewarganegaraan = '';
+        icPhoto = '';
+        nric = '';
+        this.groupId = '';
+        qNo = '';
+      });
+      if (result.message == 'You not yet call this student.') {
+        context.router.pop();
+      } else {
+        if (mounted) {
+          customDialog.show(
+            context: context,
+            content: result.message,
+            type: DialogType.WARNING,
+          );
+        }
       }
     }
-    // if (mounted) {
-    //   setState(() {
-    //     isLoading = false;
-    //   });
-    // }
   }
 
   @override
@@ -515,6 +521,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
           TextButton(
             child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
             onPressed: () async {
+              await context.router.pop();
               await cancelCallPart3RpkTest(type: 'HOME');
             },
           ),
@@ -647,7 +654,6 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                           ),
                         )
                       : SizedBox(),
-                  SizedBox(height: 50.h),
                   icPhoto == ''
                       ? const SizedBox()
                       : CachedNetworkImage(

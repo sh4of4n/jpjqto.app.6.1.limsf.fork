@@ -100,6 +100,7 @@ void main() async {
       }
     });
     await Sentry.captureException(exception, stackTrace: stackTrace);
+    await EasyLoading.dismiss();
   });
 }
 
