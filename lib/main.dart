@@ -56,11 +56,6 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
 
-  await Hive.box('ws_url').put(
-      'defaultUrl',
-      'http://192.168.168.2:88/etesting.mainservice/_wsver_/mainservice.svc'
-          .replaceAll('_wsver_', AppConfig().wsVer));
-
   runZonedGuarded(() async {
     await SentryFlutter.init(
       (options) {

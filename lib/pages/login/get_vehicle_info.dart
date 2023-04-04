@@ -197,6 +197,44 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
               var scanData = await context.router.push(QrScannerRoute());
               if (scanData != null) {
                 try {
+                  EasyLoading.show(
+                    maskType: EasyLoadingMaskType.black,
+                  );
+                  var vehicleResult =
+                      await etestingRepo.isVehicleAvailableByUserId(
+                          plateNo: jsonDecode(scanData.toString())['Table1'][0]
+                                  ['plate_no'] ??
+                              '');
+                  EasyLoading.dismiss();
+                  if (vehicleResult.data != 'True') {
+                    await showDialog(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('JPJ QTO APP'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text(vehicleResult.message ?? ''),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+
+                    return;
+                  }
+
                   setState(() {
                     _formKey.currentState!.patchValue({
                       'groupId': jsonDecode(scanData.toString())['Table1'][0]

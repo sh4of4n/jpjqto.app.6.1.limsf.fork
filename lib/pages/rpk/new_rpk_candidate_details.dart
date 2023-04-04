@@ -75,6 +75,42 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
+
+    Response vehicleResult =
+        await etestingRepo.isVehicleAvailableByUserId(plateNo: vehNo ?? '');
+
+    if (vehicleResult.data != 'True') {
+      EasyLoading.dismiss();
+      await showDialog(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('JPJ QTO APP'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(vehicleResult.message ?? ''),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+
+      await context.router.pushAndPopUntil(GetVehicleInfo(type: 'RPK'),
+          predicate: (r) => false);
+      return;
+    }
+
     Response result = await epanduRepo.autoCallRpkJpjTestByCourseCode(
       vehNo: (await localStorage.getPlateNo() ?? ''),
     );
@@ -98,8 +134,41 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
 
     vehNo = await localStorage.getPlateNo();
 
-    // var result = await epanduRepo.getRpkAvailableToCallJpjTestListByCourseCode(
-    //     vehNo: vehNo);
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
+    var vehicleResult =
+        await etestingRepo.isVehicleAvailableByUserId(plateNo: vehNo ?? '');
+
+    if (vehicleResult.data != 'True') {
+      EasyLoading.dismiss();
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('JPJ QTO APP'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(vehicleResult.message ?? ''),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      await context.router.pushAndPopUntil(GetVehicleInfo(type: 'RPK'),
+          predicate: (r) => false);
+    }
 
     var result2 = await etestingRepo.getOwnerIdCategoryList();
     if (result2.isSuccess) {

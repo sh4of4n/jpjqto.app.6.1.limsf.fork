@@ -246,6 +246,45 @@ class _HomePageRpkState extends State<HomePageRpk> {
                         backgroundColor: Colors.yellow[100],
                       ),
                       onPressed: () async {
+                        String? plateNo = await localStorage.getPlateNo();
+
+                        EasyLoading.show(
+                          maskType: EasyLoadingMaskType.black,
+                        );
+
+                        Response vehicleResult = await etestingRepo
+                            .isVehicleAvailableByUserId(plateNo: plateNo ?? '');
+                        EasyLoading.dismiss();
+                        if (vehicleResult.data != 'True') {
+                          await showDialog(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('JPJ QTO APP'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text(vehicleResult.message ?? ''),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          await context.router
+                              .push(GetVehicleInfo(type: 'RPK'));
+                          return;
+                        }
+
                         var scanData =
                             await context.router.push(QrScannerRoute());
                         if (scanData != null) {
@@ -253,7 +292,6 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             maskType: EasyLoadingMaskType.black,
                           );
                           try {
-                            String? plateNo = await localStorage.getPlateNo();
                             Response result =
                                 await etestingRepo.isCurrentCallingCalon(
                               plateNo: plateNo ?? '',

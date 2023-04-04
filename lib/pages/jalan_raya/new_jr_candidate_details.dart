@@ -76,6 +76,40 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
+
+    Response vehicleResult =
+        await etestingRepo.isVehicleAvailableByUserId(plateNo: vehNo ?? '');
+    if (vehicleResult.data != 'True') {
+      EasyLoading.dismiss();
+      await showDialog(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('JPJ QTO APP'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(vehicleResult.message ?? ''),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      await context.router.pushAndPopUntil(GetVehicleInfo(type: 'Jalan Raya'),
+          predicate: (r) => false);
+      return;
+    }
+
     Response result = await epanduRepo.autoCallPart3JpjTestByCourseCode(
       vehNo: (await localStorage.getPlateNo() ?? ''),
     );
@@ -98,6 +132,41 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
     );
 
     vehNo = await localStorage.getPlateNo();
+
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
+    var vehicleResult =
+        await etestingRepo.isVehicleAvailableByUserId(plateNo: vehNo ?? '');
+    if (vehicleResult.data != 'True') {
+      EasyLoading.dismiss();
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('JPJ QTO APP'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(vehicleResult.message ?? ''),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      await context.router.pushAndPopUntil(GetVehicleInfo(type: 'Jalan Raya'),
+          predicate: (r) => false);
+    }
 
     // var result =
     //     await epanduRepo.getPart3AvailableToCallJpjTestListByCourseCode(
