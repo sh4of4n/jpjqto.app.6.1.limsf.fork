@@ -53,7 +53,6 @@ class Networking extends BaseRepo {
       // }
       url = await wsUrlBox.get('wsUrl');
     }
-
     try {
       http.Response response;
       // for getWsUrl

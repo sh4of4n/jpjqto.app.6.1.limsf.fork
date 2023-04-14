@@ -274,7 +274,7 @@ packages:
     source: hosted
     version: "1.17.0"
   convert:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: convert
       sha256: "0f08b14755d163f6e2134cb58222dd25ea2a2ee8a195e53983d57c075324d592"
@@ -298,7 +298,7 @@ packages:
     source: hosted
     version: "0.3.3+2"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       sha256: aa274aa7774f8964e4f4f38cc994db7b6158dd36e9187aaceaddc994b35c6c67
@@ -321,6 +321,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  dart_3des:
+    dependency: "direct main"
+    description:
+      name: dart_3des
+      sha256: d8d1899aa2104a691cc586ea62a78d5ba1589afd72d8bcecc4c4106d0b7de607
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  dart_des:
+    dependency: "direct main"
+    description:
+      name: dart_des
+      sha256: "0a66afb8883368c824497fd2a1fd67bdb1a785965a3956728382c03d40747c33"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   dart_style:
     dependency: transitive
     description:
@@ -462,6 +478,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_3des:
+    dependency: "direct main"
+    description:
+      name: flutter_3des
+      sha256: "6b3b5e201037d35aecc5afef5ddf1944e6290c7dc4f80c2f00b284cf528c3812"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   flutter_blurhash:
     dependency: transitive
     description:

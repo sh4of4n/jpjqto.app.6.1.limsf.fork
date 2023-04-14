@@ -40,10 +40,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
   );
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController? qrController;
   bool iconVisible = true;
-  bool isVisible = false;
-
   String? qNo = '';
   String? nric = '';
   String? name = '';
@@ -545,52 +542,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
   }
 
   @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid && isVisible) {
-      qrController?.pauseCamera();
-    } else if (Platform.isIOS) {
-      qrController?.resumeCamera();
-    }
-  }
-
-  Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 300.0
-        : 400.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-        borderColor: Colors.red,
-        borderRadius: 10,
-        borderLength: 30,
-        borderWidth: 10,
-        cutOutSize: scanArea,
-      ),
-    );
-  }
-
-  Future<void> _onQRViewCreated(QRViewController qrController) async {
-    setState(() {
-      this.qrController = qrController;
-    });
-    await qrController.resumeCamera();
-    qrController.scannedDataStream.listen((scanData) async {
-      await qrController.pauseCamera();
-      // processQrCodeResult(
-      //     scanData: scanData, selectedCandidate: selectedCandidate, qNo: qNo!);
-      await qrController.resumeCamera();
-    });
-  }
-
-  @override
   void dispose() {
-    qrController?.dispose();
     super.dispose();
   }
 
@@ -633,18 +585,56 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
     return true;
   }
 
-  void processQrCodeResult(
+  Future<void> processQrCodeResult(
       {required String scanData,
       required selectedCandidate,
-      required String qNo}) {
-    setState(() {
-      try {
-        merchantNo = jsonDecode(scanData)['Table1'][0]['merchant_no'];
-        testCode = jsonDecode(scanData)['Table1'][0]['test_code'];
-        groupId = jsonDecode(scanData)['Table1'][0]['group_id'];
-        nric = jsonDecode(scanData)['Table1'][0]['nric_no'];
+      required String qNo}) async {
+    try {
+      EasyLoading.show(
+        maskType: EasyLoadingMaskType.black,
+      );
+
+      Response decryptQrcode = await etestingRepo.decryptQrcode(
+        qrcodeJson: scanData.toString(),
+      );
+
+      if (!decryptQrcode.isSuccess) {
+        EasyLoading.dismiss();
+        if (!mounted) return;
+        await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('JPJ QTO APP'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(decryptQrcode.message ?? ''),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+        EasyLoading.dismiss();
+        return;
+      }
+
+      setState(() {
+        merchantNo = decryptQrcode.data[0].merchantNo;
+        testCode = decryptQrcode.data[0].testCode;
+        groupId = decryptQrcode.data[0].groupId;
+        nric = decryptQrcode.data[0].nricNo;
         iconVisible = true;
-        isVisible = false;
 
         if (qNo.isNotEmpty) {
           compareCandidateInfo(
@@ -662,23 +652,23 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
             type: DialogType.INFO,
           );
         }
-      } catch (e) {
-        customDialog.show(
-          barrierDismissable: false,
-          context: context,
-          content: AppLocalizations.of(context)!.translate('invalid_qr'),
-          customActions: [
-            TextButton(
-              onPressed: () {
-                context.router.pop();
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-          type: DialogType.GENERAL,
-        );
-      }
-    });
+      });
+    } catch (e) {
+      customDialog.show(
+        barrierDismissable: false,
+        context: context,
+        content: AppLocalizations.of(context)!.translate('invalid_qr'),
+        customActions: [
+          TextButton(
+            onPressed: () {
+              context.router.pop();
+            },
+            child: const Text('Ok'),
+          ),
+        ],
+        type: DialogType.GENERAL,
+      );
+    }
   }
 
   @override
@@ -994,16 +984,6 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
                     ],
                   ),
                 ],
-              ),
-              Visibility(
-                visible: isVisible,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SizedBox(
-                    height: 500,
-                    child: _buildQrView(context),
-                  ),
-                ),
               ),
               // Visibility(
               //   visible: iconVisible,

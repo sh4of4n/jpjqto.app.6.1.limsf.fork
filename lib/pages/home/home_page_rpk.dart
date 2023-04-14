@@ -292,12 +292,47 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             maskType: EasyLoadingMaskType.black,
                           );
                           try {
+                            Response decryptQrcode =
+                                await etestingRepo.decryptQrcode(
+                              qrcodeJson: scanData.toString(),
+                            );
+
+                            if (!decryptQrcode.isSuccess) {
+                              EasyLoading.dismiss();
+                              if (!mounted) return;
+                              await showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('JPJ QTO APP'),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text(decryptQrcode.message ?? ''),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: const Text('OK'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              EasyLoading.dismiss();
+                              return;
+                            }
+
                             Response result =
                                 await etestingRepo.isCurrentCallingCalon(
                               plateNo: plateNo ?? '',
                               partType: 'RPK',
-                              nricNo: jsonDecode(scanData.toString())['Table1']
-                                  [0]['nric_no'],
+                              nricNo: decryptQrcode.data[0].nricNo,
                             );
                             await EasyLoading.dismiss();
                             if (!result.isSuccess) {
@@ -308,9 +343,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                                   await etestingRepo.isCurrentInProgressCalon(
                                 plateNo: plateNo ?? '',
                                 partType: 'RPK',
-                                nricNo:
-                                    jsonDecode(scanData.toString())['Table1'][0]
-                                        ['nric_no'],
+                                nricNo: decryptQrcode.data[0].nricNo,
                               );
                               await EasyLoading.dismiss();
                               if (!result2.isSuccess) {

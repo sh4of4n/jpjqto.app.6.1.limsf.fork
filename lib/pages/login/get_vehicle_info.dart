@@ -2,12 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:convert/convert.dart';
+import 'package:dart_3des/dart_3des.dart';
+import 'package:dart_des/dart_des.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter_3des/flutter_3des.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:jpj_qto/common_library/services/model/etesting_model.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
+import 'package:jpj_qto/common_library/services/response.dart';
 import 'package:jpj_qto/component/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +22,6 @@ import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/uppercase_formatter.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
 import '../../router.gr.dart';
 
 class GetVehicleInfo extends StatefulWidget {
@@ -39,9 +43,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
   final etestingRepo = EtestingRepo();
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController? qrController;
   bool showCameraIcon = true;
-  bool showQR = false;
   List<MysikapVehicle> vehicleArr = [];
   @override
   void initState() {
@@ -56,11 +58,6 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
   @override
   void reassemble() {
     super.reassemble();
-    if (Platform.isAndroid) {
-      qrController?.pauseCamera();
-    } else if (Platform.isIOS) {
-      qrController?.resumeCamera();
-    }
   }
 
   Future getMySikapVehicleListByStatusPart() async {
@@ -80,81 +77,60 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     return result;
   }
 
-  Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 200.0
-        : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-        borderColor: Colors.red,
-        borderRadius: 10,
-        borderLength: 30,
-        borderWidth: 10,
-        cutOutSize: scanArea,
-      ),
-    );
-  }
-
-  Future<void> _onQRViewCreated(QRViewController qrController) async {
-    setState(() {
-      this.qrController = qrController;
-    });
-    await qrController.resumeCamera();
-    qrController.scannedDataStream.listen((scanData) async {
-      await qrController.pauseCamera();
-
-      try {
-        setState(() {
-          _formKey.currentState!.patchValue({
-            'groupId': jsonDecode(scanData.code!)['Table1'][0]['group_id'],
-            'permitNo': jsonDecode(scanData.code!)['Table1'][0]['merchant_no'],
-            'carNo': jsonDecode(scanData.code!)['Table1'][0]['car_no'],
-            'plateNo': jsonDecode(scanData.code!)['Table1'][0]['plate_no'],
-          });
-
-          showCameraIcon = true;
-          showQR = false;
-        });
-      } catch (e) {
-        customDialog.show(
-          barrierDismissable: false,
-          context: context,
-          content: AppLocalizations.of(context)!.translate('invalid_qr'),
-          customActions: [
-            TextButton(
-              onPressed: () {
-                context.router.pop();
-
-                qrController.resumeCamera();
-              },
-              child: Text('Ok'),
-            ),
-          ],
-          type: DialogType.GENERAL,
-        );
-      }
-    });
-  }
-
   @override
   void dispose() {
     groupIdFocus.dispose();
     plateNoFocus.dispose();
     carNoFocus.dispose();
-    qrController?.dispose();
     super.dispose();
   }
 
-  _submit() {
+  _submit() async {
+    // var key = "34462c45e6e50e1122e2c393";
+    // var blockCipher = new BlockCipher(new DESEngine(), key);
+    // var message = "3DpxxiwXxf8rHeVMSHh93k8eOtylWeb0xKM8OHhlB9ofv7PlBrdKhdu0x5N3EyO+GxgdZamrOZH0lvCYacAha8ee7iMFyzmnGi3njOFMwNhH1Rpc4x7jyC07MCsqLx2y";
+    // var ciphertext = blockCipher.encodeB64(message);
+    // var decoded = blockCipher.decodeB64(ciphertext);
+
+    // print("key: $key");
+    // print("message: $message");
+    // print("ciphertext (base64): $ciphertext");
+    // print("decoded ciphertext: $decoded");
+
+    // String _decryptBase64 = await Flutter3des.decryptFromBase64(
+    //   '3DpxxiwXxf8rHeVMSHh93k8eOtylWeb0xKM8OHhlB9ofv7PlBrdKhdu0x5N3EyO+GxgdZamrOZH0lvCYacAha8ee7iMFyzmnGi3njOFMwNhH1Rpc4x7jyC07MCsqLx2y',
+    //   '34462c45e6e50e1122e2c393',
+    //   iv: '737566f4',
+    // );
+    // print(_decryptBase64);
+
+    // String key = '12345678'; // 8-byte
+    // String message =
+    //     '{"Table1":[{"group_id":"D","test_code":"22dfb8263b6174bf6aa2","nric_no":"C7263118IDN"}]}';
+    // List<int> encrypted;
+    // List<int> decrypted;
+    // List<int> iv = hex.decode('737566f4');
+
+    // key = '34462c45e6e50e1122e2c393'; // 24-byte
+    // DES3 des3CBC = DES3(
+    //   key: hex.decode('34462c45e6e50e1122e2c393'),
+    //   mode: DESMode.CBC,
+    //   iv: iv,
+    //   paddingType: DESPaddingType.PKCS7,
+    // );
+    // print(message.codeUnits);
+    // encrypted = des3CBC.encrypt(message.codeUnits);
+    // decrypted = des3CBC.decrypt(encrypted);
+    // print('Triple DES mode: CBC');
+    // print('encrypted: $encrypted');
+    // print('encrypted (hex): ${hex.encode(encrypted)}');
+    // print('encrypted (base64): ${base64.encode(encrypted)}');
+    // print('decrypted: $decrypted');
+    // print('decrypted (hex): ${hex.encode(decrypted)}');
+    // print('decrypted (utf8): ${utf8.decode(decrypted)}');
+
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       FocusScope.of(context).requestFocus(new FocusNode());
-
       localStorage
           .saveEnrolledGroupId(_formKey.currentState?.fields['groupId']?.value);
       localStorage.saveCarNo(
@@ -200,11 +176,44 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                   EasyLoading.show(
                     maskType: EasyLoadingMaskType.black,
                   );
+
+                  Response decryptQrcode = await etestingRepo.decryptQrcode(
+                    qrcodeJson: scanData.toString(),
+                  );
+
+                  if (!decryptQrcode.isSuccess) {
+                    if (!mounted) return;
+                    await showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('JPJ QTO APP'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text(decryptQrcode.message ?? ''),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    EasyLoading.dismiss();
+                    return;
+                  }
                   var vehicleResult =
                       await etestingRepo.isVehicleAvailableByUserId(
-                          plateNo: jsonDecode(scanData.toString())['Table1'][0]
-                                  ['plate_no'] ??
-                              '');
+                    plateNo: decryptQrcode.data[0].plateNo,
+                  );
                   EasyLoading.dismiss();
                   if (vehicleResult.data != 'True') {
                     await showDialog(
@@ -237,19 +246,15 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
 
                   setState(() {
                     _formKey.currentState!.patchValue({
-                      'groupId': jsonDecode(scanData.toString())['Table1'][0]
-                          ['group_id'],
-                      'permitNo': jsonDecode(scanData.toString())['Table1'][0]
-                          ['merchant_no'],
-                      'carNo': jsonDecode(scanData.toString())['Table1'][0]
-                          ['car_no'],
-                      'plateNo': jsonDecode(scanData.toString())['Table1'][0]
-                          ['plate_no'],
+                      'groupId': decryptQrcode.data[0].groupId,
+                      'permitNo': decryptQrcode.data[0].merchantNo,
+                      'carNo': decryptQrcode.data[0].carNo,
+                      'plateNo': decryptQrcode.data[0].plateNo,
                     });
                     showCameraIcon = true;
-                    showQR = false;
                   });
                 } catch (e) {
+                  EasyLoading.dismiss();
                   if (mounted) {
                     customDialog.show(
                       barrierDismissable: false,
@@ -260,7 +265,6 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         TextButton(
                           onPressed: () {
                             context.router.pop();
-                            qrController!.resumeCamera();
                           },
                           child: const Text('Ok'),
                         ),
@@ -440,14 +444,6 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                           FormBuilderValidators.required(
                               errorText: 'Permit No is required'),
                         ]),
-                      ),
-                    ),
-                    Visibility(
-                      visible: showQR,
-                      child: Container(
-                        width: 300,
-                        height: 300,
-                        child: _buildQrView(context),
                       ),
                     ),
                     // Visibility(

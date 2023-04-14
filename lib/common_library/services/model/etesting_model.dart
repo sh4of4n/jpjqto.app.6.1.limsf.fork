@@ -490,3 +490,63 @@ class ResultCheckUserLoginStatus {
     return data;
   }
 }
+
+class DecryptQrcodeResponse {
+  List<Table1>? table1;
+
+  DecryptQrcodeResponse({this.table1});
+
+  DecryptQrcodeResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Table1'] != null) {
+      table1 = <Table1>[];
+      json['Table1'].forEach((v) {
+        table1!.add(new Table1.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.table1 != null) {
+      data['Table1'] = this.table1!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Table1 {
+  String? groupId;
+  String? testCode;
+  String? nricNo;
+  String? merchantNo;
+  String? carNo;
+  String? plateNo;
+
+  Table1(
+      {this.groupId,
+      this.testCode,
+      this.nricNo,
+      this.merchantNo,
+      this.carNo,
+      this.plateNo});
+
+  Table1.fromJson(Map<String, dynamic> json) {
+    groupId = json['group_id'];
+    testCode = json['test_code'];
+    nricNo = json['nric_no'];
+    merchantNo = json['merchant_no'];
+    carNo = json['car_no'];
+    plateNo = json['plate_no'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['group_id'] = this.groupId;
+    data['test_code'] = this.testCode;
+    data['nric_no'] = this.nricNo;
+    data['merchant_no'] = this.merchantNo;
+    data['car_no'] = this.carNo;
+    data['plate_no'] = this.plateNo;
+    return data;
+  }
+}
