@@ -597,9 +597,8 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
       Response decryptQrcode = await etestingRepo.decryptQrcode(
         qrcodeJson: scanData.toString(),
       );
-
+      EasyLoading.dismiss();
       if (!decryptQrcode.isSuccess) {
-        EasyLoading.dismiss();
         if (!mounted) return;
         await showDialog(
           context: context,
@@ -625,7 +624,6 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
             );
           },
         );
-        EasyLoading.dismiss();
         return;
       }
 
@@ -644,7 +642,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
           );
         } else {
           nric = '';
-
+          EasyLoading.dismiss();
           customDialog.show(
             barrierDismissable: false,
             context: context,

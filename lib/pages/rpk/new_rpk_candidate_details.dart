@@ -575,9 +575,8 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
       Response decryptQrcode = await etestingRepo.decryptQrcode(
         qrcodeJson: scanData.toString(),
       );
-
+      EasyLoading.dismiss();
       if (!decryptQrcode.isSuccess) {
-        EasyLoading.dismiss();
         if (!mounted) return;
         await showDialog(
           context: context,
@@ -603,7 +602,6 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
             );
           },
         );
-        EasyLoading.dismiss();
         return;
       }
       setState(() {

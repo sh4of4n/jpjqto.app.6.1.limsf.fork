@@ -1,3 +1,9 @@
+04/05/2023 V.6.1.17
+ePandu ws 6.1.200.0
+Enhanced
+
+- Dismiss loading after scan calon qr code
+
 14/04/2023 V.6.1.16
 ePandu ws 6.1.200.0
 Enhanced
