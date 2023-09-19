@@ -19,6 +19,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'RpkCandidateDetails')
 class RpkCandidateDetails extends StatefulWidget {
   @override
   _RpkCandidateDetailsState createState() => _RpkCandidateDetailsState();

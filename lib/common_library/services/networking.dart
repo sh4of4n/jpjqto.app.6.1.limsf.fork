@@ -117,7 +117,6 @@ class Networking extends BaseRepo {
             .replaceAll(r'"', '')
             .replaceAll('\n', '')
             .replaceAll(r'\u000d\u000a', '');
-        ;
 
         print(response.statusCode);
         print(message);

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/utils/app_config.dart';
 import 'package:jpj_qto/utils/constants.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:package_info/package_info.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+@RoutePage()
 class IdentityBarcode extends StatefulWidget {
   @override
   _IdentityBarcodeState createState() => _IdentityBarcodeState();
@@ -66,7 +68,7 @@ class _IdentityBarcodeState extends State<IdentityBarcode> {
 
   _loadQr() {
     if (id.isNotEmpty)
-      return QrImage(
+      return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
         embeddedImageStyle: QrEmbeddedImageStyle(
           size: Size(40, 40),

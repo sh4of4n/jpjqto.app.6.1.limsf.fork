@@ -1,12 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:convert/convert.dart';
-import 'package:dart_3des/dart_3des.dart';
-import 'package:dart_des/dart_des.dart';
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter_3des/flutter_3des.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -21,9 +15,9 @@ import 'package:jpj_qto/common_library/utils/custom_button.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/common_library/utils/uppercase_formatter.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'GetVehicleInfo')
 class GetVehicleInfo extends StatefulWidget {
   final String type;
   GetVehicleInfo({Key? key, required this.type}) : super(key: key);

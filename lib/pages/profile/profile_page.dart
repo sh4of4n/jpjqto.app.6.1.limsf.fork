@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/services/repository/profile_repository.dart';
 import 'package:jpj_qto/common_library/utils/loading_model.dart';
@@ -6,6 +7,7 @@ import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage(name: 'Profile')
 class Profile extends StatefulWidget {
   final userProfile;
   final isLoading;

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
 import 'package:jpj_qto/pages/login/new_login_form.dart';
 import 'package:jpj_qto/pages/login/new_login_tablet_form.dart';
@@ -6,10 +7,9 @@ import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'login_bottom_card.dart';
-import 'login_form.dart';
 import 'login_tablet_bottom_card.dart';
-import 'login_tablet_form.dart';
 
+@RoutePage(name: 'Login')
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();

@@ -22,6 +22,7 @@ import '../../common_library/services/response.dart';
 import '../../router.gr.dart';
 import 'home_module.dart';
 
+@RoutePage(name: 'Home')
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();

@@ -9,9 +9,7 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
-import '../../main.dart';
 import '../../router.gr.dart';
-import '../../utils/check_url.dart';
 
 class LoginBottomCard extends StatefulWidget {
   @override

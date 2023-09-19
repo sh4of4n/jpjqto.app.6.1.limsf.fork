@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import '../../common_library/services/repository/etesting_repository.dart';
 
 // ignore: must_be_immutable
+@RoutePage(name: 'RpkPartIII')
 class RpkPartIII extends StatefulWidget {
   final String? qNo;
   final String? nric;

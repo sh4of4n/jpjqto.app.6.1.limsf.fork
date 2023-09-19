@@ -12,6 +12,7 @@ import 'package:jpj_qto/utils/local_storage.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'ConfirmCandidateInfo')
 class ConfirmCandidateInfo extends StatefulWidget {
   final String? part3Type;
   final String? nric;

@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 
+@RoutePage()
 class RulePage extends StatefulWidget {
   RulePage({Key? key}) : super(key: key);
 

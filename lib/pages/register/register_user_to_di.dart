@@ -8,6 +8,7 @@ import 'package:jpj_qto/common_library/services/repository/auth_repository.dart'
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'RegisterUserToDi')
 class RegisterUserToDi extends StatelessWidget {
   final data;
 

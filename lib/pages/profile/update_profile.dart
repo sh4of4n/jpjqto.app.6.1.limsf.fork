@@ -27,6 +27,7 @@ enum Gender { male, female }
 
 enum AppState { free, picked, cropped }
 
+@RoutePage(name: 'UpdateProfile')
 class UpdateProfile extends StatefulWidget {
   @override
   _UpdateProfileState createState() => _UpdateProfileState();
@@ -439,7 +440,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.cancel),
                         onPressed: () {
-                          WidgetsBinding.instance!.addPostFrameCallback(
+                          WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _icController.clear());
                         },
                       ),
@@ -500,7 +501,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.cancel),
                         onPressed: () {
-                          WidgetsBinding.instance!.addPostFrameCallback(
+                          WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _nameController.clear());
                           // _nameController.text = '';
                         },
@@ -551,7 +552,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.cancel),
                         onPressed: () {
-                          WidgetsBinding.instance!.addPostFrameCallback(
+                          WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _nickNameController.clear());
                         },
                       ),
@@ -614,7 +615,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.cancel),
                         onPressed: () {
-                          WidgetsBinding.instance!.addPostFrameCallback(
+                          WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _emailController.clear());
                         },
                       ),
@@ -672,7 +673,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.cancel),
                         onPressed: () {
-                          WidgetsBinding.instance!.addPostFrameCallback(
+                          WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _postcodeController.clear());
                         },
                       ),

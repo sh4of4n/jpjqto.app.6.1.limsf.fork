@@ -18,6 +18,7 @@ import '../../common_library/utils/app_localizations.dart';
 import '../../common_library/utils/custom_dialog.dart';
 import '../../utils/constants.dart';
 
+@RoutePage()
 class CheckListPage extends StatefulWidget {
   CheckListPage({Key? key}) : super(key: key);
 

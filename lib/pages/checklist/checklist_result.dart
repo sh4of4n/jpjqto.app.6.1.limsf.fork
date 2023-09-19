@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:jpj_qto/component/profile.dart';
 import '../../common_library/services/repository/checklist_repository.dart';
 import '../../utils/constants.dart';
 
+@RoutePage()
 class ChecklistResultPage extends StatefulWidget {
   ChecklistResultPage({Key? key}) : super(key: key);
 

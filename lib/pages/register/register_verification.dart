@@ -9,6 +9,7 @@ import 'package:quiver/async.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'RegisterVerification')
 class RegisterVerification extends StatefulWidget {
   final data;
 

@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
+import 'package:jpj_qto/router.dart';
 import 'package:jpj_qto/utils/app_config.dart';
 
 import 'package:jpj_qto/utils/device_info.dart';
@@ -20,6 +21,7 @@ import '../../router.gr.dart';
 import '../../utils/check_url.dart';
 import '../../utils/constants.dart';
 
+@RoutePage(name: 'Authentication')
 class Authentication extends StatefulWidget {
   @override
   _AuthenticationState createState() => _AuthenticationState();

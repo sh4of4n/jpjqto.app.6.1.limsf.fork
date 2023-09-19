@@ -12,6 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'TakeProfilePicture')
 class TakeProfilePicture extends StatefulWidget {
   final List<CameraDescription>? camera;
 

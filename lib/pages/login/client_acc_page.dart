@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/pages/login/client_acc_tablet_form.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'client_acc_form.dart';
 
+@RoutePage(name: 'ClientAccount')
 class ClientAccount extends StatefulWidget {
   final data;
 

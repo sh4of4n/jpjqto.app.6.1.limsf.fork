@@ -13,6 +13,7 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../common_library/services/repository/etesting_repository.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'Settings')
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();

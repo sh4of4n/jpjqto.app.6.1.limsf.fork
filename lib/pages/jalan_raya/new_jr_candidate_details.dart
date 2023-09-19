@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -15,11 +14,11 @@ import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../common_library/services/response.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class NewJrCandidateDetails extends StatefulWidget {
   @override
   _NewJrCandidateDetailsState createState() => _NewJrCandidateDetailsState();

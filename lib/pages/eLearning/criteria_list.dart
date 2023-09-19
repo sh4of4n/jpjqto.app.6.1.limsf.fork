@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'CriteriaList')
 class CriteriaList extends StatefulWidget {
   final String studentIc;
   final String startDateTime;

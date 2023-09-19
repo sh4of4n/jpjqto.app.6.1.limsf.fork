@@ -6,7 +6,7 @@ import 'package:flutter_logs/flutter_logs.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
-import 'package:jpj_qto/utils/app_config.dart';
+import 'package:jpj_qto/router.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,6 @@ import 'application.dart';
 import 'common_library/services/model/bill_model.dart';
 import 'common_library/services/model/kpp_model.dart';
 import 'common_library/utils/custom_dialog.dart';
-import 'router.gr.dart';
 
 final getIt = GetIt.instance;
 GlobalKey<ScaffoldMessengerState> navigatorKey =
@@ -56,47 +55,49 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
 
-  runZonedGuarded(() async {
-    await SentryFlutter.init(
-      (options) {
-        options.dsn = kDebugMode
-            ? ''
-            : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
-      },
-    );
+  // runZonedGuarded(() async {
 
-    getIt.registerSingleton<AppRouter>(AppRouter());
-    getIt.registerSingleton<NavigatorState>(NavigatorState());
+  // }, (exception, stackTrace) async {
+  //   localStorage.getExportLogFile().then((value) {
+  //     if (value == true) {
+  //       FlutterLogs.logInfo(
+  //         'Exception',
+  //         'Global Exception',
+  //         exception.toString(),
+  //       );
+  //     }
+  //   });
+  //   await Sentry.captureException(exception, stackTrace: stackTrace);
+  //   await EasyLoading.dismiss();
+  // });
 
-    runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => LanguageModel(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => JrSessionModel(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => RpkSessionModel(),
-          ),
-        ],
-        child: MyApp(),
-      ),
-    );
-  }, (exception, stackTrace) async {
-    localStorage.getExportLogFile().then((value) {
-      if (value == true) {
-        FlutterLogs.logInfo(
-          'Exception',
-          'Global Exception',
-          exception.toString(),
-        );
-      }
-    });
-    await Sentry.captureException(exception, stackTrace: stackTrace);
-    await EasyLoading.dismiss();
-  });
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = kDebugMode
+          ? ''
+          : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
+    },
+  );
+
+  getIt.registerSingleton<AppRouter>(AppRouter());
+  getIt.registerSingleton<NavigatorState>(NavigatorState());
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LanguageModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => JrSessionModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RpkSessionModel(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -170,12 +171,11 @@ class _MyAppState extends State<MyApp> {
 
         FormBuilderLocalizations.delegate,
       ],
-      routerDelegate: router.delegate(initialRoutes: [const Authentication()]),
-      routeInformationParser: router.defaultRouteParser(),
       // initialRoute: AUTH,
       // onGenerateRoute: RouteGenerator.generateRoute,
       builder: EasyLoading.init(),
       scaffoldMessengerKey: navigatorKey,
+      routerConfig: _appRouter.config(),
     );
   }
 

@@ -8,9 +8,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 
 import '../../router.gr.dart';
-import '../rpk/list_part_iii.dart';
 import 'home_icon.dart';
 
+@RoutePage(name: 'HomeSelect')
 class HomeSelect extends StatefulWidget {
   HomeSelect({Key? key}) : super(key: key);
 

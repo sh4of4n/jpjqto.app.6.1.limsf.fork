@@ -23,6 +23,7 @@ import '../../common_library/services/response.dart';
 import '../../router.gr.dart';
 import 'home_icon.dart';
 
+@RoutePage(name: 'HomePageRpk')
 class HomePageRpk extends StatefulWidget {
   @override
   _HomePageRpkState createState() => _HomePageRpkState();

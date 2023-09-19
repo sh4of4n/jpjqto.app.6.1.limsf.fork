@@ -15,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../router.gr.dart';
-import 'sessions/session.dart';
 
 // ignore: must_be_immutable
+@RoutePage(name: 'JrPartIII')
 class JrPartIII extends StatefulWidget {
   final String? qNo;
   final String? nric;

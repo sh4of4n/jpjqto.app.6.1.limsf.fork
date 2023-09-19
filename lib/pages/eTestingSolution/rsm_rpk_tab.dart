@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'main_part_2.dart';
 import 'main_part_3.dart';
 
+@RoutePage(name: 'RsmRpkTabs')
 class RsmRpkTabs extends StatefulWidget {
   @override
   _RsmRpkTabsState createState() => _RsmRpkTabsState();
