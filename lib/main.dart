@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_logs/flutter_logs.dart';
@@ -26,7 +25,6 @@ GlobalKey<ScaffoldMessengerState> navigatorKey =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final localStorage = LocalStorage();
 
   await FlutterLogs.initLogs(
     logLevelsEnabled: [
@@ -70,33 +68,54 @@ void main() async {
   //   await EasyLoading.dismiss();
   // });
 
-  await SentryFlutter.init(
-    (options) {
-      options.dsn = kDebugMode
-          ? ''
-          : 'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
-    },
-  );
-
   getIt.registerSingleton<AppRouter>(AppRouter());
   getIt.registerSingleton<NavigatorState>(NavigatorState());
-
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LanguageModel(),
+  setupSentry(
+    () => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => LanguageModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => JrSessionModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => RpkSessionModel(),
+          ),
+        ],
+        child: SentryScreenshotWidget(
+          child: SentryUserInteractionWidget(
+            child: DefaultAssetBundle(
+              bundle: SentryAssetBundle(),
+              child: MyApp(),
+            ),
+          ),
         ),
-        ChangeNotifierProvider(
-          create: (context) => JrSessionModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => RpkSessionModel(),
-        ),
-      ],
-      child: MyApp(),
+      ),
     ),
   );
+}
+
+Future<void> setupSentry(AppRunner appRunner,
+    {bool isIntegrationTest = false,
+    BeforeSendCallback? beforeSendCallback}) async {
+  await SentryFlutter.init((options) {
+    options.dsn =
+        'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
+    options.tracesSampleRate = 1.0;
+    options.attachThreads = true;
+    options.enableWindowMetricBreadcrumbs = true;
+    options.sendDefaultPii = true;
+    options.reportSilentFlutterErrors = true;
+    options.attachScreenshot = true;
+    options.screenshotQuality = SentryScreenshotQuality.low;
+    options.attachViewHierarchy = true;
+    options.maxRequestBodySize = MaxRequestBodySize.always;
+    options.maxResponseBodySize = MaxResponseBodySize.always;
+  },
+      // Init your App.
+      appRunner: appRunner);
 }
 
 class MyApp extends StatefulWidget {

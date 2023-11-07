@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_logs/flutter_logs.dart';
 import 'package:http/http.dart' as http;
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'dart:convert';
 import '../../utils/app_config.dart';
 import '../../utils/local_storage.dart';
@@ -53,6 +54,12 @@ class Networking extends BaseRepo {
       // }
       url = await wsUrlBox.get('wsUrl');
     }
+    final transaction = Sentry.startTransaction(
+      'webrequest',
+      'request',
+      bindToScope: true,
+    );
+    var client = SentryHttpClient();
     try {
       http.Response response;
       // for getWsUrl
@@ -68,7 +75,7 @@ class Networking extends BaseRepo {
             );
           }
         });
-        response = await http
+        response = await client
             .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 10000));
       } else {
@@ -84,11 +91,11 @@ class Networking extends BaseRepo {
           }
         });
 
-        response = await http
+        response = await client
             .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 30000));
       }
-
+      await transaction.finish(status: const SpanStatus.ok());
       if (response.statusCode == 200) {
         print(response.body);
         localStorage.getExportLogFile().then((value) {
@@ -153,11 +160,19 @@ class Networking extends BaseRepo {
         }
       });
       return handleError(error, stackTrace);
+    } finally {
+      client.close;
     }
   }
 
   Future<Response> postData(
       {String? api, String? path, required body, headers}) async {
+    final transaction = Sentry.startTransaction(
+      'webrequest',
+      'request',
+      bindToScope: true,
+    );
+    var client = SentryHttpClient();
     try {
       if (customUrl != null) {
         url = customUrl;
@@ -195,10 +210,10 @@ class Networking extends BaseRepo {
 
       uri = Uri.parse('$url/webapi/$api${path ?? ""}');
 
-      http.Response response = await http
+      http.Response response = await client
           .post(uri, body: body, headers: headers)
           .timeout(const Duration(seconds: 30));
-
+      await transaction.finish(status: const SpanStatus.ok());
       if (response.statusCode == 200) {
         print(response.body);
         localStorage.getExportLogFile().then((value) {
@@ -260,6 +275,8 @@ class Networking extends BaseRepo {
         }
       });
       return handleError(error, stackTrace);
+    } finally {
+      client.close();
     }
   }
 

@@ -1,3 +1,13 @@
+07/11/2023 V.6.1.20
+ePandu ws 6.1.219.0
+Enhanced
+- New Read MyKad & verify thumbprint api
+
+04/05/2023 V.6.1.19
+ePandu ws 6.1.231.0
+Enhanced
+- Can Read MyKad & verify thumbprint
+
 04/05/2023 V.6.1.18
 ePandu ws 6.1.200.0
 Enhanced

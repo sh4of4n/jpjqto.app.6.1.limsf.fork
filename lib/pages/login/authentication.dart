@@ -13,6 +13,7 @@ import 'package:jpj_qto/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../common_library/services/repository/etesting_repository.dart';
 import '../../common_library/services/response.dart';
@@ -170,6 +171,7 @@ class _AuthenticationState extends State<Authentication> {
     String? carNo = await localStorage.getCarNo();
     String? plateNo = await localStorage.getPlateNo();
     String? type = await localStorage.getType();
+    String? mySikapId = await localStorage.getMySikapId();
     if (mounted) {
       if (userId != null && userId.isNotEmpty) {
         if (groupId != null &&
@@ -181,6 +183,12 @@ class _AuthenticationState extends State<Authentication> {
           if (type == "RPK") {
             context.router.replace(const HomePageRpk());
           } else {
+            await Sentry.configureScope(
+              (scope) => scope.setUser(SentryUser(
+                id: mySikapId,
+              )),
+            );
+            if (!mounted) return;
             context.router.replace(const Home());
           }
         } else {

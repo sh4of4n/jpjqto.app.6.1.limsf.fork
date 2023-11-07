@@ -49,5 +49,6 @@ class AppRouter extends $AppRouter {
     AutoRoute(page: QrScannerRoute.page),
     AutoRoute(page: NewRpkCandidateDetails.page),
     AutoRoute(page: NewJrCandidateDetails.page),
+    // AutoRoute(page: Test.page, path: '/'),
   ];
 }

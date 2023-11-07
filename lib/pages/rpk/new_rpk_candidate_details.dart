@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
@@ -15,6 +16,7 @@ import 'package:jpj_qto/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
+import 'package:jpj_qto/utils/mykad_verify.dart';
 
 import '../../router.gr.dart';
 
@@ -77,6 +79,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
 
     if (vehicleResult.data != 'True') {
       EasyLoading.dismiss();
+      if (!mounted) return;
       await showDialog(
         context: context,
         barrierDismissible: false, // user must tap button!
@@ -115,6 +118,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
     if (result.isSuccess) {
       getSelectedCandidateInfo(result.data[0]);
     } else {
+      if (!mounted) return;
       customDialog.show(
         context: context,
         content: result.message,
@@ -138,6 +142,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
 
     if (vehicleResult.data != 'True') {
       EasyLoading.dismiss();
+      if (!mounted) return;
       await showDialog(
         context: context,
         barrierDismissible: false,
@@ -162,6 +167,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
           );
         },
       );
+      if (!mounted) return;
       await context.router.pushAndPopUntil(GetVehicleInfo(type: 'RPK'),
           predicate: (r) => false);
     }
@@ -262,7 +268,6 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
       if (success == 0) {
         // await callPart3JpjTest();
       }
-
       context.router
           .push(
         ConfirmCandidateInfo(
@@ -412,6 +417,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
       success += 1;
 
       if (type == 'MANUAL') {
+        if (!mounted) return;
         customDialog.show(
           context: context,
           content: AppLocalizations.of(context)!.translate('call_successful'),
@@ -419,6 +425,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         );
       }
     } else {
+      if (!mounted) return;
       customDialog.show(
         context: context,
         barrierDismissable: false,
@@ -455,6 +462,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
     if (result.isSuccess) {
       // context.router.pop();
       if (type == 'MANUAL') {
+        if (!mounted) return;
         await showDialog<void>(
           context: context,
           barrierDismissible: false, // user must tap button!
@@ -509,6 +517,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         qNo = '';
       });
       if (result.message == 'You not yet call this student.') {
+        if (!mounted) return;
         context.router.pop();
       } else {
         if (mounted) {
@@ -562,12 +571,14 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
     return true;
   }
 
-  Future<void> processQrCodeResult(
-      {required String scanData,
-      required selectedCandidate,
-      required String qNo}) async {
+  Future<void> processQrCodeResult({
+    required BuildContext context,
+    required String scanData,
+    required selectedCandidate,
+    required String qNo,
+  }) async {
     try {
-      EasyLoading.show(
+      await EasyLoading.show(
         maskType: EasyLoadingMaskType.black,
       );
 
@@ -579,13 +590,14 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         Response decryptQrcode = await etestingRepo.decryptQrcode(
           qrcodeJson: scanData.toString(),
         );
-        EasyLoading.dismiss();
+
         if (!decryptQrcode.isSuccess) {
+          await EasyLoading.dismiss();
           if (!mounted) return;
           await showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (BuildContext context) {
+            builder: (BuildContext context2) {
               return AlertDialog(
                 title: const Text('JPJ QTO APP'),
                 content: SingleChildScrollView(
@@ -599,7 +611,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                   TextButton(
                     child: const Text('OK'),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context2).pop();
                     },
                   ),
                 ],
@@ -612,28 +624,9 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         nric = decryptQrcode.data[0].nricNo;
         testCode = decryptQrcode.data[0].testCode;
       }
-
-      setState(() {
-        iconVisible = true;
-
-        if (qNo.isNotEmpty) {
-          compareCandidateInfo(
-            groupId: selectedCandidate.groupId,
-            testCode: selectedCandidate.testCode,
-            testDate: selectedCandidate.testDate,
-          );
-        } else {
-          nric = '';
-          EasyLoading.dismiss();
-          customDialog.show(
-            barrierDismissable: false,
-            context: context,
-            content: AppLocalizations.of(context)!.translate('scan_again'),
-            type: DialogType.INFO,
-          );
-        }
-      });
     } catch (e) {
+      await EasyLoading.dismiss();
+      if (!mounted) return;
       customDialog.show(
         barrierDismissable: false,
         context: context,
@@ -648,6 +641,122 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         ],
         type: DialogType.GENERAL,
       );
+    }
+
+    try {
+      await MyCardVerify().onCreate();
+      await EasyLoading.dismiss();
+      if (!mounted) return;
+      bool? dialogResult = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context2) {
+              return AlertDialog(
+                title: const Text('MyKad Authentication'),
+                content: const Text('Please insert student MyKad.'),
+                actions: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'MyKad is inserted',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        onPressed: () async {
+                          try {
+                            await EasyLoading.show(
+                                maskType: EasyLoadingMaskType.black,
+                                status:
+                                    'Reading personal information in MyKad...');
+                            final myKadNric =
+                                await MyCardVerify().onReadMyKad();
+                            if (myKadNric != nric) {
+                              throw PlatformException(
+                                  message: 'Student IC is not same as MyKad IC',
+                                  code: '');
+                            }
+                            await MyCardVerify().onFingerprintVerify();
+                            await EasyLoading.show(
+                                maskType: EasyLoadingMaskType.black,
+                                status:
+                                    'Please place student thumb on the fingerprint reader...');
+                            final fpResult =
+                                await MyCardVerify().onFingerprintVerify2();
+                            if (fpResult ==
+                                'Fingerprint matches fingerprint in MyKad') {
+                              await EasyLoading.dismiss();
+                              if (!context2.mounted) return;
+                              context2.router.pop(true);
+                            }
+                          } on PlatformException catch (e) {
+                            if (context2.mounted) {
+                              Navigator.of(context2).pop();
+                            }
+                            SnackBar snackBar = SnackBar(
+                              content: Text(e.message ?? ''),
+                              backgroundColor: Colors.red,
+                            );
+                            if (!context2.mounted) return;
+                            ScaffoldMessenger.of(context2)
+                                .showSnackBar(snackBar);
+                          } finally {
+                            await EasyLoading.dismiss();
+                          }
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context2).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ) ??
+          false;
+      if (dialogResult) {
+        setState(
+          () async {
+            iconVisible = true;
+
+            if (qNo.isNotEmpty) {
+              compareCandidateInfo(
+                groupId: selectedCandidate.groupId,
+                testCode: selectedCandidate.testCode,
+                testDate: selectedCandidate.testDate,
+              );
+            } else {
+              nric = '';
+              groupId = '';
+              testCode = '';
+              customDialog.show(
+                barrierDismissable: false,
+                context: context,
+                content: AppLocalizations.of(context)!.translate('scan_again'),
+                type: DialogType.INFO,
+              );
+            }
+          },
+        );
+      }
+    } on PlatformException catch (e) {
+      SnackBar snackBar = SnackBar(
+        content: Text(e.message ?? ''),
+        backgroundColor: Colors.red,
+      );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } finally {
+      await EasyLoading.dismiss();
     }
   }
 
@@ -686,9 +795,11 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
         floatingActionButton: FloatingActionButton.extended(
           label: const Text('Scan QR Code'),
           onPressed: () async {
-            var scanData = await context.router.push(QrScannerRoute());
+            var scanData = await context.router.push(const QrScannerRoute());
             if (scanData != null) {
+              if (!mounted) return;
               processQrCodeResult(
+                context: context,
                 scanData: scanData.toString(),
                 selectedCandidate: selectedCandidate,
                 qNo: qNo!,

@@ -1,7 +1,7 @@
 name: jpj_qto
 description: JPJ QTO
 
-version: 6.1.18+63
+version: 6.1.20+65
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
