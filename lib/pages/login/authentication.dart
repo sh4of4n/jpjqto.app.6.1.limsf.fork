@@ -179,15 +179,15 @@ class _AuthenticationState extends State<Authentication> {
             plateNo != null &&
             plateNo.isNotEmpty) {
           if (type == "RPK") {
-            context.router.replace(HomePageRpk());
+            context.router.replace(const HomePageRpk());
           } else {
-            context.router.replace(Home());
+            context.router.replace(const Home());
           }
         } else {
           context.router.replace(HomeSelect());
         }
       } else {
-        context.router.replace(Login());
+        context.router.replace(const Login());
       }
     }
   }
@@ -196,7 +196,7 @@ class _AuthenticationState extends State<Authentication> {
   Widget build(BuildContext context) {
     ScreenUtil.init(
       context,
-      designSize: Size(1440, 2960),
+      designSize: const Size(1440, 2960),
     );
 
     return Container(
@@ -209,7 +209,7 @@ class _AuthenticationState extends State<Authentication> {
             Colors.amber.shade300,
             ColorConstant.primaryColor,
           ],
-          stops: [0.2, 0.4, 0.6, 0.7, 1],
+          stops: const [0.2, 0.4, 0.6, 0.7, 1],
           radius: 0.7,
         ),
       ),

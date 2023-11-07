@@ -9,7 +9,7 @@ class LearnResultTrn extends StatefulWidget {
 class _LearnResultTrnState extends State<LearnResultTrn> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
 

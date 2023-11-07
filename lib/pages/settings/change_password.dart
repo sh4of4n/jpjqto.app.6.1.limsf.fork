@@ -26,7 +26,7 @@ class ChangePassword extends StatelessWidget {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -46,7 +46,7 @@ class ChangePassword extends StatelessWidget {
                 SingleChildScrollView(
                   child: Padding(
                     padding:
-                        EdgeInsets.only(left: 40.0, right: 40.0, top: 60.0),
+                        const EdgeInsets.only(left: 40.0, right: 40.0, top: 60.0),
                     child: Column(
                       children: <Widget>[
                         SizedBox(

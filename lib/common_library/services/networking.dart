@@ -211,12 +211,13 @@ class Networking extends BaseRepo {
           }
         });
 
-        if (response.body == 'True' || response.body == 'False')
+        if (response.body == 'True' || response.body == 'False') {
           return Response(true, data: response.body);
-        else if (response.body.startsWith('{'))
+        } else if (response.body.startsWith('{')) {
           return Response(true, data: jsonDecode(response.body));
-        else
+        } else {
           return Response(true, data: response.body);
+        }
       } else {
         String message = response.body
             .replaceAll('[BLException]', '')

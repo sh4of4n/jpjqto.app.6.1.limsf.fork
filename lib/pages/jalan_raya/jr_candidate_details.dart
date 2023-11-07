@@ -220,9 +220,9 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         context.router.push(
           ConfirmCandidateInfo(
             part3Type: 'JALAN RAYA',
-            nric: this.nric,
-            candidateName: this.name,
-            qNo: this.qNo,
+            nric: nric,
+            candidateName: name,
+            qNo: qNo,
             groupId: this.groupId,
             testDate: testDate,
             testCode: this.testCode,
@@ -249,8 +249,8 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                     context.router.pop();
 
                     setState(() {
-                      this.name = candidateList![i].fullname;
-                      this.qNo = candidateList![i].queueNo;
+                      name = candidateList![i].fullname;
+                      qNo = candidateList![i].queueNo;
                       for (var owner in owners) {
                         if (owner.ownerCat == candidateList![i].ownerCat) {
                           kewarganegaraan = owner.ownerCatDesc;
@@ -258,21 +258,22 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                       }
                     });
 
-                    if (success > 0)
+                    if (success > 0) {
                       Future.wait([
                         cancelCallPart3JpjTest(),
                         callPart3JpjTest(type: 'SKIP'),
                       ]);
-                    else
+                    } else {
                       await callPart3JpjTest(type: 'SKIP');
+                    }
 
                     context.router
                         .push(
                       ConfirmCandidateInfo(
                         part3Type: 'JALAN RAYA',
-                        nric: this.nric,
-                        candidateName: this.name,
-                        qNo: this.qNo,
+                        nric: nric,
+                        candidateName: name,
+                        qNo: qNo,
                         groupId: this.groupId,
                         testDate: testDate,
                         testCode: this.testCode,
@@ -696,7 +697,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ProfileWidget(),
+                  const ProfileWidget(),
                   Container(
                     width: 1300.h,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -910,13 +911,14 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
                                   ],
                                   type: DialogType.GENERAL,
                                 );
-                              } else
+                              } else {
                                 customDialog.show(
                                   context: context,
                                   content: AppLocalizations.of(context)!
                                       .translate('select_queue_no'),
                                   type: DialogType.INFO,
                                 );
+                              }
                             },
                             buttonColor: Colors.blue,
                             title: AppLocalizations.of(context)!

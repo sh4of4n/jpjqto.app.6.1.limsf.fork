@@ -267,9 +267,9 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
           .push(
         ConfirmCandidateInfo(
           part3Type: 'RPK',
-          nric: this.nric,
-          candidateName: this.name,
-          qNo: this.qNo,
+          nric: nric,
+          candidateName: name,
+          qNo: qNo,
           groupId: this.groupId,
           testDate: testDate,
           testCode: this.testCode,
@@ -643,7 +643,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
             onPressed: () {
               context.router.pop();
             },
-            child: Text('Ok'),
+            child: const Text('Ok'),
           ),
         ],
         type: DialogType.GENERAL,
@@ -666,7 +666,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Calling'),
+          title: const Text('Calling'),
           actions: [
             IconButton(
               onPressed: () {
@@ -677,7 +677,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                   type: DialogType.INFO,
                 );
               },
-              icon: Icon(Icons.info_outline),
+              icon: const Icon(Icons.info_outline),
               tooltip: AppLocalizations.of(context)!
                   .translate('select_queue_tooltip'),
             ),
@@ -706,7 +706,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
             children: [
               Column(
                 children: [
-                  ProfileWidget(),
+                  const ProfileWidget(),
                   selectedCandidate == null
                       ? ElevatedButton(
                           onPressed: () {
@@ -725,7 +725,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                             ),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   icPhoto == ''
                       ? const SizedBox()
                       : CachedNetworkImage(
@@ -743,7 +743,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Queue No',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -753,7 +753,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                 qNo!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'No. ID',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -763,7 +763,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                 nric!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Nama',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -773,7 +773,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                 name!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Kategori ID',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -783,7 +783,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                 kewarganegaraan ?? '',
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Kelas',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -890,13 +890,14 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                   ],
                                   type: DialogType.GENERAL,
                                 );
-                              } else
+                              } else {
                                 customDialog.show(
                                   context: context,
                                   content:
                                       'Please press the Panggil Calon button to call the candidate.',
                                   type: DialogType.INFO,
                                 );
+                              }
                             },
                             buttonColor: Colors.blue,
                             title: AppLocalizations.of(context)!
@@ -911,7 +912,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                                 type: DialogType.INFO,
                               );
                             },
-                            icon: Icon(Icons.info_outline),
+                            icon: const Icon(Icons.info_outline),
                           ),
                         ],
                       ),

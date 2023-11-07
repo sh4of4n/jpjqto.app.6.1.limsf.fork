@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[
@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[

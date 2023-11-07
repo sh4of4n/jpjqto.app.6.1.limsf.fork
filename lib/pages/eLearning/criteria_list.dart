@@ -20,7 +20,7 @@ class CriteriaList extends StatefulWidget {
   final String course;
   final String part;
 
-  CriteriaList(
+  const CriteriaList(
     this.studentIc,
     this.startDateTime,
     this.group,
@@ -81,9 +81,9 @@ class _CriteriaListState extends State<CriteriaList> {
     //print(jsonTags);
 
     EkppTagReturn tutorial = EkppTagReturn(tags);
-    String _ekppTag = jsonEncode(tutorial);
+    String ekppTag = jsonEncode(tutorial);
     setState(() {
-      ekppTag = _ekppTag;
+      ekppTag = ekppTag;
     });
     print(ekppTag);
 
@@ -121,7 +121,7 @@ class _CriteriaListState extends State<CriteriaList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Criteria'),
+        title: const Text('Criteria'),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
@@ -144,8 +144,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -169,11 +169,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c1Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -183,9 +183,9 @@ class _CriteriaListState extends State<CriteriaList> {
                           fillColor: Colors.white,
                           focusColor: Colors.black,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -209,8 +209,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -231,11 +231,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c2Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -244,9 +244,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -270,8 +270,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -292,11 +292,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c3Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -305,9 +305,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -331,8 +331,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -353,11 +353,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c4Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -366,9 +366,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -392,8 +392,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -414,11 +414,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c5Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -427,9 +427,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -453,8 +453,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -475,11 +475,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c6Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -488,9 +488,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -514,8 +514,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -536,11 +536,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c7Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -549,9 +549,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -575,8 +575,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
@@ -597,11 +597,11 @@ class _CriteriaListState extends State<CriteriaList> {
                       ),
                       TextFormField(
                         controller: _c8Controller,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
+                          contentPadding: const EdgeInsets.only(left: 20),
                           labelStyle: TextStyle(
                             fontSize: ScreenUtil().setSp(60),
                             color: Colors.grey[800],
@@ -610,9 +610,9 @@ class _CriteriaListState extends State<CriteriaList> {
                               .translate('feedback_lbl'),
                           fillColor: Colors.white,
                           filled: true,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(25.0),
-                            borderSide: new BorderSide(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                       ),
@@ -626,7 +626,7 @@ class _CriteriaListState extends State<CriteriaList> {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.blueGrey[200],
-                  borderRadius: new BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -634,7 +634,7 @@ class _CriteriaListState extends State<CriteriaList> {
                     keyboardType: TextInputType.multiline,
                     maxLines: 4,
                     controller: _remarkController,
-                    style: TextStyle(
+                    style: const TextStyle(
                       //fontSize: 58.sp,
                       color: Colors.black,
                     ),
@@ -660,14 +660,14 @@ class _CriteriaListState extends State<CriteriaList> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   20.0)), //this right here
-                          child: Container(
+                          child: SizedBox(
                             height: 250,
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
+                                  const Padding(
+                                    padding: EdgeInsets.only(
                                         left: 10, bottom: 10),
                                     child: Align(
                                         alignment: Alignment.centerLeft,
@@ -685,14 +685,13 @@ class _CriteriaListState extends State<CriteriaList> {
                                       alignment: Alignment.centerLeft,
                                       child: Wrap(
                                         children: [
-                                          Text(AppLocalizations.of(context)!
-                                                  .translate('start_time_lbl') +
-                                              ' : '),
+                                          Text('${AppLocalizations.of(context)!
+                                                  .translate('start_time_lbl')} : '),
                                           Text(
                                               DateFormat('hh:mm a').format(
                                                   DateTime.tryParse(
                                                       widget.startDateTime)!),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black)),
                                         ],
@@ -709,7 +708,7 @@ class _CriteriaListState extends State<CriteriaList> {
                                         contentPadding: EdgeInsets.symmetric(
                                           vertical: 50.h,
                                         ),
-                                        labelStyle: TextStyle(
+                                        labelStyle: const TextStyle(
                                           color: Color(0xff808080),
                                         ),
                                         labelText: AppLocalizations.of(context)!
@@ -717,13 +716,13 @@ class _CriteriaListState extends State<CriteriaList> {
                                         fillColor: Colors.white,
                                         filled: true,
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.blue, width: 1.3),
                                           borderRadius:
                                               BorderRadius.circular(30),
                                         ),
                                         border: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.blue, width: 1.3),
                                           borderRadius:
                                               BorderRadius.circular(30),
@@ -736,7 +735,7 @@ class _CriteriaListState extends State<CriteriaList> {
                                           borderRadius:
                                               BorderRadius.circular(30),
                                         ),
-                                        prefixIcon: Icon(Icons.av_timer),
+                                        prefixIcon: const Icon(Icons.av_timer),
                                       ),
                                       onShowPicker:
                                           (context, currentValue) async {
@@ -773,14 +772,14 @@ class _CriteriaListState extends State<CriteriaList> {
                                                 .parse(_timeController.text))
                                             .toString());
                                       },
-                                      child: Text(
+                                      style: ElevatedButton.styleFrom(
+                                        textStyle: const TextStyle(
+                                          color: Color(0xFF1BC0C5),
+                                        ),
+                                      ),
+                                      child: const Text(
                                         "Save",
                                         style: TextStyle(color: Colors.white),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        textStyle: TextStyle(
-                                          color: const Color(0xFF1BC0C5),
-                                        ),
                                       ),
                                     ),
                                   )

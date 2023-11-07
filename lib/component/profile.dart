@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
 
 class ProfileWidget extends StatefulWidget {
-  ProfileWidget({Key? key}) : super(key: key);
+  const ProfileWidget({super.key});
 
   @override
   State<ProfileWidget> createState() => _ProfileWidgetState();
@@ -33,14 +33,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       child: Card(
         color: Colors.yellow.shade50,
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.account_circle_outlined),
+              const Icon(Icons.account_circle_outlined),
               Text(
                 firstName,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
@@ -53,7 +53,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     size: 16,
                     color: Colors.grey.shade700,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(loginTime),
                 ],
               ),

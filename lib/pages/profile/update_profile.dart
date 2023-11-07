@@ -90,7 +90,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   String? ldlItem = '';
   String? cdlItem = '';
 
-  TextStyle _messageStyle = TextStyle(color: Colors.red);
+  TextStyle _messageStyle = const TextStyle(color: Colors.red);
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _icController = TextEditingController();
@@ -230,23 +230,23 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
       setState(() {
         _potentialDob = value.substring(0, 7);
 
-        String _year = _potentialDob!.substring(0, 2);
-        int _currentYear = DateTime.now().year;
-        int? _birthYear = 0;
-        int _birthMonth = int.tryParse(_potentialDob!.substring(2, 4))!;
-        int _birthDay = int.tryParse(_potentialDob!.substring(4, 6))!;
+        String year = _potentialDob!.substring(0, 2);
+        int currentYear = DateTime.now().year;
+        int? birthYear = 0;
+        int birthMonth = int.tryParse(_potentialDob!.substring(2, 4))!;
+        int birthDay = int.tryParse(_potentialDob!.substring(4, 6))!;
 
-        if (_currentYear - int.tryParse('19' + _year)! < 70) {
-          _birthYear = int.tryParse('19$_year');
+        if (currentYear - int.tryParse('19$year')! < 70) {
+          birthYear = int.tryParse('19$year');
           _message = '';
-        } else if (_currentYear - int.tryParse('20' + _year)! < 16) {
-          _birthYear = int.tryParse('20$_year');
+        } else if (currentYear - int.tryParse('20$year')! < 16) {
+          birthYear = int.tryParse('20$year');
 
           _message = AppLocalizations.of(context)!.translate('enroll_underage');
         }
 
         _dobController.text = DateFormat('yyyy-MM-dd').format(
-          DateTime(_birthYear!, _birthMonth, _birthDay),
+          DateTime(birthYear!, birthMonth, birthDay),
         );
       });
 
@@ -255,10 +255,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                   .replaceAll(' ', '')
                   .substring(11))! %
               2 ==
-          0)
+          0) {
         _gender = Gender.female;
-      else
+      } else {
         _gender = Gender.male;
+      }
     }
   }
 
@@ -299,12 +300,12 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         OutlinedButton(
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.black87,
-            minimumSize: Size(88, 36),
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            minimumSize: const Size(88, 36),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(2)),
             ),
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.blue,
               width: 1.5,
             ),
@@ -330,7 +331,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
             );
 
             // String newProfilePic = await localStorage.getProfilePic();
-            if (newProfilePic != null)
+            if (newProfilePic != null) {
               setState(() {
                 profilePicUrl = '';
                 _image = File(newProfilePic as String);
@@ -338,6 +339,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                 // profilePicBase64 =
                 //     base64Encode(File(newProfilePic).readAsBytesSync());
               });
+            }
           },
         ),
         SimpleDialogOption(
@@ -368,7 +370,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   Future<void> _editImage() async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: _image.path,
-      aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
       maxWidth: 512,
       maxHeight: 512,
     );
@@ -402,7 +404,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         }
       },
       child: Scaffold(
-        backgroundColor: Color(0xfffdc013),
+        backgroundColor: const Color(0xfffdc013),
         appBar: AppBar(
           title: Text(
             AppLocalizations.of(context)!.translate('update_profile'),
@@ -425,31 +427,31 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     focusNode: _icFocus,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                       hintStyle: TextStyle(
                         color: primaryColor,
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Color(0xff808080),
                       ),
                       labelText: AppLocalizations.of(context)!
                           .translate('ic_required_lbl'),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(Icons.featured_video),
+                      prefixIcon: const Icon(Icons.featured_video),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel),
                         onPressed: () {
                           WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _icController.clear());
                         },
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -486,20 +488,20 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     inputFormatters: [UpperCaseTextFormatter()],
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                       hintStyle: TextStyle(
                         color: primaryColor,
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Color(0xff808080),
                       ),
                       labelText: AppLocalizations.of(context)!
                           .translate('ic_name_lbl'),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(Icons.assignment_ind),
+                      prefixIcon: const Icon(Icons.assignment_ind),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel),
                         onPressed: () {
                           WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _nameController.clear());
@@ -507,11 +509,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                         },
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -537,31 +539,31 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     focusNode: _nickNameFocus,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                       hintStyle: TextStyle(
                         color: primaryColor,
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Color(0xff808080),
                       ),
                       labelText: AppLocalizations.of(context)!
                           .translate('nick_name_lbl'),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(Icons.assignment_ind),
+                      prefixIcon: const Icon(Icons.assignment_ind),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel),
                         onPressed: () {
                           WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _nickNameController.clear());
                         },
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -600,31 +602,31 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     // textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                       hintStyle: TextStyle(
                         color: primaryColor,
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Color(0xff808080),
                       ),
                       labelText:
                           AppLocalizations.of(context)!.translate('email_lbl'),
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: Icon(Icons.mail),
+                      prefixIcon: const Icon(Icons.mail),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel),
                         onPressed: () {
                           WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _emailController.clear());
                         },
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -660,18 +662,18 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     focusNode: _postcodeFocus,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                       hintStyle: TextStyle(
                         color: primaryColor,
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Color(0xff808080),
                       ),
                       labelText: AppLocalizations.of(context)!
                           .translate('postcode_lbl'),
-                      prefixIcon: Icon(Icons.home),
+                      prefixIcon: const Icon(Icons.home),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel),
                         onPressed: () {
                           WidgetsBinding.instance.addPostFrameCallback(
                               (_) => _postcodeController.clear());
@@ -680,11 +682,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -714,11 +716,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -727,7 +729,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                         // borderRadius: BorderRadius.circular(0),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      prefixIcon: Icon(Icons.badge),
+                      prefixIcon: const Icon(Icons.badge),
                     ),
                     disabledHint:
                         Text(AppLocalizations.of(context)!.translate('ldl')),
@@ -765,11 +767,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 1.3),
+                        borderSide: const BorderSide(color: Colors.blue, width: 1.3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -778,7 +780,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                         // borderRadius: BorderRadius.circular(0),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      prefixIcon: Icon(Icons.badge),
+                      prefixIcon: const Icon(Icons.badge),
                     ),
                     disabledHint:
                         Text(AppLocalizations.of(context)!.translate('cdl')),
@@ -821,7 +823,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                                   _message!,
                                   style: _messageStyle,
                                 )
-                              : SizedBox.shrink(),
+                              : const SizedBox.shrink(),
                           _inviteButton(),
                         ],
                       ),
@@ -845,18 +847,18 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         contentPadding: EdgeInsets.symmetric(
           vertical: 50.h,
         ),
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Color(0xff808080),
         ),
         labelText: AppLocalizations.of(context)!.translate('dob_required_lbl'),
         fillColor: Colors.white,
         filled: true,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue, width: 1.3),
+          borderSide: const BorderSide(color: Colors.blue, width: 1.3),
           borderRadius: BorderRadius.circular(30),
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue, width: 1.3),
+          borderSide: const BorderSide(color: Colors.blue, width: 1.3),
           borderRadius: BorderRadius.circular(30),
         ),
         focusedBorder: OutlineInputBorder(
@@ -864,7 +866,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
           // borderRadius: BorderRadius.circular(0),
           borderRadius: BorderRadius.circular(30),
         ),
-        prefixIcon: Icon(Icons.calendar_today),
+        prefixIcon: const Icon(Icons.calendar_today),
         /* suffixIcon: IconButton(
           icon: Icon(Icons.cancel),
           onPressed: () {
@@ -951,7 +953,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         fillColor: Colors.white,
         filled: true,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue, width: 1.3),
+          borderSide: const BorderSide(color: Colors.blue, width: 1.3),
           borderRadius: BorderRadius.circular(30),
         ),
         border: OutlineInputBorder(
@@ -962,7 +964,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
           // borderRadius: BorderRadius.circular(0),
           borderRadius: BorderRadius.circular(30),
         ),
-        prefixIcon: Icon(Icons.people),
+        prefixIcon: const Icon(Icons.people),
       ),
       disabledHint: Text(AppLocalizations.of(context)!.translate('race_lbl')),
       value: _race!.isEmpty ? null : _race,
@@ -970,16 +972,17 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         setState(() {
           _race = value;
           if (value ==
-              AppLocalizations.of(context)!.translate('malay_race_lbl'))
+              AppLocalizations.of(context)!.translate('malay_race_lbl')) {
             _raceParam = 'M';
-          else if (value ==
-              AppLocalizations.of(context)!.translate('chinese_lbl'))
+          } else if (value ==
+              AppLocalizations.of(context)!.translate('chinese_lbl')) {
             _raceParam = 'C';
-          else if (value ==
-              AppLocalizations.of(context)!.translate('indian_lbl'))
+          } else if (value ==
+              AppLocalizations.of(context)!.translate('indian_lbl')) {
             _raceParam = 'I';
-          else
+          } else {
             _raceParam = 'O';
+          }
         });
       },
       items: <String>[
@@ -1007,7 +1010,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
       children: <Widget>[
         Text(
           AppLocalizations.of(context)!.translate('gender_lbl'),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -1025,7 +1028,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         ),
         Text(
           AppLocalizations.of(context)!.translate('gender_male'),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -1043,7 +1046,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         ),
         Text(
           AppLocalizations.of(context)!.translate('gender_female'),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -1054,20 +1057,20 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   _inviteButton() {
     return Container(
       child: _isLoading
-          ? SpinKitFoldingCube(
+          ? const SpinKitFoldingCube(
               color: Colors.blue,
             )
           : ButtonTheme(
-              padding: EdgeInsets.all(0.0),
-              shape: StadiumBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const StadiumBorder(),
               child: ElevatedButton(
                 onPressed: _submit,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
-                  minimumSize: Size(88, 36),
+                  minimumSize: const Size(88, 36),
                   padding:
-                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(18)),
                   ),
@@ -1086,7 +1089,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         _isLoading = true;
@@ -1113,7 +1116,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
       if (result.isSuccess) {
         setState(() {
           _message = result.message;
-          _messageStyle = TextStyle(color: Colors.green);
+          _messageStyle = const TextStyle(color: Colors.green);
         });
 
         await authRepo.getUserRegisteredDI(type: 'UPDATE');
@@ -1122,7 +1125,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
       } else {
         setState(() {
           _message = result.message;
-          _messageStyle = TextStyle(color: Colors.red);
+          _messageStyle = const TextStyle(color: Colors.red);
         });
       }
 

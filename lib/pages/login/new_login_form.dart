@@ -40,7 +40,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
   String? _phone;
   String? _password;
   String? _loginMessage = '';
-  bool _obscureText = true;
+  final bool _obscureText = true;
   final etestingRepo = EtestingRepo();
 
   // var _height = ScreenUtil().setHeight(1300);
@@ -48,8 +48,8 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
   // var _height = ScreenUtil.screenHeight / 4.5;
 
   Location location = Location();
-  String _latitude = '';
-  String _longitude = '';
+  final String _latitude = '';
+  final String _longitude = '';
 
   DeviceInfo deviceInfo = DeviceInfo();
   // String _deviceModel = '';
@@ -89,7 +89,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             offset: Offset(0.0, 15.0),
@@ -104,7 +104,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
       ),
       child: Padding(
         padding:
-            EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 20.0),
+            const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 20.0),
         child: FormBuilder(
           key: _formKey,
           child: Column(
@@ -119,16 +119,16 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 16.0),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
                   hintStyle: TextStyle(
                     color: primaryColor,
                   ),
                   labelText: 'IC/NO',
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
-                  prefixIcon: Icon(Icons.account_circle),
+                  prefixIcon: const Icon(Icons.account_circle),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
+                    borderSide: const BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   border: OutlineInputBorder(
@@ -151,12 +151,12 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                 focusNode: _passwordFocus,
                 inputFormatters: [UpperCaseTextFormatter()],
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 16.0),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
                   hintStyle: TextStyle(color: primaryColor),
                   labelText: 'Permit Code',
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                   // suffixIcon: IconButton(
                   //   icon: Icon(
                   //       _obscureText ? Icons.visibility_off : Icons.visibility),
@@ -169,7 +169,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                   //   },
                   // ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
+                    borderSide: const BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   border: OutlineInputBorder(
@@ -217,11 +217,11 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
                               maxWidth: 800.w,
                               child: Text(
                                 _loginMessage!,
-                                style: TextStyle(color: Colors.red),
+                                style: const TextStyle(color: Colors.red),
                                 textAlign: TextAlign.center,
                               ),
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                       _loginButton(),
                     ],
                   ),
@@ -261,9 +261,9 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
             )
           : ButtonTheme(
               minWidth: 420.w,
-              padding: EdgeInsets.symmetric(vertical: 11.0),
+              padding: const EdgeInsets.symmetric(vertical: 11.0),
               buttonColor: primaryColor,
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
               child: ElevatedButton(
                 onPressed: _submitLogin, // () => localStorage.reset(),
                 style: ButtonStyle(
@@ -306,7 +306,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
 
   _submitLogin() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         _isLoading = true;

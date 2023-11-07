@@ -76,7 +76,7 @@ class HomeModule extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   HomeIcon(
-                    component: NewJrCandidateDetails(),
+                    component: const NewJrCandidateDetails(),
                     image: imageConstant.kppIcon,
                     name: 'Bahagian III',
                   ),

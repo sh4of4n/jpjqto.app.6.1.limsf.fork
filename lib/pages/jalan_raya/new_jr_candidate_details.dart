@@ -297,9 +297,9 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
           .push(
         ConfirmCandidateInfo(
           part3Type: 'JALAN RAYA',
-          nric: this.nric,
-          candidateName: this.name,
-          qNo: this.qNo,
+          nric: nric,
+          candidateName: name,
+          qNo: qNo,
           groupId: this.groupId,
           testDate: testDate,
           testCode: this.testCode,
@@ -782,7 +782,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ProfileWidget(),
+                  const ProfileWidget(),
                   selectedCandidate == null
                       ? ElevatedButton(
                           onPressed: () {
@@ -801,7 +801,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
                             ),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
 
                   icPhoto == ''
                       ? const SizedBox()
@@ -820,7 +820,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Queue No',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -966,13 +966,14 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
                                   ],
                                   type: DialogType.GENERAL,
                                 );
-                              } else
+                              } else {
                                 customDialog.show(
                                   context: context,
                                   content:
                                       'Please press the Panggil Calon button to call the candidate.',
                                   type: DialogType.INFO,
                                 );
+                              }
                             },
                             buttonColor: Colors.blue,
                             title: AppLocalizations.of(context)!

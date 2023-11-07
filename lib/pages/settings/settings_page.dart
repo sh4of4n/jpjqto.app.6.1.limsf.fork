@@ -25,7 +25,7 @@ class _SettingsState extends State<Settings> {
   final authRepo = AuthRepo();
   final etestingRepo = EtestingRepo();
   final customDialog = CustomDialog();
-  double _defIconSize = 30;
+  final double _defIconSize = 30;
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
   String? _clientAcc = '';
@@ -59,10 +59,10 @@ class _SettingsState extends State<Settings> {
             borderRadius: BorderRadius.circular(10.0),
             color: Colors.white,
           ),
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-          margin: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+          margin: const EdgeInsets.all(12.0),
           child: ListView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             children: <Widget>[
               ListTile(
@@ -90,14 +90,14 @@ class _SettingsState extends State<Settings> {
               //     context.router.push(ChangePassword());
               //   },
               // ),
-              Divider(),
+              const Divider(),
               ListTile(
                 leading: Icon(Icons.exit_to_app, size: _defIconSize),
                 title:
                     Text(AppLocalizations.of(context)!.translate('logout_lbl')),
                 onTap: _logout,
               ),
-              Divider(),
+              const Divider(),
               ListTile(
                 onTap: () async {
                   count += 1;
@@ -111,9 +111,9 @@ class _SettingsState extends State<Settings> {
                           .translate('confirm_delete_account'),
                       customActions: <Widget>[
                         TextButton(
+                          onPressed: _deleteAccount,
                           child: Text(AppLocalizations.of(context)!
                               .translate('yes_lbl')),
-                          onPressed: _deleteAccount,
                         ),
                         TextButton(
                           child: Text(AppLocalizations.of(context)!
@@ -156,14 +156,14 @@ class _SettingsState extends State<Settings> {
                     }
                   }, */
               ),
-              Divider(),
+              const Divider(),
               ListTile(
                 leading: Icon(Icons.code, size: _defIconSize),
                 title:
                     Text(AppLocalizations.of(context)!.translate('client_acc')),
                 subtitle: Text(_clientAcc!),
               ),
-              Divider(),
+              const Divider(),
               ListTile(
                 leading: Icon(Icons.shopping_bag_rounded, size: _defIconSize),
                 title: Text(
@@ -208,7 +208,7 @@ class _SettingsState extends State<Settings> {
                   return;
                 }
                 await context.router
-                    .pushAndPopUntil(Login(), predicate: (r) => false);
+                    .pushAndPopUntil(const Login(), predicate: (r) => false);
 
                 if (mounted) {
                   setState(() {
@@ -216,7 +216,7 @@ class _SettingsState extends State<Settings> {
                   });
                 }
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
@@ -284,7 +284,7 @@ class _SettingsState extends State<Settings> {
     var result = await authRepo.deleteAppMemberAccount(context: context);
 
     if (result.isSuccess) {
-      context.router.pushAndPopUntil(Login(), predicate: (r) => false);
+      context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
     } else {
       customDialog.show(
         context: context,

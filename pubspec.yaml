@@ -83,7 +83,8 @@ dev_dependencies:
   flutter_launcher_icons:
   flutter_native_splash:
   auto_route_generator:
-
+  flutter_lints:
+  
 dependency_overrides:
   modal_bottom_sheet:
     git:

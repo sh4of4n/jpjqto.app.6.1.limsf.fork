@@ -29,7 +29,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final authRepo = AuthRepo();
   final kppRepo = KppRepo();
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
   String? plateNo;
   String? dbCode;
 
-  TextStyle textStyle = TextStyle(fontWeight: FontWeight.bold);
+  TextStyle textStyle = const TextStyle(fontWeight: FontWeight.bold);
 
   final etestingRepo = EtestingRepo();
   final customDialog = CustomDialog();
@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
             onPressed: () {
               context.router.pop();
             },
-            child: Text('Ok'),
+            child: const Text('Ok'),
           ),
         ],
         type: DialogType.GENERAL,
@@ -157,25 +157,25 @@ class _HomeState extends State<Home> {
         children: [
           TableRow(
             children: [
-              Text('Group ID'),
+              const Text('Group ID'),
               Text(groupId ?? '', style: textStyle),
             ],
           ),
           TableRow(
             children: [
-              Text('Car No'),
+              const Text('Car No'),
               Text(carNo ?? '', style: textStyle),
             ],
           ),
           TableRow(
             children: [
-              Text('Plate No'),
+              const Text('Plate No'),
               Text(plateNo ?? '', style: textStyle),
             ],
           ),
           TableRow(
             children: [
-              Text('Permit No'),
+              const Text('Permit No'),
               Text(dbCode ?? '', style: textStyle),
             ],
           ),
@@ -202,7 +202,7 @@ class _HomeState extends State<Home> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -211,41 +211,41 @@ class _HomeState extends State<Home> {
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('JPJ QTO'),
+          title: const Text('JPJ QTO'),
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.grey,
           elevation: 0,
           actions: <Widget>[
             IconButton(
               onPressed: () => context.router.push(
-                ProfileTab(),
+                const ProfileTab(),
               ),
-              icon: Icon(Icons.settings),
+              icon: const Icon(Icons.settings),
             ),
           ],
         ),
         body: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: <Widget>[
-                ProfileWidget(),
-                Text(
+                const ProfileWidget(),
+                const Text(
                   'Ujian Memandu Bahagian III',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 vehInfo(),
-                SizedBox(
+                const SizedBox(
                   height: 16.0,
                 ),
                 HomeModule(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -363,7 +363,7 @@ class _HomeState extends State<Home> {
                                   onPressed: () {
                                     context.router.pop();
                                   },
-                                  child: Text('Ok'),
+                                  child: const Text('Ok'),
                                 ),
                               ],
                               type: DialogType.GENERAL,
@@ -399,9 +399,9 @@ class _HomeState extends State<Home> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: const Text('JPJ QTO'),
-                                      content: SingleChildScrollView(
+                                      content: const SingleChildScrollView(
                                         child: ListBody(
-                                          children: const <Widget>[
+                                          children: <Widget>[
                                             Text(
                                                 'Calon ini tidak mengambil ujian'),
                                           ],
@@ -465,7 +465,7 @@ class _HomeState extends State<Home> {
                                   onPressed: () {
                                     context.router.pop();
                                   },
-                                  child: Text('Ok'),
+                                  child: const Text('Ok'),
                                 ),
                               ],
                               type: DialogType.GENERAL,
@@ -475,7 +475,7 @@ class _HomeState extends State<Home> {
                           }
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         'Calon Semasa',
                         style: TextStyle(
                           color: Colors.black,
@@ -486,7 +486,7 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -497,7 +497,7 @@ class _HomeState extends State<Home> {
                       },
                       child: Text(
                         AppLocalizations.of(context)!.translate('change_car'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       ),
@@ -512,7 +512,7 @@ class _HomeState extends State<Home> {
                 // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -524,7 +524,7 @@ class _HomeState extends State<Home> {
                       child: Text(
                         AppLocalizations.of(context)!
                             .translate('change_bahagian'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       ),

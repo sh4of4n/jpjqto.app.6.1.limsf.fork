@@ -12,7 +12,7 @@ import 'home_icon.dart';
 
 @RoutePage(name: 'HomeSelect')
 class HomeSelect extends StatefulWidget {
-  HomeSelect({Key? key}) : super(key: key);
+  const HomeSelect({super.key});
 
   @override
   _HomeSelectState createState() => _HomeSelectState();
@@ -21,7 +21,7 @@ class HomeSelect extends StatefulWidget {
 class _HomeSelectState extends State<HomeSelect> {
   final imageConstant = ImagesConstant();
   final primaryColor = ColorConstant.primaryColor;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final localStorage = LocalStorage();
   final etestingRepo = EtestingRepo();
   String firstName = '';
@@ -49,7 +49,7 @@ class _HomeSelectState extends State<HomeSelect> {
         await showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text('JPJ QTO APP'),
+            title: const Text('JPJ QTO APP'),
             content: Text(AppLocalizations.of(context)!
                 .translate('vehicle_download_success')),
             actions: <Widget>[
@@ -75,7 +75,7 @@ class _HomeSelectState extends State<HomeSelect> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -87,7 +87,7 @@ class _HomeSelectState extends State<HomeSelect> {
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.grey,
           elevation: 0,
-          title: Text('JPJ QTO'),
+          title: const Text('JPJ QTO'),
           actions: <Widget>[
             // IconButton(
             //   onPressed: () => context.router.push(
@@ -110,7 +110,7 @@ class _HomeSelectState extends State<HomeSelect> {
             child: Column(
               children: <Widget>[
                 // const SizedBox(height: 20),
-                ProfileWidget(),
+                const ProfileWidget(),
                 // SizedBox(
                 //   height: 16,
                 // ),

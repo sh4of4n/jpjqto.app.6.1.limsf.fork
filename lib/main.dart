@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -119,7 +118,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    _newLocaleDelegate = AppLocalizationsDelegate(newLocale: null);
+    _newLocaleDelegate = const AppLocalizationsDelegate(newLocale: null);
     application.onLocaleChanged = onLocaleChange;
     _loadSavedLocale();
     localStorage.saveExportLogFile(false);
@@ -150,7 +149,7 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'Myriad',
         textTheme: FontTheme().primaryFont,
         primaryTextTheme: FontTheme().primaryFont,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: ColorConstant.primaryColor,
         ),
       ),

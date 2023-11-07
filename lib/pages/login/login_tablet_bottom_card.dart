@@ -64,7 +64,7 @@ class _LoginTabletBottomCardState extends State<LoginTabletBottomCard> {
                 },
               ),
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             GestureDetector(
               onTap: () async {
                 count += 1;

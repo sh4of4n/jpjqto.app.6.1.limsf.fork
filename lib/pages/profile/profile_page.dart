@@ -12,7 +12,7 @@ class Profile extends StatefulWidget {
   final userProfile;
   final isLoading;
 
-  Profile({required this.userProfile, required this.isLoading});
+  const Profile({required this.userProfile, required this.isLoading});
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -27,12 +27,12 @@ class _ProfileState extends State<Profile>
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
-  TextStyle _titleStyle = TextStyle(
+  final TextStyle _titleStyle = const TextStyle(
     fontSize: 26,
     fontWeight: FontWeight.w800,
   );
 
-  TextStyle _subtitleStyle = TextStyle(
+  final TextStyle _subtitleStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     color: Colors.grey.shade700,
@@ -96,7 +96,7 @@ class _ProfileState extends State<Profile>
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: Container(
+                  child: SizedBox(
                     width: ScreenUtil().screenWidth,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,14 +131,14 @@ class _ProfileState extends State<Profile>
               Text('${widget.userProfile?.name}', style: _titleStyle),
             if (widget.userProfile?.name != null)
               ListTile(
-                leading: Icon(Icons.account_box),
+                leading: const Icon(Icons.account_box),
                 title: Text(
                     AppLocalizations.of(context)!.translate('ic_name_lbl')),
                 subtitle:
                     Text('${widget.userProfile?.name}', style: _subtitleStyle),
               ),
             ListTile(
-              leading: Icon(Icons.account_box),
+              leading: const Icon(Icons.account_box),
               title: Text(
                   AppLocalizations.of(context)!.translate('nick_name_lbl')),
               subtitle: Text('${widget.userProfile?.nickName}',
@@ -146,14 +146,14 @@ class _ProfileState extends State<Profile>
             ),
             if (widget.userProfile?.icNo != null)
               ListTile(
-                leading: Icon(Icons.perm_identity),
+                leading: const Icon(Icons.perm_identity),
                 title: Text(AppLocalizations.of(context)!.translate('ic_lbl')),
                 subtitle:
                     Text('${widget.userProfile?.icNo}', style: _subtitleStyle),
               ),
             if (widget.userProfile?.phone != null)
               ListTile(
-                leading: Icon(Icons.phone),
+                leading: const Icon(Icons.phone),
                 title:
                     Text(AppLocalizations.of(context)!.translate('contact_no')),
                 subtitle:
@@ -161,7 +161,7 @@ class _ProfileState extends State<Profile>
               ),
             if (widget.userProfile?.eMail != null)
               ListTile(
-                leading: Icon(Icons.email),
+                leading: const Icon(Icons.email),
                 title:
                     Text(AppLocalizations.of(context)!.translate('email_lbl')),
                 subtitle: Text(
@@ -172,7 +172,7 @@ class _ProfileState extends State<Profile>
               ),
             if (widget.userProfile?.birthDate != null)
               ListTile(
-                leading: Icon(Icons.date_range),
+                leading: const Icon(Icons.date_range),
                 title: Text(AppLocalizations.of(context)!.translate('dob_lbl')),
                 subtitle: Text(
                     '${widget.userProfile.birthDate.isNotEmpty ? widget.userProfile.birthDate.substring(0, 10) : ''}',

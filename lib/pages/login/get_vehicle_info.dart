@@ -20,7 +20,7 @@ import '../../router.gr.dart';
 @RoutePage(name: 'GetVehicleInfo')
 class GetVehicleInfo extends StatefulWidget {
   final String type;
-  GetVehicleInfo({Key? key, required this.type}) : super(key: key);
+  const GetVehicleInfo({super.key, required this.type});
 
   @override
   _GetVehicleInfoState createState() => _GetVehicleInfoState();
@@ -124,7 +124,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
     // print('decrypted (utf8): ${utf8.decode(decrypted)}');
 
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
       localStorage
           .saveEnrolledGroupId(_formKey.currentState?.fields['groupId']?.value);
       localStorage.saveCarNo(
@@ -135,9 +135,9 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
           _formKey.currentState?.fields['permitNo']?.value.replaceAll(' ', ''));
       localStorage.saveType(widget.type);
       if (widget.type == "RPK") {
-        context.router.pushAndPopUntil(HomePageRpk(), predicate: (r) => false);
+        context.router.pushAndPopUntil(const HomePageRpk(), predicate: (r) => false);
       } else if (widget.type == "Jalan Raya") {
-        context.router.pushAndPopUntil(Home(), predicate: (r) => false);
+        context.router.pushAndPopUntil(const Home(), predicate: (r) => false);
       }
     }
   }
@@ -168,7 +168,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Maklumat Kenderaan'),
+            title: const Text('Maklumat Kenderaan'),
           ),
           floatingActionButton: FloatingActionButton.extended(
             label: const Text('Scan QR Code'),
@@ -303,13 +303,13 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
             icon: const Icon(Icons.qr_code_scanner),
           ),
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: FormBuilder(
                 key: _formKey,
                 child: Column(
                   children: [
-                    ProfileWidget(),
+                    const ProfileWidget(),
                     // Container(
                     //   width: 1300.w,
                     //   margin: EdgeInsets.symmetric(vertical: 30.h),
@@ -455,7 +455,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
                         name: 'permitNo',
                         readOnly: true,
                         inputFormatters: [UpperCaseTextFormatter()],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Permit No',
                           // suffixIcon: IconButton(
                           //   icon: Icon(Icons.close),

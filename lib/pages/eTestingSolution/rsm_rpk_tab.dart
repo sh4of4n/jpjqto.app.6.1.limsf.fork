@@ -20,7 +20,7 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     /* _tabController = TabController(
       length: 2,
       vsync: this,
@@ -35,9 +35,9 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: new Scaffold(
+      child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(120),
+          preferredSize: const Size.fromHeight(120),
           child: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: Column(
@@ -46,13 +46,13 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
                   height: ScreenUtil().setHeight(20),
                 ),
                 Container(
-                  child: Text(
+                  child: const Text(
                     'PERMIT NO',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
                 Table(
-                  columnWidths: {
+                  columnWidths: const {
                     0: FlexColumnWidth(7),
                     1: FlexColumnWidth(4),
                   },
@@ -63,16 +63,16 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
                           Container(
                               width: 40.0,
                               height: 40.0,
-                              decoration: new BoxDecoration(
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  image: new DecorationImage(
+                                  image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: AssetImage(image.feedSample),
                                   ))),
                           Column(
                             children: <Widget>[
                               Container(
-                                child: Text(
+                                child: const Text(
                                   'Yeoh San Jiek',
                                   style: TextStyle(color: Colors.black),
                                   textAlign: TextAlign.left,
@@ -104,7 +104,7 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
                                 padding: const EdgeInsets.only(right: 10),
                                 child: Text(
                                   DateTime.now().toString().substring(0, 10),
-                                  style: TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                   textAlign: TextAlign.right,
                                 ),
                               ),
@@ -145,19 +145,19 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
             child: Text('2020/5/29',style: TextStyle(fontSize: ScreenUtil().setSp(50),color: Colors.black),textAlign: TextAlign.left,),
           ),*/
             bottom: TabBar(
-              labelStyle: TextStyle(
+              labelStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15.0,
                   fontFamily: 'Family Name'),
-              unselectedLabelStyle: TextStyle(
+              unselectedLabelStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 10.0,
                   fontFamily: 'Family Name'),
               labelColor: Colors.black,
               unselectedLabelColor: Colors.black,
-              tabs: [
-                new Tab(text: 'Part II'),
-                new Tab(text: 'Part III'),
+              tabs: const [
+                Tab(text: 'Part II'),
+                Tab(text: 'Part III'),
               ],
               controller: _tabController,
               indicatorColor: Colors.black,
@@ -168,11 +168,11 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
         ),
         //drawer: RPKDrawer(),
         body: TabBarView(
+          controller: _tabController,
           children: [
             Part2Main(),
             Part3Main(),
           ],
-          controller: _tabController,
         ),
       ),
     );

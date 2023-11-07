@@ -67,10 +67,10 @@ class _IdentityBarcodeState extends State<IdentityBarcode> {
   }
 
   _loadQr() {
-    if (id.isNotEmpty)
+    if (id.isNotEmpty) {
       return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
-        embeddedImageStyle: QrEmbeddedImageStyle(
+        embeddedImageStyle: const QrEmbeddedImageStyle(
           size: Size(40, 40),
         ),
         data:
@@ -78,7 +78,8 @@ class _IdentityBarcodeState extends State<IdentityBarcode> {
         version: QrVersions.auto,
         size: 250.0,
       );
-    return Center(
+    }
+    return const Center(
       child: SpinKitFoldingCube(
         color: Colors.blue,
       ),
@@ -88,7 +89,7 @@ class _IdentityBarcodeState extends State<IdentityBarcode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffdc013),
+      backgroundColor: const Color(0xfffdc013),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

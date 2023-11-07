@@ -7,7 +7,7 @@ class ComingSoon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
             Colors.white,
@@ -21,7 +21,7 @@ class ComingSoon extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('Maintenance'),
+          title: const Text('Maintenance'),
         ),
         body: Center(
           child: Text(

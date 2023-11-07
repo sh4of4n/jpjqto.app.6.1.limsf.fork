@@ -62,7 +62,7 @@ class _ETestMain extends State<ETestMain> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         elevation: 0,
-        title: Text(''
+        title: const Text(''
             //AppLocalizations.of(context).translate('choose_category')
             ),
       ),
@@ -94,7 +94,7 @@ class _ETestMain extends State<ETestMain> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                       width: ScreenUtil().setWidth(400),
                       height: ScreenUtil().setHeight(500),
                       child: ElevatedButton(
@@ -102,10 +102,10 @@ class _ETestMain extends State<ETestMain> {
                           'RSM - Part 2',
                           style: TextStyle(fontSize: ScreenUtil().setSp(100)),
                         ),
-                        onPressed: () => context.router.push(RsmRpkTabs()),
+                        onPressed: () => context.router.push(const RsmRpkTabs()),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: ScreenUtil().setWidth(400),
                       height: ScreenUtil().setHeight(500),
                       child: ElevatedButton(
@@ -126,6 +126,7 @@ class _ETestMain extends State<ETestMain> {
     );
   }
 
+  @override
   void dispose() {
     super.dispose();
   }

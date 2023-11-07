@@ -212,9 +212,9 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             .push(
           ConfirmCandidateInfo(
             part3Type: 'RPK',
-            nric: this.nric,
-            candidateName: this.name,
-            qNo: this.qNo,
+            nric: nric,
+            candidateName: name,
+            qNo: qNo,
             groupId: this.groupId,
             testDate: testDate,
             testCode: this.testCode,
@@ -256,21 +256,22 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           : '';
                     });
 
-                    if (success > 0)
+                    if (success > 0) {
                       Future.wait([
                         cancelCallPart3RpkTest(),
                         callPart3JpjTest(type: 'SKIP'),
                       ]);
-                    else
+                    } else {
                       await callPart3JpjTest(type: 'SKIP');
+                    }
 
                     context.router
                         .push(
                       ConfirmCandidateInfo(
                         part3Type: 'RPK',
-                        nric: this.nric,
-                        candidateName: this.name,
-                        qNo: this.qNo,
+                        nric: nric,
+                        candidateName: name,
+                        qNo: qNo,
                         groupId: this.groupId,
                         testDate: testDate,
                         testCode: this.testCode,
@@ -555,7 +556,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
               onPressed: () {
                 context.router.pop();
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
           type: DialogType.GENERAL,
@@ -570,7 +571,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Calling'),
+          title: const Text('Calling'),
           actions: [
             // TextButton(
             //   onPressed: () async {
@@ -636,7 +637,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                   type: DialogType.INFO,
                 );
               },
-              icon: Icon(Icons.info_outline),
+              icon: const Icon(Icons.info_outline),
               tooltip: AppLocalizations.of(context)!
                   .translate('select_queue_tooltip'),
             ),
@@ -665,7 +666,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
             children: [
               Column(
                 children: [
-                  ProfileWidget(),
+                  const ProfileWidget(),
                   Container(
                     width: 1300.h,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -674,7 +675,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 0, horizontal: 50.w),
                         labelText: 'Q-NO',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             // fontSize: 80.sp,
                             ),
                         // fillColor: Colors.grey.withOpacity(.25),
@@ -696,7 +697,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 child: Center(
                                     child: Text(
                                   value.queueNo,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       // fontSize: 80.sp,
                                       ),
                                 )),
@@ -737,7 +738,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'No. ID',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -747,7 +748,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 nric!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Nama',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -757,7 +758,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 name!,
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Kategori ID',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -767,7 +768,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 kewarganegaraan ?? '',
                                 style: textStyle,
                               ),
-                              Text(
+                              const Text(
                                 'Kelas',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -874,13 +875,14 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                   ],
                                   type: DialogType.GENERAL,
                                 );
-                              } else
+                              } else {
                                 customDialog.show(
                                   context: context,
                                   content: AppLocalizations.of(context)!
                                       .translate('select_queue_no'),
                                   type: DialogType.INFO,
                                 );
+                              }
                             },
                             buttonColor: Colors.blue,
                             title: AppLocalizations.of(context)!
@@ -895,7 +897,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 type: DialogType.INFO,
                               );
                             },
-                            icon: Icon(Icons.info_outline),
+                            icon: const Icon(Icons.info_outline),
                           ),
                         ],
                       ),
@@ -966,7 +968,7 @@ class _RpkCandidateDetailsState extends State<RpkCandidateDetails> {
                                 type: DialogType.INFO,
                               );
                             },
-                            icon: Icon(Icons.info_outline),
+                            icon: const Icon(Icons.info_outline),
                           ),
                         ],
                       ),
