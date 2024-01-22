@@ -381,7 +381,7 @@ class _ClientAccountFormState extends State<ClientAccountForm>
       _formKey.currentState!.save();
 
       await EasyLoading.show(
-        maskType: EasyLoadingMaskType.black,
+      maskType: EasyLoadingMaskType.black,
       );
 
       await localStorage.saveCaUid(caUidController.text.replaceAll(' ', ''));

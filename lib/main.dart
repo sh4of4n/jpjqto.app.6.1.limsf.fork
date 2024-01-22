@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
   //final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   // String _homeScreenText = "Waiting for token...";
   final customDialog = CustomDialog();
-  final _appRouter = AppRouter();
+  // final _appRouter = AppRouter();
   final router = getIt<AppRouter>();
 
   @override
@@ -193,7 +193,7 @@ class _MyAppState extends State<MyApp> {
       // onGenerateRoute: RouteGenerator.generateRoute,
       builder: EasyLoading.init(),
       scaffoldMessengerKey: navigatorKey,
-      routerConfig: _appRouter.config(),
+      routerConfig: router.config(),
     );
   }
 
