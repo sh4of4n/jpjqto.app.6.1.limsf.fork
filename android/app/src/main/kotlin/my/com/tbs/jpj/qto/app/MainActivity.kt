@@ -12,6 +12,7 @@ import android.os.BatteryManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Looper
+import android.os.StrictMode
 import android.util.Log
 import com.intellego.morphosmart.driver.CTException
 import com.intellego.morphosmart.driver.DeviceException
@@ -21,12 +22,30 @@ import com.intellego.morphosmart.ilv.ILVErrorCode
 import com.intellego.morphosmart.ilv.ILVResultCode
 import com.intellego.mykad.CardHolderInfo
 import com.intellego.mykad.MyKad
+import com.morpho.android.usb.USBManager
+import com.morpho.morphosmart.sdk.CallbackMask
+import com.morpho.morphosmart.sdk.Coder
+import com.morpho.morphosmart.sdk.CustomInteger
+import com.morpho.morphosmart.sdk.DetectionMode
 import com.morpho.morphosmart.sdk.ErrorCodes
+import com.morpho.morphosmart.sdk.FalseAcceptanceRate
+import com.morpho.morphosmart.sdk.IMsoSecu
+import com.morpho.morphosmart.sdk.MorphoDatabase
 import com.morpho.morphosmart.sdk.MorphoDevice
+import com.morpho.morphosmart.sdk.ResultMatching
+import com.morpho.morphosmart.sdk.SecuConfig
+import com.morpho.morphosmart.sdk.StrategyAcquisitionMode
+import com.morpho.morphosmart.sdk.Template
+import com.morpho.morphosmart.sdk.TemplateList
+import com.morpho.morphosmart.sdk.TemplateType
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import morpho.msosecu.sdk.api.MsoSecu
+import my.com.tbs.jpj.qto.app.info.subtype.MorphoInfo
+import my.com.tbs.jpj.qto.app.info.subtype.SecurityOption
+import my.com.tbs.jpj.qto.app.info.ProcessInfo
 import java.io.*
 import java.util.*
 
@@ -39,7 +58,7 @@ class MainActivity : FlutterActivity(), Observer {
     private var mMainFolderPath = ""
     var morphoDevice: MorphoDevice? = null
     var sensorName = ""
-    private val ma = com.example.morpho_sample.MainActivity()
+    val ma = com.example.morpho_sample.MainActivity()
 
     init {
       try {

@@ -244,7 +244,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
       });
     }
     if (status == "morphoDeviceVerifyWithFile success") {
-      EasyLoading.dismiss();
+      await EasyLoading.dismiss();
       if (!context.mounted) return;
       await customDialog.show(
         context: context,

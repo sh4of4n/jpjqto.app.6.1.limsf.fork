@@ -21,6 +21,15 @@ class Networking extends BaseRepo {
   String? customUrl;
   int? milliseconds;
 
+  bool isJson(String str) {
+    try {
+      json.decode(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
 
@@ -112,7 +121,7 @@ class Networking extends BaseRepo {
             response.body == 'True' ||
             response.body == 'False' ||
             response.body.substring(0, 2) == 'OK' ||
-            url == customUrl) return Response(true, data: response.body);
+            url == customUrl || !isJson(response.body)) return Response(true, data: response.body);
 
         return Response(true, data: jsonDecode(response.body));
       } else {
