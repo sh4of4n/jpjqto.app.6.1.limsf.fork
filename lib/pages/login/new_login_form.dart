@@ -104,7 +104,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     }
   }
 
-  Future<String?> _jpjQTOloginBO(String id) async { 
+  Future<String?> _jpjQTOloginBO() async { 
     EasyLoading.show(
       status: 'Checking jpjQTOloginBO',
       maskType: EasyLoadingMaskType.black,
@@ -630,6 +630,14 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         return result.message;
       }
       if (result.data![0].result == 'False') {
+        if (isKeyInIC) {
+          if (!mounted) return;
+          await _jpjQTOloginBO();
+          print('object');
+        } else {
+          return;
+        }
+      } else {
         await localStorage.saveUserId(result.data![0].userId ?? '');
         await localStorage
             .saveDiCode(_formKey.currentState?.fields['permitCode']?.value!);
