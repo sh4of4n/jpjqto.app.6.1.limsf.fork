@@ -1,3 +1,8 @@
+25/01/2023 V.6.1.20
+ePandu ws 6.3.4.0
+Enhanced
+- New NFC reading and flow modified
+
 07/11/2023 V.6.1.20
 ePandu ws 6.1.219.0
 Enhanced

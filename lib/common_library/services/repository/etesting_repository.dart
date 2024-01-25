@@ -303,7 +303,7 @@ class EtestingRepo {
     return Response(false, message: response.message, data: []);
   }
 
-  Future<Response> qtoUjianLogin() async {
+  Future<Response<List<QtoUjianLoginResult>>> qtoUjianLogin() async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? diCode = await localStorage.getMerchantDbCode();
@@ -325,7 +325,7 @@ class EtestingRepo {
     return Response(false, message: response.message, data: []);
   }
 
-  Future<Response> getUserIdByMySikapId() async {
+  Future<Response<List<Result2>>> getUserIdByMySikapId() async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? diCode = await localStorage.getMerchantDbCode();
@@ -388,5 +388,45 @@ class EtestingRepo {
     }
 
     return Response(false, message: response.message, data: []);
+  }
+
+  Future<Response<String>> isSkipFingerPrint({
+    required String cardNo,
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&cardNo=$cardNo&courseCode=QTI';
+
+    var response = await networking.getData(
+      path: 'IsSkipFingerPrint?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      return Response(true, data: response.data);
+    }
+
+    return Response(false, message: response.message, data: 'False');
+  }
+
+  Future<Response<String?>> getFingerPrintByCardNo({
+    required String cardNo,
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&cardNo=$cardNo';
+
+    var response = await networking.getData(
+      path: 'GetFingerPrintByCardNo?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      return Response(true, data: response.data);
+    }
+
+    return Response(false, message: response.message, data: '');
   }
 }
