@@ -18,6 +18,90 @@ class GetWsUrlResponse {
   }
 }
 
+class LoginBOResponse{
+  List<BOResult>? result;
+
+  LoginBOResponse({this.result});
+
+  LoginBOResponse.fromJson(Map<String, dynamic> json){
+    if (json['Result'] != null) {
+      result = <BOResult>[];
+      json['Result'].forEach((v) {
+        result!.add(BOResult.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (result != null) {
+      data['Result'] = result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class BOResult{
+  String? result;
+  String? userId;
+  String? description;
+
+  BOResult({this.result, this.userId, this.description});
+
+  BOResult.fromJson(Map<String, dynamic> json) {
+    result = json['result'];
+    userId = json['user_id'];
+    description = json['description'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['result'] = result;
+    data['user_id'] = userId;
+    data['description'] = description;
+    return data;
+  }
+}
+
+class VerifyWithMyKadResponse {
+  List<VerifyWithMyKad>? result;
+
+  VerifyWithMyKadResponse({this.result});
+
+  VerifyWithMyKadResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Result'] != null) {
+      result = <VerifyWithMyKad>[];
+      json['Result'].forEach((v) {
+        result!.add(VerifyWithMyKad.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (result != null) {
+      data['Result'] = result!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class VerifyWithMyKad {
+  String? mykadLogin;
+
+  VerifyWithMyKad({this.mykadLogin});
+
+  VerifyWithMyKad.fromJson(Map<String, dynamic> json) {
+    mykadLogin = json['mykad_login'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['mykad_login'] = mykadLogin;
+    return data;
+  }
+}
+
 class LoginAcctInfo {
   LoginAcct? loginAcct;
 

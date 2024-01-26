@@ -160,6 +160,61 @@ class AuthRepo {
     return Response(false, message: message);
   }
 
+  Future<Response> getLoginBO(
+      {required String mySikapId,
+      required String permitCode,
+      required String skipThumbPrint}) async {
+    final String? caUid = await localStorage.getCaUid();
+    final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
+    String appId = appConfig.appId;
+    String? appVersion = await localStorage.getAppVersion();
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&appId=$appId&permitCode=$permitCode&mySikapId=$mySikapId&appVersion=$appVersion&skipThumbPrint=$skipThumbPrint';
+
+    var response = await networking.getData(
+      path: 'JpjQtoLoginBO?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      LoginBOResponse loginBOResponse = LoginBOResponse.fromJson(response.data);
+      var responseData = loginBOResponse.result![0];
+
+      if (responseData.result == 'True') {
+        localStorage.saveUserId(responseData.userId!);
+        localStorage.saveDiCode(permitCode);
+        localStorage.saveMerchantDbCode(permitCode);
+        localStorage.saveMySikapId(mySikapId);
+        return response;
+      }
+    }
+
+    return Response(false, message: response.message);
+  }
+  
+  Future<Response<List<VerifyWithMyKad>>> verifyWithMyKad({
+    required String diCode,
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode';
+
+    var response = await networking.getData(
+      path: 'VerifyWithMyKad?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      VerifyWithMyKadResponse getOrderListByDateRangeResponse =
+          VerifyWithMyKadResponse.fromJson(response.data);
+
+      return Response(true, data: getOrderListByDateRangeResponse.result);
+    }
+
+    return Response(false, message: response.message, data: []);
+  }
+
   Future<Response> login({
     context,
     String? phone,
@@ -265,7 +320,7 @@ class AuthRepo {
     return Response(false, message: 'Invalid phone and/or password.');
   }
 
-  Future<Response> jpjQtoLoginWithMySikap({
+  Future<Response<List<Result>>> jpjQtoLoginWithMySikap({
     required String mySikapId,
     required String permitCode,
   }) async {
@@ -281,20 +336,27 @@ class AuthRepo {
       path: 'JpjQtoLoginWithMySikap?$path',
     );
 
+    // if (response.isSuccess && response.data != null) {
+    //   ResultResponse loginResponse = ResultResponse.fromJson(response.data);
+    //   var responseData = loginResponse.result![0];
+
+    //   if (responseData.result == 'True') {
+    //     localStorage.saveUserId(responseData.userId!);
+    //     localStorage.saveDiCode(permitCode);
+    //     localStorage.saveMerchantDbCode(permitCode);
+    //     localStorage.saveMySikapId(mySikapId);
+    //     return Response(true, data: loginResponse.result);
+    //   }
+    // }
+
+    // return Response(false, message: response.message);
     if (response.isSuccess && response.data != null) {
-      ResultResponse loginResponse = ResultResponse.fromJson(response.data);
-      var responseData = loginResponse.result![0];
+      ResultResponse loginResponse =
+          ResultResponse.fromJson(response.data);
 
-      if (responseData.result == 'True') {
-        localStorage.saveUserId(responseData.userId!);
-        localStorage.saveDiCode(permitCode);
-        localStorage.saveMerchantDbCode(permitCode);
-        localStorage.saveMySikapId(mySikapId);
-        return response;
-      }
+      return Response(true, data: loginResponse.result);
     }
-
-    return Response(false, message: response.message);
+    return Response(false, message: response.message, data: []);
   }
 
   Future<Response> jpjQtiLoginWithMySikap({

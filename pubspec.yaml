@@ -73,6 +73,8 @@ dependencies:
   flutter_3des:
   crypto:
   dart_3des:
+  nfc_manager:
+  connectivity_plus:
 
 dev_dependencies:
   flutter_test:

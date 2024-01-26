@@ -323,7 +323,7 @@ class _NewLoginTabletFormState extends State<NewLoginTabletForm>
 
       var result3 = await etestingRepo.getUserIdByMySikapId();
       if (result3.isSuccess) {
-        await localStorage.saveName(result3.data[0].firstName);
+        // await localStorage.saveName(result3.data[0].firstName);
       }
 
       if (result.isSuccess) {
