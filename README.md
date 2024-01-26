@@ -1,13 +1,9 @@
-26/01/2023 V.6.1.20
-ePandu ws 6.3.4.0
-Enhanced
-- Mobile Apps shows no connections
-- Unable to click if no connection with Message prompt to user
-
-25/01/2023 V.6.1.20
+26/01/2023 V.6.3.0
 ePandu ws 6.3.4.0
 Enhanced
 - New NFC reading and flow modified
+- Mobile Apps shows no connections
+- Unable to click if no connection with Message prompt to user
 
 07/11/2023 V.6.1.20
 ePandu ws 6.1.219.0
