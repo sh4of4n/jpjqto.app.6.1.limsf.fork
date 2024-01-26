@@ -1,7 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 
+import 'package:app_settings/app_settings.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/epandu_repository.dart';
@@ -59,6 +64,11 @@ class _Part3MainState extends State<RpkPartIII> {
   Future? ruleFuture;
   final etestingRepo = EtestingRepo();
   var ruleList = [];
+  bool isButtonEnabled = true;
+
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   @override
   void dispose() {
@@ -69,6 +79,10 @@ class _Part3MainState extends State<RpkPartIII> {
   @override
   void initState() {
     super.initState();
+
+    checkWifiStatus();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
     List<Future> futures = [getRule()];
     if (!widget.skipUpdateRpkJpjTestStart) {
@@ -114,6 +128,34 @@ class _Part3MainState extends State<RpkPartIII> {
       },
     );
     controller.stop();
+  }
+
+  Future<void> checkWifiStatus() async {
+    late ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      developer.log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+      // Update the button state based on connectivity status
+      isButtonEnabled = _connectionStatus == ConnectivityResult.wifi;
+    });
   }
 
   String format(int? num) {
@@ -648,7 +690,38 @@ class _Part3MainState extends State<RpkPartIII> {
                   ),
                   Container(
                     child: ElevatedButton(
-                      onPressed: updateRpkJpjTestResult,
+                      onPressed: () {
+                        isButtonEnabled
+                            ? updateRpkJpjTestResult
+                            : customDialog.show(
+                                context: context,
+                                content:
+                                    'Please connect to wifi before proceed',
+                                title: const Center(
+                                  child: Icon(
+                                    Icons.wifi_off,
+                                    color: Colors.red,
+                                    size: 140,
+                                  ),
+                                ),
+                                barrierDismissable: false,
+                                type: DialogType.GENERAL,
+                                customActions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      AppSettings.openAppSettings(type: AppSettingsType.wifi);
+                                    },
+                                    child: const Text('Settings'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      context.router.pop();
+                                    },
+                                    child: const Text('Ok'),
+                                  ),
+                                ],
+                              );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         minimumSize: const Size(88, 36),

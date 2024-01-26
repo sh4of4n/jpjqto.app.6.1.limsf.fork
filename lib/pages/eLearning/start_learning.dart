@@ -231,7 +231,7 @@ class _StartLearningState extends State<StartLearning> {
                                   groupValue: _courseCodeId,
                                   onChanged: (dynamic val) {
                                     setState(() {
-                                      courseCode = 'QTI';
+                                      courseCode = 'QTO';
                                       _courseCodeId = 2;
                                     });
                                   },
@@ -239,7 +239,7 @@ class _StartLearningState extends State<StartLearning> {
                                 const Padding(
                                   padding: EdgeInsets.only(top: 16),
                                   child: Text(
-                                    'QTI',
+                                    'QTO',
                                   ),
                                 ),
                               ],
