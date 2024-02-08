@@ -8,6 +8,8 @@ import 'home_icon.dart';
 class HomeModule extends StatelessWidget {
   final imageConstant = ImagesConstant();
 
+  HomeModule({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[

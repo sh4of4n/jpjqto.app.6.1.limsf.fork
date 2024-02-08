@@ -14,6 +14,8 @@ import '../../router.gr.dart';
 
 @RoutePage(name: 'ProfileTab')
 class ProfileTab extends StatefulWidget {
+  const ProfileTab({super.key});
+
   @override
   _ProfileTabState createState() => _ProfileTabState();
 }
@@ -265,7 +267,7 @@ class _ProfileTabState extends State<ProfileTab>
               isLoading: isLoading,
             ),
             // Edompet(),
-            SettingsPage.Settings(),
+            const SettingsPage.Settings(),
           ]),
           bottomNavigationBar: Container(
             decoration: const BoxDecoration(

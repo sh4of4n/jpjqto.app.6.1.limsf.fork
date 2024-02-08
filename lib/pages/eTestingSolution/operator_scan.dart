@@ -11,6 +11,8 @@ import '../../router.gr.dart';
 
 @RoutePage(name: 'OperatorScanQR')
 class OperatorScanQR extends StatefulWidget {
+  const OperatorScanQR({super.key});
+
   @override
   _OperatorScanQRState createState() => _OperatorScanQRState();
 }

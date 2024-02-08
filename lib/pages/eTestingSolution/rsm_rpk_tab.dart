@@ -8,6 +8,8 @@ import 'main_part_3.dart';
 
 @RoutePage(name: 'RsmRpkTabs')
 class RsmRpkTabs extends StatefulWidget {
+  const RsmRpkTabs({super.key});
+
   @override
   _RsmRpkTabsState createState() => _RsmRpkTabsState();
 }
@@ -169,7 +171,7 @@ class _RsmRpkTabsState extends State<RsmRpkTabs>
         //drawer: RPKDrawer(),
         body: TabBarView(
           controller: _tabController,
-          children: [
+          children: const [
             Part2Main(),
             Part3Main(),
           ],

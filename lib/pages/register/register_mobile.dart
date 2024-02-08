@@ -12,6 +12,8 @@ import '../../router.gr.dart';
 
 @RoutePage(name: 'RegisterMobile')
 class RegisterMobile extends StatefulWidget {
+  const RegisterMobile({super.key});
+
   @override
   _RegisterMobileState createState() => _RegisterMobileState();
 }

@@ -207,7 +207,7 @@ class EtestingRepo {
     return Response(false, message: response.message, data: []);
   }
 
-  Future<Response> isCurrentCallingCalon({
+  Future<Response<List<GetPart3AvailableToCallJpjTestTrn>?>> isCurrentCallingCalon({
     required String plateNo,
     required String partType,
     required String nricNo,
@@ -233,7 +233,7 @@ class EtestingRepo {
     return Response(false, message: response.message, data: []);
   }
 
-  Future<Response> isCurrentInProgressCalon({
+  Future<Response<List<GetPart3AvailableToCallJpjTestTrn>?>> isCurrentInProgressCalon({
     required String plateNo,
     required String partType,
     required String nricNo,

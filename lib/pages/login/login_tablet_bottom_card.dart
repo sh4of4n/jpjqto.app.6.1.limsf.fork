@@ -12,6 +12,8 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class LoginTabletBottomCard extends StatefulWidget {
+  const LoginTabletBottomCard({super.key});
+
   @override
   _LoginTabletBottomCardState createState() => _LoginTabletBottomCardState();
 }

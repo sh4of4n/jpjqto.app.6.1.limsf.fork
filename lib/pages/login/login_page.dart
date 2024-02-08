@@ -11,6 +11,8 @@ import 'login_tablet_bottom_card.dart';
 
 @RoutePage(name: 'Login')
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -80,11 +82,11 @@ class _LoginState extends State<Login> {
                           height: 120.h,
                         ),
                         // LoginForm(),
-                        NewLoginForm()
+                        const NewLoginForm()
                       ],
                     ),
                   ),
-                  LoginBottomCard(),
+                  const LoginBottomCard(),
                 ],
               ),
             ),
@@ -148,11 +150,11 @@ class _LoginState extends State<Login> {
                           height: 120.h,
                         ),
                         // LoginTabletForm(),
-                        NewLoginTabletForm(),
+                        const NewLoginTabletForm(),
                       ],
                     ),
                   ),
-                  LoginTabletBottomCard(),
+                  const LoginTabletBottomCard(),
                 ],
               ),
             ),

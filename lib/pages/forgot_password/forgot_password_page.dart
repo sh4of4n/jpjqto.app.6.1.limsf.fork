@@ -10,6 +10,8 @@ import 'tablet_form.dart';
 class ForgotPassword extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
 
+  const ForgotPassword({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -81,7 +83,7 @@ class ForgotPassword extends StatelessWidget {
                         SizedBox(
                           height: 510.h,
                         ),
-                        ForgotPasswordForm(),
+                        const ForgotPasswordForm(),
                       ],
                     ),
                   ),
@@ -139,7 +141,7 @@ class ForgotPassword extends StatelessWidget {
                     SizedBox(
                       height: 100.h,
                     ),
-                    ForgotPasswordTabletForm(),
+                    const ForgotPasswordTabletForm(),
                   ],
                 ),
               ),

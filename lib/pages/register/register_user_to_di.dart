@@ -12,7 +12,7 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 class RegisterUserToDi extends StatelessWidget {
   final data;
 
-  RegisterUserToDi(this.data);
+  RegisterUserToDi(this.data, {super.key});
 
   final authRepo = AuthRepo();
   final customDialog = CustomDialog();

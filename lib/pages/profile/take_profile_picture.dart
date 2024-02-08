@@ -16,7 +16,7 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 class TakeProfilePicture extends StatefulWidget {
   final List<CameraDescription>? camera;
 
-  const TakeProfilePicture(this.camera);
+  const TakeProfilePicture(this.camera, {super.key});
 
   @override
   TakeProfilePictureState createState() => TakeProfilePictureState();

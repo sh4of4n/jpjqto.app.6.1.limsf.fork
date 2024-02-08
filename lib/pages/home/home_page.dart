@@ -24,8 +24,10 @@ import 'home_module.dart';
 
 @RoutePage(name: 'Home')
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -101,6 +103,7 @@ class _HomeState extends State<Home> {
         ),
       );
     } catch (e) {
+      if (!mounted) return;
       customDialog.show(
         barrierDismissable: false,
         context: context,
@@ -120,7 +123,7 @@ class _HomeState extends State<Home> {
 
   _setLocale() async {
     String? locale = await localStorage.getLocale();
-
+    if (!mounted) return;
     if (locale == 'en') {
       Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
           AppLocalizations.of(context)!.translate('english_lbl'));
@@ -260,6 +263,7 @@ class _HomeState extends State<Home> {
                             .isVehicleAvailableByUserId(plateNo: plateNo ?? '');
                         EasyLoading.dismiss();
                         if (vehicleResult.data != 'True') {
+                          if (!mounted) return;
                           await showDialog(
                             context: context,
                             barrierDismissible: false, // user must tap button!
@@ -284,13 +288,14 @@ class _HomeState extends State<Home> {
                               );
                             },
                           );
+                          if (!mounted) return;
                           await context.router
                               .push(GetVehicleInfo(type: 'Jalan Raya'));
                           return;
                         }
-
+                        if (!mounted) return;
                         var scanData =
-                            await context.router.push(QrScannerRoute());
+                            await context.router.push(const QrScannerRoute());
                         if (scanData != null) {
                           EasyLoading.show(
                             maskType: EasyLoadingMaskType.black,
@@ -353,6 +358,7 @@ class _HomeState extends State<Home> {
                             }
                           } catch (e) {
                             await EasyLoading.dismiss();
+                            if (!mounted) return;
                             customDialog.show(
                               barrierDismissable: false,
                               context: context,
@@ -391,6 +397,7 @@ class _HomeState extends State<Home> {
                                 nricNo: nricNo,
                               );
                               await EasyLoading.dismiss();
+                              if (!mounted) return;
                               if (!result2.isSuccess) {
                                 await showDialog(
                                   context: context,
@@ -421,18 +428,19 @@ class _HomeState extends State<Home> {
                               } else {
                                 await context.router.push(
                                   RpkPartIII(
-                                    qNo: result.data[0].queueNo,
-                                    nric: result.data[0].nricNo,
-                                    rpkName: result.data[0].fullname,
-                                    testDate: result.data[0].testDate,
-                                    groupId: result.data[0].groupId,
-                                    testCode: result.data[0].testCode,
+                                    qNo: result2.data[0].queueNo,
+                                    nric: result2.data[0].nricNo,
+                                    rpkName: result2.data[0].fullname,
+                                    testDate: result2.data[0].testDate,
+                                    groupId: result2.data[0].groupId,
+                                    testCode: result2.data[0].testCode,
                                     vehNo: await localStorage.getPlateNo(),
                                     skipUpdateRpkJpjTestStart: true,
                                   ),
                                 );
                               }
                             } else {
+                              if (!mounted) return;
                               await context.router.push(
                                 ConfirmCandidateInfo(
                                   part3Type: 'RPK',
@@ -455,6 +463,7 @@ class _HomeState extends State<Home> {
                             }
                           } catch (e) {
                             await EasyLoading.dismiss();
+                            if (!mounted) return;
                             customDialog.show(
                               barrierDismissable: false,
                               context: context,
@@ -519,7 +528,7 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.yellow[100],
                       ),
                       onPressed: () {
-                        context.router.replace(HomeSelect());
+                        context.router.replace(const HomeSelect());
                       },
                       child: Text(
                         AppLocalizations.of(context)!

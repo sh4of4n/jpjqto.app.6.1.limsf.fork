@@ -11,6 +11,8 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../router.gr.dart';
 
 class ETestMain extends StatefulWidget {
+  const ETestMain({super.key});
+
   @override
   _ETestMain createState() => _ETestMain();
 }

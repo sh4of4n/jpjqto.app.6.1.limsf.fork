@@ -13,6 +13,8 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class LoginTabletForm extends StatefulWidget {
+  const LoginTabletForm({super.key});
+
   @override
   _LoginTabletFormState createState() => _LoginTabletFormState();
 }
@@ -341,7 +343,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
 
             // context.router.replace(GetVehicleInfo());
-            context.router.replace(HomeSelect());
+            context.router.replace(const HomeSelect());
           } else {
             setState(() {
               _isLoading = false;
@@ -361,7 +363,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
           localStorage.saveDiCode(result.data[0].diCode);
 
           // context.router.replace(GetVehicleInfo());
-          context.router.replace(HomeSelect());
+          context.router.replace(const HomeSelect());
         }
       } else {
         setState(() {

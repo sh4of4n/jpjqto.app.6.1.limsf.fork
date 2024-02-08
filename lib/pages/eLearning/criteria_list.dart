@@ -21,12 +21,8 @@ class CriteriaList extends StatefulWidget {
   final String part;
 
   const CriteriaList(
-    this.studentIc,
-    this.startDateTime,
-    this.group,
-    this.course,
-    this.part,
-  );
+      this.studentIc, this.startDateTime, this.group, this.course, this.part,
+      {super.key});
 
   @override
   _CriteriaListState createState() => _CriteriaListState();
@@ -144,7 +140,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -209,7 +206,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -270,7 +268,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -331,7 +330,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -392,7 +392,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -453,7 +454,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -514,7 +516,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -575,7 +578,8 @@ class _CriteriaListState extends State<CriteriaList> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -667,8 +671,8 @@ class _CriteriaListState extends State<CriteriaList> {
                               child: Column(
                                 children: [
                                   const Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 10, bottom: 10),
+                                    padding:
+                                        EdgeInsets.only(left: 10, bottom: 10),
                                     child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
@@ -685,8 +689,8 @@ class _CriteriaListState extends State<CriteriaList> {
                                       alignment: Alignment.centerLeft,
                                       child: Wrap(
                                         children: [
-                                          Text('${AppLocalizations.of(context)!
-                                                  .translate('start_time_lbl')} : '),
+                                          Text(
+                                              '${AppLocalizations.of(context)!.translate('start_time_lbl')} : '),
                                           Text(
                                               DateFormat('hh:mm a').format(
                                                   DateTime.tryParse(

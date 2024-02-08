@@ -7,6 +7,8 @@ import 'list_part_3.dart';
 
 // ignore: must_be_immutable
 class Part3Main extends StatefulWidget {
+  const Part3Main({super.key});
+
   @override
   _Part3MainState createState() => _Part3MainState();
 }

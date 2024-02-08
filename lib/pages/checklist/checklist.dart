@@ -407,7 +407,7 @@ class _CheckListPageState extends State<CheckListPage> {
           actions: [
             IconButton(
               onPressed: () {
-                context.router.push(ChecklistResultRoute());
+                context.router.push(const ChecklistResultRoute());
               },
               icon: const Icon(
                 Icons.history,

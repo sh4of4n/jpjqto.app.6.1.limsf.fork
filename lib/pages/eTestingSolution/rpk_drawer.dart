@@ -10,6 +10,8 @@ import '../../router.gr.dart';
 class RpkDrawer extends StatelessWidget {
   final image = ImagesConstant();
 
+  RpkDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

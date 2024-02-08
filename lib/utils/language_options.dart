@@ -10,6 +10,8 @@ import '../application.dart';
 class LanguageOptions extends StatelessWidget {
   final localStorage = LocalStorage();
 
+  LanguageOptions({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

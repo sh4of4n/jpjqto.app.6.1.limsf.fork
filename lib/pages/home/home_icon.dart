@@ -9,7 +9,7 @@ class HomeIcon extends StatelessWidget {
   final image;
   final component;
 
-  const HomeIcon({
+  const HomeIcon({super.key, 
     this.name,
     this.index,
     this.image,

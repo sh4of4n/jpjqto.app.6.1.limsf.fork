@@ -23,6 +23,8 @@ import '../../router.gr.dart';
 
 @RoutePage()
 class NewJrCandidateDetails extends StatefulWidget {
+  const NewJrCandidateDetails({super.key});
+
   @override
   _NewJrCandidateDetailsState createState() => _NewJrCandidateDetailsState();
 }

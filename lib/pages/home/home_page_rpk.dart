@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jpj_qto/common_library/services/location.dart';
+import 'package:jpj_qto/common_library/services/model/epandu_model.dart';
 import 'package:jpj_qto/common_library/services/model/provider_model.dart';
 import 'package:jpj_qto/common_library/services/repository/auth_repository.dart';
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
@@ -25,8 +26,10 @@ import 'home_icon.dart';
 
 @RoutePage(name: 'HomePageRpk')
 class HomePageRpk extends StatefulWidget {
+  const HomePageRpk({super.key});
+
   @override
-  _HomePageRpkState createState() => _HomePageRpkState();
+  State<HomePageRpk> createState() => _HomePageRpkState();
 }
 
 class _HomePageRpkState extends State<HomePageRpk> {
@@ -76,7 +79,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
 
   _setLocale() async {
     String? locale = await localStorage.getLocale();
-
+    if (!mounted) return;
     if (locale == 'en') {
       Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
           AppLocalizations.of(context)!.translate('english_lbl'));
@@ -163,6 +166,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
         ),
       );
     } catch (e) {
+      if (!mounted) return;
       customDialog.show(
         barrierDismissable: false,
         context: context,
@@ -266,6 +270,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             .isVehicleAvailableByUserId(plateNo: plateNo ?? '');
                         EasyLoading.dismiss();
                         if (vehicleResult.data != 'True') {
+                          if (!mounted) return;
                           await showDialog(
                             context: context,
                             barrierDismissible: false, // user must tap button!
@@ -290,13 +295,14 @@ class _HomePageRpkState extends State<HomePageRpk> {
                               );
                             },
                           );
+                          if (!mounted) return;
                           await context.router
                               .push(GetVehicleInfo(type: 'RPK'));
                           return;
                         }
-
+                        if (!mounted) return;
                         var scanData =
-                            await context.router.push(QrScannerRoute());
+                            await context.router.push(const QrScannerRoute());
                         if (scanData != null) {
                           EasyLoading.show(
                             maskType: EasyLoadingMaskType.black,
@@ -358,6 +364,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             }
                           } catch (e) {
                             await EasyLoading.dismiss();
+                            if (!mounted) return;
                             customDialog.show(
                               barrierDismissable: false,
                               context: context,
@@ -376,7 +383,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             return;
                           }
 
-                          Response result =
+                          Response<List<GetPart3AvailableToCallJpjTestTrn>?> result =
                               await etestingRepo.isCurrentCallingCalon(
                             plateNo: plateNo ?? '',
                             partType: 'RPK',
@@ -387,7 +394,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             EasyLoading.show(
                               maskType: EasyLoadingMaskType.black,
                             );
-                            Response result2 =
+                            Response<List<GetPart3AvailableToCallJpjTestTrn>?> result2 =
                                 await etestingRepo.isCurrentInProgressCalon(
                               plateNo: plateNo ?? '',
                               partType: 'RPK',
@@ -395,6 +402,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                             );
                             await EasyLoading.dismiss();
                             if (!result2.isSuccess) {
+                              if (!mounted) return;
                               await showDialog(
                                 context: context,
                                 barrierDismissible:
@@ -422,34 +430,36 @@ class _HomePageRpkState extends State<HomePageRpk> {
                                 },
                               );
                             } else {
+                              if (!mounted) return;
                               await context.router.push(
                                 RpkPartIII(
-                                  qNo: result.data[0].queueNo,
-                                  nric: result.data[0].nricNo,
-                                  rpkName: result.data[0].fullname,
-                                  testDate: result.data[0].testDate,
-                                  groupId: result.data[0].groupId,
-                                  testCode: result.data[0].testCode,
+                                  qNo: result2.data![0].queueNo,
+                                  nric: result2.data![0].nricNo,
+                                  rpkName: result2.data![0].fullname,
+                                  testDate: result2.data![0].testDate,
+                                  groupId: result2.data![0].groupId,
+                                  testCode: result2.data![0].testCode,
                                   vehNo: await localStorage.getPlateNo(),
                                   skipUpdateRpkJpjTestStart: true,
                                 ),
                               );
                             }
                           } else {
+                            if (!mounted) return;
                             await context.router.push(
                               ConfirmCandidateInfo(
                                 part3Type: 'RPK',
-                                nric: result.data[0].nricNo,
-                                candidateName: result.data[0].fullname,
-                                qNo: result.data[0].queueNo,
-                                groupId: result.data[0].groupId,
-                                testDate: result.data[0].testDate,
-                                testCode: result.data[0].testCode,
+                                nric: result.data![0].nricNo,
+                                candidateName: result.data![0].fullname,
+                                qNo: result.data![0].queueNo,
+                                groupId: result.data![0].groupId,
+                                testDate: result.data![0].testDate,
+                                testCode: result.data![0].testCode,
                                 icPhoto:
-                                    result.data[0].icPhotoFilename != null &&
-                                            result.data[0].icPhotoFilename
+                                    result.data![0].icPhotoFilename != null &&
+                                            result.data![0].icPhotoFilename!
                                                 .isNotEmpty
-                                        ? result.data[0].icPhotoFilename
+                                        ? result.data![0].icPhotoFilename!
                                             .replaceAll(removeBracket, '')
                                             .split('\r\n')[0]
                                         : '',
@@ -497,7 +507,7 @@ class _HomePageRpkState extends State<HomePageRpk> {
                         backgroundColor: Colors.yellow[100],
                       ),
                       onPressed: () {
-                        context.router.replace(HomeSelect());
+                        context.router.replace(const HomeSelect());
                       },
                       child: Text(
                         AppLocalizations.of(context)!
@@ -543,6 +553,8 @@ class _HomePageRpkState extends State<HomePageRpk> {
 
 class HomeModule extends StatelessWidget {
   final imageConstant = ImagesConstant();
+
+  HomeModule({super.key});
 
   @override
   Widget build(BuildContext context) {

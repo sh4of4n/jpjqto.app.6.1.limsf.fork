@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ChangePasswordForm extends StatefulWidget {
+  const ChangePasswordForm({super.key});
+
   @override
   _ChangePasswordFormState createState() => _ChangePasswordFormState();
 }

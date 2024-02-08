@@ -10,7 +10,7 @@ import 'client_acc_form.dart';
 class ClientAccount extends StatefulWidget {
   final data;
 
-  const ClientAccount(this.data);
+  const ClientAccount(this.data, {super.key});
 
   @override
   _ClientAccountState createState() => _ClientAccountState();

@@ -117,7 +117,7 @@ class _HomeSelectState extends State<HomeSelect> {
                 Column(
                   children: [
                     HomeIcon(
-                      component: CheckListRoute(),
+                      component: const CheckListRoute(),
                       image: imageConstant.checkList,
                       name:
                           AppLocalizations.of(context)!.translate('checklist'),

@@ -10,6 +10,8 @@ import 'change_password_form.dart';
 class ChangePassword extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
 
+  const ChangePassword({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -52,7 +54,7 @@ class ChangePassword extends StatelessWidget {
                         SizedBox(
                           height: ScreenUtil().setHeight(200),
                         ),
-                        ChangePasswordForm(),
+                        const ChangePasswordForm(),
                       ],
                     ),
                   ),

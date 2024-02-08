@@ -13,7 +13,7 @@ import '../../router.gr.dart';
 class RegisterVerification extends StatefulWidget {
   final data;
 
-  const RegisterVerification(this.data);
+  const RegisterVerification(this.data, {super.key});
 
   @override
   _RegisterVerificationState createState() => _RegisterVerificationState();

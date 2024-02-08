@@ -17,7 +17,7 @@ import '../../utils/check_url.dart';
 class ClientAccountForm extends StatefulWidget {
   final data;
 
-  const ClientAccountForm(this.data);
+  const ClientAccountForm(this.data, {super.key});
 
   @override
   _ClientAccountFormState createState() => _ClientAccountFormState();

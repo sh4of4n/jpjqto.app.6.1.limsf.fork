@@ -11,6 +11,8 @@ import '../../router.gr.dart';
 
 @RoutePage(name: 'LearningEnterStudentIC')
 class LearningEnterStudentIC extends StatefulWidget {
+  const LearningEnterStudentIC({super.key});
+
   @override
   _LearningEnterStudentICState createState() => _LearningEnterStudentICState();
 }

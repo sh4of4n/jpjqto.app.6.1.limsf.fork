@@ -12,7 +12,7 @@ class Profile extends StatefulWidget {
   final userProfile;
   final isLoading;
 
-  const Profile({required this.userProfile, required this.isLoading});
+  const Profile({super.key, required this.userProfile, required this.isLoading});
 
   @override
   _ProfileState createState() => _ProfileState();

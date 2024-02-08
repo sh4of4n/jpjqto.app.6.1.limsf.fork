@@ -17,6 +17,8 @@ import '../../common_library/utils/uppercase_formatter.dart';
 import '../../router.gr.dart';
 
 class NewLoginTabletForm extends StatefulWidget {
+  const NewLoginTabletForm({super.key});
+
   @override
   _NewLoginTabletFormState createState() => _NewLoginTabletFormState();
 }
@@ -345,7 +347,7 @@ class _NewLoginTabletFormState extends State<NewLoginTabletForm>
           );
         }
 
-        context.router.replace(HomeSelect());
+        context.router.replace(const HomeSelect());
       } else {
         await showDialog<String>(
           context: context,

@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage(name: 'ComingSoon')
 class ComingSoon extends StatelessWidget {
+  const ComingSoon({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

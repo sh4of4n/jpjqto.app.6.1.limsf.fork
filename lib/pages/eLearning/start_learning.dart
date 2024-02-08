@@ -10,7 +10,7 @@ import '../../router.gr.dart';
 class StartLearning extends StatefulWidget {
   final studentIC;
 
-  const StartLearning(this.studentIC);
+  const StartLearning(this.studentIC, {super.key});
 
   @override
   _StartLearningState createState() => _StartLearningState();

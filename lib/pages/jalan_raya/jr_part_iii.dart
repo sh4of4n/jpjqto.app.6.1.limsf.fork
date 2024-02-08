@@ -33,16 +33,9 @@ class JrPartIII extends StatefulWidget {
   final String? vehNo;
   final bool skipUpdateJrJpjTestStart;
 
-  const JrPartIII(
-    this.qNo,
-    this.nric,
-    this.jrName,
-    this.testDate,
-    this.groupId,
-    this.testCode,
-    this.vehNo,
-    this.skipUpdateJrJpjTestStart,
-  );
+  const JrPartIII(this.qNo, this.nric, this.jrName, this.testDate, this.groupId,
+      this.testCode, this.vehNo, this.skipUpdateJrJpjTestStart,
+      {super.key});
 
   @override
   _JrPartIIIState createState() => _JrPartIIIState();
@@ -579,8 +572,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['a']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['a']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -590,8 +587,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['a']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['a']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -606,8 +607,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['b']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['b']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -617,8 +622,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['b']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['b']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -633,8 +642,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['c']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['c']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -644,8 +657,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['c']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['c']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -660,8 +677,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['d']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['d']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -671,8 +692,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['d']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['d']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -687,8 +712,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['e']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['e']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -698,8 +727,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['e']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['e']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -714,8 +747,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['f']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['f']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -725,8 +762,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['f']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['f']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -741,8 +782,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['g']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['g']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -752,8 +797,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['g']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['g']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -768,8 +817,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['h']!.where((c) => c.isCheck == true && c.mandatory == 'false').length.toString(),
+                                    text: ruleJson['h']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'false')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -779,8 +832,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['h']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['h']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -798,8 +855,12 @@ class _JrPartIIIState extends State<JrPartIII> {
                         Center(
                             child: RichText(
                                 text: TextSpan(
-                                    text:
-                                        ruleJson['i']!.where((c) => c.isCheck == true && c.mandatory == 'true').length.toString(),
+                                    text: ruleJson['i']!
+                                        .where((c) =>
+                                            c.isCheck == true &&
+                                            c.mandatory == 'true')
+                                        .length
+                                        .toString(),
                                     style: const TextStyle(color: Colors.black),
                                     children: const <TextSpan>[
                               TextSpan(
@@ -825,7 +886,7 @@ class _JrPartIIIState extends State<JrPartIII> {
                         // ]);
                         isButtonEnabled
                             ? updatePart3JpjTestResult('JALAN RAYA')
-                            :customDialog.show(
+                            : customDialog.show(
                                 context: context,
                                 content:
                                     'Please connect to wifi before proceed',
@@ -841,7 +902,8 @@ class _JrPartIIIState extends State<JrPartIII> {
                                 customActions: [
                                   TextButton(
                                     onPressed: () {
-                                      AppSettings.openAppSettings(type: AppSettingsType.wifi);
+                                      AppSettings.openAppSettings(
+                                          type: AppSettingsType.wifi);
                                     },
                                     child: const Text('Settings'),
                                   ),

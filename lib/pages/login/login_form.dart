@@ -13,6 +13,8 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -318,7 +320,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
 
             // context.router.replace(GetVehicleInfo());
-            context.router.replace(HomeSelect());
+            context.router.replace(const HomeSelect());
           } else {
             setState(() {
               _isLoading = false;
@@ -337,7 +339,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
           localStorage.saveDiCode(result.data[0].merchantNo);
 
           // context.router.replace(GetVehicleInfo());
-          context.router.replace(HomeSelect());
+          context.router.replace(const HomeSelect());
         }
       } else {
         setState(() {

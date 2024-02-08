@@ -33,19 +33,12 @@ class RpkPartIII extends StatefulWidget {
   final String? vehNo;
   final bool skipUpdateRpkJpjTestStart;
 
-  const RpkPartIII(
-    this.qNo,
-    this.nric,
-    this.rpkName,
-    this.testDate,
-    this.groupId,
-    this.testCode,
-    this.vehNo,
-    this.skipUpdateRpkJpjTestStart,
-  );
+  const RpkPartIII(this.qNo, this.nric, this.rpkName, this.testDate,
+      this.groupId, this.testCode, this.vehNo, this.skipUpdateRpkJpjTestStart,
+      {super.key});
 
   @override
-  _Part3MainState createState() => _Part3MainState();
+  State<RpkPartIII> createState() => _Part3MainState();
 }
 
 class _Part3MainState extends State<RpkPartIII> {
@@ -193,6 +186,7 @@ class _Part3MainState extends State<RpkPartIII> {
 
     if (result.isSuccess) {
     } else {
+      if (!mounted) return;
       customDialog.show(
           context: context,
           barrierDismissable: false,
@@ -240,6 +234,7 @@ class _Part3MainState extends State<RpkPartIII> {
     );
 
     if (result.isSuccess) {
+      if (!mounted) return;
       customDialog.show(
           context: context,
           barrierDismissable: false,
@@ -253,6 +248,7 @@ class _Part3MainState extends State<RpkPartIII> {
           content: AppLocalizations.of(context)!.translate('test_submitted'),
           type: DialogType.SUCCESS);
     } else {
+      if (!mounted) return;
       customDialog.show(
           context: context, content: result.message, type: DialogType.WARNING);
     }
@@ -467,16 +463,13 @@ class _Part3MainState extends State<RpkPartIII> {
                                                           const EdgeInsets.only(
                                                               right: 30,
                                                               top: 5),
-                                                      child: Container(
-                                                        child: Text(
-                                                          '${ruleList.where((c) => c.isCheck == true).length}/24',
-                                                          style: const TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
+                                                      child: Text(
+                                                        '${ruleList.where((c) => c.isCheck == true).length}/24',
+                                                        style: const TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                     ),
                                                   )
@@ -688,51 +681,49 @@ class _Part3MainState extends State<RpkPartIII> {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  Container(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        isButtonEnabled
-                            ? updateRpkJpjTestResult
-                            : customDialog.show(
-                                context: context,
-                                content:
-                                    'Please connect to wifi before proceed',
-                                title: const Center(
-                                  child: Icon(
-                                    Icons.wifi_off,
-                                    color: Colors.red,
-                                    size: 140,
-                                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      isButtonEnabled
+                          ? updateRpkJpjTestResult()
+                          : customDialog.show(
+                              context: context,
+                              content: 'Please connect to wifi before proceed',
+                              title: const Center(
+                                child: Icon(
+                                  Icons.wifi_off,
+                                  color: Colors.red,
+                                  size: 140,
                                 ),
-                                barrierDismissable: false,
-                                type: DialogType.GENERAL,
-                                customActions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      AppSettings.openAppSettings(type: AppSettingsType.wifi);
-                                    },
-                                    child: const Text('Settings'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      context.router.pop();
-                                    },
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        minimumSize: const Size(88, 36),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(2)),
-                        ),
+                              ),
+                              barrierDismissable: false,
+                              type: DialogType.GENERAL,
+                              customActions: [
+                                TextButton(
+                                  onPressed: () {
+                                    AppSettings.openAppSettings(
+                                        type: AppSettingsType.wifi);
+                                  },
+                                  child: const Text('Settings'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    context.router.pop();
+                                  },
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      minimumSize: const Size(88, 36),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
                       ),
-                      child: Text(
-                        AppLocalizations.of(context)!.translate('submit_btn'),
-                      ),
+                    ),
+                    child: Text(
+                      AppLocalizations.of(context)!.translate('submit_btn'),
                     ),
                   ),
                   SizedBox(

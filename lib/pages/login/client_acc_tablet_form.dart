@@ -15,7 +15,7 @@ import '../../router.gr.dart';
 class ClientAccountTabletForm extends StatefulWidget {
   final data;
 
-  const ClientAccountTabletForm(this.data);
+  const ClientAccountTabletForm(this.data, {super.key});
 
   @override
   _ClientAccountTabletFormState createState() =>

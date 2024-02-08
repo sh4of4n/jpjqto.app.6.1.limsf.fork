@@ -21,6 +21,8 @@ import '../../router.gr.dart';
 
 @RoutePage(name: 'JrCandidateDetails')
 class JrCandidateDetails extends StatefulWidget {
+  const JrCandidateDetails({super.key});
+
   @override
   _JrCandidateDetailsState createState() => _JrCandidateDetailsState();
 }
@@ -677,7 +679,7 @@ class _JrCandidateDetailsState extends State<JrCandidateDetails> {
         floatingActionButton: FloatingActionButton.extended(
           label: const Text('Scan QR Code'),
           onPressed: () async {
-            var scanData = await context.router.push(QrScannerRoute());
+            var scanData = await context.router.push(const QrScannerRoute());
             if (scanData != null) {
               processQrCodeResult(
                 scanData: scanData.toString(),

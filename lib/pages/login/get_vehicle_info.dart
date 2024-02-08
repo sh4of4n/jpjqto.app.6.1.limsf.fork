@@ -173,7 +173,7 @@ class _GetVehicleInfoState extends State<GetVehicleInfo> {
           floatingActionButton: FloatingActionButton.extended(
             label: const Text('Scan QR Code'),
             onPressed: () async {
-              var scanData = await context.router.push(QrScannerRoute());
+              var scanData = await context.router.push(const QrScannerRoute());
               if (scanData != null) {
                 try {
                   EasyLoading.show(

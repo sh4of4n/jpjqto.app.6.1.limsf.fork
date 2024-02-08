@@ -7,7 +7,7 @@ class ImageViewer extends StatelessWidget {
   final String? title;
   final NetworkImage? image;
 
-  const ImageViewer({this.title, this.image});
+  const ImageViewer({super.key, this.title, this.image});
 
   @override
   Widget build(BuildContext context) {

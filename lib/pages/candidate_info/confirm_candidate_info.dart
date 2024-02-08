@@ -23,7 +23,7 @@ class ConfirmCandidateInfo extends StatefulWidget {
   final String? testCode;
   final String icPhoto;
 
-  const ConfirmCandidateInfo({
+  const ConfirmCandidateInfo({super.key, 
     required this.part3Type,
     required this.nric,
     required this.candidateName,

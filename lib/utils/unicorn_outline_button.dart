@@ -6,7 +6,7 @@ class UnicornOutlinedButton extends StatelessWidget {
   final VoidCallback _callback;
   final double _radius;
 
-  UnicornOutlinedButton({
+  UnicornOutlinedButton({super.key, 
     required double strokeWidth,
     required double radius,
     required Gradient gradient,

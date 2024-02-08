@@ -1,4 +1,15 @@
-26/01/2023 V.6.3.0
+08/02/2024 V.6.3.2
+ePandu ws 6.3.5.0
+Fixed
+- 'Calon Semasa' button not function when calon already DIUJI but not yet complete ujian
+- Cannot process RPK
+
+06/02/2024 V.6.3.1
+ePandu ws 6.3.4.0
+Fixed
+- Cannot capture fingerprint 
+
+26/01/2024 V.6.3.0
 ePandu ws 6.3.4.0
 Enhanced
 - New NFC reading and flow modified

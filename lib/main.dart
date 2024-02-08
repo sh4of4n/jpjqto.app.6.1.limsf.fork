@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_logs/flutter_logs.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -88,7 +87,7 @@ void main() async {
           child: SentryUserInteractionWidget(
             child: DefaultAssetBundle(
               bundle: SentryAssetBundle(),
-              child: MyApp(),
+              child: const MyApp(),
             ),
           ),
         ),
@@ -102,7 +101,7 @@ Future<void> setupSentry(AppRunner appRunner,
     BeforeSendCallback? beforeSendCallback}) async {
   await SentryFlutter.init((options) {
     options.dsn =
-        'https://ca44b910b3c1744938c24b5329a190a9@o4506596043325440.ingest.sentry.io/4506596047192064';
+        'https://0419a02f7534475e9df605249fa18d55@o354605.ingest.sentry.io/6721341';
     options.tracesSampleRate = 1.0;
     options.attachThreads = true;
     options.enableWindowMetricBreadcrumbs = true;
@@ -119,6 +118,8 @@ Future<void> setupSentry(AppRunner appRunner,
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -193,7 +194,9 @@ class _MyAppState extends State<MyApp> {
       // onGenerateRoute: RouteGenerator.generateRoute,
       builder: EasyLoading.init(),
       scaffoldMessengerKey: navigatorKey,
-      routerConfig: router.config(),
+      routerConfig: router.config(
+        navigatorObservers: () => [SentryNavigatorObserver()],
+      ),
     );
   }
 

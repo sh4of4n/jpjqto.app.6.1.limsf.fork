@@ -25,6 +25,8 @@ import '../../utils/constants.dart';
 
 @RoutePage(name: 'Authentication')
 class Authentication extends StatefulWidget {
+  const Authentication({super.key});
+
   @override
   _AuthenticationState createState() => _AuthenticationState();
 }
@@ -209,7 +211,7 @@ class _AuthenticationState extends State<Authentication> {
             context.router.replace(const Home());
           }
         } else {
-          context.router.replace(HomeSelect());
+          context.router.replace(const HomeSelect());
         }
       } else {
         context.router.replace(const Login());

@@ -15,6 +15,8 @@ import '../../router.gr.dart';
 
 @RoutePage(name: 'Settings')
 class Settings extends StatefulWidget {
+  const Settings({super.key});
+
   @override
   _SettingsState createState() => _SettingsState();
 }

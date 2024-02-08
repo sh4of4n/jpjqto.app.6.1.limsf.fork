@@ -11,7 +11,6 @@ import 'package:jpj_qto/common_library/services/repository/auth_repository.dart'
 import 'package:jpj_qto/common_library/services/repository/etesting_repository.dart';
 import 'package:jpj_qto/common_library/services/response.dart';
 import 'package:jpj_qto/common_library/utils/custom_dialog.dart';
-import 'package:jpj_qto/select.dart';
 import 'package:jpj_qto/utils/constants.dart';
 import 'package:jpj_qto/utils/device_info.dart';
 import 'package:jpj_qto/utils/local_storage.dart';
@@ -24,6 +23,8 @@ import '../../common_library/utils/uppercase_formatter.dart';
 import '../../router.gr.dart';
 
 class NewLoginForm extends StatefulWidget {
+  const NewLoginForm({super.key});
+
   @override
   _NewLoginFormState createState() => _NewLoginFormState();
 }
@@ -666,7 +667,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
 
         await localStorage.saveLoginTime(DateTime.now().toString());
 
-        context.router.replace(HomeSelect());
+        context.router.replace(const HomeSelect());
       }
     }
   }

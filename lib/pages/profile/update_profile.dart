@@ -29,6 +29,8 @@ enum AppState { free, picked, cropped }
 
 @RoutePage(name: 'UpdateProfile')
 class UpdateProfile extends StatefulWidget {
+  const UpdateProfile({super.key});
+
   @override
   _UpdateProfileState createState() => _UpdateProfileState();
 }

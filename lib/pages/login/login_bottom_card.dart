@@ -12,6 +12,8 @@ import 'package:jpj_qto/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class LoginBottomCard extends StatefulWidget {
+  const LoginBottomCard({super.key});
+
   @override
   _LoginBottomCardState createState() => _LoginBottomCardState();
 }

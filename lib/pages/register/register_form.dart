@@ -27,7 +27,7 @@ enum AppState { free, picked, cropped }
 class RegisterForm extends StatefulWidget {
   final data;
 
-  const RegisterForm(this.data);
+  const RegisterForm(this.data, {super.key});
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -1377,7 +1377,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
 
         // context.router
         //     .pushAndPopUntil(GetVehicleInfo(), predicate: (r) => false);
-        context.router.pushAndPopUntil(HomeSelect(), predicate: (r) => false);
+        context.router.pushAndPopUntil(const HomeSelect(), predicate: (r) => false);
       } else {
         context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
       }
