@@ -98,7 +98,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     Response<List<VerifyWithMyKad>> result = await authRepo.verifyWithMyKad(
         diCode: _formKey.currentState?.fields['permitCode']?.value ?? '');
     isCallVerifyWithMyKad = true;
-    // isKeyInIC = true;
+    isKeyInIC = true;
     if (result.data![0].mykadLogin == 'false') {
       setState(() {
         isKeyInIC = true;
@@ -108,7 +108,6 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
 
   Future<String?> _jpjQTOloginBO() async { 
     EasyLoading.show(
-      status: 'Checking jpjQTOloginBO',
       maskType: EasyLoadingMaskType.black,
     );
     var result = await authRepo.getLoginBO(
@@ -191,6 +190,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
           );
           try {
             final result = await platform.invokeMethod<String>('onReadMyKad');
+            EasyLoading.dismiss();
             setState(
               () {
                 readMyKad = result.toString();
@@ -201,12 +201,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
               readMyKad = "${e.message}";
             });
           }
-          // await customDialog.show(
-          //       context: context,
-          //       content: readMyKad,
-          //       onPressed: () => Navigator.pop(context),
-          //       type: DialogType.ERROR,
-          //     );
+          
           if(readMyKad == 'Failed to power up MyKad'){
             EasyLoading.dismiss();
             if (!mounted) return;
@@ -218,67 +213,6 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
               );
               return;
           }
-          try{
-            final result = await platform
-                .invokeMethod<String>('onFingerprintVerify');
-            setState(() {
-              fingerPrintVerify = result.toString();
-            });
-            EasyLoading.dismiss();
-            EasyLoading.show(
-              status: fingerPrintVerify,
-              maskType: EasyLoadingMaskType.black,
-            );
-            if (result ==
-                'Please place your thumb on the fingerprint reader...') {
-              final result = await platform
-                  .invokeMethod<String>('onFingerprintVerify2');
-              setState(() {
-                fingerPrintVerify = result.toString();
-              });
-            }
-          } on PlatformException catch (e) {
-            setState(() {
-              fingerPrintVerify = "${e.message}";
-            });
-          }
-          setState(() {
-            if (readMyKad != 'Fail to power up my kad') {
-              if (fingerPrintVerify ==
-                  "Fingerprint matches fingerprint in MyKad") {
-                EasyLoading.dismiss();
-                if (!context.mounted) return;
-                customDialog.show(
-                  context: context, 
-                  title: const Center(
-                    child: Icon(
-                      Icons.check_circle_outline,
-                      color: Colors.green,
-                      size: 120,
-                    ),
-                  ),
-                  content: 'IC number read will be $readMyKad', 
-                  barrierDismissable: false,
-                  type: DialogType.SUCCESS,
-                  onPressed: (){
-                    context.router.pop();
-                  }
-                );
-                icController.text = readMyKad;
-                // _icFieldKey.currentState?.patchValue({'ic': readMyKad});
-              } else {
-                EasyLoading.dismiss();
-              }
-            } else {
-              EasyLoading.dismiss();
-              customDialog.show(
-                context: context,
-                content: readMyKad,
-                onPressed: () => Navigator.pop(context),
-                type: DialogType.ERROR,
-              );
-            }
-          });
         },
       );
     } else {
@@ -603,6 +537,52 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     });
   }
 
+  verifyFingerPrint() async {
+    try{
+            final result = await platform
+                .invokeMethod<String>('onFingerprintVerify');
+            setState(() {
+              fingerPrintVerify = result.toString();
+            });
+            
+            EasyLoading.show(
+              status: fingerPrintVerify,
+              maskType: EasyLoadingMaskType.black,
+            );
+            if (result ==
+                'Please place your thumb on the fingerprint reader...') {
+              final result = await platform
+                  .invokeMethod<String>('onFingerprintVerify2');
+              setState(() {
+                fingerPrintVerify = result.toString();
+              });
+            }
+          } on PlatformException catch (e) {
+            setState(() {
+              fingerPrintVerify = "${e.message}";
+            });
+          }
+          setState(() {
+            if (readMyKad != 'Fail to power up my kad') {
+              if (fingerPrintVerify ==
+                  "Fingerprint matches fingerprint in MyKad") {
+                EasyLoading.dismiss();
+                _jpjQTOloginBO();
+              } else {
+                EasyLoading.dismiss();
+              }
+            } else {
+              EasyLoading.dismiss();
+              customDialog.show(
+                context: context,
+                content: readMyKad,
+                onPressed: () => Navigator.pop(context),
+                type: DialogType.ERROR,
+              );
+            }
+          });
+  }
+
   _submitLogin() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       FocusScope.of(context).requestFocus(FocusNode());
@@ -632,14 +612,8 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         return result.message;
       }
       if (result.data![0].result == 'False') {
-        if (isKeyInIC) {
-          if (!mounted) return;
-          await _jpjQTOloginBO();
-          print('object');
-        } else {
-          return;
-        }
-      } else {
+        verifyFingerPrint();
+      }
         await localStorage.saveUserId(result.data![0].userId ?? '');
         await localStorage
             .saveDiCode(_formKey.currentState?.fields['permitCode']?.value!);
@@ -668,7 +642,6 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         await localStorage.saveLoginTime(DateTime.now().toString());
 
         context.router.replace(const HomeSelect());
-      }
     }
   }
 }
