@@ -45,6 +45,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
   final GlobalKey<FormBuilderState> _icFieldKey = GlobalKey<FormBuilderState>();
   final icController = TextEditingController();
   final icFocus = FocusNode();
+  late Response<String?> getFingerPrintByCardNoResult;
   List<Map<String, dynamic>> ownerCategoryList = [];
   List<String> category = [];
   String selectedCategory = '';
@@ -90,7 +91,6 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
       if (_formKey.currentState?.fields['permitCode']?.value != '') {
         await verifyWithMyKad();
       }
-      
     });
   }
 
@@ -98,7 +98,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     Response<List<VerifyWithMyKad>> result = await authRepo.verifyWithMyKad(
         diCode: _formKey.currentState?.fields['permitCode']?.value ?? '');
     isCallVerifyWithMyKad = true;
-    isKeyInIC = true;
+    // isKeyInIC = true;
     if (result.data![0].mykadLogin == 'false') {
       setState(() {
         isKeyInIC = true;
@@ -106,7 +106,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
     }
   }
 
-  Future<String?> _jpjQTOloginBO() async { 
+  Future<String?> _jpjQTOloginBO() async {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
@@ -194,6 +194,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
             setState(
               () {
                 readMyKad = result.toString();
+                icController.text = readMyKad;
               },
             );
           } on PlatformException catch (e) {
@@ -201,17 +202,16 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
               readMyKad = "${e.message}";
             });
           }
-          
-          if(readMyKad == 'Failed to power up MyKad'){
+          if (readMyKad == 'Failed to power up MyKad') {
             EasyLoading.dismiss();
             if (!mounted) return;
-              customDialog.show(
-                context: context,
-                content: readMyKad,
-                onPressed: () => Navigator.pop(context),
-                type: DialogType.ERROR,
-              );
-              return;
+            customDialog.show(
+              context: context,
+              content: readMyKad,
+              onPressed: () => Navigator.pop(context),
+              type: DialogType.ERROR,
+            );
+            return;
           }
         },
       );
@@ -496,7 +496,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
               buttonColor: primaryColor,
               shape: const StadiumBorder(),
               child: ElevatedButton(
-                onPressed: (){
+                onPressed: () {
                   _submitLogin();
                 }, // () => localStorage.reset(),
                 style: ButtonStyle(
@@ -538,50 +538,219 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
   }
 
   verifyFingerPrint() async {
-    try{
-            final result = await platform
-                .invokeMethod<String>('onFingerprintVerify');
-            setState(() {
-              fingerPrintVerify = result.toString();
-            });
-            
-            EasyLoading.show(
-              status: fingerPrintVerify,
-              maskType: EasyLoadingMaskType.black,
-            );
-            if (result ==
-                'Please place your thumb on the fingerprint reader...') {
-              final result = await platform
-                  .invokeMethod<String>('onFingerprintVerify2');
-              setState(() {
-                fingerPrintVerify = result.toString();
-              });
-            }
-          } on PlatformException catch (e) {
-            setState(() {
-              fingerPrintVerify = "${e.message}";
-            });
-          }
+    EasyLoading.show(
+      status: 'Reading my kad',
+      maskType: EasyLoadingMaskType.black,
+    );
+    try {
+      final result = await platform.invokeMethod<String>('onReadMyKad');
+      EasyLoading.dismiss();
+      setState(
+        () {
+          readMyKad = result.toString();
+        },
+      );
+    } on PlatformException catch (e) {
+      setState(() {
+        readMyKad = "${e.message}";
+      });
+    }
+    if (readMyKad == 'Failed to power up MyKad') {
+      EasyLoading.dismiss();
+      if (!mounted) return;
+      customDialog.show(
+        context: context,
+        content: readMyKad,
+        onPressed: () => Navigator.pop(context),
+        type: DialogType.ERROR,
+      );
+      return;
+    } else {
+      try {
+        final result =
+            await platform.invokeMethod<String>('onFingerprintVerify');
+        setState(() {
+          fingerPrintVerify = result.toString();
+        });
+
+        EasyLoading.show(
+          status: fingerPrintVerify,
+          maskType: EasyLoadingMaskType.black,
+        );
+        if (result == 'Please place your thumb on the fingerprint reader...') {
+          final result =
+              await platform.invokeMethod<String>('onFingerprintVerify2');
           setState(() {
-            if (readMyKad != 'Fail to power up my kad') {
-              if (fingerPrintVerify ==
-                  "Fingerprint matches fingerprint in MyKad") {
-                EasyLoading.dismiss();
-                _jpjQTOloginBO();
-              } else {
-                EasyLoading.dismiss();
-              }
-            } else {
-              EasyLoading.dismiss();
-              customDialog.show(
-                context: context,
-                content: readMyKad,
-                onPressed: () => Navigator.pop(context),
-                type: DialogType.ERROR,
-              );
-            }
+            fingerPrintVerify = result.toString();
           });
+        }
+      } on PlatformException catch (e) {
+        setState(() {
+          fingerPrintVerify = "${e.message}";
+        });
+      }
+      setState(() {
+        if (fingerPrintVerify == "Fingerprint matches fingerprint in MyKad") {
+          setState(() {
+            _isLoading = false;
+          });
+          EasyLoading.dismiss();
+          _jpjQTOloginBO();
+        } else {
+          EasyLoading.dismiss();
+          setState(() {
+            _isLoading = false;
+          });
+          if (!context.mounted) return;
+          customDialog.show(
+            context: context,
+            content: fingerPrintVerify,
+            onPressed: () => Navigator.pop(context),
+            type: DialogType.ERROR,
+          );
+        }
+      });
+    }
   }
+
+  // verifyFingerPrintByIc() async {
+  //   getFingerPrintByCardNoResult = await etestingRepo.getFingerPrintByIcNo(
+  //       icNo: _formKey.currentState?.fields['ic']?.value!);
+  //   if (getFingerPrintByCardNoResult.message ==
+  //       "IC No. not found in Customer Master.") {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     await EasyLoading.dismiss();
+  //     if (!context.mounted) return;
+  //     await customDialog.show(
+  //       context: context,
+  //       content: 'This IC No. did not register a fingerprint.',
+  //       onPressed: () => Navigator.pop(context),
+  //       type: DialogType.ERROR,
+  //     );
+  //   } else {
+  //     EasyLoading.show(
+  //       status: 'Connecting',
+  //       maskType: EasyLoadingMaskType.black,
+  //     );
+  //     try {
+  //       final result = await platform.invokeMethod<String>('onCreate2');
+  //       setState(() {
+  //         status = result.toString();
+  //       });
+  //     } on PlatformException catch (e) {
+  //       setState(() {
+  //         status = "'${e.message}'.";
+  //       });
+  //     }
+  //     if (status == "oncreate success") {
+  //       EasyLoading.show(
+  //         status: 'Enumerate',
+  //         maskType: EasyLoadingMaskType.black,
+  //       );
+  //       try {
+  //         final result = await platform.invokeMethod<String>('enumerate');
+  //         setState(() {
+  //           status = result.toString();
+  //         });
+  //       } on PlatformException catch (e) {
+  //         setState(() {
+  //           status = "'${e.message}'.";
+  //         });
+  //       }
+  //       if (status == "enumerate success") {
+  //         await EasyLoading.dismiss();
+  //         EasyLoading.show(
+  //           status: 'Connection..',
+  //           maskType: EasyLoadingMaskType.black,
+  //         );
+  //         try {
+  //           final result = await platform.invokeMethod<String>('connection');
+  //           setState(() {
+  //             status = result.toString();
+  //           });
+  //         } on PlatformException catch (e) {
+  //           setState(() {
+  //             status = "'${e.message}'.";
+  //           });
+  //         }
+
+  //         if (status == "connection success 2") {
+  //           await EasyLoading.dismiss();
+  //           EasyLoading.show(
+  //             status: 'Please verify your fingerprint..',
+  //             maskType: EasyLoadingMaskType.black,
+  //           );
+  //           try {
+  //             final result = await platform.invokeMethod<String>(
+  //                 'morphoDeviceVerifyWithFile',
+  //                 {'fingerprintData': getFingerPrintByCardNoResult.data});
+  //             setState(() {
+  //               status = result.toString();
+  //             });
+  //           } on PlatformException catch (e) {
+  //             setState(() {
+  //               status = "'${e.message}'.";
+  //             });
+  //           }
+  //           if (status == "morphoDeviceVerifyWithFile success") {
+  //             await EasyLoading.dismiss();
+  //             _jpjQTOloginBO();
+  //           } else {
+  //             setState(() {
+  //               _isLoading = false;
+  //             });
+  //             await EasyLoading.dismiss();
+  //             if (!context.mounted) return;
+  //             await customDialog.show(
+  //               context: context,
+  //               content: 'Fail to verify fingerprint',
+  //               onPressed: () => Navigator.pop(context),
+  //               type: DialogType.ERROR,
+  //             );
+  //           }
+  //         } else {
+  //           setState(() {
+  //             _isLoading = false;
+  //           });
+  //           await EasyLoading.dismiss();
+  //           if (!context.mounted) return;
+  //           await customDialog.show(
+  //             context: context,
+  //             content: 'Fail to have connection',
+  //             onPressed: () => Navigator.pop(context),
+  //             type: DialogType.ERROR,
+  //           );
+  //         }
+  //       } else {
+  //         setState(() {
+  //           _isLoading = false;
+  //         });
+  //         await EasyLoading.dismiss();
+  //         if (!context.mounted) return;
+  //         await customDialog.show(
+  //           context: context,
+  //           content: 'Fail to enumerate',
+  //           onPressed: () => Navigator.pop(context),
+  //           type: DialogType.ERROR,
+  //         );
+  //       }
+  //     } else {
+  //       setState(() {
+  //         _isLoading = false;
+  //       });
+  //       await EasyLoading.dismiss();
+  //       if (!context.mounted) return;
+  //       await customDialog.show(
+  //         context: context,
+  //         content: 'Fail to connect device',
+  //         onPressed: () => Navigator.pop(context),
+  //         type: DialogType.ERROR,
+  //       );
+  //     }
+  //   }
+  // }
 
   _submitLogin() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
@@ -594,8 +763,8 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
 
       Response<List<Result>> result = await authRepo.jpjQtoLoginWithMySikap(
         mySikapId: isKeyInIC
-          ? _formKey.currentState?.fields['ic']?.value!
-          : icController.text,
+            ? _formKey.currentState?.fields['ic']?.value!
+            : icController.text,
         permitCode: _formKey.currentState?.fields['permitCode']?.value!,
       );
       if (result.message != null) {
@@ -612,27 +781,42 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         return result.message;
       }
       if (result.data![0].result == 'False') {
-        verifyFingerPrint();
-      }
+        Response<String> isSkipFingerPrintResult =
+            await etestingRepo.isSkipMyKadFingerPrint(
+                icNo: isKeyInIC
+                    ? _formKey.currentState?.fields['ic']?.value!
+                    : icController.text);
+        if (isKeyInIC) {
+          _jpjQTOloginBO();
+        } else {
+          if (isSkipFingerPrintResult.data! == 'False') {
+            await verifyFingerPrint();
+          } else {
+            _jpjQTOloginBO();
+          }
+        }
+      } else {
         await localStorage.saveUserId(result.data![0].userId ?? '');
         await localStorage
             .saveDiCode(_formKey.currentState?.fields['permitCode']?.value!);
         await localStorage.saveMerchantDbCode(
             _formKey.currentState?.fields['permitCode']?.value!);
-        await localStorage
-            .savePermitCode(_formKey.currentState?.fields['permitCode']?.value!);
+        await localStorage.savePermitCode(
+            _formKey.currentState?.fields['permitCode']?.value!);
         await localStorage.saveMySikapId(isKeyInIC
             ? _formKey.currentState?.fields['ic']?.value!
             : icController.text);
 
-        Response<List<a.Result2>?> result3 = await etestingRepo.getUserIdByMySikapId();
+        Response<List<a.Result2>?> result3 =
+            await etestingRepo.getUserIdByMySikapId();
         if (!result3.isSuccess) {
           loginFail(result3.message!);
           return;
         }
         await localStorage.saveName(result3.data![0].firstName ?? '');
 
-        Response<List<a.QtoUjianLoginResult>> result2 = await etestingRepo.qtoUjianLogin();
+        Response<List<a.QtoUjianLoginResult>> result2 =
+            await etestingRepo.qtoUjianLogin();
         if (!result2.isSuccess) {
           loginFail(result2.message!);
           await localStorage.reset();
@@ -642,6 +826,7 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         await localStorage.saveLoginTime(DateTime.now().toString());
 
         context.router.replace(const HomeSelect());
+      }
     }
   }
 }
