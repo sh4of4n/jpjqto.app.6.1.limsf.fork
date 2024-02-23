@@ -946,7 +946,8 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
               children: [
                 ListTile(
                   title: const Text('NFC'),
-                  onTap: () {
+                  onTap: () async {
+                    await onCreate2();
                     context.router.pop('NFC');
                   },
                 ),
