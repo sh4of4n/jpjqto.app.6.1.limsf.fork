@@ -417,7 +417,7 @@ class EtestingRepo {
     String? caPwd = await localStorage.getCaPwd();
     String? diCode = await localStorage.getMerchantDbCode();
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&icNo=$icNo&courseCode=QTI';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&icNo=$icNo&courseCode=JPJ';
 
     var response = await networking.getData(
       path: 'IsSkipMyKadFingerPrint?$path',
