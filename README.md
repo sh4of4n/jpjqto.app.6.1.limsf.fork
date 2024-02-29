@@ -1,3 +1,10 @@
+29/02/2024 V.6.3.8
+ePandu ws 6.3.8.0
+Solved
+- Check fingerprint verification for Scan QR> thumb
+- QTO apps keep loading after key in permit No
+- Solved overflow
+
 28/02/2024 V.6.3.7
 ePandu ws 6.3.8.0
 Enhanced

@@ -99,6 +99,16 @@ class _NewLoginFormState extends State<NewLoginForm> with PageBaseClass {
         diCode: _formKey.currentState?.fields['permitCode']?.value ?? '');
     isCallVerifyWithMyKad = true;
     // isKeyInIC = true;
+    if (!result.isSuccess) {
+      await EasyLoading.dismiss();
+      if (!mounted) return;
+      await customDialog.show(
+        context: context,
+        content: result.message,
+        onPressed: () => Navigator.pop(context),
+        type: DialogType.ERROR,
+      );
+    }
     if (result.data![0].mykadLogin == 'false') {
       setState(() {
         isKeyInIC = true;

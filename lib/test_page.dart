@@ -85,44 +85,74 @@ class _TestState extends State<Test> {
     });
   }
 
+  bool isNumeric(String? str) {
+    if (str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
+          ElevatedButton(
+              onPressed: () async {
+                String? status;
+                if (!isNumeric(status) || int.parse(status!) <= 0) {
+                  if (!context.mounted) return;
+                  await customDialog.show(
+                    context: context,
+                    content: 'Fail',
+                    onPressed: () => Navigator.pop(context),
+                    type: DialogType.ERROR,
+                  );
+                  return;
+                }
+
+                await customDialog.show(
+                  context: context,
+                  content: 'Success',
+                  onPressed: () => Navigator.pop(context),
+                  type: DialogType.SUCCESS,
+                );
+              },
+              child: Text('Testing button')),
           Text('Connection Status: ${_connectionStatus.toString()} \n'),
           ElevatedButton(
             onPressed: () {
-              isButtonEnabled ?
-              getBatteryLevel()
-              : customDialog.show(
-                context: context,
-                content: 'Please connect to wifi before proceed',
-                title: const Center(
-                  child: Icon(
-                    Icons.wifi_off,
-                    color: Colors.red,
-                    size: 140,
-                  ),
-                ),
-                barrierDismissable: false,
-                type: DialogType.GENERAL,
-                customActions: [
-                  TextButton(
-                    onPressed: () {
-                      AppSettings.openAppSettings(type: AppSettingsType.wifi);
-                    },
-                    child: const Text('Settings'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.router.pop();
-                    },
-                    child: const Text('Ok'),
-                  ),
-                ],
-              );
+              isButtonEnabled
+                  ? getBatteryLevel()
+                  : customDialog.show(
+                      context: context,
+                      content: 'Please connect to wifi before proceed',
+                      title: const Center(
+                        child: Icon(
+                          Icons.wifi_off,
+                          color: Colors.red,
+                          size: 140,
+                        ),
+                      ),
+                      barrierDismissable: false,
+                      type: DialogType.GENERAL,
+                      customActions: [
+                        TextButton(
+                          onPressed: () {
+                            AppSettings.openAppSettings(
+                                type: AppSettingsType.wifi);
+                          },
+                          child: const Text('Settings'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            context.router.pop();
+                          },
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                    );
             },
             child: const Text('Get Battery Level'),
           ),
@@ -231,8 +261,8 @@ class _TestState extends State<Test> {
           ElevatedButton(
             onPressed: () async {
               try {
-                final result =
-                    await platform.invokeMethod<String>('morphoDeviceVerifyWithFile');
+                final result = await platform
+                    .invokeMethod<String>('morphoDeviceVerifyWithFile');
                 setState(() {
                   batteryLevel0 = result.toString();
                 });

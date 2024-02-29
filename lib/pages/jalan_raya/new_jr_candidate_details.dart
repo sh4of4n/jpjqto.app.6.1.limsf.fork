@@ -278,6 +278,13 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
     }
   }
 
+  bool isNumeric(String? str) {
+    if (str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+  }
+
   getPart3AvailableToCallJpjTestList() async {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
@@ -822,7 +829,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
       await EasyLoading.dismiss();
     }
 
-    bool nfcAvailable = await NfcManager.instance.isAvailable();
+    // bool nfcAvailable = await NfcManager.instance.isAvailable();
     if(category == '9'){
       // if(!nfcAvailable){
         getFingerPrintByCardNoResult =
@@ -892,7 +899,7 @@ class _NewJrCandidateDetailsState extends State<NewJrCandidateDetails> {
                 status = "'${e.message}'.";
               });
             }
-            if (status == "morphoDeviceVerifyWithFile success") {
+            if (!isNumeric(status) || int.parse(status!) > 0) {
               await EasyLoading.dismiss();
               showCalonInfo();
             } else {

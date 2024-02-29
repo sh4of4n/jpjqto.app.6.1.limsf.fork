@@ -382,6 +382,13 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
     EasyLoading.dismiss();
   }
 
+  bool isNumeric(String? str) {
+    if (str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+  }
+
   getSelectedCandidateInfo(candidate) {
     setState(() {
       selectedCandidate = candidate;
@@ -866,7 +873,7 @@ class _NewRpkCandidateDetailsState extends State<NewRpkCandidateDetails> {
                 status = "'${e.message}'.";
               });
             }
-            if (status == "morphoDeviceVerifyWithFile success") {
+            if (!isNumeric(status) || int.parse(status!) > 0) {
               await EasyLoading.dismiss();
               showCalonInfo();
             } else {
